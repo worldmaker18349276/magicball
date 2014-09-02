@@ -4,8 +4,8 @@ magicball
 library for designing twisty puzzle simulator
 
 # Goal
-現在網路上有許多魔術方塊的模擬程式，大部分都是預先定義魔術方塊可以怎麼轉，並沒辦法處理未定義的操作，因此很少見到可以模擬 jumbling 的程式，因為 jumbling 的機制不容易分析，很難把所有的情形都編入程式。但如果以幾何分析的方式檢查操作的可行性，而非預先設定應該怎麼轉，就能處理類似 jumbling 不可預測的操作。
-這個計畫最主要的目的就是寫出一個 API 提供給魔術方塊模擬程式設計者，讓他們可以使用這個 API 設計具有模擬 jumbling 能力的魔術方塊模擬器。
+Jumbling mechanism is too complete to find all state of puzzle, so it is rarely to find a jumbling twisty puzzle simulator. But if we use geometric analysis to check whether the operation is valid, rather than pre-define which operation we can use, that is possible to simulate the puzzle in jumbling state.
+The main goal of this project is provide an API for jumbling twisty puzzle simulator.
 
 # Inspiration
 - Ultimate Magic Cube: http://www.ultimatemagiccube.com/
