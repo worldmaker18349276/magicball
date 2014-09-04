@@ -17,7 +17,7 @@ public abstract class Region extends Filter
 					selected_sols.add(sol);
 				}
 			} else
-			return null;
+				return null;
 		}
 		return selected_sols;
 	}
