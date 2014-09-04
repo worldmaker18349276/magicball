@@ -30,6 +30,17 @@ public class PhysicalPuzzle
 		return new PhysicalPuzzle(sols);
 	}
 
+	public boolean equals( Object puzzle ) {
+		if ( puzzle instanceof PhysicalPuzzle )
+			return equals((PhysicalPuzzle) puzzle);
+		else
+			return false;
+	}
+
+	public boolean equals( PhysicalPuzzle puzzle ) {
+		return getComponents().equals(puzzle.getComponents());
+	}
+
 
 	public boolean isValid() {
 		// check no duplicate occupy
@@ -44,17 +55,6 @@ public class PhysicalPuzzle
 		}
 		return true;
 		// TODO: more effecent algorithm
-	}
-
-	public boolean equals( Object puzzle ) {
-		if ( puzzle instanceof PhysicalPuzzle )
-			return equals((PhysicalPuzzle) puzzle);
-		else
-			return false;
-	}
-
-	public boolean equals( PhysicalPuzzle puzzle ) {
-		return getComponents().equals(puzzle.getComponents());
 	}
 
 	public boolean apply( Transform trans ) {
