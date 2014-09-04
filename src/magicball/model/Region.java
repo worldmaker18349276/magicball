@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 
-public abstract class Region extends Filter
+public abstract class Region implements Filter
 {
 	public < Sol > Set<Sol> filter( Set<Sol> sols ) {
 		Set<Sol> selected_sols = new HashSet<Sol>();

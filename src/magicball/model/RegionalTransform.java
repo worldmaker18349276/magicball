@@ -1,7 +1,7 @@
 package magicball.model;
 
 
-public class RegionalTransform extends PartialOperator<Transform>
+public class RegionalTransform implements PartialOperator<Transform>
 {
 	Region region;
 	Transform transform;

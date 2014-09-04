@@ -1,7 +1,7 @@
 package magicball.model;
 
 
-public abstract class Operator
+public interface Operator
 {
 }
 
