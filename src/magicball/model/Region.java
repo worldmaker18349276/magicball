@@ -6,9 +6,6 @@ import java.util.HashSet;
 
 public abstract class Region extends Filter
 {
-	public abstract int at( Solid sol ); // 1: outside; -1: inside; 0: middle
-
-	@Override
 	public < Sol > Set<Sol> filter( Set<Sol> sols ) {
 		Set<Sol> selected_sols = new HashSet<Sol>();
 		for ( Sol sol : sols ) {
@@ -24,4 +21,6 @@ public abstract class Region extends Filter
 		}
 		return selected_sols;
 	}
+
+	public abstract int at( Solid sol ); // 1: outside; -1: inside; 0: middle
 }
