@@ -64,12 +64,12 @@ public class PhysicalPuzzle
 		return true;
 	}
 
-	public boolean apply( RegionalTransform rtrans ) {
+	public boolean apply( PartialOperator<Transform> ptrans ) {
 		PhysicalPuzzle copy = clone();
-		Set<Solid> selected_sols = rtrans.getRegion().filter(copy.getComponents());
+		Set<Solid> selected_sols = ptrans.getFilter().filter(copy.getComponents());
 		if ( selected_sols == null )
 			return false;
-		List<Transform> trans_list = rtrans.getTransform().getDividedTransform();
+		List<Transform> trans_list = ptrans.getOperator().getDividedTransform();
 		for ( Transform trans : trans_list ) {
 			for ( Solid sol : selected_sols )
 				sol.apply(trans);
