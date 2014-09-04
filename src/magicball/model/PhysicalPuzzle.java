@@ -57,27 +57,39 @@ public class PhysicalPuzzle
 		// TODO: more effecent algorithm
 	}
 
-	public boolean apply( Transform trans ) {
-		for ( Solid sol : getComponents() ) {
-			sol.apply(trans);
-		}
-		return true;
+	public void apply( Operator op ) throws IllegalStateException {
+		apply(getComponents(),op);
 	}
 
-	public boolean apply( PartialOperator<Transform> ptrans ) {
-		PhysicalPuzzle copy = clone();
-		Set<Solid> selected_sols = ptrans.getFilter().filter(copy.getComponents());
-		if ( selected_sols == null )
-			return false;
-		List<Transform> trans_list = ptrans.getOperator().getDividedTransform();
-		for ( Transform trans : trans_list ) {
-			for ( Solid sol : selected_sols )
-				sol.apply(trans);
-			if ( !copy.isValid() )
-				return false;
+	public void apply( Set<Solid> sols, Operator op ) throws IllegalStateException {
+		if ( op instanceof SequenceOperator )
+			apply(sols,(SequenceOperator<? extends Operator>) op);
+		else if ( op instanceof PartialOperator )
+			apply(sols,(PartialOperator<? extends Operator>) op);
+		else if ( op instanceof Displacement )
+			apply(sols,(Displacement) op);
+		else
+			throw new IllegalArgumentException();
+	}
+
+	public void apply( Set<Solid> sols, SequenceOperator<? extends Operator> cop ) throws IllegalStateException {
+		List<? extends Operator> op_list = cop.divided();
+		for ( Operator op : op_list ) {
+			apply(sols,op);
 		}
-		setComponents(copy.getComponents());
-		return true;
+	}
+
+	public void apply( Set<Solid> sols, PartialOperator<? extends Operator> pop ) throws IllegalStateException {
+		Set<Solid> selected_sols = pop.getFilter().filter(sols);
+		apply(selected_sols,pop.getOperator());
+	}
+
+	public void apply( Set<Solid> sols, Displacement dis ) throws IllegalStateException {
+		for ( Solid sol : sols ) {
+			sol.apply(dis);
+		}
+		if ( !isValid() )
+			throw new IllegalStateException();
 	}
 }
 
