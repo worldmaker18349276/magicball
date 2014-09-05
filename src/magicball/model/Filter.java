@@ -6,5 +6,5 @@ import java.util.HashSet;
 
 public interface Filter
 {
-	public abstract < Obj > Set<Obj> filter( Set<Obj> sols );
+	public < Obj > Set<Obj> filter( Set<Obj> sols );
 }

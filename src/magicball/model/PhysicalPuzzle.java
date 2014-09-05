@@ -61,35 +61,41 @@ public class PhysicalPuzzle
 		apply(getComponents(),op);
 	}
 
-	public void apply( Set<Solid> sols, Operator op ) throws IllegalStateException {
+	protected void apply( Set<Solid> sols, Operator op ) throws IllegalStateException {
 		if ( op instanceof SequenceOperator )
 			apply(sols,(SequenceOperator<? extends Operator>) op);
 		else if ( op instanceof PartialOperator )
 			apply(sols,(PartialOperator<? extends Operator>) op);
+		else if ( op instanceof ValidatedOperator )
+			apply(sols,(ValidatedOperator<? extends Operator>) op);
 		else if ( op instanceof Displacement )
 			apply(sols,(Displacement) op);
 		else
 			throw new IllegalArgumentException();
 	}
 
-	public void apply( Set<Solid> sols, SequenceOperator<? extends Operator> cop ) throws IllegalStateException {
+	protected void apply( Set<Solid> sols, SequenceOperator<? extends Operator> cop ) throws IllegalStateException {
 		List<? extends Operator> op_list = cop.divided();
 		for ( Operator op : op_list ) {
 			apply(sols,op);
 		}
 	}
 
-	public void apply( Set<Solid> sols, PartialOperator<? extends Operator> pop ) throws IllegalStateException {
+	protected void apply( Set<Solid> sols, PartialOperator<? extends Operator> pop ) throws IllegalStateException {
 		Set<Solid> selected_sols = pop.getFilter().filter(sols);
 		apply(selected_sols,pop.getOperator());
 	}
 
-	public void apply( Set<Solid> sols, Displacement dis ) throws IllegalStateException {
+	protected void apply( Set<Solid> sols, ValidatedOperator<? extends Operator> vop ) throws IllegalStateException {
+		apply(sols,vop.getOperator());
+		if ( !isValid() )
+			throw new IllegalStateException();
+	}
+
+	protected void apply( Set<Solid> sols, Displacement dis ) throws IllegalStateException {
 		for ( Solid sol : sols ) {
 			sol.apply(dis);
 		}
-		if ( !isValid() )
-			throw new IllegalStateException();
 	}
 }
 
