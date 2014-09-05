@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.HashSet;
 
 
-public class PhysicalPuzzle
+public abstract class PhysicalPuzzle
 {
 	protected Set<Solid> components;
 
@@ -22,13 +22,7 @@ public class PhysicalPuzzle
 		this.components = sols;
 	}
 
-	public PhysicalPuzzle clone() {
-		Set<Solid> sols = new HashSet<Solid>();
-		for ( Solid sol : sols ) {
-			sols.add(sol.clone());
-		}
-		return new PhysicalPuzzle(sols);
-	}
+	public abstract PhysicalPuzzle clone();
 
 	public boolean equals( Object puzzle ) {
 		if ( puzzle instanceof PhysicalPuzzle )
@@ -42,25 +36,42 @@ public class PhysicalPuzzle
 	}
 
 
-	public boolean isValid() {
-		// check no duplicate occupy
-		Set<Solid> sols = getComponents();
+	public abstract int at( Solid sol, Region reg );
+
+	public Set<Solid> filter( Set<Solid> sols, Region reg ) throws IllegalOperationException {
+		Set<Solid> selected_sols = new HashSet<Solid>();
+		for ( Solid sol : sols ) {
+			switch ( at(sol,reg) ) {
+			case 0:
+				throw new IllegalOperationException();
+			case -1:
+				selected_sols.add(sol);
+			}
+		}
+		return selected_sols;
+	}
+
+	public boolean noDuplicateOccupy( Set<Solid> sols ) {
 		for ( Solid sol1 : sols ) {
 			Region reg = sol1.getRegion();
 			for ( Solid sol2 : sols ) {
 				if ( sol1 != sol2 )
-					if ( reg.at(sol2) != 1 )
+					if ( at(sol2,reg) != 1 )
 						return false;
 			}
 		}
 		return true;
-		// TODO: more effecent algorithm
+	}
+
+	public boolean isValid() {
+		return noDuplicateOccupy(getComponents());
 	}
 
 	public void validate() throws IllegalStateException {
 		if ( !isValid() )
 			throw new IllegalStateException();
 	}
+
 
 	public void apply( Transform trans ) {
 		Displacement dis = trans.getDisplacement();
@@ -72,7 +83,7 @@ public class PhysicalPuzzle
 	public void apply( RegionalTransform rtrans ) throws IllegalOperationException {
 		try {
 
-			Set<Solid> selected_sols = rtrans.getRegion().filter(getComponents());
+			Set<Solid> selected_sols = filter(getComponents(),rtrans.getRegion());
 			List<Displacement> dis_list = rtrans.getTransform().divideIntoDisplacements();
 			for ( Displacement dis : dis_list ) {
 				for ( Solid sol : selected_sols )
