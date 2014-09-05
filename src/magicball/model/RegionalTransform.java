@@ -1,22 +1,9 @@
 package magicball.model;
 
 
-public class RegionalTransform implements PartialOperator<Transform>
+public abstract class RegionalTransform
 {
-	Region region;
-	Transform transform;
-
-	public RegionalTransform( Region reg, Transform trans ) {
-		this.region = reg;
-		this.transform = trans;
-	}
-
-	public Filter getFilter() {
-		return this.region;
-	}
-
-	public Transform getOperator() {
-		return this.transform;
-	}
+	public abstract Region getRegion(); // filter
+	public abstract Transform getTransform();
 }
 
