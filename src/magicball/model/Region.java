@@ -8,12 +8,12 @@ public abstract class Region
 {
 	public abstract int at( Solid sol ); // 1: outside; -1: inside; 0: middle
 
-	public Set<Solid> filter( Set<Solid> sols ) {
+	public Set<Solid> filter( Set<Solid> sols ) throws IllegalOperationException {
 		Set<Solid> selected_sols = new HashSet<Solid>();
 		for ( Solid sol : sols ) {
 			switch ( at(sol) ) {
 			case 0:
-				return null;
+				throw new IllegalOperationException();
 			case -1:
 				selected_sols.add(sol);
 			}

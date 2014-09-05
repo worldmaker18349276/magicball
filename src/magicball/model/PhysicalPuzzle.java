@@ -57,27 +57,31 @@ public class PhysicalPuzzle
 		// TODO: more effecent algorithm
 	}
 
-	public boolean apply( Transform trans ) {
+	public void validate() throws IllegalStateException {
+		if ( !isValid() )
+			throw new IllegalStateException();
+	}
+
+	public void apply( Transform trans ) {
 		for ( Solid sol : getComponents() ) {
 			sol.apply(trans);
 		}
-		return true;
 	}
 
-	public boolean apply( RegionalTransform rtrans ) {
-		PhysicalPuzzle copy = clone();
-		Set<Solid> selected_sols = rtrans.getRegion().filter(copy.getComponents());
-		if ( selected_sols == null )
-			return false;
-		List<Transform> trans_list = rtrans.getTransform().getDividedTransform();
-		for ( Transform trans : trans_list ) {
-			for ( Solid sol : selected_sols )
-				sol.apply(trans);
-			if ( !copy.isValid() )
-				return false;
+	public void apply( RegionalTransform rtrans ) throws IllegalOperationException {
+		try {
+
+			Set<Solid> selected_sols = rtrans.getRegion().filter(getComponents());
+			List<Transform> trans_list = rtrans.getTransform().getDividedTransform();
+			for ( Transform trans : trans_list ) {
+				for ( Solid sol : selected_sols )
+					sol.apply(trans);
+				validate();
+			}
+
+		} catch ( IllegalStateException e ) {
+			throw new IllegalOperationException();
 		}
-		setComponents(copy.getComponents());
-		return true;
 	}
 }
 

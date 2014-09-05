@@ -5,7 +5,7 @@ public abstract class Solid
 {
 	public boolean equals( Object sol ) {
 		if ( sol instanceof Solid )
-			return equals((Solid) sol)
+			return equals((Solid) sol);
 		else
 			return false;
 	}
