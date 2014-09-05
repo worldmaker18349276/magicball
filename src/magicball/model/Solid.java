@@ -13,6 +13,6 @@ public abstract class Solid
 	public abstract boolean equals( Solid sol );
 	public abstract Solid clone();
 
-	public abstract void apply( Transform trans );
+	public abstract void apply( Displacement dis );
 	public abstract Region getRegion();
 }

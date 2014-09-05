@@ -63,8 +63,9 @@ public class PhysicalPuzzle
 	}
 
 	public void apply( Transform trans ) {
+		Displacement dis = trans.getDisplacement();
 		for ( Solid sol : getComponents() ) {
-			sol.apply(trans);
+			sol.apply(dis);
 		}
 	}
 
@@ -72,10 +73,10 @@ public class PhysicalPuzzle
 		try {
 
 			Set<Solid> selected_sols = rtrans.getRegion().filter(getComponents());
-			List<Transform> trans_list = rtrans.getTransform().getDividedTransform();
-			for ( Transform trans : trans_list ) {
+			List<Displacement> dis_list = rtrans.getTransform().dividedIntoDisplacement();
+			for ( Displacement dis : dis_list ) {
 				for ( Solid sol : selected_sols )
-					sol.apply(trans);
+					sol.apply(dis);
 				validate();
 			}
 
