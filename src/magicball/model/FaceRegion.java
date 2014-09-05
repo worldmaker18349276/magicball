@@ -1,16 +1,35 @@
 package magicball.model;
 
 import java.util.Set;
-import java.util.HashSet;
 
 
-public abstract class FaceRegion extends Region
+public class FaceRegion extends Region
 {
-	public abstract Face getFace();
-	public abstract int getSide();
-	public abstract int at( Solid sol );
+	protected Face face;
+	protected int side;
+
+	public FaceRegion( Face f, int s ) {
+		this.face = f;
+		this.side = s;
+	}
+	
+	public FaceRegion clone() {
+		return new FaceRegion(getFace().clone(),getSide());
+	}
+
+	public Face getFace() {
+		return this.face;
+	}
+
+	public int getSide() {
+		return this.side;
+	}
 
 	public boolean inside( Vector v ) {
 		return getFace().at(v) == getSide();
+	}
+
+	public void apply( Displacement dis ) {
+		getFace().apply(dis);
 	}
 }
