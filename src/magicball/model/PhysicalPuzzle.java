@@ -8,10 +8,12 @@ import java.util.HashSet;
 public class PhysicalPuzzle
 {
 	protected Set<Solid> components;
+	protected Region scope;
 
 
-	public PhysicalPuzzle( Set<Solid> sols ) {
+	public PhysicalPuzzle( Set<Solid> sols, Region sc ) {
 		setComponents(sols);
+		setScope(sc);
 	}
 
 	public Set<Solid> getComponents() {
@@ -22,12 +24,20 @@ public class PhysicalPuzzle
 		this.components = sols;
 	}
 
+	public Region getScope() {
+		return this.scope;
+	}
+
+	public void setScope( Region sc ) {
+		this.scope = sc;
+	}
+
 	public PhysicalPuzzle clone() {
 		Set<Solid> sols = new HashSet<Solid>();
 		for ( Solid sol : sols ) {
 			sols.add(sol.clone());
 		}
-		return new PhysicalPuzzle(sols);
+		return new PhysicalPuzzle(sols,getScope().clone());
 	}
 
 	public boolean equals( Object puzzle ) {
@@ -43,24 +53,14 @@ public class PhysicalPuzzle
 
 
 	public boolean isValid() {
-		// check no duplicate occupy
-		Set<Solid> sols = getComponents();
-		for ( Solid sol1 : sols ) {
-			Region reg = sol1.getRegion();
-			for ( Solid sol2 : sols ) {
-				if ( sol1 != sol2 )
-					if ( reg.at(sol2) != 1 )
-						return false;
-			}
-		}
-		return true;
-		// TODO: more effecent algorithm
+		return getScope().noDuplicateOccupy(getComponents());
 	}
 
 	public void validate() throws IllegalStateException {
 		if ( !isValid() )
 			throw new IllegalStateException();
 	}
+
 
 	public void apply( Transform trans ) {
 		Displacement dis = trans.getDisplacement();
