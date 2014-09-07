@@ -1,6 +1,7 @@
 package magicball.model;
 
 
+// physical puzzle abstraction layer
 public class IllegalStateException extends Exception
 {
 	public IllegalStateException() {

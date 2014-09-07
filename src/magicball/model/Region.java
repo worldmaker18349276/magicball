@@ -3,6 +3,7 @@ package magicball.model;
 import java.util.Set;
 
 
+// physical puzzle abstraction layer
 public abstract class Region
 {
 	public boolean equals( Object reg ) {

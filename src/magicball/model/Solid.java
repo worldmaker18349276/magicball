@@ -1,6 +1,7 @@
 package magicball.model;
 
 
+// physical puzzle abstraction layer
 public abstract class Solid
 {
 	public boolean isSameShape( Solid sol ) {
