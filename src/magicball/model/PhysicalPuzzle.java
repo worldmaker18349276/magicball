@@ -35,7 +35,7 @@ public class PhysicalPuzzle
 
 	public PhysicalPuzzle clone() {
 		Set<Solid> sols = new HashSet<Solid>();
-		for ( Solid sol : sols ) {
+		for ( Solid sol : getComponents() ) {
 			sols.add(sol.clone());
 		}
 		return new PhysicalPuzzle(sols,getScope().clone());
