@@ -1,0 +1,12 @@
+package magicball.model;
+
+
+// physical puzzle abstraction layer
+public interface RegionBuilder
+{
+	public Region createIntersectionRegion( Region... regs );
+	public Region createUnionRegion( Region... regs );
+	public Region createComplementRegion( Region reg1, Region reg2 );
+	public Region createUniverseRegion();
+	public Region createEmptyRegion();
+}
