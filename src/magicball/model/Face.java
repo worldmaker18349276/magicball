@@ -1,6 +1,7 @@
 package magicball.model;
 
 
+// physical puzzle abstraction layer
 public abstract class Face
 {
 	public boolean equals( Object face ) {

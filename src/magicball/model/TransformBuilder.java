@@ -1,7 +1,7 @@
 package magicball.model;
 
 
-// physical puzzle abstraction layer
+// geometry abstraction layer
 public interface TransformBuilder
 {
 	public Transform createSimpleTransformByDisplacement( Displacement dis );
