@@ -13,4 +13,6 @@ public abstract class Face
 
 	public abstract boolean equals( Face face );
 	public abstract Face clone();
+
+	public abstract void apply( Displacement dis );
 }
