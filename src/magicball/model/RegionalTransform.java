@@ -2,9 +2,22 @@ package magicball.model;
 
 
 // physical puzzle abstraction layer
-public abstract class RegionalTransform
+public class RegionalTransform
 {
-	public abstract Region getRegion(); // filter
-	public abstract Transform getTransform();
+	protected Region region;
+	protected Transform transform;
+
+	public RegionalTransform( Region reg, Transform trans ) {
+		this.region = reg;
+		this.transform = trans;
+	}
+
+	public Region getRegion() {
+		return this.region;
+	}
+
+	public Transform getTransform() {
+		return this.transform;
+	}
 }
 

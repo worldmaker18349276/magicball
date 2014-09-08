@@ -5,5 +5,4 @@ package magicball.model;
 public interface TransformBuilder
 {
 	public Transform createSimpleTransformByDisplacement( Displacement dis );
-	public RegionalTransform createRegionalTransform( Region reg, Transform trans );
 }
