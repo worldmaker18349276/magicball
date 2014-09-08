@@ -9,12 +9,10 @@ import java.util.HashSet;
 public class PhysicalPuzzle
 {
 	protected Set<Solid> components;
-	protected Region scope;
 
 
-	public PhysicalPuzzle( Set<Solid> sols, Region sc ) {
+	public PhysicalPuzzle( Set<Solid> sols ) {
 		setComponents(sols);
-		setScope(sc);
 	}
 
 	public Set<Solid> getComponents() {
@@ -25,20 +23,12 @@ public class PhysicalPuzzle
 		this.components = sols;
 	}
 
-	public Region getScope() {
-		return this.scope;
-	}
-
-	public void setScope( Region sc ) {
-		this.scope = sc;
-	}
-
 	public PhysicalPuzzle clone() {
 		Set<Solid> sols = new HashSet<Solid>();
 		for ( Solid sol : getComponents() ) {
 			sols.add(sol.clone());
 		}
-		return new PhysicalPuzzle(sols,getScope().clone());
+		return new PhysicalPuzzle(sols);
 	}
 
 	public boolean equals( Object puzzle ) {
@@ -54,7 +44,7 @@ public class PhysicalPuzzle
 
 
 	public boolean isValid() {
-		return getScope().noDuplicateOccupy(getComponents());
+		return getComponents().iterator().next().noDuplicateOccupy(getComponents());
 	}
 
 	public void validate() throws IllegalStateException {

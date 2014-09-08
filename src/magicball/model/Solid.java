@@ -1,5 +1,7 @@
 package magicball.model;
 
+import java.util.Set;
+
 
 // physical puzzle abstraction layer
 public abstract class Solid
@@ -20,4 +22,5 @@ public abstract class Solid
 
 	public abstract void apply( Displacement dis );
 	public abstract Region getRegion();
+	public abstract boolean noDuplicateOccupy( Set<Solid> sols );
 }
