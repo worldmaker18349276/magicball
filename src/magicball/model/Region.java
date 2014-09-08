@@ -15,4 +15,7 @@ public abstract class Region
 
 	public abstract boolean equals( Region reg );
 	public abstract Region clone();
+
+	public abstract Set<Solid> filter( Set<Solid> sols ) throws IllegalOperationException;
+	public abstract boolean noDuplicateOccupy( Set<Solid> sols );
 }

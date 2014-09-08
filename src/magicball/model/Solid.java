@@ -4,6 +4,10 @@ package magicball.model;
 // physical puzzle abstraction layer
 public abstract class Solid
 {
+	public boolean isSameShape( Solid sol ) {
+		return getRegion().equals(sol.getRegion());
+	}
+
 	public boolean equals( Object sol ) {
 		if ( sol instanceof Solid )
 			return equals((Solid) sol);
@@ -13,4 +17,7 @@ public abstract class Solid
 	
 	public abstract boolean equals( Solid sol );
 	public abstract Solid clone();
+
+	public abstract void apply( Displacement dis );
+	public abstract Region getRegion();
 }

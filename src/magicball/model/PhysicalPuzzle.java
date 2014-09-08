@@ -9,12 +9,12 @@ import java.util.HashSet;
 public class PhysicalPuzzle
 {
 	protected Set<Solid> components;
-	protected GeometryEngine engine;
+	protected Region scope;
 
 
-	public PhysicalPuzzle( Set<Solid> sols, GeometryEngine eng ) {
+	public PhysicalPuzzle( Set<Solid> sols, Region sc ) {
 		setComponents(sols);
-		setEngine(eng);
+		setScope(sc);
 	}
 
 	public Set<Solid> getComponents() {
@@ -25,12 +25,12 @@ public class PhysicalPuzzle
 		this.components = sols;
 	}
 
-	public GeometryEngine getEngine() {
-		return this.engine;
+	public Region getScope() {
+		return this.scope;
 	}
 
-	public void setEngine( GeometryEngine eng ) {
-		this.engine = eng;
+	public void setScope( Region sc ) {
+		this.scope = sc;
 	}
 
 	public PhysicalPuzzle clone() {
@@ -38,7 +38,7 @@ public class PhysicalPuzzle
 		for ( Solid sol : getComponents() ) {
 			sols.add(sol.clone());
 		}
-		return new PhysicalPuzzle(sols,getEngine().clone());
+		return new PhysicalPuzzle(sols,getScope().clone());
 	}
 
 	public boolean equals( Object puzzle ) {
@@ -54,7 +54,7 @@ public class PhysicalPuzzle
 
 
 	public boolean isValid() {
-		return getEngine().noDuplicateOccupy(getComponents());
+		return getScope().noDuplicateOccupy(getComponents());
 	}
 
 	public void validate() throws IllegalStateException {
@@ -64,20 +64,20 @@ public class PhysicalPuzzle
 
 
 	public void apply( Transform trans ) {
-		Displacement dis = getEngine().divideIntoDisplacements(trans,1).get(1);
+		Displacement dis = trans.getDisplacement();
 		for ( Solid sol : getComponents() ) {
-			getEngine().apply(sol,dis);
+			sol.apply(dis);
 		}
 	}
 
 	public void apply( RegionalTransform rtrans ) throws IllegalOperationException {
 		try {
 
-			Set<Solid> selected_sols = getEngine().filter(getComponents(),rtrans.getRegion());
-			List<Displacement> dis_list = getEngine().divideIntoDisplacements(rtrans.getTransform());
+			Set<Solid> selected_sols = rtrans.getRegion().filter(getComponents());
+			List<Displacement> dis_list = rtrans.getTransform().divideIntoDisplacements();
 			for ( Displacement dis : dis_list ) {
 				for ( Solid sol : selected_sols )
-					getEngine().apply(sol,dis);
+					sol.apply(dis);
 				validate();
 			}
 
