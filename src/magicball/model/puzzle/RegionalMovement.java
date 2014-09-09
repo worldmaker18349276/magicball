@@ -4,22 +4,22 @@ import magicball.model.geometry.*;
 
 
 // physical puzzle abstraction layer
-public class RegionalTransform
+public class RegionalMovement
 {
 	protected Region region;
-	protected Transform transform;
+	protected Movement move;
 
-	public RegionalTransform( Region reg, Transform trans ) {
+	public RegionalMovement( Region reg, Movement m ) {
 		this.region = reg;
-		this.transform = trans;
+		this.move = m;
 	}
 
 	public Region getRegion() {
 		return this.region;
 	}
 
-	public Transform getTransform() {
-		return this.transform;
+	public Movement getMovement() {
+		return this.move;
 	}
 }
 

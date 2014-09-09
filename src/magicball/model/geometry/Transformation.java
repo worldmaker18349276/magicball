@@ -2,8 +2,8 @@ package magicball.model.geometry;
 
 
 // physical puzzle abstraction layer
-public abstract class Displacement
+public abstract class Transformation
 {
-	public abstract Displacement clone();
+	public abstract Transformation clone();
 }
 

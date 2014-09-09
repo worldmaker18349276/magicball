@@ -64,21 +64,21 @@ public class PhysicalPuzzle
 	}
 
 
-	public void apply( Transform trans ) {
-		Displacement dis = getEngine().divideIntoDisplacements(trans,1).get(1);
+	public void apply( Movement m ) {
+		Transformation trans = getEngine().divideIntoTransformations(m,1).get(1);
 		for ( Solid sol : getComponents() ) {
-			getEngine().apply(sol,dis);
+			getEngine().apply(sol,trans);
 		}
 	}
 
-	public void apply( RegionalTransform rtrans ) throws IllegalOperationException {
+	public void apply( RegionalMovement rm ) throws IllegalOperationException {
 		try {
 
-			Set<Solid> selected_sols = getEngine().filter(getComponents(),rtrans.getRegion());
-			List<Displacement> dis_list = getEngine().divideIntoDisplacements(rtrans.getTransform());
-			for ( Displacement dis : dis_list ) {
+			Set<Solid> selected_sols = getEngine().filter(getComponents(),rm.getRegion());
+			List<Transformation> trans_list = getEngine().divideIntoTransformations(rm.getMovement());
+			for ( Transformation trans : trans_list ) {
 				for ( Solid sol : selected_sols )
-					getEngine().apply(sol,dis);
+					getEngine().apply(sol,trans);
 				validate();
 			}
 
