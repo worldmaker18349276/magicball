@@ -8,5 +8,5 @@ public interface RegionEngine
 	public Region complement( Region reg1, Region reg2 );
 	public Region createUniverseRegion();
 	public Region createEmptyRegion();
-	public Region createRegionByFace( Face face, int side );
+	public Region createRegionByFace( Surface face, int side );
 }
