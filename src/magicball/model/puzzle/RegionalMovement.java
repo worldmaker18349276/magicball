@@ -3,7 +3,6 @@ package magicball.model.puzzle;
 import magicball.model.geometry.*;
 
 
-// physical puzzle abstraction layer
 public class RegionalMovement
 {
 	protected Region region;

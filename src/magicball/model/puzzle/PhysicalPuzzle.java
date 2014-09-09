@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.HashSet;
 
 
-// physical puzzle abstraction layer
 public class PhysicalPuzzle
 {
 	protected Set<Solid> components;

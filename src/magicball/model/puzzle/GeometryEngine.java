@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.List;
 
 
-// physical puzzle abstraction layer
 public interface GeometryEngine
 {
 	public abstract GeometryEngine clone();

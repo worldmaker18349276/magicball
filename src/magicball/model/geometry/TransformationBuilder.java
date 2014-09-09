@@ -1,7 +1,6 @@
 package magicball.model.geometry;
 
 
-// geometry abstraction layer
 public interface TransformationBuilder
 {
 	public Transformation createIdentityTransformation();

@@ -1,7 +1,6 @@
 package magicball.model.geometry;
 
 
-// geometry abstraction layer
 public interface RegionBuilder
 {
 	public Region createIntersectionRegion( Region... regs );
