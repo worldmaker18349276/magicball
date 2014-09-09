@@ -64,7 +64,7 @@ public class PhysicalPuzzle
 
 
 	public void apply( Movement m ) {
-		Transformation trans = getEngine().divideIntoTransformations(m,1).get(1);
+		Transformation trans = getEngine().divideMovementByDivisor(m,1).get(1);
 		for ( Solid sol : getComponents() ) {
 			getEngine().apply(sol,trans);
 		}
@@ -74,7 +74,7 @@ public class PhysicalPuzzle
 		try {
 
 			Set<Solid> selected_sols = getEngine().filter(getComponents(),rm.getRegion());
-			List<Transformation> trans_list = getEngine().divideIntoTransformations(rm.getMovement());
+			List<Transformation> trans_list = getEngine().divideMovement(rm.getMovement());
 			for ( Transformation trans : trans_list ) {
 				for ( Solid sol : selected_sols )
 					getEngine().apply(sol,trans);

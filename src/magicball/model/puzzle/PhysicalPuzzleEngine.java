@@ -14,6 +14,7 @@ public interface PhysicalPuzzleEngine
 	public abstract boolean isSameShape( Region reg1, Region reg2 );
 	public abstract Set<Solid> filter( Set<Solid> sols, Region reg ) throws IllegalOperationException;
 	public abstract boolean noDuplicateOccupy( Set<Solid> sols );
-	public abstract List<Transformation> divideIntoTransformations( Movement m, int divisor );
-	public abstract List<Transformation> divideIntoTransformations( Movement m );
+	public abstract List<Transformation> divideMovement( Movement m );
+	public abstract List<Transformation> divideMovementByDivisor( Movement m, int divisor );
+	public abstract List<Transformation> divideMovementByIntervals( Movement m, List<Number> intervals );
 }
