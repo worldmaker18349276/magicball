@@ -1,7 +1,7 @@
 package magicball.model.geometry;
 
 
-public interface SolidBuilder
+public interface SolidEngine
 {
 	public Solid createSolidByRegion( Region reg );
 }

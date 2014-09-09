@@ -5,9 +5,9 @@ import java.util.Set;
 import java.util.List;
 
 
-public interface GeometryEngine
+public interface PhysicalPuzzleEngine
 {
-	public abstract GeometryEngine clone();
+	public abstract PhysicalPuzzleEngine clone();
 
 	public abstract void apply( Solid sol, Transformation trans );
 	public abstract void apply( Face face, Transformation trans );
