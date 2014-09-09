@@ -1,4 +1,4 @@
-package magicball.model;
+package magicball.model.geometry;
 
 import java.util.List;
 

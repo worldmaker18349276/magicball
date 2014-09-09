@@ -1,5 +1,6 @@
-package magicball.model;
+package magicball.model.puzzle;
 
+import magicball.model.geometry.*;
 import java.util.Set;
 import java.util.List;
 

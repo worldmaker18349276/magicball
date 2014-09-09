@@ -1,4 +1,4 @@
-package magicball.model;
+package magicball.model.puzzle;
 
 
 // physical puzzle abstraction layer
