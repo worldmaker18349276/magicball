@@ -1,7 +1,7 @@
 package magicball.model.geometry;
 
 
-public interface MovementEngine
+public interface MovementEngine < M extends Movement, T extends Transformation >
 {
-	public Movement createSimpleMovementByTransformation( Transformation trans );
+	public M createSimpleMovementByTransformation( T trans );
 }

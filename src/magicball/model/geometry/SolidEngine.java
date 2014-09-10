@@ -1,7 +1,7 @@
 package magicball.model.geometry;
 
 
-public interface SolidEngine
+public interface SolidEngine < S extends Solid, R extends Region >
 {
-	public Solid createSolidByRegion( Region reg );
+	public S createSolidByRegion( R reg );
 }

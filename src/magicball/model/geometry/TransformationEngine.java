@@ -1,11 +1,12 @@
 package magicball.model.geometry;
 
 
-public interface TransformationEngine
+public interface TransformationEngine < T extends Transformation >
 {
-	public Transformation createIdentityTransformation();
-	public Transformation compose( Transformation... trans );
-	public Transformation invert( Transformation trans );
-	public Transformation createRotation( Number [] axis, Number deg );
-	public Transformation createShift( Number [] vec );
+	public T cast( Transformation trans );
+	public T createIdentityTransformation();
+	public T compose( T... trans );
+	public T invert( T trans );
+	public T createRotation( Number [] axis, Number deg );
+	public T createShift( Number [] vec );
 }
