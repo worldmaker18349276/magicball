@@ -10,10 +10,6 @@ public class SolidRegionExpression < R extends Region > extends Solid
 		this.region = reg;
 	}
 
-	final public SolidRegionExpression<R> clone() {
-		return new SolidRegionExpression<R>(getOccupiedRegion());
-	}
-
 	final public R getOccupiedRegion() {
 		return this.region;
 	}
