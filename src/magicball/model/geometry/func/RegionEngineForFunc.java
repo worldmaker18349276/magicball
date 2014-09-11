@@ -22,14 +22,6 @@ public class RegionEngineForFunc implements RegionBasicEngine<RegionSetExpressio
 		return new RegionEngineForFunc(this.setEngine);
 	}
 
-	public RegionSetExpression cast( Region reg ) {
-		return (RegionSetExpression) reg;
-	}
-
-	public RegionSetExpression [] cast( Region [] regs ) {
-		return Arrays.copyOf(regs,regs.length,RegionSetExpression[].class);
-	}
-
 	@SuppressWarnings({"unchecked"})
 	protected Set<Number[]> [] getSets( RegionSetExpression [] regs ) {
 		Set<Number[]> [] sets = new Set [ regs.length ];

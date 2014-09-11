@@ -6,7 +6,6 @@ import magicball.model.geometry.*;
 public abstract class TransformationEngineForFunc implements TransformationBasicEngine<TransformationMatrixExpression>
 {
 	public abstract TransformationEngineForFunc clone();
-	public abstract TransformationMatrixExpression cast( Transformation trans );
 	public abstract TransformationMatrixExpression createIdentityTransformation();
 	public abstract TransformationMatrixExpression compose( TransformationMatrixExpression[] trans );
 	public abstract TransformationMatrixExpression invert( TransformationMatrixExpression trans );
