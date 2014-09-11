@@ -1,13 +1,15 @@
-package magicball.model.geometry;
+package magicball.model.geometry.func;
+
+import magicball.model.geometry.*;
 
 
-public class TransformationEngineForFunc implements TransformationBasicEngine<TransformationMatrixExpression>
+public abstract class TransformationEngineForFunc implements TransformationBasicEngine<TransformationMatrixExpression>
 {
-	public TransformationEngineForFunc clone();
-	public TransformationMatrixExpression cast( Transformation trans );
-	public TransformationMatrixExpression createIdentityTransformation();
-	public TransformationMatrixExpression compose( TransformationMatrixExpression... trans );
-	public TransformationMatrixExpression invert( TransformationMatrixExpression trans );
-	public TransformationMatrixExpression createRotation( Number [] axis, Number deg );
-	public TransformationMatrixExpression createShift( Number [] vec );
+	public abstract TransformationEngineForFunc clone();
+	public abstract TransformationMatrixExpression cast( Transformation trans );
+	public abstract TransformationMatrixExpression createIdentityTransformation();
+	public abstract TransformationMatrixExpression compose( TransformationMatrixExpression[] trans );
+	public abstract TransformationMatrixExpression invert( TransformationMatrixExpression trans );
+	public abstract TransformationMatrixExpression createRotation( Number [] axis, Number deg );
+	public abstract TransformationMatrixExpression createShift( Number [] vec );
 }
