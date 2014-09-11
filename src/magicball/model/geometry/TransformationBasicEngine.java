@@ -1,8 +1,9 @@
 package magicball.model.geometry;
 
 
-public interface TransformationEngine < T extends Transformation >
+public interface TransformationBasicEngine < T extends Transformation >
 {
+	public TransformationBasicEngine clone();
 	public T cast( Transformation trans );
 	public T createIdentityTransformation();
 	public T compose( T... trans );
