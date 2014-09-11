@@ -12,4 +12,5 @@ public abstract class TransformationEngineForFunc implements TransformationBasic
 	public abstract TransformationMatrixExpression invert( TransformationMatrixExpression trans );
 	public abstract TransformationMatrixExpression createRotation( Number [] axis, Number deg );
 	public abstract TransformationMatrixExpression createShift( Number [] vec );
+	public abstract TransformationMatrixExpression divide( TransformationMatrixExpression move, Number divisor );
 }

@@ -5,4 +5,5 @@ public interface MovementBasicEngine < M extends Movement, T extends Transformat
 {
 	public MovementBasicEngine clone();
 	public M createSimpleMovementByTransformation( T trans );
+	public T divideMovementIntoTransformation( M move, Number from, Number to );
 }
