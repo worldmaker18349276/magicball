@@ -3,10 +3,22 @@ package magicball.model.geometry.func;
 import magicball.model.geometry.*;
 
 
-public abstract class TransformationMatrixExpression extends Transformation
+public class TransformationMatrixExpression extends Transformation
 {
-	public abstract Number [][] getRotationMatrix();
-	public abstract Number [] getShiftVector();
+	final private Number [][] rotation;
+	final private Number [] shift;
 
+	public TransformationMatrixExpression( Number [][] rot, Number [] sh ) {
+		this.rotation = rot;
+		this.shift = sh;
+	}
+
+	final public Number [][] getRotationMatrix() {
+		return this.rotation;
+	}
+
+	final public Number [] getShiftVector() {
+		return this.shift;
+	}
 }
 

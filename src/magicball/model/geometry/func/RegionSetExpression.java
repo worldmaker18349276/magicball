@@ -1,9 +1,18 @@
 package magicball.model.geometry.func;
 
 import magicball.model.geometry.*;
+import magicball.model.math.*;
 
 
-public abstract class RegionSetExpression < S extends Set > extends Region
+public class RegionSetExpression extends Region
 {
-	public abstract S getSet();
+	final private Set<Number[]> set;
+
+	public RegionSetExpression( Set<Number[]> set ) {
+		this.set = set;
+	}
+
+	final public Set<Number[]> getSet() {
+		return this.set;
+	}
 }

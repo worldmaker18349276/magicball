@@ -3,7 +3,15 @@ package magicball.model.geometry.func;
 import magicball.model.geometry.*;
 
 
-public abstract class SolidRegionExpression < R extends Region > extends Solid
+public class SolidRegionExpression < R extends Region > extends Solid
 {
-	public abstract R getOccupiedRegion();
+	final private R region;
+
+	public SolidRegionExpression( R reg ) {
+		this.region = reg;
+	}
+
+	final public R getOccupiedRegion() {
+		return this.region;
+	}
 }
