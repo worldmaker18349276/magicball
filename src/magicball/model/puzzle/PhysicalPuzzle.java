@@ -9,10 +9,10 @@ import java.util.HashSet;
 public class PhysicalPuzzle
 {
 	protected Set<Solid> components;
-	protected PhysicalPuzzleEngine engine;
+	protected PhysicsEngine engine;
 
 
-	public PhysicalPuzzle( Set<Solid> sols, PhysicalPuzzleEngine eng ) {
+	public PhysicalPuzzle( Set<Solid> sols, PhysicsEngine eng ) {
 		setComponents(sols);
 		setEngine(eng);
 	}
@@ -25,11 +25,11 @@ public class PhysicalPuzzle
 		this.components = sols;
 	}
 
-	public PhysicalPuzzleEngine getEngine() {
+	public PhysicsEngine getEngine() {
 		return this.engine;
 	}
 
-	public void setEngine( PhysicalPuzzleEngine eng ) {
+	public void setEngine( PhysicsEngine eng ) {
 		this.engine = eng;
 	}
 

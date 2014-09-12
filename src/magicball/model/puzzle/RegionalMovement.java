@@ -3,21 +3,22 @@ package magicball.model.puzzle;
 import magicball.model.geometry.*;
 
 
-public class RegionalMovement
+// definition: a geometric operation that continously move geometric object in space.
+public class RegionalMovement < M extends Movement, R extends Region >
 {
-	protected Region region;
-	protected Movement move;
+	protected R region;
+	protected M move;
 
-	public RegionalMovement( Region reg, Movement m ) {
+	public RegionalMovement( R reg, M m ) {
 		this.region = reg;
 		this.move = m;
 	}
 
-	public Region getRegion() {
+	public R getRegion() {
 		return this.region;
 	}
 
-	public Movement getMovement() {
+	public M getMovement() {
 		return this.move;
 	}
 }

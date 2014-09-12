@@ -5,11 +5,11 @@ import java.util.Set;
 import java.util.List;
 
 
-public interface PhysicalPuzzleEngine
+public interface PhysicsEngine
 {
-	public abstract PhysicalPuzzleEngine clone();
+	public abstract PhysicsEngine clone();
 
-	public abstract void apply( Solid sol, Transformation trans );
+	public abstract Solid apply( Solid sol, Transformation trans );
 	public abstract void apply( Surface face, Transformation trans );
 	public abstract boolean isSameShape( Region reg1, Region reg2 );
 	public abstract Set<Solid> filter( Set<Solid> sols, Region reg ) throws IllegalOperationException;
