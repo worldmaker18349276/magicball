@@ -60,6 +60,7 @@ public class TransformationEngineForFunc implements TransformationBasicEngine<Tr
 			return new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 
 		} else { // only for int divisor
+
 			int n = divisor.intValue();
 
 			Number[][] rot = trans.getRotationMatrix();
@@ -71,11 +72,11 @@ public class TransformationEngineForFunc implements TransformationBasicEngine<Tr
 			Number[][] m = matrix1(3);
 			for ( int i=1; i<n; i++ )
 				m = mathEngine.add(m,mathEngine.pow(rot_n,i));
-			Number[] sh_n = mathEngine.matrixMultiply(mathEngine.invert(m),sh);
+			Number[] sh_n = mathEngine.matrixMultiply(mathEngine.invert33(m),sh);
 
 			return new TransformationMatrixExpression(rot_n,sh_n);
-		}
 
+		}
 	}
 
 	public boolean isIdentity( TransformationMatrixExpression trans ) {

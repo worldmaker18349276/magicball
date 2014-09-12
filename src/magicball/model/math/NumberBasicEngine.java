@@ -307,6 +307,21 @@ public class NumberBasicEngine
 		return result;
 	}
 
+	public Number[][] invert33( Number[][] m ) {
+		Number [][] result = new Number [ 3 ][ 3 ];
+		result[0][0] = subtract( multiply(m[1][1],m[2][2]), multiply(m[1][2],m[2][1]) );
+		result[1][1] = subtract( multiply(m[2][2],m[0][0]), multiply(m[2][0],m[0][2]) );
+		result[2][2] = subtract( multiply(m[0][0],m[1][1]), multiply(m[0][1],m[1][0]) );
+		result[0][2] = subtract( multiply(m[0][1],m[1][2]), multiply(m[0][2],m[1][1]) );
+		result[2][0] = subtract( multiply(m[1][0],m[2][1]), multiply(m[1][1],m[2][0]) );
+		result[0][1] = subtract( multiply(m[2][1],m[0][2]), multiply(m[2][2],m[0][1]) );
+		result[1][2] = subtract( multiply(m[0][2],m[1][0]), multiply(m[0][0],m[1][2]) );
+		result[1][0] = subtract( multiply(m[1][2],m[2][0]), multiply(m[1][0],m[2][2]) );
+		result[2][1] = subtract( multiply(m[2][0],m[0][1]), multiply(m[2][1],m[0][0]) );
+		result = dividedBy(result,determinant33(m));
+		return result;
+	}
+
 	// numerical mathods
 	// m * x = b
 	public Number solveByLU( Number[][] m, Number[] b ) {
