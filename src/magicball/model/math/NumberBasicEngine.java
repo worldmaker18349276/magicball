@@ -27,7 +27,15 @@ public class NumberBasicEngine
 	}
 
 	public boolean equals( Number n1, Number n2 ) {
-		return (n1.doubleValue()-n2.doubleValue()) < this.epsilon;
+		return Math.abs(n1.doubleValue()-n2.doubleValue()) < this.epsilon;
+	}
+
+	public boolean greaterThan( Number n1, Number n2 ) {
+		return (n1.doubleValue()-n2.doubleValue()) > this.epsilon;
+	}
+
+	public boolean lessThan( Number n1, Number n2 ) {
+		return (n1.doubleValue()-n2.doubleValue()) < -this.epsilon;
 	}
 
 	public Number add( Number n1, Number n2 ) {

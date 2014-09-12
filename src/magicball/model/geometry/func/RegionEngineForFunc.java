@@ -9,17 +9,15 @@ import java.lang.reflect.Array;
 public class RegionEngineForFunc implements RegionBasicEngine<RegionSetExpression,SurfaceFuncExpression>
 {
 	protected SetBasicEngine setEngine;
+	protected NumberBasicEngine mathEngine;
 
-	public RegionEngineForFunc() {
-		this.setEngine = new SetBasicEngine();
-	}
-
-	public RegionEngineForFunc( SetBasicEngine setEng ) {
+	public RegionEngineForFunc( NumberBasicEngine mathEng, SetBasicEngine setEng ) {
+		this.mathEngine = mathEng;
 		this.setEngine = setEng;
 	}
 
 	public RegionEngineForFunc clone() {
-		return new RegionEngineForFunc(this.setEngine);
+		return new RegionEngineForFunc(this.mathEngine,this.setEngine);
 	}
 
 	@SuppressWarnings({"unchecked"})
@@ -55,9 +53,12 @@ public class RegionEngineForFunc implements RegionBasicEngine<RegionSetExpressio
 	}
 
 	public RegionSetExpression createRegionByFace( final SurfaceFuncExpression face, final int side ) {
+		final NumberBasicEngine math = this.mathEngine;
 		return new RegionSetExpression(setEngine.createSetByIntensionalDefinition(new Function<Number[],Boolean>() {
 			public Boolean apply( Number [] vec ) {
-				return face.getFunction().apply(vec).doubleValue()*side > 0;
+				return math.greaterThan(
+					math.multiply( face.getFunction().apply(vec), math.number(side) ),
+					math.number0());
 			}
 		}));
 	}
