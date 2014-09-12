@@ -248,6 +248,26 @@ public class NumberBasicEngine
 		return result;
 	}
 
+	public Number[] matrixMultiply( Number[][] m1, Number[] v2 ) {
+		Number [] result = new Number [ m1.length ];
+		for ( int i=0; i<result.length; i++ ) {
+			result[i] = number0();
+			for ( int k=0; k<m1[i].length; k++ )
+				result[i] = add(result[i],multiply(m1[i][k],v2[k]));
+		}
+		return result;
+	}
+
+	public Number[] matrixMultiply( Number[] v1, Number[][] m2 ) {
+		Number [] result = new Number [ m2[0].length ];
+		for ( int j=0; j<result.length; j++ ) {
+			result[j] = number0();
+			for ( int k=0; k<m1.length; k++ )
+				result[j] = add(result[j],multiply(v1[k],m2[k][j]));
+		}
+		return result;
+	}
+
 	public Number trace( Number[][] m1 ) {
 		Number result = m1[0][0];
 		for ( int i=1; i<m1.length; i++ )
