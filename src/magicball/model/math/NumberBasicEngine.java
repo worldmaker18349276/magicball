@@ -281,4 +281,79 @@ public class NumberBasicEngine
 		result =      add(result,multiply(multiply( m1[0][2], m1[1][0]), m1[2][1] ));
 		return result;
 	}
+
+	// numerical mathods
+	// m * x = b
+	public Number solveByLU( Number[][] m, Number[] b ) {
+		int d = m.length;
+		// M = L * U
+		double[][] lu = new double [ d ][ d ];
+		for ( int i=0; i<d; i++ ) for ( int j=0; j<d; j++ ) {
+			if ( i > j ) { // L[i][j]
+				lu[i][j] = m[i][j].doubleValue();
+				for ( int k=0; k<j-1; k++ )
+					lu[i][j] = lu[i][j] - lu[i][k]*lu[k][j];
+				lu[i][j] = L[i][j]/lu[j][j];
+			} else { // U[i][j]
+				lu[i][j] = m[i][j].doubleValue();
+				for ( int k=0; k<i-1; k++ )
+					lu[i][j] = lu[i][j] - lu[i][k]*lu[k][j];
+			}
+		}
+
+		// L * y = b; U * x = y
+		double[] x = new double [ d ];
+		for ( int i=0; i<d; i++ ) {
+			x[i] = b[i];
+			for ( int k=0; k<i-1; k++ )
+				x[i] = x[i] - lu[i][k]*x[k];
+		}
+		for ( int i=d-1; i>=0; i-- ) {
+			for ( int k=i+1; k<d; k++ )
+				x[i] = x[i] - lu[i][k]*x[k];
+			x[i] = x[i]/lu[i][i];
+		}
+
+		return vector(x);
+	}
+
+	public Number[] axisOfRotationMatrix( Number[][] m ) {
+		return normalize(solveByLU(subtract(m,matrix1(3)),vector0(3)));
+	}
+
+	public Number angleOfRotationMatrix( Number[][] m ) {
+		double tr = trace(m).doubleValue();
+		return number(Math.acos((tr-1)/2));
+	}
+
+	public Number angleOfRotationMatrix( Number[][] m, Number[] axis ) {
+		double tr = trace(m).doubleValue();
+		double ang = Math.acos((tr-1)/2);
+		if ( Math.abs(axis[2]) > 2*epsilon )
+			ang = Math.copysign( ang, (axis[0]*axis[1]*(1-Math.cos(ang))-m[0][1])*axis[2] );
+		else if ( Math.abs(axis[1]) > 2*epsilon )
+			ang = Math.copysign( ang, (axis[0]*axis[2]*(1-Math.cos(ang))-m[2][0])*axis[1] );
+		else
+			ang = Math.copysign( ang, (axis[1]*axis[2]*(1-Math.cos(ang))-m[1][2])*axis[0] );
+		return number(ang);
+	}
+
+	public Number[][] createRotationMatrix( Number[] axis, Number angle ) {
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
+		double versin = 1-cos;
+
+		Number [][] rot = new Number [ 3 ][ 3 ];
+		rot[0][0] = cos + axis[0]^2 * versin;
+		rot[1][1] = cos + axis[1]^2 * versin;
+		rot[2][2] = cos + axis[2]^2 * versin;
+		rot[0][1] = axis[0]*axis[1]*versin - axis[2]*sin;
+		rot[1][0] = axis[0]*axis[1]*versin + axis[2]*sin;
+		rot[1][2] = axis[1]*axis[2]*versin - axis[0]*sin;
+		rot[2][1] = axis[1]*axis[2]*versin + axis[0]*sin;
+		rot[2][0] = axis[2]*axis[0]*versin - axis[1]*sin;
+		rot[0][2] = axis[2]*axis[0]*versin + axis[1]*sin;
+
+		return rot;
+	}
 }
