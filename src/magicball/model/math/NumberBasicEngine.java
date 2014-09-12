@@ -38,6 +38,10 @@ public class NumberBasicEngine
 		return (n1.doubleValue()-n2.doubleValue()) < -this.epsilon;
 	}
 
+	public Number negate( Number n ) {
+		return number(-n.doubleValue());
+	}
+
 	public Number add( Number n1, Number n2 ) {
 		return (Double)( n1.doubleValue() + n2.doubleValue() );
 	}
@@ -94,6 +98,13 @@ public class NumberBasicEngine
 		 if ( equals(v1[i],v2[i]) )
 		 	return false;
 		 return true;
+	}
+
+	public Number negate( Number[] v ) {
+		Number[] result = new Number [ v.length ];
+		for ( int i=0; i<result.length; i++ )
+			result[i] = negate(v[i]);
+		return result;
 	}
 
 	public Number[] add( Number[] v1, Number[] v2 ) {
@@ -187,6 +198,13 @@ public class NumberBasicEngine
 		 return true;
 	}
 
+	public Number negate( Number[][] m ) {
+		Number[][] result = new Number [ m.length ][];
+		for ( int i=0; i<result.length; i++ )
+			result[i] = negate(m[i]);
+		return result;
+	}
+
 	public Number[][] add( Number[][] m1, Number[][] m2 ) {
 		Number[][] result = new Double [ m1.length ][];
 		for ( int i=0; i<result.length; i++ )
@@ -245,6 +263,13 @@ public class NumberBasicEngine
 		Number [][] result = ms[0];
 		for ( int i=1; i<ms.length; i++ )
 			result = matrixMultiply(result,ms[i]);
+		return result;
+	}
+
+	public Number[][] pow( Number[][] m, int exp ) {
+		Number [][] result = m;
+		for ( int i=1; i<exp; i++ )
+			result = matrixMultiply(result,m);
 		return result;
 	}
 
