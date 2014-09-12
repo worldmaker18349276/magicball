@@ -1,4 +1,6 @@
-package magicball.model.geometry;
+package magicball.model.puzzle;
+
+import magicball.model.geometry.*;
 
 
 public interface SolidBasicEngine < S extends Solid, R extends Region >
