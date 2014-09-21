@@ -484,19 +484,20 @@ public class model_math
 
 					Number[] axis = math.normalize(math.vector(0,1,1));
 					Number angle = (Double)(Math.PI/3);
+					Number[] rvec = math.multiply(axis,angle);
 					System.out.println("axis = (0,1,1)^ = " + toString(axis));
 					System.out.println("angle = PI/3 = " + angle);
+					System.out.println("rvec = axis*angle = " + toString(rvec));
 
-					Number[][] r = math.createRotationMatrix(axis,angle);
-					System.out.println("r = rotation(axis,angle) = " + toString(r));
-					
-					Number[] axis_ = math.axisOfRotationMatrix(r);
-					Number angle_ = math.angleOfRotationMatrix(r,axis_);
-					System.out.println("r.axis = " + toString(axis_));
-					System.out.println("r.angle = " + angle_);
+					Number[][] rmat = math.rotationVector2RotationMatrix(rvec);
+					System.out.println("rmat(rvec) = " + toString(rmat));
+
+					Number[] rvec_ = math.rotationMatrix2RotationVector(rmat);
+					System.out.println("rvec(rmat) = " + toString(rvec_));
 				}
 				System.out.println("TEST 8 END");
 				System.out.println();
+
 			}
 
 		} catch ( Throwable e ) {

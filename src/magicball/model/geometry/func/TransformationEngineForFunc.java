@@ -53,9 +53,8 @@ public class TransformationEngineForFunc implements TransformationBasicEngine<Tr
 		} else if ( isRotation(trans) ) {
 
 			Number[][] rot = trans.getRotationMatrix();
-			Number[] axis = mathEngine.axisOfRotationMatrix(rot);
-			Number angle = mathEngine.angleOfRotationMatrix(rot,axis);
-			rot = mathEngine.createRotationMatrix(axis,mathEngine.dividedBy(angle,divisor));
+			Number [] rvec = mathEngine.rotationMatrix2RotationVector(rot);
+			rot = mathEngine.rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
 			return new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 
 		} else if ( isShift(trans) ) {
@@ -70,9 +69,8 @@ public class TransformationEngineForFunc implements TransformationBasicEngine<Tr
 
 			Number[][] rot = trans.getRotationMatrix();
 			Number[] sh = trans.getShiftVector();
-			Number[] axis = mathEngine.axisOfRotationMatrix(rot);
-			Number angle = mathEngine.angleOfRotationMatrix(rot,axis);
-			Number[][] rot_n = mathEngine.createRotationMatrix(axis,mathEngine.dividedBy(angle,divisor));
+			Number [] rvec = mathEngine.rotationMatrix2RotationVector(rot);
+			Number[][] rot_n = mathEngine.rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
 
 			Number[][] m = mathEngine.matrix1(3);
 			Number[][] rot_i = mathEngine.matrix1(3);

@@ -482,52 +482,35 @@ public class NumberBasicEngine
 		return matrix(result);
 	}
 
-	public Number[] axisOfRotationMatrix( Number[][] m ) {
-		Number[][] t = solveByGauss(subtract(m,matrix1(3)));
-		Number[] result = new Number [ 3 ];
-		result[2] = number(1.0);
-		result[0] = negate(t[0][2]);
-		result[1] = negate(t[1][2]);
-		return normalize(result);
+	public Number[] rotationMatrix2RotationVector( Number[][] rmat ) {
+		double angle = Math.acos((doubleValue(trace(rmat))-1)/2);
+		double factor = angle/(2*Math.sin(angle));
+		Number[] axis = new Number [ 3 ];
+		axis[0] = subtract(rmat[2][1],rmat[1][2]);
+		axis[1] = subtract(rmat[0][2],rmat[2][0]);
+		axis[2] = subtract(rmat[1][0],rmat[0][1]);
+		return multiply(axis,number(factor));
 	}
 
-	public Number angleOfRotationMatrix( Number[][] m ) {
-		return number(Math.acos((doubleValue(trace(m))-1)/2));
-	}
-
-	public Number angleOfRotationMatrix( Number[][] m_, Number[] axis_ ) {
-		double[][] m = doubleValue(m_);
-
-		double[] axis = doubleValue(axis_);
-
-		double ang = Math.acos((doubleValue(trace(m_))-1)/2);
-		if ( Math.abs(axis[2]) > 2*epsilon )
-			ang = Math.copySign( ang, (axis[0]*axis[1]*(1-Math.cos(ang))-m[0][1])*axis[2] );
-		else if ( Math.abs(axis[1]) > 2*epsilon )
-			ang = Math.copySign( ang, (axis[0]*axis[2]*(1-Math.cos(ang))-m[2][0])*axis[1] );
-		else
-			ang = Math.copySign( ang, (axis[1]*axis[2]*(1-Math.cos(ang))-m[1][2])*axis[0] );
-		return number(ang);
-	}
-
-	public Number[][] createRotationMatrix( Number[] axis_, Number angle ) {
-		double cos = Math.cos(doubleValue(angle));
-		double sin = Math.sin(doubleValue(angle));
+	public Number[][] rotationVector2RotationMatrix( Number[] rvec ) {
+		double[] axis = doubleValue(normalize(rvec));
+		double angle = doubleValue(norm(rvec));
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
 		double versin = 1-cos;
-		double[] axis = doubleValue(axis_);
 
 
-		Number [][] rot = new Number [ 3 ][ 3 ];
-		rot[0][0] = axis[0]*axis[0]*versin + cos;
-		rot[1][1] = axis[1]*axis[1]*versin + cos;
-		rot[2][2] = axis[2]*axis[2]*versin + cos;
-		rot[0][1] = axis[0]*axis[1]*versin - sin*axis[2];
-		rot[1][0] = axis[0]*axis[1]*versin + sin*axis[2];
-		rot[1][2] = axis[1]*axis[2]*versin - sin*axis[0];
-		rot[2][1] = axis[1]*axis[2]*versin + sin*axis[0];
-		rot[2][0] = axis[2]*axis[0]*versin - sin*axis[1];
-		rot[0][2] = axis[2]*axis[0]*versin + sin*axis[1];
+		Number [][] rmat = new Number [ 3 ][ 3 ];
+		rmat[0][0] = axis[0]*axis[0]*versin + cos;
+		rmat[1][1] = axis[1]*axis[1]*versin + cos;
+		rmat[2][2] = axis[2]*axis[2]*versin + cos;
+		rmat[0][1] = axis[0]*axis[1]*versin - sin*axis[2];
+		rmat[1][0] = axis[0]*axis[1]*versin + sin*axis[2];
+		rmat[1][2] = axis[1]*axis[2]*versin - sin*axis[0];
+		rmat[2][1] = axis[1]*axis[2]*versin + sin*axis[0];
+		rmat[2][0] = axis[2]*axis[0]*versin - sin*axis[1];
+		rmat[0][2] = axis[2]*axis[0]*versin + sin*axis[1];
 
-		return rot;
+		return rmat;
 	}
 }

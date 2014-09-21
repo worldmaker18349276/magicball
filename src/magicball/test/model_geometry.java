@@ -19,11 +19,10 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
 
-					Number [][] rot = mathEngine.createRotationMatrix(
-						mathEngine.vector(new double[]{ 0, 0, 1 }),
-						Math.PI/2);
+					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
+						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
-					System.out.println("rot = rotation([0,0,1],PI/2) = \n" + toString(rot));
+					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
 					TransformationMatrixExpression trans0 = transEngine.createIdentityTransformation();
@@ -53,10 +52,9 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
 
-					Number [][] rot = mathEngine.createRotationMatrix(
-						mathEngine.vector(new double[]{ 0, 0, 1 }),
-						Math.PI/2);
-					System.out.println("rot = rotation([0,0,1],PI/2) = \n" + toString(rot));
+					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
+						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
+					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 
 					TransformationMatrixExpression trans = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 					System.out.println("trans = Trans(rot) = \n" + toString(trans));
@@ -91,11 +89,10 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
 
-					Number [][] rot = mathEngine.createRotationMatrix(
-						mathEngine.vector(new double[]{ 0, 0, 1 }),
-						Math.PI/2);
+					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
+						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
-					System.out.println("rot = rotation([0,0,1],PI/2) = \n" + toString(rot));
+					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
 					TransformationMatrixExpression trans = new TransformationMatrixExpression(rot,sh);
@@ -114,11 +111,10 @@ public class model_geometry
 					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
 					FunctionBasicEngine funcEngine = new FunctionBasicEngine();
 
-					Number [][] rot = mathEngine.createRotationMatrix(
-						mathEngine.vector(new double[]{ 0, 0, 1 }),
-						Math.PI/2);
+					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
+						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
-					System.out.println("rot = rotation([0,0,1],PI/2) = \n" + toString(rot));
+					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
 					TransformationMatrixExpression trans0 = new TransformationMatrixExpression(rot,sh);
@@ -144,11 +140,10 @@ public class model_geometry
 					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
 					FunctionBasicEngine funcEngine = new FunctionBasicEngine();
 
-					Number [][] rot = mathEngine.createRotationMatrix(
-						mathEngine.vector(new double[]{ 0, 0, 1 }),
-						Math.PI/2);
+					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
+						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
-					System.out.println("rot = rotation([0,0,1],PI/2) = \n" + toString(rot));
+					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
 					TransformationMatrixExpression trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
@@ -179,9 +174,8 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
 
-					Number [][] rot = mathEngine.createRotationMatrix(
-						mathEngine.vector(new double[]{ 0, 0, 1 }),
-						Math.PI/2);
+					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
+						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 
 					TransformationMatrixExpression trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 					System.out.println("trans1 = Trans(rot) = \n" + toString(trans1));
@@ -205,9 +199,8 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
 
-					Number [][] rot = mathEngine.createRotationMatrix(
-						mathEngine.vector(new double[]{ 0, 0, 1 }),
-						Math.PI/2);
+					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
+						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
 					TransformationMatrixExpression trans1 = new TransformationMatrixExpression(rot,sh);
 					System.out.println("trans1 = Trans(rot,sh) = \n" + toString(trans1));
@@ -232,10 +225,9 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
 
-					Number [][] rot = mathEngine.createRotationMatrix(
-						mathEngine.vector(new double[]{ 0, 0, 1 }),
-						Math.PI/2);
-					System.out.println("rot = rotation([0,0,1],PI/2) = \n" + toString(rot));
+					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
+						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
+					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					TransformationMatrixExpression transr = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 					System.out.println("transr = Trans(rot) = \n" + toString(transr));
 
@@ -275,11 +267,10 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
 
-					Number [][] rot = mathEngine.createRotationMatrix(
-						mathEngine.vector(new double[]{ 0, 0, 1 }),
-						Math.PI/2);
+					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
+						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
-					System.out.println("rot = rotation([0,0,1],PI/2) = \n" + toString(rot));
+					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
 					TransformationMatrixExpression trans = new TransformationMatrixExpression(rot,sh);
