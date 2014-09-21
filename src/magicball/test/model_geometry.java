@@ -297,6 +297,128 @@ public class model_geometry
 
 			}
 
+
+			System.out.println("====== Region test ======");
+			System.out.println();
+			{
+
+				System.out.println("TEST 1:");
+				{
+
+					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
+					SetBasicEngine setEngine = new SetBasicEngine();
+					RegionEngineForFunc regEngine = new RegionEngineForFunc(mathEngine,setEngine);
+
+					Function<Number[],Number> f = new Function<Number[],Number>() {
+						public Number apply( Number[] v ) {
+							return (Double)(v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue());
+						}
+					};
+					SurfaceFuncExpression face = new SurfaceFuncExpression(f);
+
+					System.out.println("face(x,y,z) = 2x+5y-z");
+					System.out.println("face(1,2,3) = "+f.apply(new Number[]{ 1,2,3 }));
+					System.out.println("face(-1,0,5) = "+f.apply(new Number[]{ -1,0,5 }));
+
+					RegionSetExpression reg = regEngine.createRegionByFace(face,1);
+
+					System.out.println("reg = at(face,1)");
+					System.out.println("reg.contain([1,2,3]) = "+reg.getSet().isElement(new Number[]{ 1,2,3 }));
+					System.out.println("reg.contain([-1,0,5]) = "+reg.getSet().isElement(new Number[]{ -1,0,5 }));
+
+				}
+				System.out.println("TEST 1 END");
+				System.out.println();
+
+				System.out.println("TEST 2:");
+				{
+
+					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
+					SetBasicEngine setEngine = new SetBasicEngine();
+					RegionEngineForFunc regEngine = new RegionEngineForFunc(mathEngine,setEngine);
+
+					RegionSetExpression reg1 = regEngine.createUniverseRegion();
+					System.out.println("reg1 = universe()");
+					System.out.println("reg1.contain([1,2,3]) = "+reg1.getSet().isElement(new Number[]{ 1,2,3 }));
+					System.out.println("reg1.contain([-1,0,5]) = "+reg1.getSet().isElement(new Number[]{ -1,0,5 }));
+					
+					RegionSetExpression reg0 = regEngine.createEmptyRegion();
+					System.out.println("reg0 = empty()");
+					System.out.println("reg0.contain([1,2,3]) = "+reg0.getSet().isElement(new Number[]{ 1,2,3 }));
+					System.out.println("reg0.contain([-1,0,5]) = "+reg0.getSet().isElement(new Number[]{ -1,0,5 }));
+
+				}
+				System.out.println("TEST 2 END");
+				System.out.println();
+
+				System.out.println("TEST 3:");
+				{
+
+					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
+					SetBasicEngine setEngine = new SetBasicEngine();
+					RegionEngineForFunc regEngine = new RegionEngineForFunc(mathEngine,setEngine);
+
+					Function<Number[],Number> f1 = new Function<Number[],Number>() {
+						public Number apply( Number[] v ) {
+							return (Double)(v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue());
+						}
+					};
+					SurfaceFuncExpression face1 = new SurfaceFuncExpression(f1);
+					RegionSetExpression reg1 = regEngine.createRegionByFace(face1,1);
+					System.out.println("reg1 = at(2x+5y-z,1)");
+					System.out.println("reg1.contain([1,2,3]) = "+reg1.getSet().isElement(new Number[]{ 1,2,3 }));
+					System.out.println("reg1.contain([-1,0,5]) = "+reg1.getSet().isElement(new Number[]{ -1,0,5 }));
+					System.out.println("reg1.contain([1,5,3]) = "+reg1.getSet().isElement(new Number[]{ 1,5,3 }));
+					System.out.println("reg1.contain([-5,1,1]) = "+reg1.getSet().isElement(new Number[]{ -5,1,1 }));
+
+					Function<Number[],Number> f2 = new Function<Number[],Number>() {
+						public Number apply( Number[] v ) {
+							return (Double)(v[0].doubleValue()*2 - v[1].doubleValue()*4 + v[2].doubleValue() * 5 + 1);
+						}
+					};
+					SurfaceFuncExpression face2 = new SurfaceFuncExpression(f2);
+					RegionSetExpression reg2 = regEngine.createRegionByFace(face2,1);
+					System.out.println("reg2 = at(2x-4y+5z+1,1)");
+					System.out.println("reg2.contain([1,2,3]) = "+reg2.getSet().isElement(new Number[]{ 1,2,3 }));
+					System.out.println("reg2.contain([-1,0,5]) = "+reg2.getSet().isElement(new Number[]{ -1,0,5 }));
+					System.out.println("reg2.contain([1,5,3]) = "+reg2.getSet().isElement(new Number[]{ 1,5,3 }));
+					System.out.println("reg2.contain([-5,1,1]) = "+reg2.getSet().isElement(new Number[]{ -5,1,1 }));
+
+					RegionSetExpression reg3 = regEngine.intersect(reg1,reg2);
+					System.out.println("reg3 = intersect(reg1,reg2)");
+					System.out.println("reg3.contain([1,2,3]) = "+reg3.getSet().isElement(new Number[]{ 1,2,3 }));
+					System.out.println("reg3.contain([-1,0,5]) = "+reg3.getSet().isElement(new Number[]{ -1,0,5 }));
+					System.out.println("reg3.contain([1,5,3]) = "+reg3.getSet().isElement(new Number[]{ 1,5,3 }));
+					System.out.println("reg3.contain([-5,1,1]) = "+reg3.getSet().isElement(new Number[]{ -5,1,1 }));
+
+					RegionSetExpression reg4 = regEngine.union(reg1,reg2);
+					System.out.println("reg4 = union(reg1,reg2)");
+					System.out.println("reg4.contain([1,2,3]) = "+reg4.getSet().isElement(new Number[]{ 1,2,3 }));
+					System.out.println("reg4.contain([-1,0,5]) = "+reg4.getSet().isElement(new Number[]{ -1,0,5 }));
+					System.out.println("reg4.contain([1,5,3]) = "+reg4.getSet().isElement(new Number[]{ 1,5,3 }));
+					System.out.println("reg4.contain([-5,1,1]) = "+reg4.getSet().isElement(new Number[]{ -5,1,1 }));
+
+					RegionSetExpression reg5 = regEngine.complement(reg1,reg2);
+					System.out.println("reg5 = complement(reg1,reg2)");
+					System.out.println("reg5.contain([1,2,3]) = "+reg5.getSet().isElement(new Number[]{ 1,2,3 }));
+					System.out.println("reg5.contain([-1,0,5]) = "+reg5.getSet().isElement(new Number[]{ -1,0,5 }));
+					System.out.println("reg5.contain([1,5,3]) = "+reg5.getSet().isElement(new Number[]{ 1,5,3 }));
+					System.out.println("reg5.contain([-5,1,1]) = "+reg5.getSet().isElement(new Number[]{ -5,1,1 }));
+
+					RegionSetExpression reg6 = regEngine.complement(reg1);
+					System.out.println("reg6 = complement(reg1)");
+					System.out.println("reg6.contain([1,2,3]) = "+reg6.getSet().isElement(new Number[]{ 1,2,3 }));
+					System.out.println("reg6.contain([-1,0,5]) = "+reg6.getSet().isElement(new Number[]{ -1,0,5 }));
+					System.out.println("reg6.contain([1,5,3]) = "+reg6.getSet().isElement(new Number[]{ 1,5,3 }));
+					System.out.println("reg6.contain([-5,1,1]) = "+reg6.getSet().isElement(new Number[]{ -5,1,1 }));
+
+				}
+				System.out.println("TEST 3 END");
+				System.out.println();
+
+			}
+
+
 		} catch ( Throwable e ) {
 			e.printStackTrace();
 		}
