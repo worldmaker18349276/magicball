@@ -17,35 +17,40 @@ public class TransformationEngineForFunc implements TransformationBasicEngine<Tr
 	}
 
 	public TransformationMatrixExpression createIdentityTransformation() {
-		return TransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
+		return new TransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
 	}
 
 	public TransformationMatrixExpression compose( TransformationMatrixExpression trans1, TransformationMatrixExpression trans2 ) {
-		Number [][] rot = mathEngine.matrixMultiply(trans1.getRotationMatrix(),trans2.getRotationMatrix());
-		Number [] sh = mathEngine.add(trans1.getShiftVector(),mathEngine.matrixMultiply(trans1.getRotationMatrix(),trans2.getShiftVector()));
+		Number [][] rot = mathEngine.matrixMultiply(trans2.getRotationMatrix(),trans1.getRotationMatrix());
+		Number [] sh = mathEngine.add(trans2.getShiftVector(),mathEngine.matrixMultiply(trans2.getRotationMatrix(),trans1.getShiftVector()));
 		return new TransformationMatrixExpression(rot,sh);
 	}
 
 	public TransformationMatrixExpression compose( TransformationMatrixExpression... trans ) {
 		TransformationMatrixExpression result = trans[0];
-		for ( int i=1; i<trans.length,; i++ )
+		for ( int i=1; i<trans.length; i++ )
 			result = compose(result,trans[i]);
 		return result;
 	}
 
 	public TransformationMatrixExpression pow( TransformationMatrixExpression trans, int exp ) {
 		TransformationMatrixExpression result = trans;
-		for ( int i=1; i<exp,; i++ )
+		for ( int i=1; i<exp; i++ )
 			result = compose(result,trans);
 		return result;
 	}
 
 	public TransformationMatrixExpression invert( TransformationMatrixExpression trans ) {
-		return new TransformationMatrixExpression(mathEngine.transpose(trans.getRotationMatrix()),mathEngine.negate(trans.getShiftVector()));
+		Number [][] rot = mathEngine.transpose(trans.getRotationMatrix());
+		Number [] sh = mathEngine.negate(mathEngine.matrixMultiply(rot,trans.getShiftVector()));
+		return new TransformationMatrixExpression(rot,sh);
 	}
 
 	public TransformationMatrixExpression dividedBy( TransformationMatrixExpression trans, Number divisor ) {
-		if ( isRotation(trans) ) {
+		// TODO: use arg to select number of turns
+		if ( isIdentity(trans) ) {
+			return trans;
+		} else if ( isRotation(trans) ) {
 
 			Number[][] rot = trans.getRotationMatrix();
 			Number[] axis = mathEngine.axisOfRotationMatrix(rot);
@@ -69,9 +74,12 @@ public class TransformationEngineForFunc implements TransformationBasicEngine<Tr
 			Number angle = mathEngine.angleOfRotationMatrix(rot,axis);
 			Number[][] rot_n = mathEngine.createRotationMatrix(axis,mathEngine.dividedBy(angle,divisor));
 
-			Number[][] m = matrix1(3);
-			for ( int i=1; i<n; i++ )
-				m = mathEngine.add(m,mathEngine.pow(rot_n,i));
+			Number[][] m = mathEngine.matrix1(3);
+			Number[][] rot_i = mathEngine.matrix1(3);
+			for ( int i=1; i<n; i++ ) {
+				rot_i = mathEngine.matrixMultiply(rot_i,rot_n);
+				m = mathEngine.add(m,rot_i);
+			}
 			Number[] sh_n = mathEngine.matrixMultiply(mathEngine.invert33(m),sh);
 
 			return new TransformationMatrixExpression(rot_n,sh_n);
@@ -90,5 +98,19 @@ public class TransformationEngineForFunc implements TransformationBasicEngine<Tr
 
 	public boolean isShift( TransformationMatrixExpression trans ) {
 		return mathEngine.equals(trans.getRotationMatrix(),mathEngine.matrix1(3));
+	}
+
+	public boolean equals( TransformationMatrixExpression trans1, TransformationMatrixExpression trans2 ) {
+		return mathEngine.equals(trans1.getRotationMatrix(),trans2.getRotationMatrix()) &&
+				mathEngine.equals(trans1.getShiftVector(),trans2.getShiftVector());
+	}
+
+	public Function<Number[],Number[]> createTransformationFunction( final TransformationMatrixExpression trans ) {
+		final NumberBasicEngine math = this.mathEngine;
+		return new Function<Number[],Number[]>() {
+			public Number[] apply( Number[] in ) {
+				return math.add(math.matrixMultiply(trans.getRotationMatrix(),in),trans.getShiftVector());
+			}
+		};
 	}
 }
