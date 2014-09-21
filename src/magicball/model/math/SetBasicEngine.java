@@ -3,7 +3,8 @@ package magicball.model.math;
 
 public class SetBasicEngine
 {
-	public < E > Set<E> union( final Set<E>[] sets ) {
+	@SafeVarargs
+	final public < E > Set<E> union( final Set<E>... sets ) {
 		return new Set<E>() {
 			public boolean isElement( E element ) {
 				for ( Set<E> set : sets )
@@ -14,7 +15,8 @@ public class SetBasicEngine
 		};
 	}
 
-	public < E > Set<E> intersect( final Set<E>[] sets ) {
+	@SafeVarargs
+	final public < E > Set<E> intersect( final Set<E>... sets ) {
 		return new Set<E>() {
 			public boolean isElement( E element ) {
 				for ( Set<E> set : sets )

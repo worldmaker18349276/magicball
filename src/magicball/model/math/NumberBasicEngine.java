@@ -26,24 +26,28 @@ public class NumberBasicEngine
 		return number(1.0);
 	}
 
+	public double doubleValue( Number n ) {
+		return n.doubleValue();
+	}
+
 	public boolean equals( Number n1, Number n2 ) {
-		return Math.abs(n1.doubleValue()-n2.doubleValue()) < this.epsilon;
+		return Math.abs(doubleValue(n1)-doubleValue(n2)) < this.epsilon;
 	}
 
 	public boolean greaterThan( Number n1, Number n2 ) {
-		return (n1.doubleValue()-n2.doubleValue()) > this.epsilon;
+		return (doubleValue(n1)-doubleValue(n2)) > this.epsilon;
 	}
 
 	public boolean lessThan( Number n1, Number n2 ) {
-		return (n1.doubleValue()-n2.doubleValue()) < -this.epsilon;
+		return (doubleValue(n1)-doubleValue(n2)) < -this.epsilon;
 	}
 
 	public Number negate( Number n ) {
-		return number(-n.doubleValue());
+		return number(-doubleValue(n));
 	}
 
 	public Number add( Number n1, Number n2 ) {
-		return (Double)( n1.doubleValue() + n2.doubleValue() );
+		return number( doubleValue(n1) + doubleValue(n2) );
 	}
 
 	public Number add( Number... ns ) {
@@ -54,11 +58,11 @@ public class NumberBasicEngine
 	}
 
 	public Number subtract( Number n1, Number n2 ) {
-		return (Double)( n1.doubleValue() - n2.doubleValue() );
+		return number( doubleValue(n1) - doubleValue(n2) );
 	}
 
 	public Number multiply( Number n1, Number n2 ) {
-		return (Double)( n1.doubleValue() * n2.doubleValue() );
+		return number( doubleValue(n1) * doubleValue(n2) );
 	}
 
 	public Number multiply( Number... ns ) {
@@ -69,11 +73,22 @@ public class NumberBasicEngine
 	}
 
 	public Number dividedBy( Number n1, Number n2 ) {
-		return (Double)( n1.doubleValue() / n2.doubleValue() );
+		return number( doubleValue(n1) / doubleValue(n2) );
+	}
+
+	public Number pow( Number n1, int n2 ) {
+		Number result = number1();
+		for ( int i=0; i<n2; i++ )
+			result = multiply(result,n1);
+		return result;
 	}
 
 	public Number pow( Number n1, Number n2 ) {
-		return (Double) Math.pow(n1.doubleValue(),n2.doubleValue());
+		return number( Math.pow(doubleValue(n1),doubleValue(n2)) );
+	}
+
+	public Number sqrt( Number n ) {
+		return number(Math.sqrt(doubleValue(n)));
 	}
 
 
@@ -93,14 +108,21 @@ public class NumberBasicEngine
 		return vec;
 	}
 
+	public double[] doubleValue( Number[] v ) {
+		double[] result = new double [ v.length ];
+		for ( int i=0; i<result.length; i++ )
+			result[i] = doubleValue(v[i]);
+		return result;
+	}
+
 	public boolean equals( Number[] v1, Number[] v2 ) {
 		for ( int i=0; i<v1.length; i++ )
-		 if ( equals(v1[i],v2[i]) )
+		 if ( !equals(v1[i],v2[i]) )
 		 	return false;
 		 return true;
 	}
 
-	public Number negate( Number[] v ) {
+	public Number[] negate( Number[] v ) {
 		Number[] result = new Number [ v.length ];
 		for ( int i=0; i<result.length; i++ )
 			result[i] = negate(v[i]);
@@ -145,8 +167,8 @@ public class NumberBasicEngine
 	public Number norm( Number[] v ) {
 		Number result = number0();
 		for ( int i=0; i<v.length; i++ )
-			result = add(result,pow(v[i],number(2)));
-		return pow(result,number(1/2));
+			result = add(result,pow(v[i],2));
+		return sqrt(result);
 	}
 
 	public Number[] normalize( Number[] v ) {
@@ -191,14 +213,21 @@ public class NumberBasicEngine
 		return mat;
 	}
 
+	public double[][] doubleValue( Number[][] m ) {
+		double[][] result = new double [ m.length ][];
+		for ( int i=0; i<result.length; i++ )
+			result[i] = doubleValue(m[i]);
+		return result;
+	}
+
 	public boolean equals( Number[][] m1, Number[][] m2 ) {
 		for ( int i=0; i<m1.length; i++ )
-		 if ( equals(m1[i],m2[i]) )
+		 if ( !equals(m1[i],m2[i]) )
 		 	return false;
 		 return true;
 	}
 
-	public Number negate( Number[][] m ) {
+	public Number[][] negate( Number[][] m ) {
 		Number[][] result = new Number [ m.length ][];
 		for ( int i=0; i<result.length; i++ )
 			result[i] = negate(m[i]);
@@ -253,7 +282,7 @@ public class NumberBasicEngine
 		for ( int i=0; i<result.length; i++ )
 			for ( int j=0; j<result[i].length; j++ ) {
 				result[i][j] = number0();
-				for ( int k=0; k<result[i].length; k++ )
+				for ( int k=0; k<m2.length; k++ )
 					result[i][j] = add(result[i][j],multiply(m1[i][k],m2[k][j]));
 			}
 		return result;
@@ -287,7 +316,7 @@ public class NumberBasicEngine
 		Number [] result = new Number [ m2[0].length ];
 		for ( int j=0; j<result.length; j++ ) {
 			result[j] = number0();
-			for ( int k=0; k<m1.length; k++ )
+			for ( int k=0; k<m2.length; k++ )
 				result[j] = add(result[j],multiply(v1[k],m2[k][j]));
 		}
 		return result;
@@ -302,8 +331,11 @@ public class NumberBasicEngine
 
 	public Number determinant33( Number[][] m1 ) {
 		Number result =          multiply(multiply( m1[0][0], m1[1][1]), m1[2][2] );
-		result = subtract(result,multiply(multiply( m1[0][1], m1[1][2]), m1[2][0] ));
+		result =      add(result,multiply(multiply( m1[0][1], m1[1][2]), m1[2][0] ));
 		result =      add(result,multiply(multiply( m1[0][2], m1[1][0]), m1[2][1] ));
+		result = subtract(result,multiply(multiply( m1[0][0], m1[1][2]), m1[2][1] ));
+		result = subtract(result,multiply(multiply( m1[0][1], m1[1][0]), m1[2][2] ));
+		result = subtract(result,multiply(multiply( m1[0][2], m1[1][1]), m1[2][0] ));
 		return result;
 	}
 
@@ -322,30 +354,56 @@ public class NumberBasicEngine
 		return result;
 	}
 
+	// public Number determinant( Number[][] m ) {
+	// 	return trace(getLU(m));
+	// }
+
+	// public Number[][] invert( Number[][] m ) {
+	// }
+
+
 	// numerical mathods
-	// m * x = b
-	public Number solveByLU( Number[][] m, Number[] b ) {
+	// m = l * u
+	public Number[][] getLU( Number[][] m ) {
 		int d = m.length;
 		// M = L * U
 		double[][] lu = new double [ d ][ d ];
 		for ( int i=0; i<d; i++ ) for ( int j=0; j<d; j++ ) {
 			if ( i > j ) { // L[i][j]
-				lu[i][j] = m[i][j].doubleValue();
-				for ( int k=0; k<j-1; k++ )
+				lu[i][j] = doubleValue(m[i][j]);
+				for ( int k=0; k<j; k++ )
 					lu[i][j] = lu[i][j] - lu[i][k]*lu[k][j];
-				lu[i][j] = L[i][j]/lu[j][j];
+				lu[i][j] = lu[i][j]/lu[j][j];
 			} else { // U[i][j]
-				lu[i][j] = m[i][j].doubleValue();
-				for ( int k=0; k<i-1; k++ )
+				lu[i][j] = doubleValue(m[i][j]);
+				for ( int k=0; k<i; k++ )
+					lu[i][j] = lu[i][j] - lu[i][k]*lu[k][j];
+			}
+		}
+
+		return matrix(lu);
+	}
+
+	// m * x = b
+	public Number[] solveByLU( Number[][] m, Number[] b ) {
+		int d = m.length;
+		// M = L * U
+		double[][] lu = doubleValue(m);
+		for ( int i=0; i<d; i++ ) for ( int j=0; j<d; j++ ) {
+			if ( i > j ) { // L[i][j]
+				for ( int k=0; k<j; k++ )
+					lu[i][j] = lu[i][j] - lu[i][k]*lu[k][j];
+				lu[i][j] = lu[i][j]/lu[j][j];
+			} else { // U[i][j]
+				for ( int k=0; k<i; k++ )
 					lu[i][j] = lu[i][j] - lu[i][k]*lu[k][j];
 			}
 		}
 
 		// L * y = b; U * x = y
-		double[] x = new double [ d ];
+		double[] x = doubleValue(b);
 		for ( int i=0; i<d; i++ ) {
-			x[i] = b[i];
-			for ( int k=0; k<i-1; k++ )
+			for ( int k=0; k<i; k++ )
 				x[i] = x[i] - lu[i][k]*x[k];
 		}
 		for ( int i=d-1; i>=0; i-- ) {
@@ -357,42 +415,118 @@ public class NumberBasicEngine
 		return vector(x);
 	}
 
+	// mat -> tri ( without sort )
+	public Number[][] solveByGauss( Number[][] mat ) {
+		int m = mat.length;
+		int n = mat[0].length;
+		double[][] result = doubleValue(mat);
+
+		// down
+		int i = 0;
+		int j = 0;
+		while ( ( i < m )&&( j < n ) ) {
+			// pivot
+			int maxi = i;
+			for ( int i_=i+1; i_<m; i_++ ) {
+				if ( Math.abs(result[i_][j]) > Math.abs(result[maxi][j]) )
+					maxi = i_;
+			}
+
+			if ( Math.abs(result[maxi][j]) > epsilon ) {
+
+				{ // swap
+					double[] tmp = result[i];
+					result[i] = result[maxi];
+					result[maxi] = tmp;
+				}
+
+				// normalize
+				for ( int j_=j+1; j_<n; j_++ )
+					result[i][j_] = result[i][j_]/result[i][j];
+				result[i][j] = 1.0;
+
+				// eliminate
+				for ( int i_=i+1; i_<m; i_++ ) {
+					for ( int j_=j+1; j_<n; j_++ )
+						result[i_][j_] = result[i_][j_] - result[i][j_]*result[i_][j];
+					result[i_][j] = 0.0;
+				}
+
+				i = i + 1;
+
+			} else {
+				for ( int k=i; k<m; k++ )
+					result[k][j] = 0.0;
+			}
+			j = j + 1;
+		}
+
+		// up
+		i = m-1;
+		while ( i > 0 ) {
+			// pivot
+			for ( j=0; j<n; j++ )
+				if ( result[i][j] > epsilon ) {
+
+					// eliminate
+					for ( int i_=0; i_<i; i_++ ) {
+						for ( int j_=j+1; j_<n; j_++ )
+							result[i_][j_] = result[i_][j_] - result[i][j_]*result[i_][j];
+						result[i_][j] = 0.0;
+					}
+
+					break;
+				}
+			i = i - 1;
+		}
+		return matrix(result);
+	}
+
 	public Number[] axisOfRotationMatrix( Number[][] m ) {
-		return normalize(solveByLU(subtract(m,matrix1(3)),vector0(3)));
+		Number[][] t = solveByGauss(subtract(m,matrix1(3)));
+		Number[] result = new Number [ 3 ];
+		result[2] = number(1.0);
+		result[0] = negate(t[0][2]);
+		result[1] = negate(t[1][2]);
+		return normalize(result);
 	}
 
 	public Number angleOfRotationMatrix( Number[][] m ) {
-		double tr = trace(m).doubleValue();
-		return number(Math.acos((tr-1)/2));
+		return number(Math.acos((doubleValue(trace(m))-1)/2));
 	}
 
-	public Number angleOfRotationMatrix( Number[][] m, Number[] axis ) {
-		double tr = trace(m).doubleValue();
-		double ang = Math.acos((tr-1)/2);
+	public Number angleOfRotationMatrix( Number[][] m_, Number[] axis_ ) {
+		double[][] m = doubleValue(m_);
+
+		double[] axis = doubleValue(axis_);
+
+		double ang = Math.acos((doubleValue(trace(m_))-1)/2);
 		if ( Math.abs(axis[2]) > 2*epsilon )
-			ang = Math.copysign( ang, (axis[0]*axis[1]*(1-Math.cos(ang))-m[0][1])*axis[2] );
+			ang = Math.copySign( ang, (axis[0]*axis[1]*(1-Math.cos(ang))-m[0][1])*axis[2] );
 		else if ( Math.abs(axis[1]) > 2*epsilon )
-			ang = Math.copysign( ang, (axis[0]*axis[2]*(1-Math.cos(ang))-m[2][0])*axis[1] );
+			ang = Math.copySign( ang, (axis[0]*axis[2]*(1-Math.cos(ang))-m[2][0])*axis[1] );
 		else
-			ang = Math.copysign( ang, (axis[1]*axis[2]*(1-Math.cos(ang))-m[1][2])*axis[0] );
+			ang = Math.copySign( ang, (axis[1]*axis[2]*(1-Math.cos(ang))-m[1][2])*axis[0] );
 		return number(ang);
 	}
 
-	public Number[][] createRotationMatrix( Number[] axis, Number angle ) {
-		double cos = Math.cos(angle);
-		double sin = Math.sin(angle);
+	public Number[][] createRotationMatrix( Number[] axis_, Number angle ) {
+		double cos = Math.cos(doubleValue(angle));
+		double sin = Math.sin(doubleValue(angle));
 		double versin = 1-cos;
+		double[] axis = doubleValue(axis_);
+
 
 		Number [][] rot = new Number [ 3 ][ 3 ];
-		rot[0][0] = cos + axis[0]^2 * versin;
-		rot[1][1] = cos + axis[1]^2 * versin;
-		rot[2][2] = cos + axis[2]^2 * versin;
-		rot[0][1] = axis[0]*axis[1]*versin - axis[2]*sin;
-		rot[1][0] = axis[0]*axis[1]*versin + axis[2]*sin;
-		rot[1][2] = axis[1]*axis[2]*versin - axis[0]*sin;
-		rot[2][1] = axis[1]*axis[2]*versin + axis[0]*sin;
-		rot[2][0] = axis[2]*axis[0]*versin - axis[1]*sin;
-		rot[0][2] = axis[2]*axis[0]*versin + axis[1]*sin;
+		rot[0][0] = axis[0]*axis[0]*versin + cos;
+		rot[1][1] = axis[1]*axis[1]*versin + cos;
+		rot[2][2] = axis[2]*axis[2]*versin + cos;
+		rot[0][1] = axis[0]*axis[1]*versin - sin*axis[2];
+		rot[1][0] = axis[0]*axis[1]*versin + sin*axis[2];
+		rot[1][2] = axis[1]*axis[2]*versin - sin*axis[0];
+		rot[2][1] = axis[1]*axis[2]*versin + sin*axis[0];
+		rot[2][0] = axis[2]*axis[0]*versin - sin*axis[1];
+		rot[0][2] = axis[2]*axis[0]*versin + sin*axis[1];
 
 		return rot;
 	}
