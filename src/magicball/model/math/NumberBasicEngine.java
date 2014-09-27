@@ -13,6 +13,10 @@ public class NumberBasicEngine
 		return new NumberBasicEngine(this.epsilon);
 	}
 
+	public double eps() {
+		return this.epsilon;
+	}
+
 	// scalar ( Number )
 	public Number number( double n ) {
 		return (Double) n;
@@ -28,6 +32,10 @@ public class NumberBasicEngine
 
 	public double doubleValue( Number n ) {
 		return n.doubleValue();
+	}
+
+	public boolean equals( Number n1, double n2 ) {
+		return Math.abs(doubleValue(n1)-n2) < this.epsilon;
 	}
 
 	public boolean equals( Number n1, Number n2 ) {
@@ -77,10 +85,7 @@ public class NumberBasicEngine
 	}
 
 	public Number pow( Number n1, int n2 ) {
-		Number result = number1();
-		for ( int i=0; i<n2; i++ )
-			result = multiply(result,n1);
-		return result;
+		return number( Math.pow(doubleValue(n1),n2) );
 	}
 
 	public Number pow( Number n1, Number n2 ) {
@@ -113,6 +118,13 @@ public class NumberBasicEngine
 		for ( int i=0; i<result.length; i++ )
 			result[i] = doubleValue(v[i]);
 		return result;
+	}
+
+	public boolean equals( Number[] v1, double[] v2 ) {
+		for ( int i=0; i<v1.length; i++ )
+		 if ( !equals(v1[i],v2[i]) )
+		 	return false;
+		 return true;
 	}
 
 	public boolean equals( Number[] v1, Number[] v2 ) {
@@ -218,6 +230,13 @@ public class NumberBasicEngine
 		for ( int i=0; i<result.length; i++ )
 			result[i] = doubleValue(m[i]);
 		return result;
+	}
+
+	public boolean equals( Number[][] m1, double[][] m2 ) {
+		for ( int i=0; i<m1.length; i++ )
+		 if ( !equals(m1[i],m2[i]) )
+		 	return false;
+		 return true;
 	}
 
 	public boolean equals( Number[][] m1, Number[][] m2 ) {

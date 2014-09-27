@@ -20,9 +20,8 @@ public class model_math
 						}
 					};
 					System.out.println("f(x,y,z) = 2x+5y-z");
-					System.out.println("f(1,2,3) = "+f.apply(new Integer[]{1,2,3}));
-					System.out.println("f(1,0,3,5) = "+f.apply(new Integer[]{1,0,3,5})); // no exception, but illegal
-					// System.out.println("f(1,0) = "+f.apply(new Integer[]{1,0})); // error
+					System.out.println("f(1,2,3) = 9");
+					assert f.apply(new Integer[]{1,2,3}) == 9;
 				}
 				System.out.println("TEST 1 END");
 				System.out.println();
@@ -36,8 +35,10 @@ public class model_math
 						}
 					};
 					System.out.println("g(n) = n>3");
-					System.out.println("g(9) = "+g.apply(9));
-					System.out.println("g(-1) = "+g.apply(-1));
+					System.out.println("g(9) = true");
+					assert g.apply(9) == true;
+					System.out.println("g(-1) = false");
+					assert g.apply(-1) == false;
 				}
 				System.out.println("TEST 2 END");
 				System.out.println();
@@ -60,8 +61,10 @@ public class model_math
 					Function<Integer[],Boolean> h = funcEngine.compose(f,g);
 
 					System.out.println("h(x,y,z) = g(f(x,y,z))");
-					System.out.println("h(1,2,3) = "+h.apply(new Integer[]{1,2,3}));
-					System.out.println("h(1,0,3) = "+h.apply(new Integer[]{1,0,3}));
+					System.out.println("h(1,2,3) = true");
+					assert h.apply(new Integer[]{1,2,3}) == true;
+					System.out.println("h(1,0,3) = false");
+					assert h.apply(new Integer[]{1,0,3}) == false;
 				}
 				System.out.println("TEST 3 END");
 				System.out.println();
@@ -74,8 +77,10 @@ public class model_math
 					Function<Byte,Byte> s = funcEngine.<Byte>createIdentityFunction();
 
 					System.out.println("s(b) = identity_function");
-					System.out.println("s(3) = "+s.apply((byte)3));
-					System.out.println("s(32) = "+s.apply((byte)32));
+					System.out.println("s(3) = 3");
+					assert s.apply((byte)3) == (byte)3;
+					System.out.println("s(32) = 32");
+					assert s.apply((byte)32) == (byte)32;
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
@@ -96,8 +101,10 @@ public class model_math
 					Set<Integer> I = setEngine.createSetByIntensionalDefinition(g);
 
 					System.out.println("I = { n | n>3 }");
-					System.out.println("I.isElement(4): "+I.isElement(4));
-					System.out.println("I.isElement(-1): "+I.isElement(-1));
+					System.out.println("I.isElement(4): true");
+					assert I.isElement(4) == true;
+					System.out.println("I.isElement(-1): false");
+					assert I.isElement(-1) == false;
 				}
 				System.out.println("TEST 1 END");
 				System.out.println();
@@ -109,8 +116,10 @@ public class model_math
 					Set<String> S = setEngine.<String>createUniverseSet();
 
 					System.out.println("S = { s | s is String } (UniverseSet)");
-					System.out.println("S.isElement(\"ha\"): "+S.isElement("ha"));
-					System.out.println("S.isElement(\"false\"): "+S.isElement("false"));
+					System.out.println("S.isElement(\"ha\"): true");
+					assert S.isElement("ha") == true;
+					System.out.println("S.isElement(\"false\"): true");
+					assert S.isElement("false") == true;
 				}
 				System.out.println("TEST 2 END");
 				System.out.println();
@@ -122,8 +131,10 @@ public class model_math
 					Set<Boolean> S = setEngine.<Boolean>createEmptySet();
 
 					System.out.println("S = {} (EmptySet)");
-					System.out.println("S.isElement(true): "+S.isElement(true));
-					System.out.println("S.isElement(false): "+S.isElement(false));
+					System.out.println("S.isElement(true): false");
+					assert S.isElement(true) == false;
+					System.out.println("S.isElement(false): false");
+					assert S.isElement(false) == false;
 				}
 				System.out.println("TEST 3 END");
 				System.out.println();
@@ -149,9 +160,12 @@ public class model_math
 					System.out.println("S1 = [3,11]");
 					System.out.println("S2 = [6,20]");
 					System.out.println("S3 = union(S1,S2) = [3,20]");
-					System.out.println("S3.isElement(4): "+S3.isElement(4));
-					System.out.println("S3.isElement(9): "+S3.isElement(9));
-					System.out.println("S3.isElement(30): "+S3.isElement(30));
+					System.out.println("S3.isElement(4): true");
+					assert S3.isElement(4) == true;
+					System.out.println("S3.isElement(9): true");
+					assert S3.isElement(9) == true;
+					System.out.println("S3.isElement(30): false");
+					assert S3.isElement(30) == false;
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
@@ -177,9 +191,12 @@ public class model_math
 					System.out.println("S1 = [3,11]");
 					System.out.println("S2 = [6,20]");
 					System.out.println("S3 = intersect(S1,S2) = [6,11]");
-					System.out.println("S3.isElement(4): "+S3.isElement(4));
-					System.out.println("S3.isElement(9): "+S3.isElement(9));
-					System.out.println("S3.isElement(30): "+S3.isElement(30));
+					System.out.println("S3.isElement(4): false");
+					assert S3.isElement(4) == false;
+					System.out.println("S3.isElement(9): true");
+					assert S3.isElement(9) == true;
+					System.out.println("S3.isElement(30): false");
+					assert S3.isElement(30) == false;
 				}
 				System.out.println("TEST 5 END");
 				System.out.println();
@@ -205,9 +222,12 @@ public class model_math
 					System.out.println("S1 = [3,11]");
 					System.out.println("S2 = [6,20]");
 					System.out.println("S3 = complement(S1,S2) = [3,6]");
-					System.out.println("S3.isElement(4): "+S3.isElement(4));
-					System.out.println("S3.isElement(9): "+S3.isElement(9));
-					System.out.println("S3.isElement(30): "+S3.isElement(30));
+					System.out.println("S3.isElement(4): true");
+					assert S3.isElement(4) == true;
+					System.out.println("S3.isElement(9): false");
+					assert S3.isElement(9) == false;
+					System.out.println("S3.isElement(30): false");
+					assert S3.isElement(30) == false;
 				}
 				System.out.println("TEST 6 END");
 				System.out.println();
@@ -226,9 +246,12 @@ public class model_math
 
 					System.out.println("S1 = [3,11]");
 					System.out.println("S3 = complement(S1) = (-inf,3),(11,inf)");
-					System.out.println("S3.isElement(4): "+S3.isElement(4));
-					System.out.println("S3.isElement(9): "+S3.isElement(9));
-					System.out.println("S3.isElement(30): "+S3.isElement(30));
+					System.out.println("S3.isElement(4): false");
+					assert S3.isElement(4) == false;
+					System.out.println("S3.isElement(9): false");
+					assert S3.isElement(9) == false;
+					System.out.println("S3.isElement(30): true");
+					assert S3.isElement(30) == true;
 				}
 				System.out.println("TEST 7 END");
 				System.out.println();
@@ -269,10 +292,10 @@ public class model_math
 
 					Number n1 = math.number(0.5);
 					Number n2 = math.number(2.0);
-					System.out.println("n1 = number(0.5) = " + n1);
-					System.out.println("n2 = number(2.0) = " + n2);
-					System.out.println("n1 > n2: " + math.greaterThan(n1,n2));
-					System.out.println("n1 < n2: " + math.lessThan(n1,n2));
+					System.out.println("0.5 > 2.0: false");
+					assert math.greaterThan(n1,n2) == false;
+					System.out.println("0.5 < 2.0: true");
+					assert math.lessThan(n1,n2) == true;
 				}
 				System.out.println("TEST 3 END");
 				System.out.println();
@@ -286,15 +309,20 @@ public class model_math
 					System.out.println("n1 = number(0.4) = " + n1);
 					System.out.println("n2 = number(32) = " + n2);
 
-					System.out.println("-n1 = " + math.negate(n1));
-					System.out.println("n1 + n2 = " + math.add(n1,n2));
-					System.out.println("n1 - n2 = " + math.subtract(n1,n2));
-					System.out.println("n1 * n2 = " + math.multiply(n1,n2));
-					System.out.println("n1 / n2 = " + math.dividedBy(n1,n2));
-					System.out.println("n1 ^ 3 = " + math.pow(n1,3));
-					System.out.println("n1 ^ n2 = " + math.pow(n1,n2));
-					System.out.println("n1 ^ 32 = " + math.pow(n1,n2));
-					System.out.println("_/n1 = " + math.sqrt(n1));
+					System.out.println("-0.4 = -0.4");
+					assert math.equals(math.negate(n1),-0.4);
+					System.out.println("0.4 + 32 = 32.4");
+					assert math.equals(math.add(n1,n2),32.4);
+					System.out.println("0.4 - 32 = -31.6");
+					assert math.equals(math.subtract(n1,n2),-31.6);
+					System.out.println("0.4 * 32 = 12.8");
+					assert math.equals(math.multiply(n1,n2),12.8);
+					System.out.println("0.4 / 32 = 0.0125");
+					assert math.equals(math.dividedBy(n1,n2),0.0125);
+					System.out.println("0.4 ^ 3 = 0.064");
+					assert math.equals(math.pow(n1,3),0.064);
+					System.out.println("_/0.4 = 0.632455532");
+					assert math.equals(math.sqrt(n1),0.632455532);
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
@@ -333,15 +361,17 @@ public class model_math
 					Number[] v1 = math.vector(0.4,2,-1);
 					Number[] v2 = math.vector(0,-1,1);
 					Number n3 = math.number(32);
-					System.out.println("v1 = vector(0.4,2,-1) = " + toString(v1));
-					System.out.println("v2 = vector(0,-1,1) = " + toString(v2));
-					System.out.println("n3 = number(32) = " + n3);
 
-					System.out.println("-v1 = " + toString(math.negate(v1)));
-					System.out.println("v1 + v2 = " + toString(math.add(v1,v2)));
-					System.out.println("v1 - v2 = " + toString(math.subtract(v1,v2)));
-					System.out.println("v1 * n3 = " + toString(math.multiply(v1,n3)));
-					System.out.println("v1 / n3 = " + toString(math.dividedBy(v1,n3)));
+					System.out.println("-[0.4,2,-1] = [-0.4,-2,1]");
+					assert math.equals(math.negate(v1),new double[]{-0.4,-2,1});
+					System.out.println("[0.4,2,-1] + [0,-1,1] = [0.4,1,0]");
+					assert math.equals(math.add(v1,v2),new double[]{0.4,1,0});
+					System.out.println("[0.4,2,-1] - [0,-1,1] = [0.4,3,-2]");
+					assert math.equals(math.subtract(v1,v2),new double[]{0.4,3,-2});
+					System.out.println("[0.4,2,-1] * 32 = [12.8,64,-32]");
+					assert math.equals(math.multiply(v1,n3),new double[]{12.8,64,-32});
+					System.out.println("[0.4,2,-1] / 32 = [0.0125,0.0625,-0.03125]");
+					assert math.equals(math.dividedBy(v1,n3),new double[]{0.0125,0.0625,-0.03125});
 				}
 				System.out.println("TEST 3 END");
 				System.out.println();
@@ -352,13 +382,15 @@ public class model_math
 
 					Number[] v1 = math.vector(1,0,1);
 					Number[] v2 = math.vector(0,-1,1);
-					System.out.println("v1 = vector(1,0,1) = " + toString(v1));
-					System.out.println("v2 = vector(0,-1,1) = " + toString(v2));
 
-					System.out.println("|v1| = " + math.norm(v1));
-					System.out.println("v1^ = " + toString(math.normalize(v1)));
-					System.out.println("v1 . v2 = " + math.dotProduct(v1,v2));
-					System.out.println("v1 x v2 = " + toString(math.crossProduct(v1,v2)));
+					System.out.println("|[1,0,1]| =  1.41421356");
+					assert math.equals(math.norm(v1),1.41421356);
+					System.out.println("[1,0,1]^ = [0.70710678,0,0.70710678]");
+					assert math.equals(math.normalize(v1),new double[]{0.70710678,0,0.70710678});
+					System.out.println("[1,0,1] . [0,-1,1] = 1");
+					assert math.equals(math.dotProduct(v1,v2),1.0);
+					System.out.println("[1,0,1] x [0,-1,1] = [1,-1,-1]");
+					assert math.equals(math.crossProduct(v1,v2),new double[]{1,-1,-1});
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
@@ -399,15 +431,19 @@ public class model_math
 					Number[][] m1 = math.matrix(new double[][]{{0.4,2},{-1,5}});
 					Number[][] m2 = math.matrix(new double[][]{{0,-1},{1,2}});
 					Number n3 = math.number(32);
-					System.out.println("m1 = matrix({{0.4,2},{-1,5}}) = " + toString(m1));
-					System.out.println("m2 = matrix({{0,-1},{1,2}}) = " + toString(m2));
-					System.out.println("n3 = number(32) = " + n3);
+					System.out.println("m1 = " + toString(m1));
+					System.out.println("m2 = " + toString(m2));
 
-					System.out.println("-m1 = " + toString(math.negate(m1)));
-					System.out.println("m1 + m2 = " + toString(math.add(m1,m2)));
-					System.out.println("m1 - m2 = " + toString(math.subtract(m1,m2)));
-					System.out.println("m1 * n3 = " + toString(math.multiply(m1,n3)));
-					System.out.println("m1 / n3 = " + toString(math.dividedBy(m1,n3)));
+					System.out.println("-m1 = " + toString(new double[][]{{-0.4,-2},{1,-5}}));
+					assert math.equals(math.negate(m1),new double[][]{{-0.4,-2},{1,-5}});
+					System.out.println("m1 + m2 = " + toString(new double[][]{{0.4,1},{0,7}}));
+					assert math.equals(math.add(m1,m2),new double[][]{{0.4,1},{0,7}});
+					System.out.println("m1 - m2 = " + toString(new double[][]{{0.4,3},{-2,3}}));
+					assert math.equals(math.subtract(m1,m2),new double[][]{{0.4,3},{-2,3}});
+					System.out.println("m1 * 32 = " + toString(new double[][]{{12.8,64},{-32,160}}));
+					assert math.equals(math.multiply(m1,32),new double[][]{{12.8,64},{-32,160}});
+					System.out.println("m1 / 32 = " + toString(new double[][]{{0.0125,0.0625},{-0.03125,0.15625}}));
+					assert math.equals(math.dividedBy(m1,32),new double[][]{{0.0125,0.0625},{-0.03125,0.15625}});
 				}
 				System.out.println("TEST 3 END");
 				System.out.println();
@@ -418,11 +454,13 @@ public class model_math
 
 					Number[][] m1 = math.matrix(new double[][]{{0.4,2},{-1,5},{1,1}});
 					Number[][] m2 = math.matrix(new double[][]{{0,-1,3,0.2},{1,-1,0,2}});
-					System.out.println("m1 = matrix({{0.4,2},{-1,5},{1,1}}) = " + toString(m1));
-					System.out.println("m2 = matrix({{0,-1,3,0.2},{1,-1,0,2}}) = " + toString(m2));
+					System.out.println("m1 = " + toString(m1));
+					System.out.println("m2 = " + toString(m2));
 
-					System.out.println("m1^t = " + toString(math.transpose(m1)));
-					System.out.println("m1 * m2 = " + toString(math.matrixMultiply(m1,m2)));
+					System.out.println("m1^t = " + toString(new double[][]{{0.4,-1,1},{2,5,1}}));
+					assert math.equals(math.transpose(m1),new double[][]{{0.4,-1,1},{2,5,1}});
+					System.out.println("m1 * m2 = " + toString(new double[][]{{2,-2.4,1.2,4.08},{5,-4,-3,9.8},{1,-2,3,2.2}}));
+					assert math.equals(math.matrixMultiply(m1,m2),new double[][]{{2,-2.4,1.2,4.08},{5,-4,-3,9.8},{1,-2,3,2.2}});
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
@@ -433,16 +471,21 @@ public class model_math
 
 					Number[][] m1 = math.matrix(new double[][]{{0.4,3,2},{-1,5,5},{0,1,1}});
 					Number[] v2 = math.vector(2,3,4);
-					System.out.println("m1 = matrix({{0.4,3,2},{-1,5,5},{0,1,1}}) = " + toString(m1));
-					System.out.println("v2 = vector(2,3,4) = " + toString(v2));
+					System.out.println("m1 = " + toString(m1));
+					System.out.println("v2 = " + toString(v2));
 
-					System.out.println("m1^3 = " + toString(math.pow(m1,3)));
-					System.out.println("m1 * v2 = " + toString(math.matrixMultiply(m1,v2)));
-					System.out.println("v2 * m1 = " + toString(math.matrixMultiply(v2,m1)));
-					System.out.println("tr(m1) = " + math.trace(m1));
-					System.out.println("det(m1) = " + math.determinant33(m1));
-					System.out.println("m1^-1 = " + toString(math.invert33(m1)));
-					System.out.println("m1^-1 * m1 = " + toString(math.matrixMultiply(math.invert33(m1),m1)));
+					System.out.println("m1^3 = " + toString(new double[][]{{-19.336,100.28,103.12},{-29.16,146.8,152.2},{-6.4,33.0,34.0}}));
+					assert math.equals(math.pow(m1,3),new double[][]{{-19.336,100.28,103.12},{-29.16,146.8,152.2},{-6.4,33.0,34.0}});
+					System.out.println("m1 * v2 = " + toString(new double[]{17.8,33.0,7.0}));
+					assert math.equals(math.matrixMultiply(m1,v2),new double[]{17.8,33.0,7.0});
+					System.out.println("v2 * m1 = " + toString(new double[]{-2.2,25.0,23.0}));
+					assert math.equals(math.matrixMultiply(v2,m1),new double[]{-2.2,25.0,23.0});
+					System.out.println("tr(m1) = 6.4");
+					assert math.equals(math.trace(m1),6.4);
+					System.out.println("det(m1) = 1");
+					assert math.equals(math.determinant33(m1),1.0);
+					System.out.println("m1^-1 = " + toString(new double[][]{{0.0,-1.0,5.0},{1.0,0.4,-4.0},{-1.0,-0.4,5.0}}));
+					assert math.equals(math.invert33(m1),new double[][]{{0.0,-1.0,5.0},{1.0,0.4,-4.0},{-1.0,-0.4,5.0}});
 				}
 				System.out.println("TEST 5 END");
 				System.out.println();
@@ -453,14 +496,15 @@ public class model_math
 
 					Number[][] m1 = math.matrix(new double[][]{{0.4,3,2},{-1,5,5},{0,1,1}});
 					Number[] v2 = math.vector(2,3,4);
-					System.out.println("m1 = matrix({{0.4,3,2},{-1,5,5},{0,1,1}}) = " + toString(m1));
-					System.out.println("v2 = vector(2,3,4) = " + toString(v2));
+					System.out.println("m1 = " + toString(m1));
+					System.out.println("v2 = " + toString(v2));
 
 					Number[] v1 = math.matrixMultiply(m1,v2);
 					System.out.println("m1 * v2 = v1 = " + toString(v1));
 					
 					Number[] v2_ = math.solveByLU(m1,v1);
-					System.out.println("v2 - m1^-1 * v1 = " + toString(math.subtract(v2,v2_)));
+					System.out.println("v2_ = solve(m1,v1) = " + toString(v2_));
+					assert math.equals(v2,v2_);
 				}
 				System.out.println("TEST 6 END");
 				System.out.println();
@@ -470,10 +514,11 @@ public class model_math
 					NumberBasicEngine math = new NumberBasicEngine(1E-6);
 
 					Number[][] m1 = math.matrix(new double[][]{{0.4,3,2,5},{-1,5,5,2.3},{0,1,1,7}});
-					System.out.println("m1 = matrix({{0.4,3,2,5},{-1,5,5,2.3},{0,1,1,7}}) = " + toString(m1));
+					System.out.println("m1 = " + toString(m1));
 
 					Number[][] m2 = math.solveByGauss(m1);
-					System.out.println("m2 = solve(m1) = " + toString(m2));
+					System.out.println("m2 = solve(m1) = " + toString(new double[][]{{1,0,0,32.7},{0,1,0,-22.08},{0,0,1,29.08}}));
+					assert math.equals(m2,new double[][]{{1,0,0,32.7},{0,1,0,-22.08},{0,0,1,29.08}});
 				}
 				System.out.println("TEST 7 END");
 				System.out.println();
@@ -485,15 +530,14 @@ public class model_math
 					Number[] axis = math.normalize(math.vector(0,1,1));
 					Number angle = (Double)(Math.PI/3);
 					Number[] rvec = math.multiply(axis,angle);
-					System.out.println("axis = (0,1,1)^ = " + toString(axis));
-					System.out.println("angle = PI/3 = " + angle);
-					System.out.println("rvec = axis*angle = " + toString(rvec));
+					System.out.println("rvec = PI/3*[0,1,1]^ = " + toString(rvec));
 
 					Number[][] rmat = math.rotationVector2RotationMatrix(rvec);
 					System.out.println("rmat(rvec) = " + toString(rmat));
 
 					Number[] rvec_ = math.rotationMatrix2RotationVector(rmat);
 					System.out.println("rvec(rmat) = " + toString(rvec_));
+					assert math.equals(rvec,rvec_);
 				}
 				System.out.println("TEST 8 END");
 				System.out.println();
@@ -514,6 +558,21 @@ public class model_math
 	}
 
 	public static String toString( Number [][] m ) {
+		String str = "";
+		for ( int i=0; i<m.length; i++ )
+			str = str + "\n" + toString(m[i]);
+		return str;
+	}
+
+	public static String toString( double [] v ) {
+		String str = "[ " + v[0];
+		for ( int i=1; i<v.length; i++ )
+			str = str + ", " + v[i];
+		str = str + " ]";
+		return str;
+	}
+
+	public static String toString( double [][] m ) {
 		String str = "";
 		for ( int i=0; i<m.length; i++ )
 			str = str + "\n" + toString(m[i]);
