@@ -5,12 +5,12 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class SurfaceEngineForFunc implements SurfaceBasicEngine
+public class SurfaceBasicEngine implements SurfaceEngine
 {
-	public SurfaceEngineForFunc() {}
+	public SurfaceBasicEngine() {}
 
-	public SurfaceEngineForFunc clone() {
-		return new SurfaceEngineForFunc();
+	public SurfaceBasicEngine clone() {
+		return new SurfaceBasicEngine();
 	}
 
 	public Surface createSurfaceByFunction( Function<Number[],Number> func ) {

@@ -4,7 +4,7 @@ import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class FunctionBasicEngineForFunc implements FunctionBasicEngine
+public class FunctionBasicEngine implements FunctionEngine
 {
 
 	public < I, M, O > Function<I,O> compose( final Function<I,M> func1, final Function<M,O> func2 ) {

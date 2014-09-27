@@ -1,7 +1,7 @@
 package magicball.model.math;
 
 
-public interface SetBasicEngine
+public interface SetEngine
 {
 	@SuppressWarnings({"unchecked"})
 	public < E > Set<E> union( Set<E>... sets );

@@ -6,18 +6,18 @@ import magicball.model.*;
 import java.util.Arrays;
 
 
-public class RegionEngineForFunc implements RegionBasicEngine
+public class RegionBasicEngine implements RegionEngine
 {
-	protected SetBasicEngine setEngine;
-	protected NumberBasicEngine mathEngine;
+	protected SetEngine setEngine;
+	protected NumberEngine mathEngine;
 
-	public RegionEngineForFunc( NumberBasicEngine mathEng, SetBasicEngine setEng ) {
+	public RegionBasicEngine( NumberEngine mathEng, SetEngine setEng ) {
 		this.mathEngine = mathEng;
 		this.setEngine = setEng;
 	}
 
-	public RegionEngineForFunc clone() {
-		return new RegionEngineForFunc(this.mathEngine,this.setEngine);
+	public RegionBasicEngine clone() {
+		return new RegionBasicEngine(this.mathEngine,this.setEngine);
 	}
 
 	protected SurfaceFuncExpression cast( Surface face ) {
@@ -77,7 +77,7 @@ public class RegionEngineForFunc implements RegionBasicEngine
 	}
 
 	public Region createRegionByFace( final Surface face, final int side ) {
-		final NumberBasicEngine math = this.mathEngine;
+		final NumberEngine math = this.mathEngine;
 		return new RegionSetExpression(setEngine.createSetByIntensionalDefinition(new Function<Number[],Boolean>() {
 			public Boolean apply( Number [] vec ) {
 				return math.greaterThan(

@@ -1,7 +1,7 @@
 package magicball.model.math;
 
 
-public interface FunctionBasicEngine
+public interface FunctionEngine
 {
 	public < I, M, O > Function<I,O> compose( Function<I,M> func1, Function<M,O> func2 );
 	public < I > Function<I,I> createIdentityFunction();

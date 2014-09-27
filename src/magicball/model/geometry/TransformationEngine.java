@@ -3,9 +3,9 @@ package magicball.model.geometry;
 import magicball.model.math.Function;
 
 
-public interface TransformationBasicEngine
+public interface TransformationEngine
 {
-	public TransformationBasicEngine clone();
+	public TransformationEngine clone();
 	public Transformation compose( Transformation... trans );
 	public Transformation pow( Transformation trans, int exp );
 	public Transformation dividedBy( Transformation trans, Number divisor );

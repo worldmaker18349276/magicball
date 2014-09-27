@@ -3,16 +3,16 @@ package magicball.model.math.func;
 import magicball.model.math.*;
 
 
-public class NumberBasicEngineForFunc implements NumberBasicEngine
+public class NumberBasicEngine implements NumberEngine
 {
 	protected double epsilon;
 
-	public NumberBasicEngineForFunc( double eps ) {
+	public NumberBasicEngine( double eps ) {
 		this.epsilon = eps;
 	}
 
-	public NumberBasicEngineForFunc clone() {
-		return new NumberBasicEngineForFunc(this.epsilon);
+	public NumberBasicEngine clone() {
+		return new NumberBasicEngine(this.epsilon);
 	}
 
 	public double eps() {

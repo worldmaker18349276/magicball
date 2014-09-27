@@ -5,16 +5,16 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class TransformationEngineForFunc implements TransformationBasicEngine
+public class TransformationBasicEngine implements TransformationEngine
 {
-	protected NumberBasicEngine mathEngine;
+	protected NumberEngine mathEngine;
 
-	public TransformationEngineForFunc( NumberBasicEngine mathEng ) {
+	public TransformationBasicEngine( NumberEngine mathEng ) {
 		this.mathEngine = mathEng;
 	}
 
-	public TransformationEngineForFunc clone() {
-		return new TransformationEngineForFunc(this.mathEngine);
+	public TransformationBasicEngine clone() {
+		return new TransformationBasicEngine(this.mathEngine);
 	}
 
 	protected TransformationMatrixExpression cast( Transformation trans ) {
@@ -117,7 +117,7 @@ public class TransformationEngineForFunc implements TransformationBasicEngine
 	}
 
 	public Function<Number[],Number[]> createTransformationFunction( final Transformation trans ) {
-		final NumberBasicEngine math = this.mathEngine;
+		final NumberEngine math = this.mathEngine;
 		return new Function<Number[],Number[]>() {
 			public Number[] apply( Number[] in ) {
 				return math.add(math.matrixMultiply(cast(trans).getRotationMatrix(),in),cast(trans).getShiftVector());

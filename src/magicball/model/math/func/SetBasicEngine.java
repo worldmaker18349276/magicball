@@ -3,7 +3,7 @@ package magicball.model.math.func;
 import magicball.model.*;
 import magicball.model.math.*;
 
-public class SetBasicEngineForFunc implements SetBasicEngine
+public class SetBasicEngine implements SetEngine
 {
 	@SafeVarargs
 	final public < E > Set<E> union( final Set<E>... sets ) {

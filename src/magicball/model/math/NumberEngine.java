@@ -1,9 +1,9 @@
 package magicball.model.math;
 
 
-public interface NumberBasicEngine
+public interface NumberEngine
 {
-	public NumberBasicEngine clone();
+	public NumberEngine clone();
 
 	// scalar ( Number )
 	public Number number( double n );

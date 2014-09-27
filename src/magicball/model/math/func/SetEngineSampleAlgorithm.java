@@ -3,11 +3,11 @@ package magicball.model.math.func;
 import magicball.model.*;
 import magicball.model.math.*;
 
-public class SetBasicEngineSampleAlgorithmForFunc < E > extends SetBasicEngineForFunc
+public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 {
 	protected java.util.Set<E> samples;
 
-	public SetBasicEngineSampleAlgorithmForFunc( java.util.Set<E> sam ) {
+	public SetEngineSampleAlgorithm( java.util.Set<E> sam ) {
 		this.samples = sam;
 	}
 

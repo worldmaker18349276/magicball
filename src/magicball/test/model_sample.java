@@ -18,7 +18,7 @@ public class model_sample
 					java.util.Set<Integer> sam = new java.util.HashSet<Integer>();
 					for ( int i=-100; i<100; i++ )
 						sam.add(i);
-					SetBasicEngine setEngine = new SetBasicEngineSampleAlgorithmForFunc<Integer>(sam);
+					SetEngine setEngine = new SetEngineSampleAlgorithm<Integer>(sam);
 
 					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
 						public Boolean apply( Integer n ) {
