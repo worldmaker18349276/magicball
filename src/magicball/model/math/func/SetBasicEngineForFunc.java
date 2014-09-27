@@ -1,5 +1,6 @@
 package magicball.model.math.func;
 
+import magicball.model.*;
 import magicball.model.math.*;
 
 public class SetBasicEngineForFunc implements SetBasicEngine
@@ -70,7 +71,7 @@ public class SetBasicEngineForFunc implements SetBasicEngine
 		};
 	}
 
-	public < E > Set<E> createUniverseSet() {
+	public < E > Set<E> createUniversalSet() {
 		return new Set<E>() {
 			public boolean isElement( E element ) {
 				return true;
@@ -84,5 +85,21 @@ public class SetBasicEngineForFunc implements SetBasicEngine
 				return func.apply(element);
 			}
 		};
+	}
+
+	public < E > boolean isEmpty( Set<E> set ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public < E > boolean isUniversal( Set<E> set ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public < E > boolean equals( Set<E> set1, Set<E> set2 ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public < E > boolean containsAll( Set<E> set1, Set<E> set2 ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public < E > boolean contains( Set<E> set1, E e ) {
+		throw new UnsupportedAlgorithmException();
 	}
 }

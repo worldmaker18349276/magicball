@@ -69,7 +69,7 @@ public class RegionEngineForFunc implements RegionBasicEngine
 	}
 
 	public Region createUniverseRegion() {
-		return new RegionSetExpression(setEngine.<Number[]>createUniverseSet());
+		return new RegionSetExpression(setEngine.<Number[]>createUniversalSet());
 	}
 
 	public Region createEmptyRegion() {

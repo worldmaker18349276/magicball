@@ -114,9 +114,9 @@ public class model_math
 				{
 					SetBasicEngine setEngine = new SetBasicEngineForFunc();
 
-					Set<String> S = setEngine.<String>createUniverseSet();
+					Set<String> S = setEngine.<String>createUniversalSet();
 
-					System.out.println("S = { s | s is String } (UniverseSet)");
+					System.out.println("S = { s | s is String } (UniversalSet)");
 					System.out.println("S.isElement(\"ha\"): true");
 					assert S.isElement("ha") == true;
 					System.out.println("S.isElement(\"false\"): true");
