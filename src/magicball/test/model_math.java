@@ -156,7 +156,6 @@ public class model_math
 						}
 					});
 
-					@SuppressWarnings({"unchecked"})
 					Set<Integer> S3 = setEngine.union(S1,S2);
 
 					System.out.println("S1 = [3,11]");
@@ -188,7 +187,6 @@ public class model_math
 						}
 					});
 
-					@SuppressWarnings({"unchecked"})
 					Set<Integer> S3 = setEngine.intersect(S1,S2);
 
 					System.out.println("S1 = [3,11]");

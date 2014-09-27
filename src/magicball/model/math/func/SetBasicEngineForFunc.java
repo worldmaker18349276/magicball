@@ -16,6 +16,14 @@ public class SetBasicEngineForFunc implements SetBasicEngine
 		};
 	}
 
+	public < E > Set<E> union( final Set<E> set1, final Set<E> set2 ) {
+		return new Set<E>() {
+			public boolean isElement( E element ) {
+				return set1.isElement(element) || set2.isElement(element);
+			}
+		};
+	}
+
 	@SafeVarargs
 	final public < E > Set<E> intersect( final Set<E>... sets ) {
 		return new Set<E>() {
@@ -24,6 +32,14 @@ public class SetBasicEngineForFunc implements SetBasicEngine
 					if ( !set.isElement(element) )
 						return false;
 				return true;
+			}
+		};
+	}
+
+	public < E > Set<E> intersect( final Set<E> set1, final Set<E> set2 ) {
+		return new Set<E>() {
+			public boolean isElement( E element ) {
+				return set1.isElement(element) && set2.isElement(element);
 			}
 		};
 	}
