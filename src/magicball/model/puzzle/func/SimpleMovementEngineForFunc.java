@@ -4,6 +4,7 @@ import magicball.model.geometry.*;
 import magicball.model.geometry.func.*;
 import magicball.model.puzzle.*;
 import magicball.model.math.*;
+import magicball.model.*;
 
 
 public class SimpleMovementEngineForFunc implements MovementBasicEngine
@@ -20,12 +21,22 @@ public class SimpleMovementEngineForFunc implements MovementBasicEngine
 		return new SimpleMovementEngineForFunc(this.mathEngine,this.transEngine);
 	}
 
-	public Movement createSimpleMovementByTransformation( Transformation trans ) {
+	public SimpleMovementTransExpression cast( SimpleMovement move ) {
+		try {
+			return (SimpleMovementTransExpression) move;
+		} catch ( ClassCastException e ) {
+			throw new UnsupportedExpressionException(move.getClass());
+		}
+	}
+
+	public SimpleMovement createSimpleMovementByTransformation( Transformation trans ) {
 		return new SimpleMovementTransExpression(trans);
 	}
 
 	public Transformation divideMovementIntoTransformation( Movement move, Number from, Number to ) {
-		SimpleMovementTransExpression smove = (SimpleMovementTransExpression) move;
-		return transEngine.dividedBy(smove.getTransformation(),mathEngine.subtract(to,from));
+		if ( move instanceof SimpleMovement )
+			return transEngine.dividedBy(cast((SimpleMovement)move).getTransformation(),mathEngine.subtract(to,from));
+		else
+			throw new UnsupportedAlgorithmException();
 	}
 }

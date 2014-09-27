@@ -2,6 +2,7 @@ package magicball.model.geometry.func;
 
 import magicball.model.geometry.*;
 import magicball.model.math.*;
+import magicball.model.*;
 
 
 public class TransformationEngineForFunc implements TransformationBasicEngine
@@ -17,7 +18,11 @@ public class TransformationEngineForFunc implements TransformationBasicEngine
 	}
 
 	protected TransformationMatrixExpression cast( Transformation trans ) {
-		return (TransformationMatrixExpression) trans;
+		try {
+			return (TransformationMatrixExpression) trans;
+		} catch ( ClassCastException e ) {
+			throw new UnsupportedExpressionException(trans.getClass());
+		}
 	}
 
 	public Transformation createIdentityTransformation() {

@@ -2,6 +2,7 @@ package magicball.model.geometry.func;
 
 import magicball.model.geometry.*;
 import magicball.model.math.*;
+import magicball.model.*;
 import java.util.Arrays;
 
 
@@ -20,15 +21,27 @@ public class RegionEngineForFunc implements RegionBasicEngine
 	}
 
 	protected SurfaceFuncExpression cast( Surface face ) {
-		return (SurfaceFuncExpression) face;
+		try {
+			return (SurfaceFuncExpression) face;
+		} catch ( ClassCastException e ) {
+			throw new UnsupportedExpressionException(face.getClass());
+		}
 	}
 
 	protected RegionSetExpression cast( Region reg ) {
-		return (RegionSetExpression) reg;
+		try {
+			return (RegionSetExpression) reg;
+		} catch ( ClassCastException e ) {
+			throw new UnsupportedExpressionException(reg.getClass());
+		}
 	}
 
-	protected RegionSetExpression[] cast( Region[] reg_ ) {
-		return Arrays.copyOf(reg_,reg_.length,RegionSetExpression[].class);
+	protected RegionSetExpression[] cast( Region[] reg ) {
+		try {
+			return Arrays.copyOf(reg,reg.length,RegionSetExpression[].class);
+		} catch ( ClassCastException e ) {
+			throw new UnsupportedExpressionException(reg.getClass());
+		}
 	}
 
 	@SuppressWarnings({"unchecked"})
