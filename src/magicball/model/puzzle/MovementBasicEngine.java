@@ -3,9 +3,9 @@ package magicball.model.puzzle;
 import magicball.model.geometry.*;
 
 
-public interface MovementBasicEngine < M extends Movement, T extends Transformation >
+public interface MovementBasicEngine
 {
 	public MovementBasicEngine clone();
-	public M createSimpleMovementByTransformation( T trans );
-	public T divideMovementIntoTransformation( M move, Number from, Number to );
+	public Movement createSimpleMovementByTransformation( Transformation trans );
+	public Transformation divideMovementIntoTransformation( Movement move, Number from, Number to );
 }

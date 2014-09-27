@@ -4,21 +4,21 @@ import magicball.model.geometry.*;
 
 
 // definition: a geometric operation that continously move geometric object in space.
-public class RegionalMovement < M extends Movement, R extends Region >
+public class RegionalMovement
 {
-	protected R region;
-	protected M move;
+	protected Region region;
+	protected Movement move;
 
-	public RegionalMovement( R reg, M m ) {
+	public RegionalMovement( Region reg, Movement m ) {
 		this.region = reg;
 		this.move = m;
 	}
 
-	public R getRegion() {
+	public Region getRegion() {
 		return this.region;
 	}
 
-	public M getMovement() {
+	public Movement getMovement() {
 		return this.move;
 	}
 }

@@ -4,15 +4,15 @@ import magicball.model.geometry.*;
 import magicball.model.puzzle.*;
 
 
-public class SimpleMovementTransExpression < T extends Transformation > extends Movement
+public class SimpleMovementTransExpression extends Movement
 {
-	final private T transformation;
+	final private Transformation transformation;
 
-	public SimpleMovementTransExpression( T trans ) {
+	public SimpleMovementTransExpression( Transformation trans ) {
 		this.transformation = trans;
 	}
 
-	final public T getTransformation() {
+	final public Transformation getTransformation() {
 		return this.transformation;
 	}
 }

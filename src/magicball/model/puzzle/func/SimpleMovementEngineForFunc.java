@@ -1,16 +1,17 @@
 package magicball.model.puzzle.func;
 
+import magicball.model.geometry.*;
 import magicball.model.geometry.func.*;
 import magicball.model.puzzle.*;
 import magicball.model.math.*;
 
 
-public class SimpleMovementEngineForFunc implements MovementBasicEngine<SimpleMovementTransExpression<TransformationMatrixExpression>,TransformationMatrixExpression>
+public class SimpleMovementEngineForFunc implements MovementBasicEngine
 {
-	protected TransformationEngineForFunc transEngine;
+	protected TransformationBasicEngine transEngine;
 	protected NumberBasicEngine mathEngine;
 
-	public SimpleMovementEngineForFunc( NumberBasicEngine mathEng, TransformationEngineForFunc transEng ) {
+	public SimpleMovementEngineForFunc( NumberBasicEngine mathEng, TransformationBasicEngine transEng ) {
 		this.mathEngine = mathEng;
 		this.transEngine = transEng;
 	}
@@ -19,11 +20,12 @@ public class SimpleMovementEngineForFunc implements MovementBasicEngine<SimpleMo
 		return new SimpleMovementEngineForFunc(this.mathEngine,this.transEngine);
 	}
 
-	public SimpleMovementTransExpression<TransformationMatrixExpression> createSimpleMovementByTransformation( TransformationMatrixExpression trans ) {
-		return new SimpleMovementTransExpression<TransformationMatrixExpression>(trans);
+	public Movement createSimpleMovementByTransformation( Transformation trans ) {
+		return new SimpleMovementTransExpression(trans);
 	}
 
-	public TransformationMatrixExpression divideMovementIntoTransformation( SimpleMovementTransExpression<TransformationMatrixExpression> move, Number from, Number to ) {
-		return transEngine.divide(move.getTransformation(),mathEngine.subtract(to,from));
+	public Transformation divideMovementIntoTransformation( Movement move, Number from, Number to ) {
+		SimpleMovementTransExpression smove = (SimpleMovementTransExpression) move;
+		return transEngine.dividedBy(smove.getTransformation(),mathEngine.subtract(to,from));
 	}
 }

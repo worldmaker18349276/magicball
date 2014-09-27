@@ -4,19 +4,19 @@ import magicball.model.geometry.*;
 
 
 // definition: a geometric object that occupy a specific region and is rigid.
-public class Solid < R extends Region >
+public class Solid
 {
-	final private R region;
+	final private Region region;
 
-	public Solid( R reg ) {
+	public Solid( Region reg ) {
 		this.region = reg;
 	}
 
-	public Solid<R> clone() {
-		return new Solid<R>(getOccupiedRegion());
+	public Solid clone() {
+		return new Solid(getOccupiedRegion());
 	}
 
-	final public R getOccupiedRegion() {
+	public Region getOccupiedRegion() {
 		return this.region;
 	}
 }
