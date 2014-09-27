@@ -23,22 +23,33 @@ public class FunctionBasicEngineForFunc implements FunctionBasicEngine
 		};
 	}
 
+	public < I, O > O applies( Function<I,O> func, I in ) {
+		return func.apply(in);
+	}
+
+	public < I, O > java.util.Set<O> appliesAll( Function<I,O> func, java.util.Set<I> ins ) {
+		java.util.Set<O> outs = new java.util.HashSet<O>();
+		for ( I in : ins )
+			outs.add(applies(func,in));
+		return outs;
+	}
+
+	public < I, O > java.util.Map.Entry<I,O> maps( Function<I,O> func, I in ) {
+		return new java.util.AbstractMap.SimpleEntry<I,O>(in,func.apply(in));
+	}
+
+	public < I, O > java.util.Map<I,O> mapsAll( Function<I,O> func, java.util.Set<I> ins ) {
+		java.util.Map<I,O> outs = new java.util.HashMap<I,O>();
+		for ( I in : ins )
+			outs.put(in,applies(func,in));
+		return outs;
+	}
+
+
 	public < I, O > Function<I,O> equals( Function<I,O> func1, Function<I,O> func2 ) {
 		throw new UnsupportedAlgorithmException();
 	}
 	public < I, O > Function<O,I> invert( Function<I,O> func ) {
-		throw new UnsupportedAlgorithmException();
-	}
-	public < I, O > O applies( Function<I,O> func, I in ) {
-		throw new UnsupportedAlgorithmException();
-	}
-	public < I, O > java.util.Set<O> appliesAll( Function<I,O> func, java.util.Set<I> ins ) {
-		throw new UnsupportedAlgorithmException();
-	}
-	public < I, O > java.util.Map.Entry<I,O> maps( Function<I,O> func, I in ) {
-		throw new UnsupportedAlgorithmException();
-	}
-	public < I, O > java.util.Map<I,O> mapsAll( Function<I,O> func, java.util.Set<I> ins ) {
 		throw new UnsupportedAlgorithmException();
 	}
 }

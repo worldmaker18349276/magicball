@@ -99,7 +99,8 @@ public class SetBasicEngineForFunc implements SetBasicEngine
 	public < E > boolean containsAll( Set<E> set1, Set<E> set2 ) {
 		throw new UnsupportedAlgorithmException();
 	}
-	public < E > boolean contains( Set<E> set1, E e ) {
-		throw new UnsupportedAlgorithmException();
+
+	public < E > boolean contains( Set<E> set, E e ) {
+		return set.isElement(e);
 	}
 }

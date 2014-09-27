@@ -88,20 +88,26 @@ public class RegionEngineForFunc implements RegionBasicEngine
 	}
 
 	public boolean isEmpty( Region reg ) {
-		throw new UnsupportedAlgorithmException();
+		return this.setEngine.isEmpty(cast(reg).getSet());
 	}
+
 	public boolean isUniversal( Region reg ) {
-		throw new UnsupportedAlgorithmException();
+		return this.setEngine.isUniversal(cast(reg).getSet());
 	}
+
 	public boolean equals( Region reg1, Region reg2 ) {
-		throw new UnsupportedAlgorithmException();
+		return this.setEngine.equals(cast(reg1).getSet(),cast(reg2).getSet());
 	}
+
 	public boolean contains( Region reg, Number[] point ) {
 		return cast(reg).getSet().isElement(point);
 	}
+
 	public boolean containsAll( Region reg1, Region reg2 ) {
-		throw new UnsupportedAlgorithmException();
+		return this.setEngine.containsAll(cast(reg1).getSet(),cast(reg2).getSet());
 	}
+
+	
 	public Region transformsBy( Region reg, Transformation trans ) {
 		throw new UnsupportedAlgorithmException();
 	}
