@@ -1,15 +1,19 @@
 package magicball.model.geometry;
 
+import magicball.model.math.Function;
 
-public interface TransformationBasicEngine < T extends Transformation >
+
+public interface TransformationBasicEngine
 {
 	public TransformationBasicEngine clone();
-	public T compose( T[] trans );
-	public T pow( T trans, int exp );
-	public T dividedBy( T trans, Number divisor );
-	public T invert( T trans );
-	public T createIdentityTransformation();
-	public boolean isIdentity( T trans );
-	public boolean isRotation( T trans );
-	public boolean isShift( T trans );
+	public Transformation compose( Transformation[] trans );
+	public Transformation pow( Transformation trans, int exp );
+	public Transformation dividedBy( Transformation trans, Number divisor );
+	public Transformation invert( Transformation trans );
+	public Transformation createIdentityTransformation();
+	public Function<Number[],Number[]> createTransformationFunction( Transformation trans );
+	public boolean isIdentity( Transformation trans );
+	public boolean isRotation( Transformation trans );
+	public boolean isShift( Transformation trans );
+	public boolean equals( Transformation trans1, Transformation trans2 );
 }

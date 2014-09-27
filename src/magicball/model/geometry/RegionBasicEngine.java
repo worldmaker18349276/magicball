@@ -1,14 +1,14 @@
 package magicball.model.geometry;
 
 
-public interface RegionBasicEngine < R extends Region, F extends Surface >
+public interface RegionBasicEngine
 {
 	public RegionBasicEngine clone();
-	public R intersect( R[] regs );
-	public R union( R[] regs );
-	public R complement( R reg1, R reg2 );
-	public R complement( R reg2 );
-	public R createUniverseRegion();
-	public R createEmptyRegion();
-	public R createRegionByFace( F face, int side );
+	public Region intersect( Region[] regs );
+	public Region union( Region[] regs );
+	public Region complement( Region reg1, Region reg2 );
+	public Region complement( Region reg2 );
+	public Region createUniverseRegion();
+	public Region createEmptyRegion();
+	public Region createRegionByFace( Surface face, int side );
 }

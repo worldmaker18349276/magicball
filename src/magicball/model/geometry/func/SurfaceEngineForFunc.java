@@ -4,7 +4,7 @@ import magicball.model.geometry.*;
 import magicball.model.math.*;
 
 
-public class SurfaceEngineForFunc implements SurfaceBasicEngine<SurfaceFuncExpression>
+public class SurfaceEngineForFunc implements SurfaceBasicEngine
 {
 	public SurfaceEngineForFunc() {}
 
@@ -12,7 +12,7 @@ public class SurfaceEngineForFunc implements SurfaceBasicEngine<SurfaceFuncExpre
 		return new SurfaceEngineForFunc();
 	}
 
-	public SurfaceFuncExpression createSurfaceByFunction( Function<Number[],Number> func ) {
+	public Surface createSurfaceByFunction( Function<Number[],Number> func ) {
 		return new SurfaceFuncExpression(func);
 	}
 }

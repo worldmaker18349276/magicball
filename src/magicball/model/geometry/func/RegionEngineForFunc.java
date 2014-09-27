@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.lang.reflect.Array;
 
 
-public class RegionEngineForFunc implements RegionBasicEngine<RegionSetExpression,SurfaceFuncExpression>
+public class RegionEngineForFunc implements RegionBasicEngine
 {
 	protected SetBasicEngine setEngine;
 	protected NumberBasicEngine mathEngine;
@@ -20,6 +20,18 @@ public class RegionEngineForFunc implements RegionBasicEngine<RegionSetExpressio
 		return new RegionEngineForFunc(this.mathEngine,this.setEngine);
 	}
 
+	protected SurfaceFuncExpression cast( Surface face ) {
+		return (SurfaceFuncExpression) face;
+	}
+
+	protected RegionSetExpression cast( Region reg ) {
+		return (RegionSetExpression) reg;
+	}
+
+	protected RegionSetExpression[] cast( Region[] reg ) {
+		return (RegionSetExpression[]) reg;
+	}
+
 	@SuppressWarnings({"unchecked"})
 	protected Set<Number[]> [] getSets( RegionSetExpression [] regs ) {
 		Set<Number[]> [] sets = new Set [ regs.length ];
@@ -28,36 +40,36 @@ public class RegionEngineForFunc implements RegionBasicEngine<RegionSetExpressio
 		return sets;
 	}
 
-	public RegionSetExpression intersect( RegionSetExpression... regs ) {
-		return new RegionSetExpression(setEngine.intersect(getSets(regs)));
+	public Region intersect( Region... regs ) {
+		return new RegionSetExpression(setEngine.intersect(getSets(cast(regs))));
 	}
 
-	public RegionSetExpression union( RegionSetExpression... regs ) {
-		return new RegionSetExpression(setEngine.union(getSets(regs)));
+	public Region union( Region... regs ) {
+		return new RegionSetExpression(setEngine.union(getSets(cast(regs))));
 	}
 
-	public RegionSetExpression complement( RegionSetExpression reg1, RegionSetExpression reg2 ) {
-		return new RegionSetExpression(setEngine.complement(reg1.getSet(),reg2.getSet()));
+	public Region complement( Region reg1, Region reg2 ) {
+		return new RegionSetExpression(setEngine.complement(cast(reg1).getSet(),cast(reg2).getSet()));
 	}
 
-	public RegionSetExpression complement( RegionSetExpression reg2 ) {
-		return new RegionSetExpression(setEngine.complement(reg2.getSet()));
+	public Region complement( Region reg2 ) {
+		return new RegionSetExpression(setEngine.complement(cast(reg2).getSet()));
 	}
 
-	public RegionSetExpression createUniverseRegion() {
+	public Region createUniverseRegion() {
 		return new RegionSetExpression(setEngine.<Number[]>createUniverseSet());
 	}
 
-	public RegionSetExpression createEmptyRegion() {
+	public Region createEmptyRegion() {
 		return new RegionSetExpression(setEngine.<Number[]>createEmptySet());
 	}
 
-	public RegionSetExpression createRegionByFace( final SurfaceFuncExpression face, final int side ) {
+	public Region createRegionByFace( final Surface face, final int side ) {
 		final NumberBasicEngine math = this.mathEngine;
 		return new RegionSetExpression(setEngine.createSetByIntensionalDefinition(new Function<Number[],Boolean>() {
 			public Boolean apply( Number [] vec ) {
 				return math.greaterThan(
-					math.multiply( face.getFunction().apply(vec), math.number(side) ),
+					math.multiply( cast(face).getFunction().apply(vec), math.number(side) ),
 					math.number0());
 			}
 		}));
