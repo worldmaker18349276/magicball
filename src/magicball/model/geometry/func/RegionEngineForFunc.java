@@ -68,7 +68,7 @@ public class RegionEngineForFunc implements RegionBasicEngine
 		return new RegionSetExpression(setEngine.complement(cast(reg2).getSet()));
 	}
 
-	public Region createUniverseRegion() {
+	public Region createUniversalRegion() {
 		return new RegionSetExpression(setEngine.<Number[]>createUniversalSet());
 	}
 
@@ -87,7 +87,25 @@ public class RegionEngineForFunc implements RegionBasicEngine
 		}));
 	}
 
-	public boolean contain( Region reg, Number[] point ) {
+	public boolean isEmpty( Region reg ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public boolean isUniversal( Region reg ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public boolean equals( Region reg1, Region reg2 ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public boolean contains( Region reg, Number[] point ) {
 		return cast(reg).getSet().isElement(point);
+	}
+	public boolean containsAll( Region reg1, Region reg2 ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public Region transformsBy( Region reg, Transformation trans ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public Region reflectsBy( Region reg, Reflection ref ) {
+		throw new UnsupportedAlgorithmException();
 	}
 }

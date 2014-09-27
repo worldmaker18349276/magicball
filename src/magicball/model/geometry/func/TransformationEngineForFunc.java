@@ -124,4 +124,11 @@ public class TransformationEngineForFunc implements TransformationBasicEngine
 			}
 		};
 	}
+
+	public Reflection createReflectionByPlane( Surface plane ) {
+		throw new UnsupportedAlgorithmException();
+	}
+	public Function<Number[],Number[]> createReflectionFunction( Reflection ref ) {
+		throw new UnsupportedAlgorithmException();
+	}
 }

@@ -16,4 +16,7 @@ public interface TransformationBasicEngine
 	public boolean isRotation( Transformation trans );
 	public boolean isShift( Transformation trans );
 	public boolean equals( Transformation trans1, Transformation trans2 );
+
+	public Reflection createReflectionByPlane( Surface plane );
+	public Function<Number[],Number[]> createReflectionFunction( Reflection ref );
 }
