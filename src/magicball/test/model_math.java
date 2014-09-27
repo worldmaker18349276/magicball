@@ -1,6 +1,7 @@
 package magicball.test;
 
 import magicball.model.math.*;
+import magicball.model.math.func.*;
 
 
 public class model_math
@@ -46,7 +47,7 @@ public class model_math
 
 				System.out.println("TEST 3:");
 				{
-					FunctionBasicEngine funcEngine = new FunctionBasicEngine();
+					FunctionBasicEngine funcEngine = new FunctionBasicEngineForFunc();
 
 					Function<Integer[],Integer> f = new Function<Integer[],Integer>() {
 						public Integer apply( Integer[] v ) {
@@ -72,7 +73,7 @@ public class model_math
 
 				System.out.println("TEST 4:");
 				{
-					FunctionBasicEngine funcEngine = new FunctionBasicEngine();
+					FunctionBasicEngine funcEngine = new FunctionBasicEngineForFunc();
 
 					Function<Byte,Byte> s = funcEngine.<Byte>createIdentityFunction();
 
@@ -91,7 +92,7 @@ public class model_math
 			{
 				System.out.println("TEST 1:");
 				{
-					SetBasicEngine setEngine = new SetBasicEngine();
+					SetBasicEngine setEngine = new SetBasicEngineForFunc();
 
 					Function<Integer,Boolean> g = new Function<Integer,Boolean>() {
 						public Boolean apply( Integer n ) {
@@ -111,7 +112,7 @@ public class model_math
 
 				System.out.println("TEST 2:");
 				{
-					SetBasicEngine setEngine = new SetBasicEngine();
+					SetBasicEngine setEngine = new SetBasicEngineForFunc();
 
 					Set<String> S = setEngine.<String>createUniverseSet();
 
@@ -126,7 +127,7 @@ public class model_math
 
 				System.out.println("TEST 3:");
 				{
-					SetBasicEngine setEngine = new SetBasicEngine();
+					SetBasicEngine setEngine = new SetBasicEngineForFunc();
 
 					Set<Boolean> S = setEngine.<Boolean>createEmptySet();
 
@@ -141,7 +142,7 @@ public class model_math
 
 				System.out.println("TEST 4:");
 				{
-					SetBasicEngine setEngine = new SetBasicEngine();
+					SetBasicEngine setEngine = new SetBasicEngineForFunc();
 
 					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
 						public Boolean apply( Integer n ) {
@@ -155,6 +156,7 @@ public class model_math
 						}
 					});
 
+					@SuppressWarnings({"unchecked"})
 					Set<Integer> S3 = setEngine.union(S1,S2);
 
 					System.out.println("S1 = [3,11]");
@@ -172,7 +174,7 @@ public class model_math
 
 				System.out.println("TEST 5:");
 				{
-					SetBasicEngine setEngine = new SetBasicEngine();
+					SetBasicEngine setEngine = new SetBasicEngineForFunc();
 
 					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
 						public Boolean apply( Integer n ) {
@@ -186,6 +188,7 @@ public class model_math
 						}
 					});
 
+					@SuppressWarnings({"unchecked"})
 					Set<Integer> S3 = setEngine.intersect(S1,S2);
 
 					System.out.println("S1 = [3,11]");
@@ -203,7 +206,7 @@ public class model_math
 
 				System.out.println("TEST 6:");
 				{
-					SetBasicEngine setEngine = new SetBasicEngine();
+					SetBasicEngine setEngine = new SetBasicEngineForFunc();
 
 					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
 						public Boolean apply( Integer n ) {
@@ -234,7 +237,7 @@ public class model_math
 
 				System.out.println("TEST 7:");
 				{
-					SetBasicEngine setEngine = new SetBasicEngine();
+					SetBasicEngine setEngine = new SetBasicEngineForFunc();
 
 					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
 						public Boolean apply( Integer n ) {
@@ -262,7 +265,7 @@ public class model_math
 			{
 				System.out.println("TEST 1:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number n1 = math.number(2.4);
 					Number n2 = math.number1();
@@ -277,7 +280,7 @@ public class model_math
 				
 				System.out.println("TEST 2:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number n1 = math.number(1.0/3*3);
 					System.out.println("n1 = number(1.0/3*3) = " + n1);
@@ -288,7 +291,7 @@ public class model_math
 
 				System.out.println("TEST 3:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number n1 = math.number(0.5);
 					Number n2 = math.number(2.0);
@@ -302,7 +305,7 @@ public class model_math
 
 				System.out.println("TEST 4:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number n1 = math.number(0.4);
 					Number n2 = math.number(32);
@@ -333,7 +336,7 @@ public class model_math
 			{
 				System.out.println("TEST 1:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[] v1 = math.vector(2.4,3,-0.5);
 					Number[] v2 = math.vector0(3);
@@ -345,7 +348,7 @@ public class model_math
 				
 				System.out.println("TEST 2:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[] v1 = math.vector(1.0/3*3-1,1.0/9*9-1);
 					System.out.println("v1 = vector(1.0/3*3-1,1.0/9*9-1) = " + toString(v1));
@@ -356,7 +359,7 @@ public class model_math
 
 				System.out.println("TEST 3:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[] v1 = math.vector(0.4,2,-1);
 					Number[] v2 = math.vector(0,-1,1);
@@ -378,7 +381,7 @@ public class model_math
 
 				System.out.println("TEST 4:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[] v1 = math.vector(1,0,1);
 					Number[] v2 = math.vector(0,-1,1);
@@ -401,7 +404,7 @@ public class model_math
 			{
 				System.out.println("TEST 1:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[][] m1 = math.matrix(new double[][]{{1,2},{3,4}});
 					Number[][] m2 = math.matrix0(3,2);
@@ -415,7 +418,7 @@ public class model_math
 				
 				System.out.println("TEST 2:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[][] m1 = math.matrix(new double[][]{{1.0/3*3,0.0},{0.0,1.0/9*9}});
 					System.out.println("m1 = matrix({{1.0/3*3,0.0},{0.0,1.0/9*9}}) = " + toString(m1));
@@ -426,7 +429,7 @@ public class model_math
 
 				System.out.println("TEST 3:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[][] m1 = math.matrix(new double[][]{{0.4,2},{-1,5}});
 					Number[][] m2 = math.matrix(new double[][]{{0,-1},{1,2}});
@@ -450,7 +453,7 @@ public class model_math
 
 				System.out.println("TEST 4:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[][] m1 = math.matrix(new double[][]{{0.4,2},{-1,5},{1,1}});
 					Number[][] m2 = math.matrix(new double[][]{{0,-1,3,0.2},{1,-1,0,2}});
@@ -467,7 +470,7 @@ public class model_math
 
 				System.out.println("TEST 5:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[][] m1 = math.matrix(new double[][]{{0.4,3,2},{-1,5,5},{0,1,1}});
 					Number[] v2 = math.vector(2,3,4);
@@ -492,7 +495,7 @@ public class model_math
 
 				System.out.println("TEST 6:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[][] m1 = math.matrix(new double[][]{{0.4,3,2},{-1,5,5},{0,1,1}});
 					Number[] v2 = math.vector(2,3,4);
@@ -511,7 +514,7 @@ public class model_math
 
 				System.out.println("TEST 7:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[][] m1 = math.matrix(new double[][]{{0.4,3,2,5},{-1,5,5,2.3},{0,1,1,7}});
 					System.out.println("m1 = " + toString(m1));
@@ -525,7 +528,7 @@ public class model_math
 
 				System.out.println("TEST 8:");
 				{
-					NumberBasicEngine math = new NumberBasicEngine(1E-6);
+					NumberBasicEngine math = new NumberBasicEngineForFunc(1E-6);
 
 					Number[] axis = math.normalize(math.vector(0,1,1));
 					Number angle = (Double)(Math.PI/3);
