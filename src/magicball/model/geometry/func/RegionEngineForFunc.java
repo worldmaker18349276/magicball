@@ -3,7 +3,6 @@ package magicball.model.geometry.func;
 import magicball.model.geometry.*;
 import magicball.model.math.*;
 import java.util.Arrays;
-import java.lang.reflect.Array;
 
 
 public class RegionEngineForFunc implements RegionBasicEngine
@@ -28,8 +27,8 @@ public class RegionEngineForFunc implements RegionBasicEngine
 		return (RegionSetExpression) reg;
 	}
 
-	protected RegionSetExpression[] cast( Region[] reg ) {
-		return (RegionSetExpression[]) reg;
+	protected RegionSetExpression[] cast( Region[] reg_ ) {
+		return Arrays.copyOf(reg_,reg_.length,RegionSetExpression[].class);
 	}
 
 	@SuppressWarnings({"unchecked"})
@@ -73,5 +72,9 @@ public class RegionEngineForFunc implements RegionBasicEngine
 					math.number0());
 			}
 		}));
+	}
+
+	public boolean contain( Region reg, Number[] point ) {
+		return cast(reg).getSet().isElement(point);
 	}
 }

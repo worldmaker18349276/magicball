@@ -6,7 +6,7 @@ import magicball.model.math.Function;
 public interface TransformationBasicEngine
 {
 	public TransformationBasicEngine clone();
-	public Transformation compose( Transformation[] trans );
+	public Transformation compose( Transformation... trans );
 	public Transformation pow( Transformation trans, int exp );
 	public Transformation dividedBy( Transformation trans, Number divisor );
 	public Transformation invert( Transformation trans );

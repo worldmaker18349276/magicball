@@ -17,7 +17,7 @@ public class model_geometry
 				System.out.println("TEST 1:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 
 					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
 						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
@@ -25,19 +25,19 @@ public class model_geometry
 					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
-					TransformationMatrixExpression trans0 = transEngine.createIdentityTransformation();
+					Transformation trans0 = transEngine.createIdentityTransformation();
 					System.out.println("trans0 = Identity() = \n" + toString(trans0));
 					System.out.println("isIdentity(trans0) = " + transEngine.isIdentity(trans0));
 					System.out.println("isRotation(trans0) = " + transEngine.isRotation(trans0));
 					System.out.println("isShift(trans0) = " + transEngine.isShift(trans0));
 
-					TransformationMatrixExpression trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
+					Transformation trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 					System.out.println("trans1 = Trans(rot) = \n" + toString(trans1));
 					System.out.println("isIdentity(trans1) = " + transEngine.isIdentity(trans1));
 					System.out.println("isRotation(trans1) = " + transEngine.isRotation(trans1));
 					System.out.println("isShift(trans1) = " + transEngine.isShift(trans1));
 
-					TransformationMatrixExpression trans2 = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
+					Transformation trans2 = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 					System.out.println("trans2 = Trans(sh) = \n" + toString(trans2));
 					System.out.println("isIdentity(trans2) = " + transEngine.isIdentity(trans2));
 					System.out.println("isRotation(trans2) = " + transEngine.isRotation(trans2));
@@ -50,13 +50,13 @@ public class model_geometry
 				System.out.println("TEST 2:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 
 					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
 						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 
-					TransformationMatrixExpression trans = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
+					Transformation trans = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 					System.out.println("trans = Trans(rot) = \n" + toString(trans));
 
 					Function<Number[],Number[]> func = transEngine.createTransformationFunction(trans);
@@ -69,12 +69,12 @@ public class model_geometry
 				System.out.println("TEST 3:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
 					System.out.println("sh = " + toString(sh));
 
-					TransformationMatrixExpression trans = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
+					Transformation trans = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 					System.out.println("trans = Trans(sh) = \n" + toString(trans));
 
 					Function<Number[],Number[]> func = transEngine.createTransformationFunction(trans);
@@ -87,7 +87,7 @@ public class model_geometry
 				System.out.println("TEST 4:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 
 					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
 						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
@@ -95,7 +95,7 @@ public class model_geometry
 					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
-					TransformationMatrixExpression trans = new TransformationMatrixExpression(rot,sh);
+					Transformation trans = new TransformationMatrixExpression(rot,sh);
 					System.out.println("trans = Trans(rot,sh) = \n" + toString(trans));
 
 					Function<Number[],Number[]> func = transEngine.createTransformationFunction(trans);
@@ -108,7 +108,7 @@ public class model_geometry
 				System.out.println("TEST 5:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 					FunctionBasicEngine funcEngine = new FunctionBasicEngine();
 
 					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
@@ -117,16 +117,16 @@ public class model_geometry
 					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
-					TransformationMatrixExpression trans0 = new TransformationMatrixExpression(rot,sh);
+					Transformation trans0 = new TransformationMatrixExpression(rot,sh);
 					System.out.println("trans0 = Trans(rot,sh) = \n" + toString(trans0));
 
-					TransformationMatrixExpression trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
+					Transformation trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 					System.out.println("trans1 = Trans(rot) = \n" + toString(trans1));
 
-					TransformationMatrixExpression trans2 = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
+					Transformation trans2 = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 					System.out.println("trans2 = Trans(sh) = \n" + toString(trans2));
 
-					TransformationMatrixExpression trans12 = transEngine.compose(trans1,trans2);
+					Transformation trans12 = transEngine.compose(trans1,trans2);
 					System.out.println("trans12 = trans1 o trans2 = \n" + toString(trans12));
 					System.out.println("trans0 == trans12 = " + transEngine.equals(trans0,trans12));
 
@@ -137,7 +137,7 @@ public class model_geometry
 				System.out.println("TEST 6:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 					FunctionBasicEngine funcEngine = new FunctionBasicEngine();
 
 					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
@@ -146,13 +146,13 @@ public class model_geometry
 					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
-					TransformationMatrixExpression trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
+					Transformation trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 					System.out.println("trans1 = Trans(rot) = \n" + toString(trans1));
 
-					TransformationMatrixExpression trans2 = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
+					Transformation trans2 = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 					System.out.println("trans2 = Trans(sh) = \n" + toString(trans2));
 
-					TransformationMatrixExpression trans21 = transEngine.compose(trans2,trans1);
+					Transformation trans21 = transEngine.compose(trans2,trans1);
 					System.out.println("trans21 = trans2 o trans1 = \n" + toString(trans21));
 					Function<Number[],Number[]> func21 = transEngine.createTransformationFunction(trans21);
 					Number[] from = mathEngine.vector(new double[]{ 0, 1, 0 });
@@ -172,21 +172,21 @@ public class model_geometry
 				System.out.println("TEST 7:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 
 					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
 						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 
-					TransformationMatrixExpression trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
+					Transformation trans1 = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 					System.out.println("trans1 = Trans(rot) = \n" + toString(trans1));
 
-					TransformationMatrixExpression trans2 = transEngine.pow(trans1,2);
+					Transformation trans2 = transEngine.pow(trans1,2);
 					System.out.println("trans2 = trans1^2 = \n" + toString(trans2));
 
-					TransformationMatrixExpression trans3 = transEngine.pow(trans1,3);
+					Transformation trans3 = transEngine.pow(trans1,3);
 					System.out.println("trans3 = trans1^3 = \n" + toString(trans3));
 
-					TransformationMatrixExpression trans4 = transEngine.pow(trans1,4);
+					Transformation trans4 = transEngine.pow(trans1,4);
 					System.out.println("trans4 = trans1^4 = \n" + toString(trans4));
 					System.out.println("isIdentity(trans4) = \n" + transEngine.isIdentity(trans4));
 
@@ -197,22 +197,22 @@ public class model_geometry
 				System.out.println("TEST 8:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 
 					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
 						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
-					TransformationMatrixExpression trans1 = new TransformationMatrixExpression(rot,sh);
+					Transformation trans1 = new TransformationMatrixExpression(rot,sh);
 					System.out.println("trans1 = Trans(rot,sh) = \n" + toString(trans1));
 
-					TransformationMatrixExpression trans_1 = transEngine.invert(trans1);
+					Transformation trans_1 = transEngine.invert(trans1);
 					System.out.println("trans_1 = invert(trans1) = \n" + toString(trans_1));
 
-					TransformationMatrixExpression trans0 = transEngine.compose(trans1,trans_1);
+					Transformation trans0 = transEngine.compose(trans1,trans_1);
 					System.out.println("trans0 = trans1 o trans_1 = \n" + toString(trans0));
 					System.out.println("isIdentity(trans0) = " + transEngine.isIdentity(trans0));
 
-					TransformationMatrixExpression trans0_ = transEngine.compose(trans_1,trans1);
+					Transformation trans0_ = transEngine.compose(trans_1,trans1);
 					System.out.println("trans0_ = trans_1 o trans1 = \n" + toString(trans0_));
 					System.out.println("isIdentity(trans0_) = " + transEngine.isIdentity(trans0_));
 
@@ -223,17 +223,17 @@ public class model_geometry
 				System.out.println("TEST 9:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 
 					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
 						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
 					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
-					TransformationMatrixExpression transr = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
+					Transformation transr = new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 					System.out.println("transr = Trans(rot) = \n" + toString(transr));
 
-					TransformationMatrixExpression transr_3 = transEngine.dividedBy(transr,mathEngine.number(3));
+					Transformation transr_3 = transEngine.dividedBy(transr,mathEngine.number(3));
 					System.out.println("transr_3 = divide(transr,3) = \n" + toString(transr_3));
-					TransformationMatrixExpression transr_ = transEngine.pow(transr_3,3);
+					Transformation transr_ = transEngine.pow(transr_3,3);
 					System.out.println("transr_ = transr_3^3 =  \n" + toString(transr_));
 					System.out.println("transr == transr_ = " + transEngine.equals(transr,transr_));
 
@@ -244,17 +244,17 @@ public class model_geometry
 				System.out.println("TEST 10:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
 					System.out.println("sh = " + toString(sh));
 
-					TransformationMatrixExpression transs = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
+					Transformation transs = new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 					System.out.println("transs = Trans(sh) = \n" + toString(transs));
 
-					TransformationMatrixExpression transs_3 = transEngine.dividedBy(transs,mathEngine.number(3));
+					Transformation transs_3 = transEngine.dividedBy(transs,mathEngine.number(3));
 					System.out.println("transs_3 = divide(transs,3) = \n" + toString(transs_3));
-					TransformationMatrixExpression transs_ = transEngine.pow(transs_3,3);
+					Transformation transs_ = transEngine.pow(transs_3,3);
 					System.out.println("transs_ = transs_3^3 =  \n" + toString(transs_));
 					System.out.println("transs == transs_ = " + transEngine.equals(transs,transs_));
 
@@ -265,7 +265,7 @@ public class model_geometry
 				System.out.println("TEST 11:");
 				{
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
-					TransformationEngineForFunc transEngine = new TransformationEngineForFunc(mathEngine);
+					TransformationBasicEngine transEngine = new TransformationEngineForFunc(mathEngine);
 
 					Number [][] rot = mathEngine.rotationVector2RotationMatrix(
 						mathEngine.vector(new double[]{ 0, 0, Math.PI/2 }));
@@ -273,12 +273,12 @@ public class model_geometry
 					System.out.println("rot = rmat([0,0,PI/2]) = \n" + toString(rot));
 					System.out.println("sh = " + toString(sh));
 
-					TransformationMatrixExpression trans = new TransformationMatrixExpression(rot,sh);
+					Transformation trans = new TransformationMatrixExpression(rot,sh);
 					System.out.println("trans = Trans(rot,sh) = \n" + toString(trans));
 
-					TransformationMatrixExpression trans_3 = transEngine.dividedBy(trans,mathEngine.number(3));
+					Transformation trans_3 = transEngine.dividedBy(trans,mathEngine.number(3));
 					System.out.println("trans_3 = divide(trans,3) = \n" + toString(trans_3));
-					TransformationMatrixExpression trans_ = transEngine.pow(trans_3,3);
+					Transformation trans_ = transEngine.pow(trans_3,3);
 					System.out.println("trans_ = trans_3^3 =  \n" + toString(trans_));
 					System.out.println("trans == trans_ = " + transEngine.equals(trans,trans_));
 
@@ -298,24 +298,24 @@ public class model_geometry
 
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					SetBasicEngine setEngine = new SetBasicEngine();
-					RegionEngineForFunc regEngine = new RegionEngineForFunc(mathEngine,setEngine);
+					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,setEngine);
 
 					Function<Number[],Number> f = new Function<Number[],Number>() {
 						public Number apply( Number[] v ) {
 							return (Double)(v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue());
 						}
 					};
-					SurfaceFuncExpression face = new SurfaceFuncExpression(f);
+					Surface face = new SurfaceFuncExpression(f);
 
 					System.out.println("face(x,y,z) = 2x+5y-z");
 					System.out.println("face(1,2,3) = "+f.apply(new Number[]{ 1,2,3 }));
 					System.out.println("face(-1,0,5) = "+f.apply(new Number[]{ -1,0,5 }));
 
-					RegionSetExpression reg = regEngine.createRegionByFace(face,1);
+					Region reg = regEngine.createRegionByFace(face,1);
 
 					System.out.println("reg = at(face,1)");
-					System.out.println("reg.contain([1,2,3]) = "+reg.getSet().isElement(new Number[]{ 1,2,3 }));
-					System.out.println("reg.contain([-1,0,5]) = "+reg.getSet().isElement(new Number[]{ -1,0,5 }));
+					System.out.println("reg.contain([1,2,3]) = "+regEngine.contain(reg,new Number[]{ 1,2,3 }));
+					System.out.println("reg.contain([-1,0,5]) = "+regEngine.contain(reg,new Number[]{ -1,0,5 }));
 
 				}
 				System.out.println("TEST 1 END");
@@ -326,17 +326,17 @@ public class model_geometry
 
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					SetBasicEngine setEngine = new SetBasicEngine();
-					RegionEngineForFunc regEngine = new RegionEngineForFunc(mathEngine,setEngine);
+					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,setEngine);
 
-					RegionSetExpression reg1 = regEngine.createUniverseRegion();
+					Region reg1 = regEngine.createUniverseRegion();
 					System.out.println("reg1 = universe()");
-					System.out.println("reg1.contain([1,2,3]) = "+reg1.getSet().isElement(new Number[]{ 1,2,3 }));
-					System.out.println("reg1.contain([-1,0,5]) = "+reg1.getSet().isElement(new Number[]{ -1,0,5 }));
+					System.out.println("reg1.contain([1,2,3]) = "+regEngine.contain(reg1,new Number[]{ 1,2,3 }));
+					System.out.println("reg1.contain([-1,0,5]) = "+regEngine.contain(reg1,new Number[]{ -1,0,5 }));
 					
-					RegionSetExpression reg0 = regEngine.createEmptyRegion();
+					Region reg0 = regEngine.createEmptyRegion();
 					System.out.println("reg0 = empty()");
-					System.out.println("reg0.contain([1,2,3]) = "+reg0.getSet().isElement(new Number[]{ 1,2,3 }));
-					System.out.println("reg0.contain([-1,0,5]) = "+reg0.getSet().isElement(new Number[]{ -1,0,5 }));
+					System.out.println("reg0.contain([1,2,3]) = "+regEngine.contain(reg0,new Number[]{ 1,2,3 }));
+					System.out.println("reg0.contain([-1,0,5]) = "+regEngine.contain(reg0,new Number[]{ -1,0,5 }));
 
 				}
 				System.out.println("TEST 2 END");
@@ -347,61 +347,61 @@ public class model_geometry
 
 					NumberBasicEngine mathEngine = new NumberBasicEngine(1E-6);
 					SetBasicEngine setEngine = new SetBasicEngine();
-					RegionEngineForFunc regEngine = new RegionEngineForFunc(mathEngine,setEngine);
+					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,setEngine);
 
 					Function<Number[],Number> f1 = new Function<Number[],Number>() {
 						public Number apply( Number[] v ) {
 							return (Double)(v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue());
 						}
 					};
-					SurfaceFuncExpression face1 = new SurfaceFuncExpression(f1);
-					RegionSetExpression reg1 = regEngine.createRegionByFace(face1,1);
+					Surface face1 = new SurfaceFuncExpression(f1);
+					Region reg1 = regEngine.createRegionByFace(face1,1);
 					System.out.println("reg1 = at(2x+5y-z,1)");
-					System.out.println("reg1.contain([1,2,3]) = "+reg1.getSet().isElement(new Number[]{ 1,2,3 }));
-					System.out.println("reg1.contain([-1,0,5]) = "+reg1.getSet().isElement(new Number[]{ -1,0,5 }));
-					System.out.println("reg1.contain([1,5,3]) = "+reg1.getSet().isElement(new Number[]{ 1,5,3 }));
-					System.out.println("reg1.contain([-5,1,1]) = "+reg1.getSet().isElement(new Number[]{ -5,1,1 }));
+					System.out.println("reg1.contain([1,2,3]) = "+regEngine.contain(reg1,new Number[]{ 1,2,3 }));
+					System.out.println("reg1.contain([-1,0,5]) = "+regEngine.contain(reg1,new Number[]{ -1,0,5 }));
+					System.out.println("reg1.contain([1,5,3]) = "+regEngine.contain(reg1,new Number[]{ 1,5,3 }));
+					System.out.println("reg1.contain([-5,1,1]) = "+regEngine.contain(reg1,new Number[]{ -5,1,1 }));
 
 					Function<Number[],Number> f2 = new Function<Number[],Number>() {
 						public Number apply( Number[] v ) {
 							return (Double)(v[0].doubleValue()*2 - v[1].doubleValue()*4 + v[2].doubleValue() * 5 + 1);
 						}
 					};
-					SurfaceFuncExpression face2 = new SurfaceFuncExpression(f2);
-					RegionSetExpression reg2 = regEngine.createRegionByFace(face2,1);
+					Surface face2 = new SurfaceFuncExpression(f2);
+					Region reg2 = regEngine.createRegionByFace(face2,1);
 					System.out.println("reg2 = at(2x-4y+5z+1,1)");
-					System.out.println("reg2.contain([1,2,3]) = "+reg2.getSet().isElement(new Number[]{ 1,2,3 }));
-					System.out.println("reg2.contain([-1,0,5]) = "+reg2.getSet().isElement(new Number[]{ -1,0,5 }));
-					System.out.println("reg2.contain([1,5,3]) = "+reg2.getSet().isElement(new Number[]{ 1,5,3 }));
-					System.out.println("reg2.contain([-5,1,1]) = "+reg2.getSet().isElement(new Number[]{ -5,1,1 }));
+					System.out.println("reg2.contain([1,2,3]) = "+regEngine.contain(reg2,new Number[]{ 1,2,3 }));
+					System.out.println("reg2.contain([-1,0,5]) = "+regEngine.contain(reg2,new Number[]{ -1,0,5 }));
+					System.out.println("reg2.contain([1,5,3]) = "+regEngine.contain(reg2,new Number[]{ 1,5,3 }));
+					System.out.println("reg2.contain([-5,1,1]) = "+regEngine.contain(reg2,new Number[]{ -5,1,1 }));
 
-					RegionSetExpression reg3 = regEngine.intersect(reg1,reg2);
+					Region reg3 = regEngine.intersect(reg1,reg2);
 					System.out.println("reg3 = intersect(reg1,reg2)");
-					System.out.println("reg3.contain([1,2,3]) = "+reg3.getSet().isElement(new Number[]{ 1,2,3 }));
-					System.out.println("reg3.contain([-1,0,5]) = "+reg3.getSet().isElement(new Number[]{ -1,0,5 }));
-					System.out.println("reg3.contain([1,5,3]) = "+reg3.getSet().isElement(new Number[]{ 1,5,3 }));
-					System.out.println("reg3.contain([-5,1,1]) = "+reg3.getSet().isElement(new Number[]{ -5,1,1 }));
+					System.out.println("reg3.contain([1,2,3]) = "+regEngine.contain(reg3,new Number[]{ 1,2,3 }));
+					System.out.println("reg3.contain([-1,0,5]) = "+regEngine.contain(reg3,new Number[]{ -1,0,5 }));
+					System.out.println("reg3.contain([1,5,3]) = "+regEngine.contain(reg3,new Number[]{ 1,5,3 }));
+					System.out.println("reg3.contain([-5,1,1]) = "+regEngine.contain(reg3,new Number[]{ -5,1,1 }));
 
-					RegionSetExpression reg4 = regEngine.union(reg1,reg2);
+					Region reg4 = regEngine.union(reg1,reg2);
 					System.out.println("reg4 = union(reg1,reg2)");
-					System.out.println("reg4.contain([1,2,3]) = "+reg4.getSet().isElement(new Number[]{ 1,2,3 }));
-					System.out.println("reg4.contain([-1,0,5]) = "+reg4.getSet().isElement(new Number[]{ -1,0,5 }));
-					System.out.println("reg4.contain([1,5,3]) = "+reg4.getSet().isElement(new Number[]{ 1,5,3 }));
-					System.out.println("reg4.contain([-5,1,1]) = "+reg4.getSet().isElement(new Number[]{ -5,1,1 }));
+					System.out.println("reg4.contain([1,2,3]) = "+regEngine.contain(reg4,new Number[]{ 1,2,3 }));
+					System.out.println("reg4.contain([-1,0,5]) = "+regEngine.contain(reg4,new Number[]{ -1,0,5 }));
+					System.out.println("reg4.contain([1,5,3]) = "+regEngine.contain(reg4,new Number[]{ 1,5,3 }));
+					System.out.println("reg4.contain([-5,1,1]) = "+regEngine.contain(reg4,new Number[]{ -5,1,1 }));
 
-					RegionSetExpression reg5 = regEngine.complement(reg1,reg2);
+					Region reg5 = regEngine.complement(reg1,reg2);
 					System.out.println("reg5 = complement(reg1,reg2)");
-					System.out.println("reg5.contain([1,2,3]) = "+reg5.getSet().isElement(new Number[]{ 1,2,3 }));
-					System.out.println("reg5.contain([-1,0,5]) = "+reg5.getSet().isElement(new Number[]{ -1,0,5 }));
-					System.out.println("reg5.contain([1,5,3]) = "+reg5.getSet().isElement(new Number[]{ 1,5,3 }));
-					System.out.println("reg5.contain([-5,1,1]) = "+reg5.getSet().isElement(new Number[]{ -5,1,1 }));
+					System.out.println("reg5.contain([1,2,3]) = "+regEngine.contain(reg5,new Number[]{ 1,2,3 }));
+					System.out.println("reg5.contain([-1,0,5]) = "+regEngine.contain(reg5,new Number[]{ -1,0,5 }));
+					System.out.println("reg5.contain([1,5,3]) = "+regEngine.contain(reg5,new Number[]{ 1,5,3 }));
+					System.out.println("reg5.contain([-5,1,1]) = "+regEngine.contain(reg5,new Number[]{ -5,1,1 }));
 
-					RegionSetExpression reg6 = regEngine.complement(reg1);
+					Region reg6 = regEngine.complement(reg1);
 					System.out.println("reg6 = complement(reg1)");
-					System.out.println("reg6.contain([1,2,3]) = "+reg6.getSet().isElement(new Number[]{ 1,2,3 }));
-					System.out.println("reg6.contain([-1,0,5]) = "+reg6.getSet().isElement(new Number[]{ -1,0,5 }));
-					System.out.println("reg6.contain([1,5,3]) = "+reg6.getSet().isElement(new Number[]{ 1,5,3 }));
-					System.out.println("reg6.contain([-5,1,1]) = "+reg6.getSet().isElement(new Number[]{ -5,1,1 }));
+					System.out.println("reg6.contain([1,2,3]) = "+regEngine.contain(reg6,new Number[]{ 1,2,3 }));
+					System.out.println("reg6.contain([-1,0,5]) = "+regEngine.contain(reg6,new Number[]{ -1,0,5 }));
+					System.out.println("reg6.contain([1,5,3]) = "+regEngine.contain(reg6,new Number[]{ 1,5,3 }));
+					System.out.println("reg6.contain([-5,1,1]) = "+regEngine.contain(reg6,new Number[]{ -5,1,1 }));
 
 				}
 				System.out.println("TEST 3 END");
@@ -430,7 +430,8 @@ public class model_geometry
 		return str;
 	}
 
-	public static String toString( TransformationMatrixExpression trans ) {
+	public static String toString( Transformation trans_ ) {
+		TransformationMatrixExpression trans = (TransformationMatrixExpression) trans_;
 		String str = "";
 		str = str + "    rotation:\n";
 		str = str + toString(trans.getRotationMatrix());
