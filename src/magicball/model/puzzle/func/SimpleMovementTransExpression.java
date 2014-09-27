@@ -4,7 +4,7 @@ import magicball.model.geometry.*;
 import magicball.model.puzzle.*;
 
 
-public class SimpleMovementTransExpression extends SimpleMovement
+public class SimpleMovementTransExpression extends Movement
 {
 	final private Transformation transformation;
 

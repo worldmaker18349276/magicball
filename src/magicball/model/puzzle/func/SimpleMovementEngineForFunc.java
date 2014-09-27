@@ -21,7 +21,7 @@ public class SimpleMovementEngineForFunc implements MovementBasicEngine
 		return new SimpleMovementEngineForFunc(this.mathEngine,this.transEngine);
 	}
 
-	public SimpleMovementTransExpression cast( SimpleMovement move ) {
+	public SimpleMovementTransExpression castToSimpleMovement( Movement move ) {
 		try {
 			return (SimpleMovementTransExpression) move;
 		} catch ( ClassCastException e ) {
@@ -29,14 +29,18 @@ public class SimpleMovementEngineForFunc implements MovementBasicEngine
 		}
 	}
 
-	public SimpleMovement createSimpleMovementByTransformation( Transformation trans ) {
+	public Movement createSimpleMovementByTransformation( Transformation trans ) {
 		return new SimpleMovementTransExpression(trans);
 	}
 
 	public Transformation divideMovementIntoTransformation( Movement move, Number from, Number to ) {
-		if ( move instanceof SimpleMovement )
-			return transEngine.dividedBy(cast((SimpleMovement)move).getTransformation(),mathEngine.subtract(to,from));
+		if ( isSimpleMovement(move) )
+			return transEngine.dividedBy(castToSimpleMovement(move).getTransformation(),mathEngine.subtract(to,from));
 		else
 			throw new UnsupportedAlgorithmException();
+	}
+
+	public boolean isSimpleMovement( Movement move ) {
+		return move instanceof SimpleMovementTransExpression;
 	}
 }
