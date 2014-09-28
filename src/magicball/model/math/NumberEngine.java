@@ -66,13 +66,6 @@ public interface NumberEngine
 	public Number trace( Number[][] m1 );
 	public Number determinant33( Number[][] m1 );
 	public Number[][] invert33( Number[][] m );
-
-
-	// numerical mathods
-	// m = l * u
-	public Number[][] getLU( Number[][] m );
-	// m * x = b
-	public Number[] solveByLU( Number[][] m, Number[] b );
-	// mat -> tri ( without sort )
-	public Number[][] solveByGauss( Number[][] mat );
+	public Number determinant( Number[][] m1 );
+	public Number[][] invert( Number[][] m );
 }

@@ -1,5 +1,6 @@
 package magicball.model.math.func;
 
+import magicball.model.*;
 import magicball.model.math.*;
 
 
@@ -379,13 +380,14 @@ public class NumberBasicEngine implements NumberEngine
 		return trace(getLU(m));
 	}
 
-	// public Number[][] invert( Number[][] m ) {
-	// }
+	public Number[][] invert( Number[][] m ) {
+		throw new UnsupportedAlgorithmException();
+	}
 
 
 	// numerical mathods
 	// m = l * u
-	public Number[][] getLU( Number[][] m ) {
+	protected Number[][] getLU( Number[][] m ) {
 		int d = m.length;
 		// M = L * U
 		double[][] lu = new double [ d ][ d ];
@@ -406,7 +408,7 @@ public class NumberBasicEngine implements NumberEngine
 	}
 
 	// m * x = b
-	public Number[] solveByLU( Number[][] m, Number[] b ) {
+	protected Number[] solveByLU( Number[][] m, Number[] b ) {
 		int d = m.length;
 		// M = L * U
 		double[][] lu = doubleValue(m);
@@ -436,8 +438,8 @@ public class NumberBasicEngine implements NumberEngine
 		return vector(x);
 	}
 
-	// mat -> tri ( without sort )
-	public Number[][] solveByGauss( Number[][] mat ) {
+	// mat -> tri
+	protected Number[][] solveByGauss( Number[][] mat ) {
 		int m = mat.length;
 		int n = mat[0].length;
 		double[][] result = doubleValue(mat);

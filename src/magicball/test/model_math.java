@@ -477,38 +477,38 @@ public class model_math
 				System.out.println("TEST 5 END");
 				System.out.println();
 
-				System.out.println("TEST 6:");
-				{
-					NumberEngine math = new NumberBasicEngine(1E-6);
+				// System.out.println("TEST 6:");
+				// {
+				// 	NumberEngine math = new NumberBasicEngine(1E-6);
 
-					Number[][] m1 = math.matrix(new double[][]{{0.4,3,2},{-1,5,5},{0,1,1}});
-					Number[] v2 = math.vector(2,3,4);
-					System.out.println("m1 = " + toString(m1));
-					System.out.println("v2 = " + toString(v2));
+				// 	Number[][] m1 = math.matrix(new double[][]{{0.4,3,2},{-1,5,5},{0,1,1}});
+				// 	Number[] v2 = math.vector(2,3,4);
+				// 	System.out.println("m1 = " + toString(m1));
+				// 	System.out.println("v2 = " + toString(v2));
 
-					Number[] v1 = math.matrixMultiply(m1,v2);
-					System.out.println("m1 * v2 = v1 = " + toString(v1));
+				// 	Number[] v1 = math.matrixMultiply(m1,v2);
+				// 	System.out.println("m1 * v2 = v1 = " + toString(v1));
 					
-					Number[] v2_ = math.solveByLU(m1,v1);
-					System.out.println("v2_ = solve(m1,v1) = " + toString(v2_));
-					assert math.equals(v2,v2_);
-				}
-				System.out.println("TEST 6 END");
-				System.out.println();
+				// 	Number[] v2_ = math.solveByLU(m1,v1);
+				// 	System.out.println("v2_ = solve(m1,v1) = " + toString(v2_));
+				// 	assert math.equals(v2,v2_);
+				// }
+				// System.out.println("TEST 6 END");
+				// System.out.println();
 
-				System.out.println("TEST 7:");
-				{
-					NumberEngine math = new NumberBasicEngine(1E-6);
+				// System.out.println("TEST 7:");
+				// {
+				// 	NumberEngine math = new NumberBasicEngine(1E-6);
 
-					Number[][] m1 = math.matrix(new double[][]{{0.4,3,2,5},{-1,5,5,2.3},{0,1,1,7}});
-					System.out.println("m1 = " + toString(m1));
+				// 	Number[][] m1 = math.matrix(new double[][]{{0.4,3,2,5},{-1,5,5,2.3},{0,1,1,7}});
+				// 	System.out.println("m1 = " + toString(m1));
 
-					Number[][] m2 = math.solveByGauss(m1);
-					System.out.println("m2 = solve(m1) = " + toString(new double[][]{{1,0,0,32.7},{0,1,0,-22.08},{0,0,1,29.08}}));
-					assert math.equals(m2,new double[][]{{1,0,0,32.7},{0,1,0,-22.08},{0,0,1,29.08}});
-				}
-				System.out.println("TEST 7 END");
-				System.out.println();
+				// 	Number[][] m2 = math.solveByGauss(m1);
+				// 	System.out.println("m2 = solve(m1) = " + toString(new double[][]{{1,0,0,32.7},{0,1,0,-22.08},{0,0,1,29.08}}));
+				// 	assert math.equals(m2,new double[][]{{1,0,0,32.7},{0,1,0,-22.08},{0,0,1,29.08}});
+				// }
+				// System.out.println("TEST 7 END");
+				// System.out.println();
 
 			}
 
