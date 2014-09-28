@@ -510,25 +510,6 @@ public class model_math
 				System.out.println("TEST 7 END");
 				System.out.println();
 
-				System.out.println("TEST 8:");
-				{
-					NumberEngine math = new NumberBasicEngine(1E-6);
-
-					Number[] axis = math.normalize(math.vector(0,1,1));
-					Number angle = (Double)(Math.PI/3);
-					Number[] rvec = math.multiply(axis,angle);
-					System.out.println("rvec = PI/3*[0,1,1]^ = " + toString(rvec));
-
-					Number[][] rmat = math.rotationVector2RotationMatrix(rvec);
-					System.out.println("rmat(rvec) = " + toString(rmat));
-
-					Number[] rvec_ = math.rotationMatrix2RotationVector(rmat);
-					System.out.println("rvec(rmat) = " + toString(rvec_));
-					assert math.equals(rvec,rvec_);
-				}
-				System.out.println("TEST 8 END");
-				System.out.println();
-
 			}
 
 		} catch ( Throwable e ) {

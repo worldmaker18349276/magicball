@@ -75,6 +75,4 @@ public interface NumberEngine
 	public Number[] solveByLU( Number[][] m, Number[] b );
 	// mat -> tri ( without sort )
 	public Number[][] solveByGauss( Number[][] mat );
-	public Number[] rotationMatrix2RotationVector( Number[][] rmat );
-	public Number[][] rotationVector2RotationMatrix( Number[] rvec );
 }

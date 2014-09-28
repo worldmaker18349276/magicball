@@ -375,9 +375,9 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
-	// public Number determinant( Number[][] m ) {
-	// 	return trace(getLU(m));
-	// }
+	public Number determinant( Number[][] m ) {
+		return trace(getLU(m));
+	}
 
 	// public Number[][] invert( Number[][] m ) {
 	// }
@@ -501,37 +501,5 @@ public class NumberBasicEngine implements NumberEngine
 			i = i - 1;
 		}
 		return matrix(result);
-	}
-
-	public Number[] rotationMatrix2RotationVector( Number[][] rmat ) {
-		double angle = Math.acos((doubleValue(trace(rmat))-1)/2);
-		double factor = angle/(2*Math.sin(angle));
-		Number[] axis = new Number [ 3 ];
-		axis[0] = subtract(rmat[2][1],rmat[1][2]);
-		axis[1] = subtract(rmat[0][2],rmat[2][0]);
-		axis[2] = subtract(rmat[1][0],rmat[0][1]);
-		return multiply(axis,number(factor));
-	}
-
-	public Number[][] rotationVector2RotationMatrix( Number[] rvec ) {
-		double[] axis = doubleValue(normalize(rvec));
-		double angle = doubleValue(norm(rvec));
-		double cos = Math.cos(angle);
-		double sin = Math.sin(angle);
-		double versin = 1-cos;
-
-
-		Number [][] rmat = new Number [ 3 ][ 3 ];
-		rmat[0][0] = axis[0]*axis[0]*versin + cos;
-		rmat[1][1] = axis[1]*axis[1]*versin + cos;
-		rmat[2][2] = axis[2]*axis[2]*versin + cos;
-		rmat[0][1] = axis[0]*axis[1]*versin - sin*axis[2];
-		rmat[1][0] = axis[0]*axis[1]*versin + sin*axis[2];
-		rmat[1][2] = axis[1]*axis[2]*versin - sin*axis[0];
-		rmat[2][1] = axis[1]*axis[2]*versin + sin*axis[0];
-		rmat[2][0] = axis[2]*axis[0]*versin - sin*axis[1];
-		rmat[0][2] = axis[2]*axis[0]*versin + sin*axis[1];
-
-		return rmat;
 	}
 }

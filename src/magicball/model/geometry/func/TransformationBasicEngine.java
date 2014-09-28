@@ -27,16 +27,47 @@ public class TransformationBasicEngine implements TransformationEngine
 		}
 	}
 
+	protected Number[] rotationMatrix2RotationVector( Number[][] rmat ) {
+		double angle = Math.acos((mathEngine.doubleValue(mathEngine.trace(rmat))-1)/2);
+		double factor = angle/(2*Math.sin(angle));
+		Number[] axis = new Number [ 3 ];
+		axis[0] = mathEngine.subtract(rmat[2][1],rmat[1][2]);
+		axis[1] = mathEngine.subtract(rmat[0][2],rmat[2][0]);
+		axis[2] = mathEngine.subtract(rmat[1][0],rmat[0][1]);
+		return mathEngine.multiply(axis,mathEngine.number(factor));
+	}
+
+	protected Number[][] rotationVector2RotationMatrix( Number[] rvec ) {
+		double[] axis = mathEngine.doubleValue(mathEngine.normalize(rvec));
+		double angle = mathEngine.doubleValue(mathEngine.norm(rvec));
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
+		double versin = 1-cos;
+
+		Number [][] rmat = new Number [ 3 ][ 3 ];
+		rmat[0][0] = axis[0]*axis[0]*versin + cos;
+		rmat[1][1] = axis[1]*axis[1]*versin + cos;
+		rmat[2][2] = axis[2]*axis[2]*versin + cos;
+		rmat[0][1] = axis[0]*axis[1]*versin - sin*axis[2];
+		rmat[1][0] = axis[0]*axis[1]*versin + sin*axis[2];
+		rmat[1][2] = axis[1]*axis[2]*versin - sin*axis[0];
+		rmat[2][1] = axis[1]*axis[2]*versin + sin*axis[0];
+		rmat[2][0] = axis[2]*axis[0]*versin - sin*axis[1];
+		rmat[0][2] = axis[2]*axis[0]*versin + sin*axis[1];
+
+		return rmat;
+	}
+
 	public Transformation createIdentityTransformation() {
 		return new TransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
 	}
 
 	public Transformation createTransformationByVectors( Number[] rvec, Number[] sh ) {
-		return new TransformationMatrixExpression(mathEngine.rotationVector2RotationMatrix(rvec),sh);
+		return new TransformationMatrixExpression(rotationVector2RotationMatrix(rvec),sh);
 	}
 
 	public Transformation createRotationByVector( Number[] rvec ) {
-		return new TransformationMatrixExpression(mathEngine.rotationVector2RotationMatrix(rvec),mathEngine.vector0(3));
+		return new TransformationMatrixExpression(rotationVector2RotationMatrix(rvec),mathEngine.vector0(3));
 	}
 
 	public Transformation createShiftByVector( Number[] sh ) {
@@ -80,8 +111,8 @@ public class TransformationBasicEngine implements TransformationEngine
 		} else if ( isRotation(trans) ) {
 
 			Number[][] rot = trans.getRotationMatrix();
-			Number [] rvec = mathEngine.rotationMatrix2RotationVector(rot);
-			rot = mathEngine.rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
+			Number [] rvec = rotationMatrix2RotationVector(rot);
+			rot = rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
 			return new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 
 		} else if ( isShift(trans) ) {
@@ -96,8 +127,8 @@ public class TransformationBasicEngine implements TransformationEngine
 
 			Number[][] rot = trans.getRotationMatrix();
 			Number[] sh = trans.getShiftVector();
-			Number [] rvec = mathEngine.rotationMatrix2RotationVector(rot);
-			Number[][] rot_n = mathEngine.rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
+			Number [] rvec = rotationMatrix2RotationVector(rot);
+			Number[][] rot_n = rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
 
 			Number[][] m = mathEngine.matrix1(3);
 			Number[][] rot_i = mathEngine.matrix1(3);
