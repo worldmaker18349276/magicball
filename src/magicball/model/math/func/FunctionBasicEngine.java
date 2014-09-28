@@ -7,24 +7,46 @@ import magicball.model.math.*;
 public class FunctionBasicEngine implements FunctionEngine
 {
 
-	public < I, M, O > Function<I,O> compose( final Function<I,M> func1, final Function<M,O> func2 ) {
-		return new Function<I,O>() {
+	protected < I, O > FunctionLambdaExpression<I,O> cast( Function<I,O> func ) {
+		try {
+			return (FunctionLambdaExpression<I,O>) func;
+		} catch ( ClassCastException e ) {
+			throw new UnsupportedExpressionException(func.getClass());
+		}
+	}
+
+	public < I, M, O > Function<I,O> compose( Function<I,M> func1_, Function<M,O> func2_ ) {
+		final LambdaFunction<I,M> func1 = cast(func1_).getLambdaFunction();
+		final LambdaFunction<M,O> func2 = cast(func2_).getLambdaFunction();
+		return createFunctionByLambda(new LambdaFunction<I,O>() {
 			public O apply( I in ) {
 				return func2.apply(func1.apply(in));
 			}
-		};
+		});
+	}
+
+	public < I, O > Function<I,O> createFunctionByLambda( LambdaFunction<I,O> lambda ) {
+		return new FunctionLambdaExpression<I,O>(lambda);
 	}
 
 	public < I > Function<I,I> createIdentityFunction() {
-		return new Function<I,I>() {
+		return createFunctionByLambda(new LambdaFunction<I,I>() {
 			public I apply( I in ) {
 				return in;
 			}
-		};
+		});
+	}
+
+	public < I, O > Function<I,O> createConstantFunction( final O c ) {
+		return createFunctionByLambda(new LambdaFunction<I,O>() {
+			public O apply( I in ) {
+				return c;
+			}
+		});
 	}
 
 	public < I, O > O applies( Function<I,O> func, I in ) {
-		return func.apply(in);
+		return cast(func).getLambdaFunction().apply(in);
 	}
 
 	public < I, O > java.util.Set<O> appliesAll( Function<I,O> func, java.util.Set<I> ins ) {
@@ -35,7 +57,7 @@ public class FunctionBasicEngine implements FunctionEngine
 	}
 
 	public < I, O > java.util.Map.Entry<I,O> maps( Function<I,O> func, I in ) {
-		return new java.util.AbstractMap.SimpleEntry<I,O>(in,func.apply(in));
+		return new java.util.AbstractMap.SimpleEntry<I,O>(in,applies(func,in));
 	}
 
 	public < I, O > java.util.Map<I,O> mapsAll( Function<I,O> func, java.util.Set<I> ins ) {

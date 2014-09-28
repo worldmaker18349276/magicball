@@ -1,90 +1,103 @@
 package magicball.model.math.func;
 
+import java.util.Arrays;
 import magicball.model.*;
 import magicball.model.math.*;
 
 public class SetBasicEngine implements SetEngine
 {
+	protected FunctionEngine funcEngine;
+
+	public SetBasicEngine( FunctionEngine funcEng ) {
+		this.funcEngine = funcEng;
+	}
+
+	protected < E > SetFunctionExpression<E> cast( Set<E> set ) {
+		try {
+			return (SetFunctionExpression<E>) set;
+		} catch ( ClassCastException e ) {
+			throw new UnsupportedExpressionException(set.getClass());
+		}
+	}
+
 	@SafeVarargs
 	final public < E > Set<E> union( final Set<E>... sets ) {
-		return new Set<E>() {
-			public boolean isElement( E element ) {
+		final SetEngine setEng = this;
+		return createSetByFunction(this.funcEngine.createFunctionByLambda(new LambdaFunction<E,Boolean>() {
+			public Boolean apply( E element ) {
 				for ( Set<E> set : sets )
-					if ( set.isElement(element) )
+					if ( setEng.contains(set,element) )
 						return true;
 				return false;
 			}
-		};
+		}));
 	}
 
 	public < E > Set<E> union( final Set<E> set1, final Set<E> set2 ) {
-		return new Set<E>() {
-			public boolean isElement( E element ) {
-				return set1.isElement(element) || set2.isElement(element);
+		final SetEngine setEng = this;
+		return createSetByFunction(this.funcEngine.createFunctionByLambda(new LambdaFunction<E,Boolean>() {
+			public Boolean apply( E element ) {
+				return setEng.contains(set1,element) || setEng.contains(set2,element);
 			}
-		};
+		}));
 	}
 
 	@SafeVarargs
 	final public < E > Set<E> intersect( final Set<E>... sets ) {
-		return new Set<E>() {
-			public boolean isElement( E element ) {
+		final SetEngine setEng = this;
+		return createSetByFunction(this.funcEngine.createFunctionByLambda(new LambdaFunction<E,Boolean>() {
+			public Boolean apply( E element ) {
 				for ( Set<E> set : sets )
-					if ( !set.isElement(element) )
+					if ( !setEng.contains(set,element) )
 						return false;
 				return true;
 			}
-		};
+		}));
 	}
 
 	public < E > Set<E> intersect( final Set<E> set1, final Set<E> set2 ) {
-		return new Set<E>() {
-			public boolean isElement( E element ) {
-				return set1.isElement(element) && set2.isElement(element);
+		final SetEngine setEng = this;
+		return createSetByFunction(this.funcEngine.createFunctionByLambda(new LambdaFunction<E,Boolean>() {
+			public Boolean apply( E element ) {
+				return setEng.contains(set1,element) && setEng.contains(set2,element);
 			}
-		};
+		}));
 	}
 
 	public < E > Set<E> complement( final Set<E> set1, final Set<E> set2 ) {
-		return new Set<E>() {
-			public boolean isElement( E element ) {
-				if ( set2.isElement(element) )
+		final SetEngine setEng = this;
+		return createSetByFunction(this.funcEngine.createFunctionByLambda(new LambdaFunction<E,Boolean>() {
+			public Boolean apply( E element ) {
+				if ( setEng.contains(set2,element) )
 					return false;
-				return set1.isElement(element);
+				return setEng.contains(set1,element);
 			}
-		};
+		}));
 	}
 
-	public < E > Set<E> complement( final Set<E> set2 ) {
-		return new Set<E>() {
-			public boolean isElement( E element ) {
-				return !set2.isElement(element);
+	public < E > Set<E> complement( final Set<E> set ) {
+		final SetEngine setEng = this;
+		return createSetByFunction(this.funcEngine.createFunctionByLambda(new LambdaFunction<E,Boolean>() {
+			public Boolean apply( E element ) {
+				return !setEng.contains(set,element);
 			}
-		};
+		}));
 	}
 
 	public < E > Set<E> createEmptySet() {
-		return new Set<E>() {
-			public boolean isElement( E element ) {
-				return false;
-			}
-		};
+		return createSetByFunction(this.funcEngine.<E,Boolean>createConstantFunction(false));
 	}
 
 	public < E > Set<E> createUniversalSet() {
-		return new Set<E>() {
-			public boolean isElement( E element ) {
-				return true;
-			}
-		};
+		return createSetByFunction(this.funcEngine.<E,Boolean>createConstantFunction(true));
 	}
 
-	public < E > Set<E> createSetByIntensionalDefinition( final Function<E,Boolean> func ) {
-		return new Set<E>() {
-			public boolean isElement( E element ) {
-				return func.apply(element);
-			}
-		};
+	public < E > Set<E> createSetByFunction( Function<E,Boolean> func ) {
+		return new SetFunctionExpression<E>(func);
+	}
+
+	public < E > Set<E> createSetByLambda( LambdaFunction<E,Boolean> lambda ) {
+		return new SetFunctionExpression<E>(this.funcEngine.createFunctionByLambda(lambda));
 	}
 
 	public < E > boolean isEmpty( Set<E> set ) {
@@ -101,6 +114,6 @@ public class SetBasicEngine implements SetEngine
 	}
 
 	public < E > boolean contains( Set<E> set, E e ) {
-		return set.isElement(e);
+		return this.funcEngine.applies(cast(set).getFunction(),e);
 	}
 }

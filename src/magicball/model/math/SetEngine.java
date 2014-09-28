@@ -13,7 +13,8 @@ public interface SetEngine
 	public < E > Set<E> complement( Set<E> set2 );
 	public < E > Set<E> createEmptySet();
 	public < E > Set<E> createUniversalSet();
-	public < E > Set<E> createSetByIntensionalDefinition( Function<E,Boolean> func );
+	public < E > Set<E> createSetByFunction( Function<E,Boolean> func );
+	public < E > Set<E> createSetByLambda( LambdaFunction<E,Boolean> func );
 
 	public < E > boolean isEmpty( Set<E> set );
 	public < E > boolean isUniversal( Set<E> set );

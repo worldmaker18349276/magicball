@@ -1,8 +1,7 @@
 package magicball.model.math;
 
-
-// intensional definition
+// definition: a collection of distinct objects ( with type E ), considered as an object in its own right.
 public abstract class Set < E >
 {
-	public abstract boolean isElement( E element );
+
 }

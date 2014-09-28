@@ -7,12 +7,13 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 {
 	protected java.util.Set<E> samples;
 
-	public SetEngineSampleAlgorithm( java.util.Set<E> sam ) {
+	public SetEngineSampleAlgorithm( FunctionEngine funcEng, java.util.Set<E> sam ) {
+		super(funcEng);
 		this.samples = sam;
 	}
 
 	@SuppressWarnings({"unchecked"})
-	private < E_ > Set<E> cast( Set<E_> set ) {
+	private < E_ > Set<E> castToE( Set<E_> set ) {
 		try {
 			return (Set<E>) set;
 		} catch ( ClassCastException e ) {
@@ -20,26 +21,14 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 		}
 	}
 
-	private < E_ > java.util.Set<E_> filtersBy( java.util.Set<E_> samples, Function<E_,Boolean> filter ) {
-		java.util.Set<E_> subsamples = new java.util.HashSet<E_>();
-		for ( E_ e : samples )
-			if ( filter.apply(e) )
-				subsamples.add(e);
-		return subsamples;
-	}
-
-	public < E_ > Function<E_,Boolean> createIntensionalFunction( final Set<E_> set ) {
-		return new Function<E_,Boolean>() {
-			public Boolean apply( E_ in ) {
-				return set.isElement(in);
-			}
-		};
-	}
-
 	@SuppressWarnings({"unchecked"})
 	public < E_ > java.util.Set<E_> createSampleSetOf( Set<E_> set_ ) {
-		Set<E> set = cast(set_);
-		return (java.util.Set<E_>) filtersBy(this.samples,createIntensionalFunction(set));
+		Function<E,Boolean> filter = cast(castToE(set_)).getFunction();
+		java.util.Set<E> subsamples = new java.util.HashSet<E>();
+		for ( E e : this.samples )
+			if ( this.funcEngine.applies(filter,e) )
+				subsamples.add(e);
+		return (java.util.Set<E_>) subsamples;
 	}
 
 
@@ -52,8 +41,8 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 	}
 
 	public < E_ > boolean equals( Set<E_> set1_, Set<E_> set2_ ) {
-		Set<E> set1 = cast(set1_);
-		Set<E> set2 = cast(set2_);
+		Set<E> set1 = castToE(set1_);
+		Set<E> set2 = castToE(set2_);
 
 		java.util.Set<E> sample1 = createSampleSetOf(set1);
 		java.util.Set<E> sample2 = createSampleSetOf(set2);
@@ -61,8 +50,8 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 	}
 
 	public < E_ > boolean containsAll( Set<E_> set1_, Set<E_> set2_ ) {
-		Set<E> set1 = cast(set1_);
-		Set<E> set2 = cast(set2_);
+		Set<E> set1 = castToE(set1_);
+		Set<E> set2 = castToE(set2_);
 
 		java.util.Set<E> sample2 = createSampleSetOf(set2);
 		for ( E e : sample2 )

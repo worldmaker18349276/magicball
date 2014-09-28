@@ -15,14 +15,18 @@ public class model_math
 
 				System.out.println("TEST 1:");
 				{
-					Function<Integer[],Integer> f = new Function<Integer[],Integer>() {
-						public Integer apply( Integer[] v ) {
-							return v[0]*2 + v[1]*5 - v[2];
+					FunctionEngine funcEngine = new FunctionBasicEngine();
+
+					Function<Integer[],Integer> f = funcEngine.createFunctionByLambda(
+						new LambdaFunction<Integer[],Integer>() {
+							public Integer apply( Integer[] v ) {
+								return v[0]*2 + v[1]*5 - v[2];
+							}
 						}
-					};
+					);
 					System.out.println("f(x,y,z) = 2x+5y-z");
 					System.out.println("f(1,2,3) = 9");
-					assert f.apply(new Integer[]{1,2,3}) == 9;
+					assert funcEngine.applies(f,new Integer[]{1,2,3}) == 9;
 				}
 				System.out.println("TEST 1 END");
 				System.out.println();
@@ -30,16 +34,20 @@ public class model_math
 
 				System.out.println("TEST 2:");
 				{
-					Function<Integer,Boolean> g = new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n > 3);
+					FunctionEngine funcEngine = new FunctionBasicEngine();
+
+					Function<Integer,Boolean> g = funcEngine.createFunctionByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n > 3);
+							}
 						}
-					};
+					);
 					System.out.println("g(n) = n>3");
 					System.out.println("g(9) = true");
-					assert g.apply(9) == true;
+					assert funcEngine.applies(g,9) == true;
 					System.out.println("g(-1) = false");
-					assert g.apply(-1) == false;
+					assert funcEngine.applies(g,-1) == false;
 				}
 				System.out.println("TEST 2 END");
 				System.out.println();
@@ -49,23 +57,27 @@ public class model_math
 				{
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 
-					Function<Integer[],Integer> f = new Function<Integer[],Integer>() {
-						public Integer apply( Integer[] v ) {
-							return v[0]*2 + v[1]*5 - v[2];
+					Function<Integer[],Integer> f = funcEngine.createFunctionByLambda(
+						new LambdaFunction<Integer[],Integer>() {
+							public Integer apply( Integer[] v ) {
+								return v[0]*2 + v[1]*5 - v[2];
+							}
 						}
-					};
-					Function<Integer,Boolean> g = new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n > 3);
+					);
+					Function<Integer,Boolean> g = funcEngine.createFunctionByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n > 3);
+							}
 						}
-					};
+					);
 					Function<Integer[],Boolean> h = funcEngine.compose(f,g);
 
 					System.out.println("h(x,y,z) = g(f(x,y,z))");
 					System.out.println("h(1,2,3) = true");
-					assert h.apply(new Integer[]{1,2,3}) == true;
+					assert funcEngine.applies(h,new Integer[]{1,2,3}) == true;
 					System.out.println("h(1,0,3) = false");
-					assert h.apply(new Integer[]{1,0,3}) == false;
+					assert funcEngine.applies(h,new Integer[]{1,0,3}) == false;
 				}
 				System.out.println("TEST 3 END");
 				System.out.println();
@@ -79,9 +91,9 @@ public class model_math
 
 					System.out.println("s(b) = identity_function");
 					System.out.println("s(3) = 3");
-					assert s.apply((byte)3) == (byte)3;
+					assert funcEngine.applies(s,(byte)3) == (byte)3;
 					System.out.println("s(32) = 32");
-					assert s.apply((byte)32) == (byte)32;
+					assert funcEngine.applies(s,(byte)32) == (byte)32;
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
@@ -92,69 +104,78 @@ public class model_math
 			{
 				System.out.println("TEST 1:");
 				{
-					SetEngine setEngine = new SetBasicEngine();
+					FunctionEngine funcEngine = new FunctionBasicEngine();
+					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Function<Integer,Boolean> g = new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n > 3);
+					Set<Integer> I = setEngine.createSetByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n > 3);
+							}
 						}
-					};
-					Set<Integer> I = setEngine.createSetByIntensionalDefinition(g);
+					);
 
 					System.out.println("I = { n | n>3 }");
 					System.out.println("I.isElement(4): true");
-					assert I.isElement(4) == true;
+					assert setEngine.contains(I,4) == true;
 					System.out.println("I.isElement(-1): false");
-					assert I.isElement(-1) == false;
+					assert setEngine.contains(I,-1) == false;
 				}
 				System.out.println("TEST 1 END");
 				System.out.println();
 
 				System.out.println("TEST 2:");
 				{
-					SetEngine setEngine = new SetBasicEngine();
+					FunctionEngine funcEngine = new FunctionBasicEngine();
+					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
 					Set<String> S = setEngine.<String>createUniversalSet();
 
 					System.out.println("S = { s | s is String } (UniversalSet)");
 					System.out.println("S.isElement(\"ha\"): true");
-					assert S.isElement("ha") == true;
+					assert setEngine.contains(S,"ha") == true;
 					System.out.println("S.isElement(\"false\"): true");
-					assert S.isElement("false") == true;
+					assert setEngine.contains(S,"false") == true;
 				}
 				System.out.println("TEST 2 END");
 				System.out.println();
 
 				System.out.println("TEST 3:");
 				{
-					SetEngine setEngine = new SetBasicEngine();
+					FunctionEngine funcEngine = new FunctionBasicEngine();
+					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
 					Set<Boolean> S = setEngine.<Boolean>createEmptySet();
 
 					System.out.println("S = {} (EmptySet)");
 					System.out.println("S.isElement(true): false");
-					assert S.isElement(true) == false;
+					assert setEngine.contains(S,true) == false;
 					System.out.println("S.isElement(false): false");
-					assert S.isElement(false) == false;
+					assert setEngine.contains(S,false) == false;
 				}
 				System.out.println("TEST 3 END");
 				System.out.println();
 
 				System.out.println("TEST 4:");
 				{
-					SetEngine setEngine = new SetBasicEngine();
+					FunctionEngine funcEngine = new FunctionBasicEngine();
+					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n >= 3) && (n <= 11);
+					Set<Integer> S1 = setEngine.createSetByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n >= 3) && (n <= 11);
+							}
 						}
-					});
+					);
 
-					Set<Integer> S2 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n >= 6) && (n <= 20);
+					Set<Integer> S2 = setEngine.createSetByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n >= 6) && (n <= 20);
+							}
 						}
-					});
+					);
 
 					Set<Integer> S3 = setEngine.union(S1,S2);
 
@@ -162,30 +183,35 @@ public class model_math
 					System.out.println("S2 = [6,20]");
 					System.out.println("S3 = union(S1,S2) = [3,20]");
 					System.out.println("S3.isElement(4): true");
-					assert S3.isElement(4) == true;
+					assert setEngine.contains(S3,4) == true;
 					System.out.println("S3.isElement(9): true");
-					assert S3.isElement(9) == true;
+					assert setEngine.contains(S3,9) == true;
 					System.out.println("S3.isElement(30): false");
-					assert S3.isElement(30) == false;
+					assert setEngine.contains(S3,30) == false;
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
 
 				System.out.println("TEST 5:");
 				{
-					SetEngine setEngine = new SetBasicEngine();
+					FunctionEngine funcEngine = new FunctionBasicEngine();
+					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n >= 3) && (n <= 11);
+					Set<Integer> S1 = setEngine.createSetByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n >= 3) && (n <= 11);
+							}
 						}
-					});
+					);
 
-					Set<Integer> S2 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n >= 6) && (n <= 20);
+					Set<Integer> S2 = setEngine.createSetByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n >= 6) && (n <= 20);
+							}
 						}
-					});
+					);
 
 					Set<Integer> S3 = setEngine.intersect(S1,S2);
 
@@ -193,30 +219,35 @@ public class model_math
 					System.out.println("S2 = [6,20]");
 					System.out.println("S3 = intersect(S1,S2) = [6,11]");
 					System.out.println("S3.isElement(4): false");
-					assert S3.isElement(4) == false;
+					assert setEngine.contains(S3,4) == false;
 					System.out.println("S3.isElement(9): true");
-					assert S3.isElement(9) == true;
+					assert setEngine.contains(S3,9) == true;
 					System.out.println("S3.isElement(30): false");
-					assert S3.isElement(30) == false;
+					assert setEngine.contains(S3,30) == false;
 				}
 				System.out.println("TEST 5 END");
 				System.out.println();
 
 				System.out.println("TEST 6:");
 				{
-					SetEngine setEngine = new SetBasicEngine();
+					FunctionEngine funcEngine = new FunctionBasicEngine();
+					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n >= 3) && (n <= 11);
+					Set<Integer> S1 = setEngine.createSetByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n >= 3) && (n <= 11);
+							}
 						}
-					});
+					);
 
-					Set<Integer> S2 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n >= 6) && (n <= 20);
+					Set<Integer> S2 = setEngine.createSetByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n >= 6) && (n <= 20);
+							}
 						}
-					});
+					);
 
 					Set<Integer> S3 = setEngine.complement(S1,S2);
 
@@ -224,35 +255,38 @@ public class model_math
 					System.out.println("S2 = [6,20]");
 					System.out.println("S3 = complement(S1,S2) = [3,6]");
 					System.out.println("S3.isElement(4): true");
-					assert S3.isElement(4) == true;
+					assert setEngine.contains(S3,4) == true;
 					System.out.println("S3.isElement(9): false");
-					assert S3.isElement(9) == false;
+					assert setEngine.contains(S3,9) == false;
 					System.out.println("S3.isElement(30): false");
-					assert S3.isElement(30) == false;
+					assert setEngine.contains(S3,30) == false;
 				}
 				System.out.println("TEST 6 END");
 				System.out.println();
 
 				System.out.println("TEST 7:");
 				{
-					SetEngine setEngine = new SetBasicEngine();
+					FunctionEngine funcEngine = new FunctionBasicEngine();
+					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
-						public Boolean apply( Integer n ) {
-							return (n >= 3) && (n <= 11);
+					Set<Integer> S1 = setEngine.createSetByLambda(
+						new LambdaFunction<Integer,Boolean>() {
+							public Boolean apply( Integer n ) {
+								return (n >= 3) && (n <= 11);
+							}
 						}
-					});
+					);
 
 					Set<Integer> S3 = setEngine.complement(S1);
 
 					System.out.println("S1 = [3,11]");
 					System.out.println("S3 = complement(S1) = (-inf,3),(11,inf)");
 					System.out.println("S3.isElement(4): false");
-					assert S3.isElement(4) == false;
+					assert setEngine.contains(S3,4) == false;
 					System.out.println("S3.isElement(9): false");
-					assert S3.isElement(9) == false;
+					assert setEngine.contains(S3,9) == false;
 					System.out.println("S3.isElement(30): true");
-					assert S3.isElement(30) == true;
+					assert setEngine.contains(S3,30) == true;
 				}
 				System.out.println("TEST 7 END");
 				System.out.println();
