@@ -20,13 +20,13 @@ public class model_sample
 						sam.add(i);
 					SetEngine setEngine = new SetEngineSampleAlgorithm<Integer>(sam);
 
-					Set<Integer> S1 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
+					Set<Integer> S1 = setEngine.createSetByFunction( new Function<Integer,Boolean>() {
 						public Boolean apply( Integer n ) {
 							return (n >= 6) && (n <= 11);
 						}
 					});
 
-					Set<Integer> S2 = setEngine.createSetByIntensionalDefinition( new Function<Integer,Boolean>() {
+					Set<Integer> S2 = setEngine.createSetByFunction( new Function<Integer,Boolean>() {
 						public Boolean apply( Integer n ) {
 							return (n >= 3) && (n <= 20);
 						}

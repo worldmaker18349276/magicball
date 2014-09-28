@@ -11,6 +11,9 @@ public interface TransformationEngine
 	public Transformation dividedBy( Transformation trans, Number divisor );
 	public Transformation invert( Transformation trans );
 	public Transformation createIdentityTransformation();
+	public Transformation createTransformationByVectors( Number[] rvec, Number[] sh );
+	public Transformation createRotationByVector( Number[] rvec );
+	public Transformation createShiftByVector( Number[] sh );
 	public Function<Number[],Number[]> createTransformationFunction( Transformation trans );
 	public boolean isIdentity( Transformation trans );
 	public boolean isRotation( Transformation trans );

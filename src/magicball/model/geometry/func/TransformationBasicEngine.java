@@ -8,13 +8,15 @@ import magicball.model.*;
 public class TransformationBasicEngine implements TransformationEngine
 {
 	protected NumberEngine mathEngine;
+	protected FunctionEngine funcEngine;
 
-	public TransformationBasicEngine( NumberEngine mathEng ) {
+	public TransformationBasicEngine( NumberEngine mathEng, FunctionEngine funcEng ) {
 		this.mathEngine = mathEng;
+		this.funcEngine = funcEng;
 	}
 
 	public TransformationBasicEngine clone() {
-		return new TransformationBasicEngine(this.mathEngine);
+		return new TransformationBasicEngine(this.mathEngine,this.funcEngine);
 	}
 
 	protected TransformationMatrixExpression cast( Transformation trans ) {
@@ -27,6 +29,18 @@ public class TransformationBasicEngine implements TransformationEngine
 
 	public Transformation createIdentityTransformation() {
 		return new TransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
+	}
+
+	public Transformation createTransformationByVectors( Number[] rvec, Number[] sh ) {
+		return new TransformationMatrixExpression(mathEngine.rotationVector2RotationMatrix(rvec),sh);
+	}
+
+	public Transformation createRotationByVector( Number[] rvec ) {
+		return new TransformationMatrixExpression(mathEngine.rotationVector2RotationMatrix(rvec),mathEngine.vector0(3));
+	}
+
+	public Transformation createShiftByVector( Number[] sh ) {
+		return new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 	}
 
 	public Transformation compose( Transformation trans1_, Transformation trans2_ ) {
@@ -116,13 +130,16 @@ public class TransformationBasicEngine implements TransformationEngine
 				mathEngine.equals(cast(trans1).getShiftVector(),cast(trans2).getShiftVector());
 	}
 
-	public Function<Number[],Number[]> createTransformationFunction( final Transformation trans ) {
+	public Function<Number[],Number[]> createTransformationFunction( Transformation trans_ ) {
 		final NumberEngine math = this.mathEngine;
-		return new Function<Number[],Number[]>() {
-			public Number[] apply( Number[] in ) {
-				return math.add(math.matrixMultiply(cast(trans).getRotationMatrix(),in),cast(trans).getShiftVector());
+		final TransformationMatrixExpression trans = cast(trans_);
+		return this.funcEngine.createFunctionByLambda(
+			new LambdaFunction<Number[],Number[]>() {
+				public Number[] apply( Number[] in ) {
+					return math.add(math.matrixMultiply(trans.getRotationMatrix(),in),trans.getShiftVector());
+				}
 			}
-		};
+		);
 	}
 
 	public Reflection createReflectionByPlane( Surface plane ) {

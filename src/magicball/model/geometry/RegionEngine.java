@@ -1,5 +1,7 @@
 package magicball.model.geometry;
 
+import magicball.model.math.*;
+
 
 public interface RegionEngine
 {
@@ -10,6 +12,9 @@ public interface RegionEngine
 	public Region complement( Region reg2 );
 	public Region createUniversalRegion();
 	public Region createEmptyRegion();
+	public Region createRegionBySet( Set<Number[]> set );
+	public Region createRegionByFunction( Function<Number[],Boolean> func );
+	public Region createRegionByLambda( LambdaFunction<Number[],Boolean> lambda );
 	public Region createRegionByFace( Surface face, int side );
 
 	public boolean isEmpty( Region reg );

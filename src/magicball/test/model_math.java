@@ -18,11 +18,7 @@ public class model_math
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 
 					Function<Integer[],Integer> f = funcEngine.createFunctionByLambda(
-						new LambdaFunction<Integer[],Integer>() {
-							public Integer apply( Integer[] v ) {
-								return v[0]*2 + v[1]*5 - v[2];
-							}
-						}
+						( v ) -> ( v[0]*2 + v[1]*5 - v[2] )
 					);
 					System.out.println("f(x,y,z) = 2x+5y-z");
 					System.out.println("f(1,2,3) = 9");
@@ -37,11 +33,7 @@ public class model_math
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 
 					Function<Integer,Boolean> g = funcEngine.createFunctionByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n > 3);
-							}
-						}
+						( n ) -> ( n>3 )
 					);
 					System.out.println("g(n) = n>3");
 					System.out.println("g(9) = true");
@@ -58,18 +50,10 @@ public class model_math
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 
 					Function<Integer[],Integer> f = funcEngine.createFunctionByLambda(
-						new LambdaFunction<Integer[],Integer>() {
-							public Integer apply( Integer[] v ) {
-								return v[0]*2 + v[1]*5 - v[2];
-							}
-						}
+						( v ) -> ( v[0]*2 + v[1]*5 - v[2] )
 					);
 					Function<Integer,Boolean> g = funcEngine.createFunctionByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n > 3);
-							}
-						}
+						( n ) -> ( n>3 )
 					);
 					Function<Integer[],Boolean> h = funcEngine.compose(f,g);
 
@@ -108,11 +92,7 @@ public class model_math
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
 					Set<Integer> I = setEngine.createSetByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n > 3);
-							}
-						}
+						( n ) -> ( n>3 )
 					);
 
 					System.out.println("I = { n | n>3 }");
@@ -162,19 +142,11 @@ public class model_math
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
 					Set<Integer> S1 = setEngine.createSetByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n >= 3) && (n <= 11);
-							}
-						}
+						( n ) -> ( (n>=3) && (n<=11) )
 					);
 
 					Set<Integer> S2 = setEngine.createSetByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n >= 6) && (n <= 20);
-							}
-						}
+						( n ) -> ( (n>=6) && (n<=20) )
 					);
 
 					Set<Integer> S3 = setEngine.union(S1,S2);
@@ -198,19 +170,11 @@ public class model_math
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
 					Set<Integer> S1 = setEngine.createSetByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n >= 3) && (n <= 11);
-							}
-						}
+						( n ) -> ( (n>=3) && (n<=11) )
 					);
 
 					Set<Integer> S2 = setEngine.createSetByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n >= 6) && (n <= 20);
-							}
-						}
+						( n ) -> ( (n>=6) && (n<=20) )
 					);
 
 					Set<Integer> S3 = setEngine.intersect(S1,S2);
@@ -234,19 +198,11 @@ public class model_math
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
 					Set<Integer> S1 = setEngine.createSetByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n >= 3) && (n <= 11);
-							}
-						}
+						( n ) -> ( (n>=3) && (n<=11) )
 					);
 
 					Set<Integer> S2 = setEngine.createSetByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n >= 6) && (n <= 20);
-							}
-						}
+						( n ) -> ( (n>=6) && (n<=20) )
 					);
 
 					Set<Integer> S3 = setEngine.complement(S1,S2);
@@ -270,11 +226,7 @@ public class model_math
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
 					Set<Integer> S1 = setEngine.createSetByLambda(
-						new LambdaFunction<Integer,Boolean>() {
-							public Boolean apply( Integer n ) {
-								return (n >= 3) && (n <= 11);
-							}
-						}
+						( n ) -> ( (n>=3) && (n<=11) )
 					);
 
 					Set<Integer> S3 = setEngine.complement(S1);
