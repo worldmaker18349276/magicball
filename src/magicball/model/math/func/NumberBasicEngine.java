@@ -381,7 +381,34 @@ public class NumberBasicEngine implements NumberEngine
 	}
 
 	public Number[][] invert( Number[][] m ) {
-		throw new UnsupportedAlgorithmException();
+		double[][] lu = doubleValue(getLU(m));
+		int n = lu.length;
+		double[][] u_ = new double [ n ][ n ];
+		double[][] l_ = new double [ n ][ n ];
+
+		// invert U
+		for ( int j=0; j<n; j++ ) {
+			u_[j][j] = 1/lu[j][j];
+			for ( int i=j+1; i<n; i++ ) {
+				u_[i][j] = 0;
+				for ( int k=j; k<i; k++ )
+					u_[i][j] = u_[i][j] + lu[i][k] * u_[k][j];
+				u_[i][j] = -lu[i][i] * u_[i][j];
+			}
+		}
+
+		// invert L
+		for ( int i=0; i<n; i++ ) {
+			l_[i][i] = 1;
+			for ( int j=i-1; j>=0; j-- ) {
+				l_[i][j] = 0;
+				for ( int k=j+1; k<=i; k++ )
+					l_[i][j] = l_[i][j] + l_[i][k] * lu[k][j];
+				l_[i][j] = -l_[i][j];
+			}
+		}
+
+		return matrixMultiply(matrix(u_),matrix(l_));
 	}
 
 
