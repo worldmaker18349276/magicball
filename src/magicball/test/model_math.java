@@ -91,9 +91,9 @@ public class model_math
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Set<Integer> I = setEngine.createSetByLambda(
+					Set<Integer> I = setEngine.createSetByFunction(funcEngine.<Integer,Boolean>function(
 						( n ) -> ( n>3 )
-					);
+					));
 
 					System.out.println("I = { n | n>3 }");
 					System.out.println("I.isElement(4): true");
@@ -141,13 +141,13 @@ public class model_math
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Set<Integer> S1 = setEngine.createSetByLambda(
+					Set<Integer> S1 = setEngine.createSetByFunction(funcEngine.<Integer,Boolean>function(
 						( n ) -> ( (n>=3) && (n<=11) )
-					);
+					));
 
-					Set<Integer> S2 = setEngine.createSetByLambda(
+					Set<Integer> S2 = setEngine.createSetByFunction(funcEngine.<Integer,Boolean>function(
 						( n ) -> ( (n>=6) && (n<=20) )
-					);
+					));
 
 					Set<Integer> S3 = setEngine.union(S1,S2);
 
@@ -169,13 +169,13 @@ public class model_math
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Set<Integer> S1 = setEngine.createSetByLambda(
+					Set<Integer> S1 = setEngine.createSetByFunction(funcEngine.<Integer,Boolean>function(
 						( n ) -> ( (n>=3) && (n<=11) )
-					);
+					));
 
-					Set<Integer> S2 = setEngine.createSetByLambda(
+					Set<Integer> S2 = setEngine.createSetByFunction(funcEngine.<Integer,Boolean>function(
 						( n ) -> ( (n>=6) && (n<=20) )
-					);
+					));
 
 					Set<Integer> S3 = setEngine.intersect(S1,S2);
 
@@ -197,13 +197,13 @@ public class model_math
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Set<Integer> S1 = setEngine.createSetByLambda(
+					Set<Integer> S1 = setEngine.createSetByFunction(funcEngine.<Integer,Boolean>function(
 						( n ) -> ( (n>=3) && (n<=11) )
-					);
+					));
 
-					Set<Integer> S2 = setEngine.createSetByLambda(
+					Set<Integer> S2 = setEngine.createSetByFunction(funcEngine.<Integer,Boolean>function(
 						( n ) -> ( (n>=6) && (n<=20) )
-					);
+					));
 
 					Set<Integer> S3 = setEngine.complement(S1,S2);
 
@@ -225,9 +225,9 @@ public class model_math
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 
-					Set<Integer> S1 = setEngine.createSetByLambda(
+					Set<Integer> S1 = setEngine.createSetByFunction(funcEngine.<Integer,Boolean>function(
 						( n ) -> ( (n>=3) && (n<=11) )
-					);
+					));
 
 					Set<Integer> S3 = setEngine.complement(S1);
 
@@ -297,19 +297,19 @@ public class model_math
 					System.out.println("n2 = number(32) = " + n2);
 
 					System.out.println("-0.4 = -0.4");
-					assert math.equals(math.negate(n1),-0.4);
+					assert math.equals(math.negate(n1),math.number(-0.4));
 					System.out.println("0.4 + 32 = 32.4");
-					assert math.equals(math.add(n1,n2),32.4);
+					assert math.equals(math.add(n1,n2),math.number(32.4));
 					System.out.println("0.4 - 32 = -31.6");
-					assert math.equals(math.subtract(n1,n2),-31.6);
+					assert math.equals(math.subtract(n1,n2),math.number(-31.6));
 					System.out.println("0.4 * 32 = 12.8");
-					assert math.equals(math.multiply(n1,n2),12.8);
+					assert math.equals(math.multiply(n1,n2),math.number(12.8));
 					System.out.println("0.4 / 32 = 0.0125");
-					assert math.equals(math.dividedBy(n1,n2),0.0125);
+					assert math.equals(math.dividedBy(n1,n2),math.number(0.0125));
 					System.out.println("0.4 ^ 3 = 0.064");
-					assert math.equals(math.pow(n1,3),0.064);
+					assert math.equals(math.pow(n1,3),math.number(0.064));
 					System.out.println("_/0.4 = 0.632455532");
-					assert math.equals(math.sqrt(n1),0.632455532);
+					assert math.equals(math.sqrt(n1),math.number(0.632455532));
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
@@ -350,15 +350,15 @@ public class model_math
 					Number n3 = math.number(32);
 
 					System.out.println("-[0.4,2,-1] = [-0.4,-2,1]");
-					assert math.equals(math.negate(v1),new double[]{-0.4,-2,1});
+					assert math.equals(math.negate(v1),math.vector(-0.4,-2,1));
 					System.out.println("[0.4,2,-1] + [0,-1,1] = [0.4,1,0]");
-					assert math.equals(math.add(v1,v2),new double[]{0.4,1,0});
+					assert math.equals(math.add(v1,v2),math.vector(0.4,1,0));
 					System.out.println("[0.4,2,-1] - [0,-1,1] = [0.4,3,-2]");
-					assert math.equals(math.subtract(v1,v2),new double[]{0.4,3,-2});
+					assert math.equals(math.subtract(v1,v2),math.vector(0.4,3,-2));
 					System.out.println("[0.4,2,-1] * 32 = [12.8,64,-32]");
-					assert math.equals(math.multiply(v1,n3),new double[]{12.8,64,-32});
+					assert math.equals(math.multiply(v1,n3),math.vector(12.8,64,-32));
 					System.out.println("[0.4,2,-1] / 32 = [0.0125,0.0625,-0.03125]");
-					assert math.equals(math.dividedBy(v1,n3),new double[]{0.0125,0.0625,-0.03125});
+					assert math.equals(math.dividedBy(v1,n3),math.vector(0.0125,0.0625,-0.03125));
 				}
 				System.out.println("TEST 3 END");
 				System.out.println();
@@ -371,13 +371,13 @@ public class model_math
 					Number[] v2 = math.vector(0,-1,1);
 
 					System.out.println("|[1,0,1]| =  1.41421356");
-					assert math.equals(math.norm(v1),1.41421356);
+					assert math.equals(math.norm(v1),math.number(1.41421356));
 					System.out.println("[1,0,1]^ = [0.70710678,0,0.70710678]");
-					assert math.equals(math.normalize(v1),new double[]{0.70710678,0,0.70710678});
+					assert math.equals(math.normalize(v1),math.vector(0.70710678,0,0.70710678));
 					System.out.println("[1,0,1] . [0,-1,1] = 1");
 					assert math.equals(math.dotProduct(v1,v2),1.0);
 					System.out.println("[1,0,1] x [0,-1,1] = [1,-1,-1]");
-					assert math.equals(math.crossProduct(v1,v2),new double[]{1,-1,-1});
+					assert math.equals(math.crossProduct(v1,v2),math.vector(1,-1,-1));
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
@@ -422,15 +422,15 @@ public class model_math
 					System.out.println("m2 = " + toString(m2));
 
 					System.out.println("-m1 = " + toString(new double[][]{{-0.4,-2},{1,-5}}));
-					assert math.equals(math.negate(m1),new double[][]{{-0.4,-2},{1,-5}});
+					assert math.equals(math.negate(m1),math.matrix(new double[][]{{-0.4,-2},{1,-5}}));
 					System.out.println("m1 + m2 = " + toString(new double[][]{{0.4,1},{0,7}}));
-					assert math.equals(math.add(m1,m2),new double[][]{{0.4,1},{0,7}});
+					assert math.equals(math.add(m1,m2),math.matrix(new double[][]{{0.4,1},{0,7}}));
 					System.out.println("m1 - m2 = " + toString(new double[][]{{0.4,3},{-2,3}}));
-					assert math.equals(math.subtract(m1,m2),new double[][]{{0.4,3},{-2,3}});
+					assert math.equals(math.subtract(m1,m2),math.matrix(new double[][]{{0.4,3},{-2,3}}));
 					System.out.println("m1 * 32 = " + toString(new double[][]{{12.8,64},{-32,160}}));
-					assert math.equals(math.multiply(m1,32),new double[][]{{12.8,64},{-32,160}});
+					assert math.equals(math.multiply(m1,32),math.matrix(new double[][]{{12.8,64},{-32,160}}));
 					System.out.println("m1 / 32 = " + toString(new double[][]{{0.0125,0.0625},{-0.03125,0.15625}}));
-					assert math.equals(math.dividedBy(m1,32),new double[][]{{0.0125,0.0625},{-0.03125,0.15625}});
+					assert math.equals(math.dividedBy(m1,32),math.matrix(new double[][]{{0.0125,0.0625},{-0.03125,0.15625}}));
 				}
 				System.out.println("TEST 3 END");
 				System.out.println();
@@ -445,9 +445,9 @@ public class model_math
 					System.out.println("m2 = " + toString(m2));
 
 					System.out.println("m1^t = " + toString(new double[][]{{0.4,-1,1},{2,5,1}}));
-					assert math.equals(math.transpose(m1),new double[][]{{0.4,-1,1},{2,5,1}});
+					assert math.equals(math.transpose(m1),math.matrix(new double[][]{{0.4,-1,1},{2,5,1}}));
 					System.out.println("m1 * m2 = " + toString(new double[][]{{2,-2.4,1.2,4.08},{5,-4,-3,9.8},{1,-2,3,2.2}}));
-					assert math.equals(math.matrixMultiply(m1,m2),new double[][]{{2,-2.4,1.2,4.08},{5,-4,-3,9.8},{1,-2,3,2.2}});
+					assert math.equals(math.matrixMultiply(m1,m2),math.matrix(new double[][]{{2,-2.4,1.2,4.08},{5,-4,-3,9.8},{1,-2,3,2.2}}));
 				}
 				System.out.println("TEST 4 END");
 				System.out.println();
@@ -462,17 +462,17 @@ public class model_math
 					System.out.println("v2 = " + toString(v2));
 
 					System.out.println("m1^3 = " + toString(new double[][]{{-19.336,100.28,103.12},{-29.16,146.8,152.2},{-6.4,33.0,34.0}}));
-					assert math.equals(math.pow(m1,3),new double[][]{{-19.336,100.28,103.12},{-29.16,146.8,152.2},{-6.4,33.0,34.0}});
+					assert math.equals(math.pow(m1,3),math.matrix(new double[][]{{-19.336,100.28,103.12},{-29.16,146.8,152.2},{-6.4,33.0,34.0}}));
 					System.out.println("m1 * v2 = " + toString(new double[]{17.8,33.0,7.0}));
-					assert math.equals(math.matrixMultiply(m1,v2),new double[]{17.8,33.0,7.0});
+					assert math.equals(math.matrixMultiply(m1,v2),math.vector(new double[]{17.8,33.0,7.0}));
 					System.out.println("v2 * m1 = " + toString(new double[]{-2.2,25.0,23.0}));
-					assert math.equals(math.matrixMultiply(v2,m1),new double[]{-2.2,25.0,23.0});
+					assert math.equals(math.matrixMultiply(v2,m1),math.vector(new double[]{-2.2,25.0,23.0}));
 					System.out.println("tr(m1) = 6.4");
-					assert math.equals(math.trace(m1),6.4);
+					assert math.equals(math.trace(m1),math.number(6.4));
 					System.out.println("det(m1) = 1");
-					assert math.equals(math.determinant33(m1),1.0);
+					assert math.equals(math.determinant33(m1),math.number(1.0));
 					System.out.println("m1^-1 = " + toString(new double[][]{{0.0,-1.0,5.0},{1.0,0.4,-4.0},{-1.0,-0.4,5.0}}));
-					assert math.equals(math.invert33(m1),new double[][]{{0.0,-1.0,5.0},{1.0,0.4,-4.0},{-1.0,-0.4,5.0}});
+					assert math.equals(math.invert33(m1),math.matrix(new double[][]{{0.0,-1.0,5.0},{1.0,0.4,-4.0},{-1.0,-0.4,5.0}}));
 				}
 				System.out.println("TEST 5 END");
 				System.out.println();

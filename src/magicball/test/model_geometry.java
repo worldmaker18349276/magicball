@@ -340,9 +340,9 @@ public class model_geometry
 					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
 					RegionEngine regEngine = new RegionBasicEngine(mathEngine,setEngine,funcEngine,faceEngine,transEngine);
 
-					Region reg = regEngine.createRegionByLambda(
+					Region reg = regEngine.createRegionByFunction(funcEngine.function(
 						( v ) -> (v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue() > 0)
-					);
+					));
 					System.out.println("reg = Region(2x+5y-z>0)");
 					System.out.println("reg.contains([1,2,3]) = true");
 					assert regEngine.contains(reg,new Number[]{ 1,2,3 }) == true;
@@ -391,9 +391,9 @@ public class model_geometry
 					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
 					RegionEngine regEngine = new RegionBasicEngine(mathEngine,setEngine,funcEngine,faceEngine,transEngine);
 
-					Region reg1 = regEngine.createRegionByLambda(
+					Region reg1 = regEngine.createRegionByFunction(funcEngine.function(
 						( v ) -> (v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue() > 0)
-					);
+					));
 					System.out.println("reg1 = Region(2x+5y-z>0)");
 					System.out.println("reg1.contains([1,2,3]) = true");
 					assert regEngine.contains(reg1,new Number[]{ 1,2,3 }) == true;
@@ -404,9 +404,9 @@ public class model_geometry
 					System.out.println("reg1.contains([-5,1,1]) = false");
 					assert regEngine.contains(reg1,new Number[]{ -5,1,1 }) == false;
 
-					Region reg2 = regEngine.createRegionByLambda(
+					Region reg2 = regEngine.createRegionByFunction(funcEngine.function(
 						( v ) -> (v[0].doubleValue()*2 - v[1].doubleValue()*4 + v[2].doubleValue() * 5 + 1 > 0)
-					);
+					));
 					System.out.println("reg2 = Region(2x-4y+5z+1>0)");
 					System.out.println("reg2.contains([1,2,3]) = true");
 					assert regEngine.contains(reg2,new Number[]{ 1,2,3 }) == true;
