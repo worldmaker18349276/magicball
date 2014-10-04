@@ -32,16 +32,6 @@ public class TransformationBasicEngine implements TransformationEngine
 		}
 	}
 
-	public Number[][] getRotationMatrix( Transformation trans_ ) {
-		TransformationMatrixExpression trans = cast(trans_);
-		return trans.getRotationMatrix();
-	}
-
-	public Number[] getShiftVector( Transformation trans_ ) {
-		TransformationMatrixExpression trans = cast(trans_);
-		return trans.getShiftVector();
-	}
-
 	protected Number[] rotationMatrix2RotationVector( Number[][] rmat ) {
 		double angle = Math.acos((mathEngine.doubleValue(mathEngine.trace(rmat))-1)/2);
 		double factor = angle/(2*Math.sin(angle));
@@ -73,10 +63,8 @@ public class TransformationBasicEngine implements TransformationEngine
 		return rmat;
 	}
 
-	public Transformation createIdentityTransformation() {
-		return new TransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
-	}
 
+	// creater
 	public Transformation createTransformationByVectors( Number[] rvec, Number[] sh ) {
 		return new TransformationMatrixExpression(rotationVector2RotationMatrix(rvec),sh);
 	}
@@ -89,6 +77,45 @@ public class TransformationBasicEngine implements TransformationEngine
 		return new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 	}
 
+	public Transformation createIdentityTransformation() {
+		return new TransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
+	}
+
+	public Reflection createReflectionByPlane( Surface plane ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+
+	// attribute
+	public Number[][] getRotationMatrix( Transformation trans_ ) {
+		TransformationMatrixExpression trans = cast(trans_);
+		return trans.getRotationMatrix();
+	}
+
+	public Number[] getShiftVector( Transformation trans_ ) {
+		TransformationMatrixExpression trans = cast(trans_);
+		return trans.getShiftVector();
+	}
+
+	public Function<Number[],Number[]> getTransformationFunction( Transformation trans ) {
+		final NumberEngine math = this.mathEngine;
+		final Number[][] mat = getRotationMatrix(trans);
+		final Number[] vec = getShiftVector(trans);
+		return this.funcEngine.function(
+			new LambdaFunction<Number[],Number[]>() {
+				public Number[] apply( Number[] in ) {
+					return math.add(math.matrixMultiply(mat,in),vec);
+				}
+			}
+		);
+	}
+
+	public Function<Number[],Number[]> getReflectionFunction( Reflection ref ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+
+	// operator
 	public Transformation compose( Transformation trans1, Transformation trans2 ) {
 		Number [][] rot = mathEngine.matrixMultiply(getRotationMatrix(trans2),getRotationMatrix(trans1));
 		Number [] sh = mathEngine.add(getShiftVector(trans2),mathEngine.matrixMultiply(getRotationMatrix(trans2),getShiftVector(trans1)));
@@ -170,25 +197,5 @@ public class TransformationBasicEngine implements TransformationEngine
 	public boolean equals( Transformation trans1, Transformation trans2 ) {
 		return mathEngine.equals(getRotationMatrix(trans1),getRotationMatrix(trans2)) &&
 				mathEngine.equals(getShiftVector(trans1),getShiftVector(trans2));
-	}
-
-	public Function<Number[],Number[]> getTransformationFunction( Transformation trans ) {
-		final NumberEngine math = this.mathEngine;
-		final Number[][] mat = getRotationMatrix(trans);
-		final Number[] vec = getShiftVector(trans);
-		return this.funcEngine.createFunctionByLambda(
-			new LambdaFunction<Number[],Number[]>() {
-				public Number[] apply( Number[] in ) {
-					return math.add(math.matrixMultiply(mat,in),vec);
-				}
-			}
-		);
-	}
-
-	public Reflection createReflectionByPlane( Surface plane ) {
-		throw new UnsupportedAlgorithmException();
-	}
-	public Function<Number[],Number[]> createReflectionFunction( Reflection ref ) {
-		throw new UnsupportedAlgorithmException();
 	}
 }

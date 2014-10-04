@@ -6,6 +6,7 @@ import magicball.model.math.*;
 
 public class FunctionBasicEngine implements FunctionEngine
 {
+	public FunctionBasicEngine() { }
 
 	protected < I, O > FunctionLambdaExpression<I,O> cast( Function<I,O> func ) {
 		try {
@@ -15,27 +16,14 @@ public class FunctionBasicEngine implements FunctionEngine
 		}
 	}
 
-	public < I, O > LambdaFunction<I,O> getLambdaFunction( Function<I,O> func_ ) {
-		FunctionLambdaExpression<I,O> func = cast(func_);
-		return func.getLambdaFunction();
-	}
 
-	public < I, M, O > Function<I,O> compose( Function<I,M> func1_, Function<M,O> func2_ ) {
-		final LambdaFunction<I,M> func1 = getLambdaFunction(func1_);
-		final LambdaFunction<M,O> func2 = getLambdaFunction(func2_);
-		return createFunctionByLambda(new LambdaFunction<I,O>() {
-			public O apply( I in ) {
-				return func2.apply(func1.apply(in));
-			}
-		});
-	}
-
-	public < I, O > Function<I,O> createFunctionByLambda( LambdaFunction<I,O> lambda ) {
+	// creater
+	public < I, O > Function<I,O> function( LambdaFunction<I,O> lambda ) {
 		return new FunctionLambdaExpression<I,O>(lambda);
 	}
 
 	public < I > Function<I,I> createIdentityFunction() {
-		return createFunctionByLambda(new LambdaFunction<I,I>() {
+		return function(new LambdaFunction<I,I>() {
 			public I apply( I in ) {
 				return in;
 			}
@@ -43,11 +31,18 @@ public class FunctionBasicEngine implements FunctionEngine
 	}
 
 	public < I, O > Function<I,O> createConstantFunction( final O c ) {
-		return createFunctionByLambda(new LambdaFunction<I,O>() {
+		return function(new LambdaFunction<I,O>() {
 			public O apply( I in ) {
 				return c;
 			}
 		});
+	}
+
+
+	// attribute
+	public < I, O > LambdaFunction<I,O> getLambdaFunction( Function<I,O> func_ ) {
+		FunctionLambdaExpression<I,O> func = cast(func_);
+		return func.getLambdaFunction();
 	}
 
 	public < I, O > O applies( Function<I,O> func, I in ) {
@@ -73,7 +68,18 @@ public class FunctionBasicEngine implements FunctionEngine
 	}
 
 
-	public < I, O > Function<I,O> equals( Function<I,O> func1, Function<I,O> func2 ) {
+	// operator
+	public < I, M, O > Function<I,O> compose( Function<I,M> func1_, Function<M,O> func2_ ) {
+		final LambdaFunction<I,M> func1 = getLambdaFunction(func1_);
+		final LambdaFunction<M,O> func2 = getLambdaFunction(func2_);
+		return function(new LambdaFunction<I,O>() {
+			public O apply( I in ) {
+				return func2.apply(func1.apply(in));
+			}
+		});
+	}
+
+	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 ) {
 		throw new UnsupportedAlgorithmException();
 	}
 	public < I, O > Function<O,I> invert( Function<I,O> func ) {

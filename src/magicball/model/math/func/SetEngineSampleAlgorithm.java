@@ -32,6 +32,20 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 	}
 
 
+	// attribute
+	public < E_ > boolean containsAll( Set<E_> set1_, Set<E_> set2_ ) {
+		Set<E> set1 = castToE(set1_);
+		Set<E> set2 = castToE(set2_);
+
+		java.util.Set<E> sample2 = createSampleSetOf(set2);
+		for ( E e : sample2 )
+			if ( !contains(set1,e) )
+				return false;
+		return true;
+	}
+
+
+	// operator
 	public < E_ > boolean isEmpty( Set<E_> set ) {
 		return equals(set,this.<E_>createEmptySet());
 	}
@@ -48,16 +62,4 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 		java.util.Set<E> sample2 = createSampleSetOf(set2);
 		return sample1.equals(sample2);
 	}
-
-	public < E_ > boolean containsAll( Set<E_> set1_, Set<E_> set2_ ) {
-		Set<E> set1 = castToE(set1_);
-		Set<E> set2 = castToE(set2_);
-
-		java.util.Set<E> sample2 = createSampleSetOf(set2);
-		for ( E e : sample2 )
-			if ( !contains(set1,e) )
-				return false;
-		return true;
-	}
-
 }

@@ -17,7 +17,7 @@ public class model_math
 				{
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 
-					Function<Integer[],Integer> f = funcEngine.createFunctionByLambda(
+					Function<Integer[],Integer> f = funcEngine.function(
 						( v ) -> ( v[0]*2 + v[1]*5 - v[2] )
 					);
 					System.out.println("f(x,y,z) = 2x+5y-z");
@@ -32,7 +32,7 @@ public class model_math
 				{
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 
-					Function<Integer,Boolean> g = funcEngine.createFunctionByLambda(
+					Function<Integer,Boolean> g = funcEngine.function(
 						( n ) -> ( n>3 )
 					);
 					System.out.println("g(n) = n>3");
@@ -49,10 +49,10 @@ public class model_math
 				{
 					FunctionEngine funcEngine = new FunctionBasicEngine();
 
-					Function<Integer[],Integer> f = funcEngine.createFunctionByLambda(
+					Function<Integer[],Integer> f = funcEngine.function(
 						( v ) -> ( v[0]*2 + v[1]*5 - v[2] )
 					);
-					Function<Integer,Boolean> g = funcEngine.createFunctionByLambda(
+					Function<Integer,Boolean> g = funcEngine.function(
 						( n ) -> ( n>3 )
 					);
 					Function<Integer[],Boolean> h = funcEngine.compose(f,g);

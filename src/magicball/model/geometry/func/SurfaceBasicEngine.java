@@ -35,17 +35,14 @@ public class SurfaceBasicEngine implements SurfaceEngine
 		}
 	}
 
-	public Function<Number[],Number> getIsosurfaceFunction( Surface face_ ) {
-		SurfaceFuncExpression face = cast(face_);
-		return face.getFunction();
-	}
 
+	// creater
 	public Surface createSurfaceByFunction( Function<Number[],Number> func ) {
 		return new SurfaceFuncExpression(func);
 	}
 
 	public Surface createSurfaceByLambda( LambdaFunction<Number[],Number> lambda ) {
-		return new SurfaceFuncExpression(this.funcEngine.createFunctionByLambda(lambda));
+		return new SurfaceFuncExpression(this.funcEngine.function(lambda));
 	}
 
 	public Surface createPlaneByVector( Number[] fvec ) {
@@ -65,10 +62,15 @@ public class SurfaceBasicEngine implements SurfaceEngine
 		);
 	}
 
-	public boolean isPlane( Surface face ) {
-		throw new UnsupportedAlgorithmException();
+
+	// attribute
+	public Function<Number[],Number> getIsosurfaceFunction( Surface face_ ) {
+		SurfaceFuncExpression face = cast(face_);
+		return face.getFunction();
 	}
 
+
+	// operator
 	public Surface transformsBy( Surface face, Transformation trans ) {
 		Transformation _trans = this.transEngine.invert(trans);
 		Function<Number[],Number[]> trans_func = this.transEngine.getTransformationFunction(_trans);
@@ -78,9 +80,13 @@ public class SurfaceBasicEngine implements SurfaceEngine
 	}
 	
 	public Surface reflectsBy( Surface face, Reflection ref ) {
-		Function<Number[],Number[]> ref_func = this.transEngine.createReflectionFunction(ref);
+		Function<Number[],Number[]> ref_func = this.transEngine.getReflectionFunction(ref);
 		Function<Number[],Number> face_func = getIsosurfaceFunction(face);
 		Function<Number[],Number> face_func_ = this.funcEngine.compose(ref_func,face_func);
 		return createSurfaceByFunction(face_func_);
+	}
+
+	public boolean isPlane( Surface face ) {
+		throw new UnsupportedAlgorithmException();
 	}
 }

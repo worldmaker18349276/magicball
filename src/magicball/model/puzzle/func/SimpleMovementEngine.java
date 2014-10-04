@@ -34,15 +34,21 @@ public class SimpleMovementEngine implements MovementEngine
 		}
 	}
 
+
+	// creater
+	public Movement createSimpleMovementByTransformation( Transformation trans ) {
+		return new SimpleMovementTransExpression(trans);
+	}
+
+
+	// attribute
 	public Transformation getTransformation( Movement move_ ) {
 		SimpleMovementTransExpression smove = castToSimpleMovement(move_);
 		return smove.getTransformation();
 	}
 
-	public Movement createSimpleMovementByTransformation( Transformation trans ) {
-		return new SimpleMovementTransExpression(trans);
-	}
 
+	// operator
 	public Transformation divideMovementIntoTransformation( Movement move, Number from, Number to ) {
 		if ( isSimpleMovement(move) )
 			return transEngine.dividedBy(getTransformation(move),mathEngine.subtract(to,from));

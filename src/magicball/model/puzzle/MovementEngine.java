@@ -6,8 +6,17 @@ import magicball.model.geometry.*;
 public interface MovementEngine
 {
 	public MovementEngine clone();
-	public Transformation getTransformation( Movement move );
+
+
+	// creater
 	public Movement createSimpleMovementByTransformation( Transformation trans );
+
+
+	// attribute
+	public Transformation getTransformation( Movement move );
+
+
+	// operator
 	public Transformation divideMovementIntoTransformation( Movement move, Number from, Number to );
 	public boolean isSimpleMovement( Movement move );
 }
