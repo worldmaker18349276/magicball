@@ -1,27 +1,24 @@
 package magicball.model.puzzle;
 
 import magicball.model.geometry.*;
-import java.util.Set;
-import java.util.List;
-import java.util.HashSet;
 
 
 public class PhysicalPuzzle
 {
-	protected Set<Solid> components;
+	protected java.util.Set<Solid> components;
 	protected PhysicalPuzzleEngine engine;
 
 
-	public PhysicalPuzzle( Set<Solid> sols, PhysicalPuzzleEngine eng ) {
+	public PhysicalPuzzle( java.util.Set<Solid> sols, PhysicalPuzzleEngine eng ) {
 		setComponents(sols);
 		setEngine(eng);
 	}
 
-	public Set<Solid> getComponents() {
+	public java.util.Set<Solid> getComponents() {
 		return this.components;
 	}
 
-	public void setComponents( Set<Solid> sols ) {
+	public void setComponents( java.util.Set<Solid> sols ) {
 		this.components = sols;
 	}
 
@@ -34,7 +31,7 @@ public class PhysicalPuzzle
 	}
 
 	public PhysicalPuzzle clone() {
-		Set<Solid> sols = new HashSet<Solid>();
+		java.util.Set<Solid> sols = new java.util.HashSet<Solid>();
 		for ( Solid sol : getComponents() ) {
 			sols.add(sol.clone());
 		}
@@ -64,26 +61,33 @@ public class PhysicalPuzzle
 
 
 	public void apply( Movement m ) {
-		Transformation trans = getEngine().divideMovementByDivisor(m,1).get(1);
-		for ( Solid sol : getComponents() ) {
+		Transformation trans = ((magicball.model.puzzle.func.SimpleMovementTransExpression) m).getTransformation();
+		for ( Solid sol : getComponents() )
 			getEngine().apply(sol,trans);
-		}
+		// Transformation trans = getEngine().divideMovementByDivisor(m,1).get(1);
+		// for ( Solid sol : getComponents() ) {
+		// 	getEngine().apply(sol,trans);
+		// }
 	}
 
 	public void apply( RegionalMovement rm ) throws IllegalOperationException {
-		try {
+		java.util.Set<Solid> selected_sols = getEngine().filter(getComponents(),rm.getRegion());
+		Transformation trans = ((magicball.model.puzzle.func.SimpleMovementTransExpression) rm.getMovement()).getTransformation();
+		for ( Solid sol : selected_sols )
+			getEngine().apply(sol,trans);
+		// try {
 
-			Set<Solid> selected_sols = getEngine().filter(getComponents(),rm.getRegion());
-			List<Transformation> trans_list = getEngine().divideMovement(rm.getMovement());
-			for ( Transformation trans : trans_list ) {
-				for ( Solid sol : selected_sols )
-					getEngine().apply(sol,trans);
-				validate();
-			}
+			// java.util.Set<Solid> selected_sols = getEngine().filter(getComponents(),rm.getRegion());
+			// java.util.List<Transformation> trans_list = getEngine().divideMovement(rm.getMovement());
+			// for ( Transformation trans : trans_list ) {
+			// 	for ( Solid sol : selected_sols )
+			// 		getEngine().apply(sol,trans);
+				// validate();
+			// }
 
-		} catch ( IllegalStateException e ) {
-			throw new IllegalOperationException();
-		}
+		// } catch ( IllegalStateException e ) {
+		// 	throw new IllegalOperationException();
+		// }
 	}
 }
 

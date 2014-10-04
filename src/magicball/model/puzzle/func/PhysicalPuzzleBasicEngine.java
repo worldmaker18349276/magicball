@@ -3,6 +3,7 @@ package magicball.model.puzzle.func;
 import magicball.model.puzzle.*;
 import magicball.model.geometry.*;
 import magicball.model.math.*;
+import magicball.model.*;
 
 
 public class PhysicalPuzzleBasicEngine implements PhysicalPuzzleEngine
@@ -15,6 +16,12 @@ public class PhysicalPuzzleBasicEngine implements PhysicalPuzzleEngine
 		this.regEngine = regEng;
 		this.moveEngine = moveEng;
 		this.mathEngine = mathEng;
+	}
+
+	public PhysicalPuzzleBasicEngine( EngineProvider provider ) {
+		this.regEngine = provider.getRegionEngine();
+		this.moveEngine = provider.getMovementEngine();
+		this.mathEngine = provider.getNumberEngine();
 	}
 
 	public PhysicalPuzzleEngine clone() {
@@ -41,8 +48,9 @@ public class PhysicalPuzzleBasicEngine implements PhysicalPuzzleEngine
 	public boolean noDuplicateOccupy( java.util.Set<Solid> sols ) {
 		for ( Solid sol1 : sols )
 			for ( Solid sol2 : sols )
-				if ( !regEngine.isEmpty(regEngine.intersect(sol1.getRegion(),sol2.getRegion())) )
-					return false;
+				if ( sol1 != sol2 )
+					if ( !regEngine.isEmpty(regEngine.intersect(sol1.getRegion(),sol2.getRegion())) )
+						return false;
 		return true;
 	}
 

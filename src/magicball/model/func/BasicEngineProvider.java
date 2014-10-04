@@ -12,6 +12,8 @@ import magicball.model.puzzle.func.*;
 public class BasicEngineProvider extends EngineProvider
 {
 	protected double epsilon;
+	protected double a;
+	protected double d;
 	protected NumberEngine numberEng;
 	protected SetEngine setEng;
 	protected FunctionEngine functionEng;
@@ -21,8 +23,10 @@ public class BasicEngineProvider extends EngineProvider
 	protected MovementEngine movementEng;
 
 
-	public BasicEngineProvider( double eps ) {
+	public BasicEngineProvider( double eps, double a, double d ) {
 		this.epsilon = eps;
+		this.a = a;
+		this.d = d;
 	}
 
 	public NumberEngine getNumberEngine() {
@@ -39,8 +43,18 @@ public class BasicEngineProvider extends EngineProvider
 
 	public SetEngine getSetEngine() {
 		if ( this.setEng == null )
-			this.setEng = new SetBasicEngine(this); // functionEng
+			this.setEng = new SetEngineSampleAlgorithm<Number[]>(getFunctionEngine(),createSkyGrid()); // functionEng
 		return this.setEng;
+	}
+
+	protected java.util.Set<Number[]> createSkyGrid() {
+		java.util.Set<Number[]> sam = new java.util.HashSet<Number[]>();
+		NumberEngine math = getNumberEngine();
+		for ( double x=-a; x<a; x=x+d )
+			for ( double y=-a; y<a; y=y+d )
+				for ( double z=-a; z<a; z=z+d )
+					sam.add(math.vector(x,y,z));
+		return sam;
 	}
 
 	public TransformationEngine getTransformationEngine() {
