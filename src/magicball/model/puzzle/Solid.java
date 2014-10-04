@@ -6,17 +6,21 @@ import magicball.model.geometry.*;
 // definition: a geometric object that occupy a specific region and is rigid.
 public class Solid
 {
-	final private Region region;
+	private Region region;
 
 	public Solid( Region reg ) {
-		this.region = reg;
+		setRegion(reg);
 	}
 
 	public Solid clone() {
-		return new Solid(getOccupiedRegion());
+		return new Solid(getRegion());
 	}
 
-	public Region getOccupiedRegion() {
+	public Region getRegion() {
 		return this.region;
+	}
+
+	public void setRegion( Region reg ) {
+		this.region = reg;
 	}
 }
