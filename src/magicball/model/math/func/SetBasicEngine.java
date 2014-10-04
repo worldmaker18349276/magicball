@@ -12,6 +12,10 @@ public class SetBasicEngine implements SetEngine
 		this.funcEngine = funcEng;
 	}
 
+	public SetBasicEngine( EngineProvider provider ) {
+		this.funcEngine = provider.getFunctionEngine();
+	}
+
 	protected < E > SetFunctionExpression<E> cast( Set<E> set ) {
 		try {
 			return (SetFunctionExpression<E>) set;

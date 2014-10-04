@@ -15,6 +15,11 @@ public class TransformationBasicEngine implements TransformationEngine
 		this.funcEngine = funcEng;
 	}
 
+	public TransformationBasicEngine( EngineProvider provider ) {
+		this.mathEngine = provider.getNumberEngine();
+		this.funcEngine = provider.getFunctionEngine();
+	}
+
 	public TransformationBasicEngine clone() {
 		return new TransformationBasicEngine(this.mathEngine,this.funcEngine);
 	}

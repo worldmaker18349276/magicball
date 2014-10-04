@@ -36,6 +36,14 @@ public class RegionBasicEngine implements RegionEngine
 		this.transEngine = transEng;
 	}
 
+	public RegionBasicEngine( EngineProvider provider ) {
+		this.mathEngine = provider.getNumberEngine();
+		this.setEngine = provider.getSetEngine();
+		this.funcEngine = provider.getFunctionEngine();
+		this.faceEngine = provider.getSurfaceEngine();
+		this.transEngine = provider.getTransformationEngine();
+	}
+
 	public RegionBasicEngine clone() {
 		return new RegionBasicEngine(this.mathEngine,this.setEngine,this.funcEngine,this.faceEngine,this.transEngine);
 	}

@@ -17,6 +17,12 @@ public class SurfaceBasicEngine implements SurfaceEngine
 		this.mathEngine = mathEng;
 	}
 
+	public SurfaceBasicEngine( EngineProvider provider ) {
+		this.transEngine = provider.getTransformationEngine();
+		this.funcEngine = provider.getFunctionEngine();
+		this.mathEngine = provider.getNumberEngine();
+	}
+
 	public SurfaceBasicEngine clone() {
 		return new SurfaceBasicEngine(this.transEngine,this.funcEngine,this.mathEngine);
 	}
