@@ -37,14 +37,12 @@ public class SurfaceBasicEngine implements SurfaceEngine
 
 
 	// creater
+	@Override
 	public Surface createSurfaceByFunction( Function<Number[],Number> func ) {
 		return new SurfaceFuncExpression(func);
 	}
 
-	public Surface createSurfaceByLambda( LambdaFunction<Number[],Number> lambda ) {
-		return new SurfaceFuncExpression(this.funcEngine.function(lambda));
-	}
-
+	@Override
 	public Surface createPlaneByVector( Number[] fvec ) {
 		Number dis = this.mathEngine.norm(fvec);
 		Number[] nvec = this.mathEngine.normalize(fvec);
@@ -53,17 +51,19 @@ public class SurfaceBasicEngine implements SurfaceEngine
 	
 	public Surface createPlaneByVectorAndDistance( final Number[] nvec, final Number dis ) {
 		final NumberEngine math = this.mathEngine;
-		return createSurfaceByLambda(
+		return createSurfaceByFunction(this.funcEngine.function(
 			new LambdaFunction<Number[],Number>() {
+				@Override
 				public Number apply( Number[] vec ) {
 					return math.subtract(math.dotProduct(vec,nvec),dis);
 				}
 			}
-		);
+		));
 	}
 
 
 	// attribute
+	@Override
 	public Function<Number[],Number> getIsosurfaceFunction( Surface face_ ) {
 		SurfaceFuncExpression face = cast(face_);
 		return face.getFunction();
@@ -71,6 +71,7 @@ public class SurfaceBasicEngine implements SurfaceEngine
 
 
 	// operator
+	@Override
 	public Surface transformsBy( Surface face, Transformation trans ) {
 		Transformation _trans = this.transEngine.invert(trans);
 		Function<Number[],Number[]> trans_func = this.transEngine.getTransformationFunction(_trans);
@@ -79,6 +80,7 @@ public class SurfaceBasicEngine implements SurfaceEngine
 		return createSurfaceByFunction(face_func_);
 	}
 	
+	@Override
 	public Surface reflectsBy( Surface face, Reflection ref ) {
 		Function<Number[],Number[]> ref_func = this.transEngine.getReflectionFunction(ref);
 		Function<Number[],Number> face_func = getIsosurfaceFunction(face);
@@ -86,6 +88,7 @@ public class SurfaceBasicEngine implements SurfaceEngine
 		return createSurfaceByFunction(face_func_);
 	}
 
+	@Override
 	public boolean isPlane( Surface face ) {
 		throw new UnsupportedAlgorithmException();
 	}

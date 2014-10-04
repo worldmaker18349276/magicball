@@ -5,12 +5,12 @@ public interface NumberEngine
 {
 	public NumberEngine clone();
 
+
 	// scalar ( Number )
 	public Number number( double n );
 	public Number number0();
 	public Number number1();
 	public double doubleValue( Number n );
-	public boolean equals( Number n1, double n2 );
 	public boolean equals( Number n1, Number n2 );
 	public boolean greaterThan( Number n1, Number n2 );
 	public boolean lessThan( Number n1, Number n2 );
@@ -30,7 +30,6 @@ public interface NumberEngine
 	public Number[] vector( double... ns );
 	public Number[] vector0( int d );
 	public double[] doubleValue( Number[] v );
-	public boolean equals( Number[] v1, double[] v2 );
 	public boolean equals( Number[] v1, Number[] v2 );
 	public Number[] negate( Number[] v );
 	public Number[] add( Number[] v1, Number[] v2 );
@@ -49,7 +48,6 @@ public interface NumberEngine
 	public Number[][] matrix0( int d1, int d2 );
 	public Number[][] matrix1( int d );
 	public double[][] doubleValue( Number[][] m );
-	public boolean equals( Number[][] m1, double[][] m2 );
 	public boolean equals( Number[][] m1, Number[][] m2 );
 	public Number[][] negate( Number[][] m );
 	public Number[][] add( Number[][] m1, Number[][] m2 );

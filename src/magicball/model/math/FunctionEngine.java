@@ -3,6 +3,9 @@ package magicball.model.math;
 
 public interface FunctionEngine
 {
+	public FunctionEngine clone();
+
+
 	// creater
 	public < I, O > Function<I,O> function( LambdaFunction<I,O> lambda );
 

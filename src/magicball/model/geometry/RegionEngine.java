@@ -11,7 +11,6 @@ public interface RegionEngine
 	// creater
 	public Region createRegionBySet( Set<Number[]> set );
 	public Region createRegionByFunction( Function<Number[],Boolean> func );
-	public Region createRegionByLambda( LambdaFunction<Number[],Boolean> lambda );
 	public Region createRegionByFace( Surface face, int side );
 
 	public Region createUniversalRegion();

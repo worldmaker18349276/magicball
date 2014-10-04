@@ -12,6 +12,11 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 		this.samples = sam;
 	}
 
+	@Override
+	public SetEngineSampleAlgorithm<E> clone() {
+		return new SetEngineSampleAlgorithm<E>(this.funcEngine,this.samples);
+	}
+
 	@SuppressWarnings({"unchecked"})
 	private < E_ > Set<E> castToE( Set<E_> set ) {
 		try {
@@ -33,6 +38,7 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 
 
 	// attribute
+	@Override
 	public < E_ > boolean containsAll( Set<E_> set1_, Set<E_> set2_ ) {
 		Set<E> set1 = castToE(set1_);
 		Set<E> set2 = castToE(set2_);
@@ -46,14 +52,17 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 
 
 	// operator
+	@Override
 	public < E_ > boolean isEmpty( Set<E_> set ) {
 		return equals(set,this.<E_>createEmptySet());
 	}
 
+	@Override
 	public < E_ > boolean isUniversal( Set<E_> set ) {
 		return equals(set,this.<E_>createUniversalSet());
 	}
 
+	@Override
 	public < E_ > boolean equals( Set<E_> set1_, Set<E_> set2_ ) {
 		Set<E> set1 = castToE(set1_);
 		Set<E> set2 = castToE(set2_);

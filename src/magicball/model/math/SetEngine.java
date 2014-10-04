@@ -3,9 +3,11 @@ package magicball.model.math;
 
 public interface SetEngine
 {
+	public SetEngine clone();
+
+
 	// creater
 	public < E > Set<E> createSetByFunction( Function<E,Boolean> func );
-	public < E > Set<E> createSetByLambda( LambdaFunction<E,Boolean> func );
 
 	public < E > Set<E> createEmptySet();
 	public < E > Set<E> createUniversalSet();

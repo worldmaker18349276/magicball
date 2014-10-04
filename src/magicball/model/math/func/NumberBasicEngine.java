@@ -12,6 +12,7 @@ public class NumberBasicEngine implements NumberEngine
 		this.epsilon = eps;
 	}
 
+	@Override
 	public NumberBasicEngine clone() {
 		return new NumberBasicEngine(this.epsilon);
 	}
@@ -20,47 +21,54 @@ public class NumberBasicEngine implements NumberEngine
 		return this.epsilon;
 	}
 
+
 	// scalar ( Number )
+	@Override
 	public Number number( double n ) {
 		return (Double) n;
 	}
 
+	@Override
 	public Number number0() {
 		return number(0.0);
 	}
 
+	@Override
 	public Number number1() {
 		return number(1.0);
 	}
 
+	@Override
 	public double doubleValue( Number n ) {
 		return n.doubleValue();
 	}
 
-	public boolean equals( Number n1, double n2 ) {
-		return Math.abs(doubleValue(n1)-n2) < this.epsilon;
-	}
-
+	@Override
 	public boolean equals( Number n1, Number n2 ) {
 		return Math.abs(doubleValue(n1)-doubleValue(n2)) < this.epsilon;
 	}
 
+	@Override
 	public boolean greaterThan( Number n1, Number n2 ) {
 		return (doubleValue(n1)-doubleValue(n2)) > this.epsilon;
 	}
 
+	@Override
 	public boolean lessThan( Number n1, Number n2 ) {
 		return (doubleValue(n1)-doubleValue(n2)) < -this.epsilon;
 	}
 
+	@Override
 	public Number negate( Number n ) {
 		return number(-doubleValue(n));
 	}
 
+	@Override
 	public Number add( Number n1, Number n2 ) {
 		return number( doubleValue(n1) + doubleValue(n2) );
 	}
 
+	@Override
 	public Number add( Number... ns ) {
 		Number result = ns[0];
 		for ( int i=1; i<ns.length; i++ )
@@ -68,14 +76,17 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number subtract( Number n1, Number n2 ) {
 		return number( doubleValue(n1) - doubleValue(n2) );
 	}
 
+	@Override
 	public Number multiply( Number n1, Number n2 ) {
 		return number( doubleValue(n1) * doubleValue(n2) );
 	}
 
+	@Override
 	public Number multiply( Number... ns ) {
 		Number result = ns[0];
 		for ( int i=1; i<ns.length; i++ )
@@ -83,18 +94,22 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number dividedBy( Number n1, Number n2 ) {
 		return number( doubleValue(n1) / doubleValue(n2) );
 	}
 
+	@Override
 	public Number pow( Number n1, int n2 ) {
 		return number( Math.pow(doubleValue(n1),n2) );
 	}
 
+	@Override
 	public Number pow( Number n1, Number n2 ) {
 		return number( Math.pow(doubleValue(n1),doubleValue(n2)) );
 	}
 
+	@Override
 	public Number sqrt( Number n ) {
 		return number(Math.sqrt(doubleValue(n)));
 	}
@@ -102,6 +117,7 @@ public class NumberBasicEngine implements NumberEngine
 
 
 	// vector ( Number[] )
+	@Override
 	public Number[] vector( double... ns ) {
 		Number[] vec = new Double [ ns.length ];
 		for ( int i=0; i<vec.length; i++ )
@@ -109,6 +125,7 @@ public class NumberBasicEngine implements NumberEngine
 		return vec;
 	}
 
+	@Override
 	public Number[] vector0( int d ) {
 		Number[] vec = new Double [ d ];
 		for ( int i=0; i<vec.length; i++ )
@@ -116,6 +133,7 @@ public class NumberBasicEngine implements NumberEngine
 		return vec;
 	}
 
+	@Override
 	public double[] doubleValue( Number[] v ) {
 		double[] result = new double [ v.length ];
 		for ( int i=0; i<result.length; i++ )
@@ -123,13 +141,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
-	public boolean equals( Number[] v1, double[] v2 ) {
-		for ( int i=0; i<v1.length; i++ )
-		 if ( !equals(v1[i],v2[i]) )
-		 	return false;
-		 return true;
-	}
-
+	@Override
 	public boolean equals( Number[] v1, Number[] v2 ) {
 		for ( int i=0; i<v1.length; i++ )
 		 if ( !equals(v1[i],v2[i]) )
@@ -137,6 +149,7 @@ public class NumberBasicEngine implements NumberEngine
 		 return true;
 	}
 
+	@Override
 	public Number[] negate( Number[] v ) {
 		Number[] result = new Number [ v.length ];
 		for ( int i=0; i<result.length; i++ )
@@ -144,6 +157,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[] add( Number[] v1, Number[] v2 ) {
 		Number[] result = new Double [ v1.length ];
 		for ( int i=0; i<result.length; i++ )
@@ -151,6 +165,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[] add( Number[]... vs ) {
 		Number [] result = vs[0];
 		for ( int i=1; i<vs.length; i++ )
@@ -158,6 +173,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[] subtract( Number[] v1, Number[] v2 ) {
 		Number[] result = new Double [ v1.length ];
 		for ( int i=0; i<result.length; i++ )
@@ -165,6 +181,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[] multiply( Number[] v1, Number n2 ) {
 		Number[] result = new Double [ v1.length ];
 		for ( int i=0; i<result.length; i++ )
@@ -172,6 +189,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[] dividedBy( Number[] v1, Number n2 ) {
 		Number[] result = new Double [ v1.length ];
 		for ( int i=0; i<result.length; i++ )
@@ -179,6 +197,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number norm( Number[] v ) {
 		Number result = number0();
 		for ( int i=0; i<v.length; i++ )
@@ -186,10 +205,12 @@ public class NumberBasicEngine implements NumberEngine
 		return sqrt(result);
 	}
 
+	@Override
 	public Number[] normalize( Number[] v ) {
 		return dividedBy(v,norm(v));
 	}
 
+	@Override
 	public Number dotProduct( Number[] v1, Number[] v2 ) {
 		Number result = number0();
 			for ( int i=0; i<v1.length; i++ )
@@ -197,6 +218,7 @@ public class NumberBasicEngine implements NumberEngine
 			return result;
 	}
 
+	@Override
 	public Number[] crossProduct( Number[] v1, Number[] v2 ) {
 		Number [] result = new Number [ 3 ];
 		result[0] = subtract(multiply(v1[1],v2[2]),multiply(v1[2],v2[1]));
@@ -207,6 +229,7 @@ public class NumberBasicEngine implements NumberEngine
 
 
 	// matrix ( Number[][] )
+	@Override
 	public Number[][] matrix( double[][] ns ) {
 		Number[][] mat = new Double [ ns.length ][];
 		for ( int i=0; i<mat.length; i++ )
@@ -214,6 +237,7 @@ public class NumberBasicEngine implements NumberEngine
 		return mat;
 	}
 
+	@Override
 	public Number[][] matrix0( int d1, int d2 ) {
 		Number[][] mat = new Double [ d1 ][];
 		for ( int i=0; i<mat.length; i++ )
@@ -221,6 +245,7 @@ public class NumberBasicEngine implements NumberEngine
 		return mat;
 	}
 
+	@Override
 	public Number[][] matrix1( int d ) {
 		Number[][] mat = matrix0(d,d);
 		for ( int i=0; i<mat.length; i++ )
@@ -228,6 +253,7 @@ public class NumberBasicEngine implements NumberEngine
 		return mat;
 	}
 
+	@Override
 	public double[][] doubleValue( Number[][] m ) {
 		double[][] result = new double [ m.length ][];
 		for ( int i=0; i<result.length; i++ )
@@ -235,13 +261,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
-	public boolean equals( Number[][] m1, double[][] m2 ) {
-		for ( int i=0; i<m1.length; i++ )
-		 if ( !equals(m1[i],m2[i]) )
-		 	return false;
-		 return true;
-	}
-
+	@Override
 	public boolean equals( Number[][] m1, Number[][] m2 ) {
 		for ( int i=0; i<m1.length; i++ )
 		 if ( !equals(m1[i],m2[i]) )
@@ -249,6 +269,7 @@ public class NumberBasicEngine implements NumberEngine
 		 return true;
 	}
 
+	@Override
 	public Number[][] negate( Number[][] m ) {
 		Number[][] result = new Number [ m.length ][];
 		for ( int i=0; i<result.length; i++ )
@@ -256,6 +277,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] add( Number[][] m1, Number[][] m2 ) {
 		Number[][] result = new Double [ m1.length ][];
 		for ( int i=0; i<result.length; i++ )
@@ -263,6 +285,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] add( Number[][]... ms ) {
 		Number[][] result = ms[0];
 		for ( int i=1; i<ms.length; i++ )
@@ -270,6 +293,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] subtract( Number[][] m1, Number[][] m2 ) {
 		Number[][] result = new Double [ m1.length ][];
 		for ( int i=0; i<result.length; i++ )
@@ -277,6 +301,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] multiply( Number[][] m1, Number n2 ) {
 		Number[][] result = new Double [ m1.length ][];
 		for ( int i=0; i<result.length; i++ )
@@ -284,6 +309,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] dividedBy( Number[][] m1, Number n2 ) {
 		Number[][] result = new Double [ m1.length ][];
 		for ( int i=0; i<result.length; i++ )
@@ -291,6 +317,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] transpose( Number[][] m1 ) {
 		Number [][] result = new Number [ m1[0].length ][ m1.length ];
 		for ( int i=0; i<result.length; i++ )
@@ -299,6 +326,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] matrixMultiply( Number[][] m1, Number[][] m2 ) {
 		Number [][] result = new Number [ m1.length ][ m2[0].length ];
 		for ( int i=0; i<result.length; i++ )
@@ -310,6 +338,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] matrixMultiply( Number[][]... ms ) {
 		Number [][] result = ms[0];
 		for ( int i=1; i<ms.length; i++ )
@@ -317,6 +346,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] pow( Number[][] m, int exp ) {
 		Number [][] result = m;
 		for ( int i=1; i<exp; i++ )
@@ -324,6 +354,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[] matrixMultiply( Number[][] m1, Number[] v2 ) {
 		Number [] result = new Number [ m1.length ];
 		for ( int i=0; i<result.length; i++ ) {
@@ -334,6 +365,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[] matrixMultiply( Number[] v1, Number[][] m2 ) {
 		Number [] result = new Number [ m2[0].length ];
 		for ( int j=0; j<result.length; j++ ) {
@@ -344,6 +376,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number trace( Number[][] m1 ) {
 		Number result = m1[0][0];
 		for ( int i=1; i<m1.length; i++ )
@@ -351,6 +384,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number determinant33( Number[][] m1 ) {
 		Number result =          multiply(multiply( m1[0][0], m1[1][1]), m1[2][2] );
 		result =      add(result,multiply(multiply( m1[0][1], m1[1][2]), m1[2][0] ));
@@ -361,6 +395,7 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number[][] invert33( Number[][] m ) {
 		Number [][] result = new Number [ 3 ][ 3 ];
 		result[0][0] = subtract( multiply(m[1][1],m[2][2]), multiply(m[1][2],m[2][1]) );
@@ -376,10 +411,12 @@ public class NumberBasicEngine implements NumberEngine
 		return result;
 	}
 
+	@Override
 	public Number determinant( Number[][] m ) {
 		return trace(getLU(m));
 	}
 
+	@Override
 	public Number[][] invert( Number[][] m ) {
 		double[][] lu = doubleValue(getLU(m));
 		int n = lu.length;
