@@ -7,6 +7,7 @@ public interface TransformationEngine
 {
 	public Number[][] getRotationMatrix( Transformation trans );
 	public Number[] getShiftVector( Transformation trans );
+	public Function<Number[],Number[]> getTransformationFunction( Transformation trans );
 
 	public TransformationEngine clone();
 	public Transformation compose( Transformation... trans );
@@ -17,7 +18,6 @@ public interface TransformationEngine
 	public Transformation createTransformationByVectors( Number[] rvec, Number[] sh );
 	public Transformation createRotationByVector( Number[] rvec );
 	public Transformation createShiftByVector( Number[] sh );
-	public Function<Number[],Number[]> createTransformationFunction( Transformation trans );
 	public boolean isIdentity( Transformation trans );
 	public boolean isRotation( Transformation trans );
 	public boolean isShift( Transformation trans );

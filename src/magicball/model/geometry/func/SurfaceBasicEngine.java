@@ -71,7 +71,7 @@ public class SurfaceBasicEngine implements SurfaceEngine
 
 	public Surface transformsBy( Surface face, Transformation trans ) {
 		Transformation _trans = this.transEngine.invert(trans);
-		Function<Number[],Number[]> trans_func = this.transEngine.createTransformationFunction(_trans);
+		Function<Number[],Number[]> trans_func = this.transEngine.getTransformationFunction(_trans);
 		Function<Number[],Number> face_func = getIsosurfaceFunction(face);
 		Function<Number[],Number> face_func_ = this.funcEngine.compose(trans_func,face_func);
 		return createSurfaceByFunction(face_func_);

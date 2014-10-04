@@ -172,7 +172,7 @@ public class TransformationBasicEngine implements TransformationEngine
 				mathEngine.equals(getShiftVector(trans1),getShiftVector(trans2));
 	}
 
-	public Function<Number[],Number[]> createTransformationFunction( Transformation trans ) {
+	public Function<Number[],Number[]> getTransformationFunction( Transformation trans ) {
 		final NumberEngine math = this.mathEngine;
 		final Number[][] mat = getRotationMatrix(trans);
 		final Number[] vec = getShiftVector(trans);

@@ -71,7 +71,7 @@ public class model_geometry
 					Transformation trans = transEngine.createRotationByVector(rvec);
 					System.out.println("trans = Trans(rvec) = \n" + toString(trans));
 
-					Function<Number[],Number[]> func = transEngine.createTransformationFunction(trans);
+					Function<Number[],Number[]> func = transEngine.getTransformationFunction(trans);
 					System.out.println("trans([0,1,0]) = [ -1, 0, 0 ]");
 					Number[] vec = mathEngine.vector(new double[]{ -1, 0, 0 });
 					Number[] vec_ = funcEngine.applies(func,mathEngine.vector(new double[]{ 0, 1, 0 }));
@@ -94,7 +94,7 @@ public class model_geometry
 					Transformation trans = transEngine.createShiftByVector(sh);
 					System.out.println("trans = Trans(sh) = \n" + toString(trans));
 
-					Function<Number[],Number[]> func = transEngine.createTransformationFunction(trans);
+					Function<Number[],Number[]> func = transEngine.getTransformationFunction(trans);
 					System.out.println("trans([0,1,0]) = [ 1, 1, 0 ]");
 					Number[] vec = mathEngine.vector(new double[]{ 1, 1, 0 });
 					Number[] vec_ = funcEngine.applies(func,mathEngine.vector(new double[]{ 0, 1, 0 }));
@@ -119,7 +119,7 @@ public class model_geometry
 					Transformation trans = transEngine.createTransformationByVectors(rvec,sh);
 					System.out.println("trans = Trans(rvec,sh) = \n" + toString(trans));
 
-					Function<Number[],Number[]> func = transEngine.createTransformationFunction(trans);
+					Function<Number[],Number[]> func = transEngine.getTransformationFunction(trans);
 					System.out.println("trans([0,1,0]) = [ 0, 0, 0 ]");
 					Number[] vec = mathEngine.vector(new double[]{ 0, 0, 0 });
 					Number[] vec_ = funcEngine.applies(func,mathEngine.vector(new double[]{ 0, 1, 0 }));
@@ -177,14 +177,14 @@ public class model_geometry
 
 					Transformation trans21 = transEngine.compose(trans2,trans1);
 					System.out.println("trans21 = trans2 o trans1 = \n" + toString(trans21));
-					Function<Number[],Number[]> func21 = transEngine.createTransformationFunction(trans21);
+					Function<Number[],Number[]> func21 = transEngine.getTransformationFunction(trans21);
 					Number[] from = mathEngine.vector(new double[]{ 0, 1, 0 });
 					Number[] to = mathEngine.vector(new double[]{ -1, 1, 0 });
 					Number[] to1 = funcEngine.applies(func21,from);
 					System.out.println("trans21([0,1,0]) = [ -1, 1, 0 ]");
 					assert mathEngine.equals(to,to1) == true;
-					Function<Number[],Number[]> func1 = transEngine.createTransformationFunction(trans1);
-					Function<Number[],Number[]> func2 = transEngine.createTransformationFunction(trans2);
+					Function<Number[],Number[]> func1 = transEngine.getTransformationFunction(trans1);
+					Function<Number[],Number[]> func2 = transEngine.getTransformationFunction(trans2);
 					Function<Number[],Number[]> func2func1 = funcEngine.compose(func2,func1);
 					Number[] to2 = funcEngine.applies(func2func1,from);
 					System.out.println("trans1(trans2([0,1,0])) = [ -1, 1, 0 ]");

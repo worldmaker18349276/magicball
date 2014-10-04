@@ -143,7 +143,7 @@ public class RegionBasicEngine implements RegionEngine
 
 	public Region transformsBy( Region reg, Transformation trans ) {
 		Transformation _trans = this.transEngine.invert(trans);
-		Function<Number[],Number[]> trans_func = this.transEngine.createTransformationFunction(_trans);
+		Function<Number[],Number[]> trans_func = this.transEngine.getTransformationFunction(_trans);
 		Function<Number[],Boolean> reg_func = getRegionIntensionFunction(reg);
 		Function<Number[],Boolean> reg_func_ = this.funcEngine.compose(trans_func,reg_func);
 		return createRegionByFunction(reg_func_);
