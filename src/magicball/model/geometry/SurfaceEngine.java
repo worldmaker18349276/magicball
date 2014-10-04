@@ -5,6 +5,8 @@ import magicball.model.math.*;
 
 public interface SurfaceEngine
 {
+	public Function<Number[],Number> getIsosurfaceFunction( Surface face );
+
 	public SurfaceEngine clone();
 	public Surface createSurfaceByFunction( Function<Number[],Number> func );
 	public Surface createSurfaceByLambda( LambdaFunction<Number[],Number> lambda );

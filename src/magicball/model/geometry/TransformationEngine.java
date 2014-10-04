@@ -5,6 +5,9 @@ import magicball.model.math.Function;
 
 public interface TransformationEngine
 {
+	public Number[][] getRotationMatrix( Transformation trans );
+	public Number[] getShiftVector( Transformation trans );
+
 	public TransformationEngine clone();
 	public Transformation compose( Transformation... trans );
 	public Transformation pow( Transformation trans, int exp );

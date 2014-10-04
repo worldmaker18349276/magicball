@@ -15,9 +15,14 @@ public class FunctionBasicEngine implements FunctionEngine
 		}
 	}
 
+	public < I, O > LambdaFunction<I,O> getLambdaFunction( Function<I,O> func_ ) {
+		FunctionLambdaExpression<I,O> func = cast(func_);
+		return func.getLambdaFunction();
+	}
+
 	public < I, M, O > Function<I,O> compose( Function<I,M> func1_, Function<M,O> func2_ ) {
-		final LambdaFunction<I,M> func1 = cast(func1_).getLambdaFunction();
-		final LambdaFunction<M,O> func2 = cast(func2_).getLambdaFunction();
+		final LambdaFunction<I,M> func1 = getLambdaFunction(func1_);
+		final LambdaFunction<M,O> func2 = getLambdaFunction(func2_);
 		return createFunctionByLambda(new LambdaFunction<I,O>() {
 			public O apply( I in ) {
 				return func2.apply(func1.apply(in));
@@ -46,7 +51,7 @@ public class FunctionBasicEngine implements FunctionEngine
 	}
 
 	public < I, O > O applies( Function<I,O> func, I in ) {
-		return cast(func).getLambdaFunction().apply(in);
+		return getLambdaFunction(func).apply(in);
 	}
 
 	public < I, O > java.util.Set<O> appliesAll( Function<I,O> func, java.util.Set<I> ins ) {

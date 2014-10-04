@@ -5,6 +5,9 @@ import magicball.model.math.*;
 
 public interface RegionEngine
 {
+	public Set<Number[]> getRegionSet( Region reg );
+	public Function<Number[],Boolean> getRegionIntensionFunction( Region reg );
+
 	public RegionEngine clone();
 	public Region intersect( Region... regs );
 	public Region union( Region... regs );

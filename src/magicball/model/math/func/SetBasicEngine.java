@@ -20,6 +20,11 @@ public class SetBasicEngine implements SetEngine
 		}
 	}
 
+	public < E > Function<E,Boolean> getIntensionFunction( Set<E> set_ ) {
+		SetFunctionExpression<E> set = cast(set_);
+		return set.getFunction();
+	}
+
 	@SafeVarargs
 	final public < E > Set<E> union( final Set<E>... sets ) {
 		final SetEngine setEng = this;
@@ -114,6 +119,6 @@ public class SetBasicEngine implements SetEngine
 	}
 
 	public < E > boolean contains( Set<E> set, E e ) {
-		return this.funcEngine.applies(cast(set).getFunction(),e);
+		return this.funcEngine.applies(getIntensionFunction(set),e);
 	}
 }

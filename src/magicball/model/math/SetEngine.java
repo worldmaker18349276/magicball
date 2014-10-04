@@ -3,6 +3,8 @@ package magicball.model.math;
 
 public interface SetEngine
 {
+	public < E > Function<E,Boolean> getIntensionFunction( Set<E> set );
+
 	@SuppressWarnings({"unchecked"})
 	public < E > Set<E> union( Set<E>... sets );
 	public < E > Set<E> union( Set<E> set1, Set<E> set2 );

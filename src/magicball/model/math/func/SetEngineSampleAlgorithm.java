@@ -23,7 +23,7 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 
 	@SuppressWarnings({"unchecked"})
 	public < E_ > java.util.Set<E_> createSampleSetOf( Set<E_> set_ ) {
-		Function<E,Boolean> filter = cast(castToE(set_)).getFunction();
+		Function<E,Boolean> filter = getIntensionFunction(castToE(set_));
 		java.util.Set<E> subsamples = new java.util.HashSet<E>();
 		for ( E e : this.samples )
 			if ( this.funcEngine.applies(filter,e) )

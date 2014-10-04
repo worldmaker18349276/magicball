@@ -3,6 +3,8 @@ package magicball.model.math;
 
 public interface FunctionEngine
 {
+	public < I, O > LambdaFunction<I,O> getLambdaFunction( Function<I,O> func );
+
 	public < I, M, O > Function<I,O> compose( Function<I,M> func1, Function<M,O> func2 );
 	public < I > Function<I,I> createIdentityFunction();
 	public < I, O > Function<I,O> createConstantFunction( O c );

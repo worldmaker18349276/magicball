@@ -12,6 +12,7 @@ public class RegionBasicEngine implements RegionEngine
 	protected SetEngine setEngine;
 	protected NumberEngine mathEngine;
 	protected FunctionEngine funcEngine;
+	protected SurfaceEngine faceEngine;
 	protected TransformationEngine transEngine;
 
 	public RegionBasicEngine( double a, double eps ) {
@@ -27,31 +28,16 @@ public class RegionBasicEngine implements RegionEngine
 		this.transEngine = new TransformationBasicEngine(this.mathEngine,this.funcEngine);
 	}
 
-	public RegionBasicEngine( NumberEngine mathEng, SetEngine setEng, FunctionEngine funcEng, TransformationEngine transEng ) {
+	public RegionBasicEngine( NumberEngine mathEng, SetEngine setEng, FunctionEngine funcEng, SurfaceEngine faceEng, TransformationEngine transEng ) {
 		this.mathEngine = mathEng;
 		this.setEngine = setEng;
 		this.funcEngine = funcEng;
+		this.faceEngine = faceEng;
 		this.transEngine = transEng;
 	}
 
 	public RegionBasicEngine clone() {
-		return new RegionBasicEngine(this.mathEngine,this.setEngine,this.funcEngine,this.transEngine);
-	}
-
-	protected SurfaceFuncExpression cast( Surface face ) {
-		try {
-			return (SurfaceFuncExpression) face;
-		} catch ( ClassCastException e ) {
-			throw new UnsupportedExpressionException(face.getClass());
-		}
-	}
-
-	protected SetFunctionExpression<Number[]> cast( Set<Number[]> set ) {
-		try {
-			return (SetFunctionExpression<Number[]>) set;
-		} catch ( ClassCastException e ) {
-			throw new UnsupportedExpressionException(set.getClass());
-		}
+		return new RegionBasicEngine(this.mathEngine,this.setEngine,this.funcEngine,this.faceEngine,this.transEngine);
 	}
 
 	protected RegionSetExpression cast( Region reg ) {
@@ -62,36 +48,36 @@ public class RegionBasicEngine implements RegionEngine
 		}
 	}
 
-	protected RegionSetExpression[] cast( Region[] reg ) {
-		try {
-			return Arrays.copyOf(reg,reg.length,RegionSetExpression[].class);
-		} catch ( ClassCastException e ) {
-			throw new UnsupportedExpressionException(reg.getClass());
-		}
+	public Set<Number[]> getRegionSet( Region reg ) {
+		return cast(reg).getSet();
+	}
+
+	public Function<Number[],Boolean> getRegionIntensionFunction( Region reg ) {
+		return setEngine.getIntensionFunction(getRegionSet(reg));
 	}
 
 	@SuppressWarnings({"unchecked"})
-	protected Set<Number[]> [] getSets( RegionSetExpression [] regs ) {
+	public Set<Number[]> [] getRegionSets( Region [] regs ) {
 		Set<Number[]> [] sets = new Set [ regs.length ];
 		for ( int i=0; i<regs.length; i++ )
-			sets[i] = regs[i].getSet();
+			sets[i] = getRegionSet(regs[i]);
 		return sets;
 	}
 
 	public Region intersect( Region... regs ) {
-		return createRegionBySet(setEngine.intersect(getSets(cast(regs))));
+		return createRegionBySet(setEngine.intersect(getRegionSets(regs)));
 	}
 
 	public Region union( Region... regs ) {
-		return createRegionBySet(setEngine.union(getSets(cast(regs))));
+		return createRegionBySet(setEngine.union(getRegionSets(regs)));
 	}
 
 	public Region complement( Region reg1, Region reg2 ) {
-		return createRegionBySet(setEngine.complement(cast(reg1).getSet(),cast(reg2).getSet()));
+		return createRegionBySet(setEngine.complement(getRegionSet(reg1),getRegionSet(reg2)));
 	}
 
 	public Region complement( Region reg2 ) {
-		return createRegionBySet(setEngine.complement(cast(reg2).getSet()));
+		return createRegionBySet(setEngine.complement(getRegionSet(reg2)));
 	}
 
 	public Region createUniversalRegion() {
@@ -117,7 +103,7 @@ public class RegionBasicEngine implements RegionEngine
 	public Region createRegionByFace( final Surface face, final int side ) {
 		final NumberEngine math = this.mathEngine;
 		final FunctionEngine funcEng = this.funcEngine;
-		final Function<Number[],Number> func = cast(face).getFunction();
+		final Function<Number[],Number> func = faceEngine.getIsosurfaceFunction(face);
 		return createRegionByLambda(new LambdaFunction<Number[],Boolean>() {
 			public Boolean apply( Number [] vec ) {
 				return math.greaterThan(
@@ -128,36 +114,36 @@ public class RegionBasicEngine implements RegionEngine
 	}
 
 	public boolean isEmpty( Region reg ) {
-		return this.setEngine.isEmpty(cast(reg).getSet());
+		return this.setEngine.isEmpty(getRegionSet(reg));
 	}
 
 	public boolean isUniversal( Region reg ) {
-		return this.setEngine.isUniversal(cast(reg).getSet());
+		return this.setEngine.isUniversal(getRegionSet(reg));
 	}
 
 	public boolean equals( Region reg1, Region reg2 ) {
-		return this.setEngine.equals(cast(reg1).getSet(),cast(reg2).getSet());
+		return this.setEngine.equals(getRegionSet(reg1),getRegionSet(reg2));
 	}
 
 	public boolean contains( Region reg, Number[] point ) {
-		return setEngine.contains(cast(reg).getSet(),point);
+		return setEngine.contains(getRegionSet(reg),point);
 	}
 
 	public boolean containsAll( Region reg1, Region reg2 ) {
-		return this.setEngine.containsAll(cast(reg1).getSet(),cast(reg2).getSet());
+		return this.setEngine.containsAll(getRegionSet(reg1),getRegionSet(reg2));
 	}
 
 	public Region transformsBy( Region reg, Transformation trans ) {
 		Transformation _trans = this.transEngine.invert(trans);
 		Function<Number[],Number[]> trans_func = this.transEngine.createTransformationFunction(_trans);
-		Function<Number[],Boolean> reg_func = cast(cast(reg).getSet()).getFunction();
+		Function<Number[],Boolean> reg_func = getRegionIntensionFunction(reg);
 		Function<Number[],Boolean> reg_func_ = this.funcEngine.compose(trans_func,reg_func);
 		return createRegionByFunction(reg_func_);
 	}
 
 	public Region reflectsBy( Region reg, Reflection ref ) {
 		Function<Number[],Number[]> ref_func = this.transEngine.createReflectionFunction(ref);
-		Function<Number[],Boolean> reg_func = cast(cast(reg).getSet()).getFunction();
+		Function<Number[],Boolean> reg_func = getRegionIntensionFunction(reg);
 		Function<Number[],Boolean> reg_func_ = this.funcEngine.compose(ref_func,reg_func);
 		return createRegionByFunction(reg_func_);
 	}
