@@ -3,8 +3,10 @@ package magicball.model.func;
 import magicball.model.*;
 import magicball.model.math.*;
 import magicball.model.geometry.*;
+import magicball.model.puzzle.*;
 import magicball.model.math.func.*;
 import magicball.model.geometry.func.*;
+import magicball.model.puzzle.func.*;
 
 
 public class BasicEngineProvider extends EngineProvider
@@ -16,6 +18,7 @@ public class BasicEngineProvider extends EngineProvider
 	protected SurfaceEngine surfaceEng;
 	protected RegionEngine regionEng;
 	protected TransformationEngine transformationEng;
+	protected MovementEngine movementEng;
 
 
 	public BasicEngineProvider( double eps ) {
@@ -56,5 +59,11 @@ public class BasicEngineProvider extends EngineProvider
 		if ( this.regionEng == null )
 			this.regionEng = new RegionBasicEngine(this); // numberEng, functionEng, setEng, transformationEng, surfaceEng
 		return this.regionEng;
+	}
+
+	public MovementEngine getMovementEngine() {
+		if ( this.movementEng == null )
+			this.movementEng = new SimpleMovementEngine(this); // numberEng, transformationEng
+		return this.movementEng;
 	}
 }

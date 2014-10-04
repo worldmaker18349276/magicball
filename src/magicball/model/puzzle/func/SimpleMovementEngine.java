@@ -7,26 +7,36 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class SimpleMovementEngineForFunc implements MovementBasicEngine
+public class SimpleMovementEngine implements MovementEngine
 {
 	protected TransformationEngine transEngine;
 	protected NumberEngine mathEngine;
 
-	public SimpleMovementEngineForFunc( NumberEngine mathEng, TransformationEngine transEng ) {
+	public SimpleMovementEngine( NumberEngine mathEng, TransformationEngine transEng ) {
 		this.mathEngine = mathEng;
 		this.transEngine = transEng;
 	}
 
-	public SimpleMovementEngineForFunc clone() {
-		return new SimpleMovementEngineForFunc(this.mathEngine,this.transEngine);
+	public SimpleMovementEngine( EngineProvider provider ) {
+		this.mathEngine = provider.getNumberEngine();
+		this.transEngine = provider.getTransformationEngine();
 	}
 
-	public SimpleMovementTransExpression castToSimpleMovement( Movement move ) {
+	public SimpleMovementEngine clone() {
+		return new SimpleMovementEngine(this.mathEngine,this.transEngine);
+	}
+
+	protected SimpleMovementTransExpression castToSimpleMovement( Movement move ) {
 		try {
 			return (SimpleMovementTransExpression) move;
 		} catch ( ClassCastException e ) {
 			throw new UnsupportedExpressionException(move.getClass());
 		}
+	}
+
+	public Transformation getTransformation( Movement move_ ) {
+		SimpleMovementTransExpression smove = castToSimpleMovement(move_);
+		return smove.getTransformation();
 	}
 
 	public Movement createSimpleMovementByTransformation( Transformation trans ) {
@@ -35,7 +45,7 @@ public class SimpleMovementEngineForFunc implements MovementBasicEngine
 
 	public Transformation divideMovementIntoTransformation( Movement move, Number from, Number to ) {
 		if ( isSimpleMovement(move) )
-			return transEngine.dividedBy(castToSimpleMovement(move).getTransformation(),mathEngine.subtract(to,from));
+			return transEngine.dividedBy(getTransformation(move),mathEngine.subtract(to,from));
 		else
 			throw new UnsupportedAlgorithmException();
 	}
