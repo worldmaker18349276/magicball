@@ -1,12 +1,12 @@
 package magicball.test;
 
 import magicball.model.math.*;
-import magicball.model.math.func.*;
 import magicball.model.geometry.*;
-import magicball.model.geometry.func.*;
+import magicball.basic.math.*;
+import magicball.basic.geometry.*;
 
 
-public class model_geometry
+public class basic_geometry
 {
 	public static void main( String [] args ) {
 		try {

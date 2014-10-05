@@ -1,10 +1,10 @@
 package magicball.test;
 
 import magicball.model.math.*;
-import magicball.model.math.func.*;
+import magicball.basic.math.*;
 
 
-public class model_math
+public class basic_math
 {
 	public static void main( String [] args ) {
 		try {

@@ -61,7 +61,7 @@ public class PhysicalPuzzle
 
 
 	public void apply( Movement m ) {
-		Transformation trans = ((magicball.model.puzzle.func.SimpleMovementTransExpression) m).getTransformation();
+		Transformation trans = ((magicball.basic.puzzle.SimpleMovementTransExpression) m).getTransformation();
 		for ( Solid sol : getComponents() )
 			getEngine().apply(sol,trans);
 		// Transformation trans = getEngine().divideMovementByDivisor(m,1).get(1);
@@ -72,7 +72,7 @@ public class PhysicalPuzzle
 
 	public void apply( RegionalMovement rm ) throws IllegalOperationException {
 		java.util.Set<Solid> selected_sols = getEngine().filter(getComponents(),rm.getRegion());
-		Transformation trans = ((magicball.model.puzzle.func.SimpleMovementTransExpression) rm.getMovement()).getTransformation();
+		Transformation trans = ((magicball.basic.puzzle.SimpleMovementTransExpression) rm.getMovement()).getTransformation();
 		for ( Solid sol : selected_sols )
 			getEngine().apply(sol,trans);
 		// try {

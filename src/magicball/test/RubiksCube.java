@@ -1,11 +1,11 @@
 package magicball.test;
 
+import magicball.basic.*;
 import magicball.model.*;
-import magicball.model.func.*;
 import magicball.model.math.*;
 import magicball.model.geometry.*;
 import magicball.model.puzzle.*;
-import magicball.model.puzzle.func.*;
+import magicball.basic.puzzle.*;
 
 
 public class RubiksCube

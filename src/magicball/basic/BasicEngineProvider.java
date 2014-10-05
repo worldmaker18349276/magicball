@@ -1,12 +1,12 @@
-package magicball.model.func;
+package magicball.basic;
 
 import magicball.model.*;
 import magicball.model.math.*;
 import magicball.model.geometry.*;
 import magicball.model.puzzle.*;
-import magicball.model.math.func.*;
-import magicball.model.geometry.func.*;
-import magicball.model.puzzle.func.*;
+import magicball.basic.math.*;
+import magicball.basic.geometry.*;
+import magicball.basic.puzzle.*;
 
 
 public class BasicEngineProvider extends EngineProvider

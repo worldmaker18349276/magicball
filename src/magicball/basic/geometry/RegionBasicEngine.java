@@ -1,8 +1,8 @@
-package magicball.model.geometry.func;
+package magicball.basic.geometry;
 
 import magicball.model.geometry.*;
 import magicball.model.math.*;
-import magicball.model.math.func.*;
+import magicball.basic.math.*;
 import magicball.model.*;
 import java.util.Arrays;
 
