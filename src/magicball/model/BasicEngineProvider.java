@@ -13,7 +13,7 @@ public class BasicEngineProvider extends EngineProvider
 {
 	protected double epsilon;
 	protected double a;
-	protected double d;
+	protected int n;
 	protected NumberEngine numberEng;
 	protected SetEngine setEng;
 	protected FunctionEngine functionEng;
@@ -23,10 +23,10 @@ public class BasicEngineProvider extends EngineProvider
 	protected MovementEngine movementEng;
 
 
-	public BasicEngineProvider( double eps, double a, double d ) {
+	public BasicEngineProvider( double eps, double a, int n ) {
 		this.epsilon = eps;
 		this.a = a;
-		this.d = d;
+		this.n = n;
 	}
 
 	public NumberEngine getNumberEngine() {
@@ -50,6 +50,7 @@ public class BasicEngineProvider extends EngineProvider
 	protected java.util.Set<Number[]> createSkyGrid() {
 		java.util.Set<Number[]> sam = new java.util.HashSet<Number[]>();
 		NumberEngine math = getNumberEngine();
+		double d = 2*a / n;
 		for ( double x=-a; x<a; x=x+d )
 			for ( double y=-a; y<a; y=y+d )
 				for ( double z=-a; z<a; z=z+d )

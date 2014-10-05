@@ -2,7 +2,6 @@ package magicball.model.geometry.basic;
 
 import magicball.model.geometry.*;
 import magicball.model.math.*;
-import magicball.model.math.basic.*;
 import magicball.model.*;
 import java.util.Arrays;
 
@@ -14,19 +13,6 @@ public class RegionBasicEngine implements RegionEngine
 	protected FunctionEngine funcEngine;
 	protected SurfaceEngine faceEngine;
 	protected TransformationEngine transEngine;
-
-	public RegionBasicEngine( double a, double eps ) {
-		this.mathEngine = new NumberBasicEngine(eps);
-		double d = 2*eps;
-		java.util.Set<Number[]> grid = new java.util.HashSet<Number[]>();
-		for ( double x=-a; x<=a; x=x+d )
-			for ( double y=-a; y<=a; y=y+d )
-				for ( double z=-a; z<=a; z=z+d )
-					grid.add(mathEngine.vector(x,y,z));
-		this.funcEngine = new FunctionBasicEngine();
-		this.setEngine = new SetEngineSampleAlgorithm<Number[]>(this.funcEngine,grid);
-		this.transEngine = new TransformationBasicEngine(this.mathEngine,this.funcEngine);
-	}
 
 	public RegionBasicEngine( NumberEngine mathEng, SetEngine setEng, FunctionEngine funcEng, SurfaceEngine faceEng, TransformationEngine transEng ) {
 		this.mathEngine = mathEng;
