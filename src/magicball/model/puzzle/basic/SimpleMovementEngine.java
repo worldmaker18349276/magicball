@@ -60,6 +60,33 @@ public class SimpleMovementEngine implements MovementEngine
 	}
 
 	@Override
+	public java.util.List<Transformation> divideMovementByDivisor( Movement move, int divisor ) {
+		java.util.List<Transformation> trans_list = new java.util.ArrayList<Transformation>();
+		Number from = (Integer) 0;
+		Number to = (Integer) 0;
+		Number d = mathEngine.dividedBy(mathEngine.number1(),mathEngine.number(divisor));
+		for ( int i=0; i<=divisor; i++ ) {
+			to = mathEngine.add(from,d);
+			trans_list.add(divideMovementIntoTransformation(move,from,to));
+			from = to;
+		}
+		return trans_list;
+	}
+
+	@Override
+	public java.util.List<Transformation> divideMovementByIntervals( Movement move, java.util.List<Number> intervals ) {
+		java.util.List<Transformation> trans_list = new java.util.ArrayList<Transformation>();
+		Number from = (Integer) 0;
+		Number to = (Integer) 0;
+		for ( Number d : intervals ) {
+			to = mathEngine.add(from,d);
+			trans_list.add(divideMovementIntoTransformation(move,from,to));
+			from = to;
+		}
+		return trans_list;
+	}
+
+	@Override
 	public boolean isSimpleMovement( Movement move ) {
 		return move instanceof SimpleMovementTransExpression;
 	}

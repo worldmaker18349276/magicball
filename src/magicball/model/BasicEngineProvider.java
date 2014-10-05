@@ -23,6 +23,7 @@ public class BasicEngineProvider extends EngineProvider
 	protected RegionEngine regionEng;
 	protected TransformationEngine transformationEng;
 	protected MovementEngine movementEng;
+	protected SolidEngine solidEng;
 
 
 	public BasicEngineProvider( double eps, double a, int n ) {
@@ -82,5 +83,11 @@ public class BasicEngineProvider extends EngineProvider
 		if ( this.movementEng == null )
 			this.movementEng = new SimpleMovementEngine(this); // numberEng, transformationEng
 		return this.movementEng;
+	}
+
+	public SolidEngine getSolidEngine() {
+		if ( this.solidEng == null )
+			this.solidEng = new SolidBasicEngine(this); // regionEng
+		return this.solidEng;
 	}
 }

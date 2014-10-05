@@ -14,4 +14,5 @@ public abstract class EngineProvider
 	public abstract SurfaceEngine getSurfaceEngine();
 	public abstract RegionEngine getRegionEngine();
 	public abstract MovementEngine getMovementEngine();
+	public abstract SolidEngine getSolidEngine();
 }

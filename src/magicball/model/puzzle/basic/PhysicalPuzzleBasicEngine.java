@@ -8,78 +8,61 @@ import magicball.model.*;
 
 public class PhysicalPuzzleBasicEngine implements PhysicalPuzzleEngine
 {
-	protected RegionEngine regEngine;
 	protected MovementEngine moveEngine;
-	protected NumberEngine mathEngine;
+	protected SolidEngine solEngine;
 
-	public PhysicalPuzzleBasicEngine( RegionEngine regEng, MovementEngine moveEng, NumberEngine mathEng ) {
-		this.regEngine = regEng;
+	public PhysicalPuzzleBasicEngine( MovementEngine moveEng, SolidEngine solEng ) {
 		this.moveEngine = moveEng;
-		this.mathEngine = mathEng;
+		this.solEngine = solEng;
 	}
 
 	public PhysicalPuzzleBasicEngine( EngineProvider provider ) {
-		this.regEngine = provider.getRegionEngine();
 		this.moveEngine = provider.getMovementEngine();
-		this.mathEngine = provider.getNumberEngine();
+		this.solEngine = provider.getSolidEngine();
 	}
 
+	@Override
 	public PhysicalPuzzleEngine clone() {
-		return new PhysicalPuzzleBasicEngine(this.regEngine,this.moveEngine,this.mathEngine);
+		return new PhysicalPuzzleBasicEngine(this.moveEngine,this.solEngine);
 	}
 
-	public Solid apply( Solid sol, Transformation trans ) {
-		sol.setRegion(regEngine.transformsBy(sol.getRegion(),trans));
-		return sol;
+
+	@Override
+	public void applies( PhysicalPuzzle puzzle, Movement move ) {
+		Transformation trans = moveEngine.getTransformation(move);
+		for ( Solid sol : puzzle.getComponents() )
+			solEngine.applies(sol,trans);
+		// Transformation trans = moveEngine.getTransformation(move);
+		// for ( Solid sol : getComponents() ) {
+		// 	solEngine.applies(sol,trans);
+		// }
 	}
 
-	public boolean isSameShape( Solid sol1, Solid sol2 ) {
-		return regEngine.equals(sol1.getRegion(),sol2.getRegion());
+	@Override
+	public void applies( PhysicalPuzzle puzzle, RegionalMovement rmove ) throws IllegalOperationException {
+		java.util.Set<Solid> selected_sols = solEngine.filterBy(puzzle.getComponents(),rmove.getRegion());
+		Transformation trans = moveEngine.getTransformation(rmove.getMovement());
+		for ( Solid sol : selected_sols )
+			solEngine.applies(sol,trans);
+		// java.util.Set<Solid> selected_sols = solEngine.filterBy(getComponents(),rmove.getRegion());
+		// java.util.List<Transformation> trans_list = moveEngine.divideMovementByDivisor(rmove.getMovement(),10);
+		// for ( Transformation trans : trans_list ) {
+		// 	for ( Solid sol : selected_sols )
+		// 		solEngine.applies(sol,trans);
+		// 	if ( !isValid(puzzle) )
+		// 		throw new IllegalOperationException();
+		// }
 	}
 
-	public java.util.Set<Solid> filter( java.util.Set<Solid> sols, Region reg ) throws IllegalOperationException {
-		java.util.Set<Solid> selected_sols = new java.util.HashSet<Solid>();
-		for ( Solid sol : sols )
-			if ( regEngine.containsAll(reg,sol.getRegion()) )
-				selected_sols.add(sol);
-		return selected_sols;
+
+	@Override
+	public boolean equals( PhysicalPuzzle puzzle1, PhysicalPuzzle puzzle2 ) {
+		return puzzle1.getComponents().equals(puzzle2.getComponents());
 	}
 
-	public boolean noDuplicateOccupy( java.util.Set<Solid> sols ) {
-		for ( Solid sol1 : sols )
-			for ( Solid sol2 : sols )
-				if ( sol1 != sol2 )
-					if ( !regEngine.isEmpty(regEngine.intersect(sol1.getRegion(),sol2.getRegion())) )
-						return false;
-		return true;
+	@Override
+	public boolean isValid( PhysicalPuzzle puzzle ) {
+		return solEngine.noDuplicateOccupy(puzzle.getComponents());
 	}
 
-	public java.util.List<Transformation> divideMovement( Movement m ) {
-		return divideMovementByDivisor(m,10);
-	}
-
-	public java.util.List<Transformation> divideMovementByDivisor( Movement m, int divisor ) {
-		java.util.List<Transformation> moves = new java.util.ArrayList<Transformation>();
-		Number from = (Integer) 0;
-		Number to = (Integer) 0;
-		Number d = mathEngine.dividedBy(mathEngine.number1(),mathEngine.number(divisor));
-		for ( int i=0; i<=divisor; i++ ) {
-			to = mathEngine.add(from,d);
-			moves.add(moveEngine.divideMovementIntoTransformation(m,from,to));
-			from = to;
-		}
-		return moves;
-	}
-
-	public java.util.List<Transformation> divideMovementByIntervals( Movement m, java.util.List<Number> intervals ) {
-		java.util.List<Transformation> moves = new java.util.ArrayList<Transformation>();
-		Number from = (Integer) 0;
-		Number to = (Integer) 0;
-		for ( Number d : intervals ) {
-			to = mathEngine.add(from,d);
-			moves.add(moveEngine.divideMovementIntoTransformation(m,from,to));
-			from = to;
-		}
-		return moves;
-	}
 }

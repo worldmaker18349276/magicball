@@ -18,6 +18,7 @@ public class RubiksCube
 			RegionEngine regEng = provider.getRegionEngine();
 			TransformationEngine transEng = provider.getTransformationEngine();
 			MovementEngine moveEng = provider.getMovementEngine();
+			SolidEngine solEng = provider.getSolidEngine();
 
 			Number[][] vecs = new Number [ 6 ][];
 
@@ -67,7 +68,7 @@ public class RubiksCube
 			for ( int x=0; x<3; x++ )
 				for ( int y=0; y<3; y++ )
 					for ( int z=0; z<3; z++ ) {
-						parts[x][y][z] = new Solid(regEng.intersect(whole,x_layars[x],y_layars[y],z_layars[z]));
+						parts[x][y][z] = solEng.createSolidByRegion(regEng.intersect(whole,x_layars[x],y_layars[y],z_layars[z]));
 						components.add(parts[x][y][z]);
 					}
 

@@ -38,56 +38,24 @@ public class PhysicalPuzzle
 		return new PhysicalPuzzle(sols,getEngine().clone());
 	}
 
-	public boolean equals( Object puzzle ) {
-		if ( puzzle instanceof PhysicalPuzzle )
-			return equals((PhysicalPuzzle) puzzle);
+
+	public void apply( Movement move ) throws IllegalOperationException {
+		engine.applies(this,move);
+	}
+
+	public void apply( RegionalMovement rmove ) throws IllegalOperationException {
+		engine.applies(this,rmove);
+	}
+
+	public boolean equals( Object puzzle2 ) {
+		if ( puzzle2 instanceof PhysicalPuzzle )
+			return engine.equals(this,(PhysicalPuzzle)puzzle2);
 		else
 			return false;
 	}
 
-	public boolean equals( PhysicalPuzzle puzzle ) {
-		return getComponents().equals(puzzle.getComponents());
-	}
-
-
 	public boolean isValid() {
-		return getEngine().noDuplicateOccupy(getComponents());
-	}
-
-	public void validate() throws IllegalStateException {
-		if ( !isValid() )
-			throw new IllegalStateException();
-	}
-
-
-	public void apply( Movement m ) {
-		Transformation trans = ((magicball.model.puzzle.basic.SimpleMovementTransExpression) m).getTransformation();
-		for ( Solid sol : getComponents() )
-			getEngine().apply(sol,trans);
-		// Transformation trans = getEngine().divideMovementByDivisor(m,1).get(1);
-		// for ( Solid sol : getComponents() ) {
-		// 	getEngine().apply(sol,trans);
-		// }
-	}
-
-	public void apply( RegionalMovement rm ) throws IllegalOperationException {
-		java.util.Set<Solid> selected_sols = getEngine().filter(getComponents(),rm.getRegion());
-		Transformation trans = ((magicball.model.puzzle.basic.SimpleMovementTransExpression) rm.getMovement()).getTransformation();
-		for ( Solid sol : selected_sols )
-			getEngine().apply(sol,trans);
-		// try {
-
-			// java.util.Set<Solid> selected_sols = getEngine().filter(getComponents(),rm.getRegion());
-			// java.util.List<Transformation> trans_list = getEngine().divideMovement(rm.getMovement());
-			// for ( Transformation trans : trans_list ) {
-			// 	for ( Solid sol : selected_sols )
-			// 		getEngine().apply(sol,trans);
-				// validate();
-			// }
-
-		// } catch ( IllegalStateException e ) {
-		// 	throw new IllegalOperationException();
-		// }
+		return engine.isValid(this);
 	}
 }
 
