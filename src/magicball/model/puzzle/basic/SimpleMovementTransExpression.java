@@ -6,13 +6,18 @@ import magicball.model.puzzle.*;
 
 public class SimpleMovementTransExpression extends Movement
 {
-	final private Transformation transformation;
+	protected Transformation transformation;
 
 	public SimpleMovementTransExpression( Transformation trans ) {
 		this.transformation = trans;
 	}
 
-	final public Transformation getTransformation() {
+	@Override
+	public SimpleMovementTransExpression clone() {
+		return new SimpleMovementTransExpression(this.transformation);
+	}
+
+	public Transformation getTransformation() {
 		return this.transformation;
 	}
 }

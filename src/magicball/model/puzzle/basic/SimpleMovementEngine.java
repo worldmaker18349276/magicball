@@ -41,6 +41,11 @@ public class SimpleMovementEngine implements MovementEngine
 		return new SimpleMovementTransExpression(trans);
 	}
 
+	@Override
+	public RegionalMovement createRegionalMovement( Region reg, Movement move ) {
+		return new RegionalMovement(reg,move);
+	}
+
 
 	// attribute
 	@Override

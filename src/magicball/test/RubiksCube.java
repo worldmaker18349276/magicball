@@ -104,7 +104,7 @@ public class RubiksCube
 					for ( int i=0; i<3; i++ )
 						for ( int j=0; j<3; j++ )
 							for ( int k=0; k<3; k++ ) {
-								Region reg = parts[i][j][k].getRegion();
+								Region reg = solEng.getOccupiedRegion(parts[i][j][k]);
 								if ( regEng.contains(reg,v) )
 									System.out.println("("+(1-i)+","+(1-j)+","+(1-k)+")");
 							}
@@ -115,7 +115,7 @@ public class RubiksCube
 						Number[] p = math.vector((1-xi)*0.5,(1-yj)*0.5,(1-zk)*0.5);
 						System.out.print("("+(1-xi)+","+(1-yj)+","+(1-zk)+"): ");
 						for ( int i=0; i<3; i++ ) for ( int j=0; j<3; j++ ) for ( int k=0; k<3; k++ ) {
-							Region reg = parts[i][j][k].getRegion();
+							Region reg = solEng.getOccupiedRegion(parts[i][j][k]);
 							if ( regEng.contains(reg,p) )
 								System.out.print("("+(1-i)+","+(1-j)+","+(1-k)+"); ");
 						}

@@ -12,6 +12,10 @@ public interface SolidEngine
 	public Solid createSolidByRegion( Region reg );
 
 
+	// attribute
+	public Region getOccupiedRegion( Solid sol );
+
+
 	// operator
 	public void applies( Solid sol, Transformation trans );
 	

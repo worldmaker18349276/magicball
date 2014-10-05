@@ -10,6 +10,7 @@ public interface MovementEngine
 
 	// creater
 	public Movement createSimpleMovementByTransformation( Transformation trans );
+	public RegionalMovement createRegionalMovement( Region reg, Movement move );
 
 
 	// attribute
