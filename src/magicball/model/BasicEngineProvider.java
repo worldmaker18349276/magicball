@@ -5,7 +5,9 @@ import magicball.model.math.*;
 import magicball.model.geometry.*;
 import magicball.model.puzzle.*;
 import magicball.model.math.basic.*;
+import magicball.model.math.sample.*;
 import magicball.model.geometry.basic.*;
+import magicball.model.geometry.poly.*;
 import magicball.model.puzzle.basic.*;
 
 
