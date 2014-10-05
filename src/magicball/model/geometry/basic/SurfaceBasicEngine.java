@@ -1,4 +1,4 @@
- package magicball.model.geometry.func;
+ package magicball.model.geometry.basic;
 
 import magicball.model.geometry.*;
 import magicball.model.math.*;

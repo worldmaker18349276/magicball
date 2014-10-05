@@ -1,7 +1,7 @@
-package magicball.model.puzzle.func;
+package magicball.model.puzzle.basic;
 
 import magicball.model.geometry.*;
-import magicball.model.geometry.func.*;
+import magicball.model.geometry.basic.*;
 import magicball.model.puzzle.*;
 import magicball.model.math.*;
 import magicball.model.*;

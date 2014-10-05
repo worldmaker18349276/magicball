@@ -1,4 +1,4 @@
-package magicball.model.math.func;
+package magicball.model.math.basic;
 
 import magicball.model.*;
 import magicball.model.math.*;

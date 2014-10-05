@@ -1,4 +1,4 @@
-package magicball.model.puzzle.func;
+package magicball.model.puzzle.basic;
 
 import magicball.model.geometry.*;
 import magicball.model.puzzle.*;

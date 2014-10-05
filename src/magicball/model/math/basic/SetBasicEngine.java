@@ -1,4 +1,4 @@
-package magicball.model.math.func;
+package magicball.model.math.basic;
 
 import java.util.Arrays;
 import magicball.model.*;
