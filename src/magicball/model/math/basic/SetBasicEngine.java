@@ -4,6 +4,8 @@ import java.util.Arrays;
 import magicball.model.*;
 import magicball.model.math.*;
 
+
+// base on function expression
 public class SetBasicEngine implements SetEngine
 {
 	protected FunctionEngine funcEngine;
@@ -53,9 +55,13 @@ public class SetBasicEngine implements SetEngine
 		return set.getFunction();
 	}
 
+	private < E > Function<E,Boolean> function( Set<E> set_ ) {
+		return getIntensionFunction(set_);
+	}
+
 	@Override
 	public < E > boolean contains( Set<E> set, E e ) {
-		return this.funcEngine.applies(getIntensionFunction(set),e);
+		return this.funcEngine.applies(function(set),e);
 	}
 
 	@Override
@@ -68,77 +74,41 @@ public class SetBasicEngine implements SetEngine
 	@Override
 	@SafeVarargs
 	final public < E > Set<E> union( final Set<E>... sets ) {
-		final SetEngine setEng = this;
-		return createSetByFunction(this.funcEngine.function(new LambdaFunction<E,Boolean>() {
-			@Override
-			public Boolean apply( E element ) {
-				for ( Set<E> set : sets )
-					if ( setEng.contains(set,element) )
-						return true;
-				return false;
-			}
-		}));
+		return Stream.of(sets)
+			.map(this::function)
+			.reduce(this.funcEngine::or)
+			.map(this::createSetByFunction)
+			.get();
 	}
 
 	@Override
 	public < E > Set<E> union( final Set<E> set1, final Set<E> set2 ) {
-		final SetEngine setEng = this;
-		return createSetByFunction(this.funcEngine.function(new LambdaFunction<E,Boolean>() {
-			@Override
-			public Boolean apply( E element ) {
-				return setEng.contains(set1,element) || setEng.contains(set2,element);
-			}
-		}));
+		return createSetByFunction( funcEngine.or(function(set1),function(set2)) );
 	}
 
 	@Override
 	@SafeVarargs
 	final public < E > Set<E> intersect( final Set<E>... sets ) {
-		final SetEngine setEng = this;
-		return createSetByFunction(this.funcEngine.function(new LambdaFunction<E,Boolean>() {
-			@Override
-			public Boolean apply( E element ) {
-				for ( Set<E> set : sets )
-					if ( !setEng.contains(set,element) )
-						return false;
-				return true;
-			}
-		}));
+		return Stream.of(sets)
+			.map(this::function)
+			.reduce(this.funcEngine::and)
+			.map(this::createSetByFunction)
+			.get();
 	}
 
 	@Override
 	public < E > Set<E> intersect( final Set<E> set1, final Set<E> set2 ) {
-		final SetEngine setEng = this;
-		return createSetByFunction(this.funcEngine.function(new LambdaFunction<E,Boolean>() {
-			@Override
-			public Boolean apply( E element ) {
-				return setEng.contains(set1,element) && setEng.contains(set2,element);
-			}
-		}));
+		return createSetByFunction( funcEngine.and(function(set1),function(set2)) );
 	}
 
 	@Override
 	public < E > Set<E> complement( final Set<E> set1, final Set<E> set2 ) {
-		final SetEngine setEng = this;
-		return createSetByFunction(this.funcEngine.function(new LambdaFunction<E,Boolean>() {
-			@Override
-			public Boolean apply( E element ) {
-				if ( setEng.contains(set2,element) )
-					return false;
-				return setEng.contains(set1,element);
-			}
-		}));
+		return createSetByFunction( funcEngine.and(function(set1),funcEngine.negate(function(set2))) );
 	}
 
 	@Override
 	public < E > Set<E> complement( final Set<E> set ) {
-		final SetEngine setEng = this;
-		return createSetByFunction(this.funcEngine.function(new LambdaFunction<E,Boolean>() {
-			@Override
-			public Boolean apply( E element ) {
-				return !setEng.contains(set,element);
-			}
-		}));
+		return createSetByFunction( funcEngine.negate(function(set)) );
 	}
 
 	@Override

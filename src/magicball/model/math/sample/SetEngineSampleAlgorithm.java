@@ -28,13 +28,24 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 	}
 
 	@SuppressWarnings({"unchecked"})
+	private < E_ > java.util.Set<E_> castToE_( java.util.Set<E> set ) {
+		try {
+			return (java.util.Set<E_>) set;
+		} catch ( ClassCastException e ) {
+			throw new UnsupportedAlgorithmException();
+		}
+	}
+
+	private java.util.function.Function<E,Boolean> lambda( Set<E> set ) {
+		return funcEngine.getLambdaFunction(getIntensionFunction(set));
+	}
+
 	public < E_ > java.util.Set<E_> createSampleSetOf( Set<E_> set_ ) {
-		Function<E,Boolean> filter = getIntensionFunction(castToE(set_));
-		java.util.Set<E> subsamples = new java.util.HashSet<E>();
-		for ( E e : this.samples )
-			if ( this.funcEngine.applies(filter,e) )
-				subsamples.add(e);
-		return (java.util.Set<E_>) subsamples;
+		Set<E> set = castToE(set_);
+		java.util.Set<E> subsamples = this.samples.stream()
+			.filter(lambda(set))
+			.collect(Collectors.toSet());
+		return <E_>castToE_(subsamples);
 	}
 
 
@@ -44,23 +55,23 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 		Set<E> set1 = castToE(set1_);
 		Set<E> set2 = castToE(set2_);
 
-		java.util.Set<E> sample2 = createSampleSetOf(set2);
-		for ( E e : sample2 )
-			if ( !contains(set1,e) )
-				return false;
-		return true;
+		return createSampleSetOf(set2).stream().allMatch(lambda(set1));
 	}
 
 
 	// operator
 	@Override
-	public < E_ > boolean isEmpty( Set<E_> set ) {
-		return equals(set,this.<E_>createEmptySet());
+	public < E_ > boolean isEmpty( Set<E_> set_ ) {
+		Set<E> set = castToE(set_);
+		return this.samples.stream()
+			.noneMatch(lambda(set));
 	}
 
 	@Override
-	public < E_ > boolean isUniversal( Set<E_> set ) {
-		return equals(set,this.<E_>createUniversalSet());
+	public < E_ > boolean isUniversal( Set<E_> set_ ) {
+		Set<E> set = castToE(set_);
+		return this.samples.stream()
+			.allMatch(lambda(set));
 	}
 
 	@Override
