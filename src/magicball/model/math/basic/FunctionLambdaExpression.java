@@ -5,13 +5,13 @@ import magicball.model.math.*;
 
 public class FunctionLambdaExpression < I, O > extends Function<I,O>
 {
-	protected LambdaFunction<I,O> lambda;
+	protected java.util.function.Function<I,O> lambda;
 
-	public FunctionLambdaExpression( LambdaFunction<I,O> lam ) {
+	public FunctionLambdaExpression( java.util.function.Function<I,O> lam ) {
 		this.lambda = lam;
 	}
 
-	public LambdaFunction<I,O> getLambdaFunction() {
+	public java.util.function.Function<I,O> getLambdaFunction() {
 		return this.lambda;
 	}
 }

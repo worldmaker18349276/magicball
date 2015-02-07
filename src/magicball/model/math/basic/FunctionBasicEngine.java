@@ -4,6 +4,7 @@ import magicball.model.*;
 import magicball.model.math.*;
 
 
+// base on lambda expression
 public class FunctionBasicEngine implements FunctionEngine
 {
 	public FunctionBasicEngine() { }
@@ -24,49 +25,42 @@ public class FunctionBasicEngine implements FunctionEngine
 
 	// creater
 	@Override
-	public < I, O > Function<I,O> function( LambdaFunction<I,O> lambda ) {
+	public < I, O > Function<I,O> function( java.util.function.Function<I,O> lambda ) {
 		return new FunctionLambdaExpression<I,O>(lambda);
 	}
 
 	@Override
 	public < I > Function<I,I> createIdentityFunction() {
-		return function(new LambdaFunction<I,I>() {
-			@Override
-			public I apply( I in ) {
-				return in;
-			}
-		});
+		return function(i->i);
 	}
 
 	@Override
 	public < I, O > Function<I,O> createConstantFunction( final O c ) {
-		return function(new LambdaFunction<I,O>() {
-			@Override
-			public O apply( I in ) {
-				return c;
-			}
-		});
+		return function(i->c);
 	}
 
 
 	// attribute
 	@Override
-	public < I, O > LambdaFunction<I,O> getLambdaFunction( Function<I,O> func_ ) {
+	public < I, O > java.util.function.Function<I,O> getLambdaFunction( Function<I,O> func_ ) {
 		FunctionLambdaExpression<I,O> func = cast(func_);
 		return func.getLambdaFunction();
 	}
 
+	private < I, O > java.util.function.Function<I,O> lambda( Function<I,O> func_ ) {
+		return getLambdaFunction(func_);
+	}
+
 	@Override
 	public < I, O > O applies( Function<I,O> func, I in ) {
-		return getLambdaFunction(func).apply(in);
+		return lambda(func).apply(in);
 	}
 
 	@Override
 	public < I, O > java.util.Set<O> appliesAll( Function<I,O> func, java.util.Set<I> ins ) {
-		java.util.Set<O> outs = new java.util.HashSet<O>();
-		for ( I in : ins )
-			outs.add(applies(func,in));
-		return outs;
+		return ins.stream()
+			.map(lambda(func))
+			.collect(Collectors.toSet());
 	}
 
 	@Override
@@ -76,24 +70,15 @@ public class FunctionBasicEngine implements FunctionEngine
 
 	@Override
 	public < I, O > java.util.Map<I,O> mapsAll( Function<I,O> func, java.util.Set<I> ins ) {
-		java.util.Map<I,O> outs = new java.util.HashMap<I,O>();
-		for ( I in : ins )
-			outs.put(in,applies(func,in));
-		return outs;
+		return ins.stream()
+			.collect(Collectors.toMap(i->i, lambda(func)));
 	}
 
 
 	// operator
 	@Override
 	public < I, M, O > Function<I,O> compose( Function<I,M> func1_, Function<M,O> func2_ ) {
-		final LambdaFunction<I,M> func1 = getLambdaFunction(func1_);
-		final LambdaFunction<M,O> func2 = getLambdaFunction(func2_);
-		return function(new LambdaFunction<I,O>() {
-			@Override
-			public O apply( I in ) {
-				return func2.apply(func1.apply(in));
-			}
-		});
+		return function(lambda(func1_).andThen(lambda(func2_)));
 	}
 	
 	@Override
@@ -104,5 +89,53 @@ public class FunctionBasicEngine implements FunctionEngine
 	@Override
 	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 ) {
 		throw new UnsupportedAlgorithmException();
+	}
+
+
+	private < I > java.util.function.Predicate<I> cast( java.util.function.Function<I,Boolean> func ) {
+		return func::apply;
+	}
+
+	private < I > java.util.function.Function<I,Boolean> cast( java.util.function.Predicate<I> func ) {
+		return func::test;
+	}
+
+	@Override
+	public < I > Function<I,Boolean> negate( Function<I,Boolean> func ) {
+		return function(cast( cast(lambda(func)).negate() ));
+	}
+
+	@Override
+	@SafeVarargs
+	public < I > Function<I,Boolean> and( Function<I,Boolean>... funcs ) {
+		return Stream.of(funcs)
+			.map(this::lambda)
+			.map(this::cast)
+			.reduce(java.util.function.Predicate::and)
+			.map(this::cast)
+			.map(this::function)
+			.get();
+	}
+
+	@Override
+	public < I > Function<I,Boolean> and( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
+		return function(cast( cast(lambda(func1)).and(cast(lambda(func1))) ));
+	}
+
+	@Override
+	@SafeVarargs
+	public < I > Function<I,Boolean> or( Function<I,Boolean>... funcs ) {
+		return Stream.of(funcs)
+			.map(this::lambda)
+			.map(this::cast)
+			.reduce(java.util.function.Predicate::or)
+			.map(this::cast)
+			.map(this::function)
+			.get();
+	}
+
+	@Override
+	public < I > Function<I,Boolean> or( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
+		return function(cast( cast(lambda(func1)).or(cast(lambda(func1))) ));
 	}
 }
