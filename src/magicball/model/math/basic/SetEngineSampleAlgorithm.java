@@ -1,8 +1,7 @@
-package magicball.model.math.sample;
+package magicball.model.math.basic;
 
 import magicball.model.*;
 import magicball.model.math.*;
-import magicball.model.math.basic.*;
 
 public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 {
