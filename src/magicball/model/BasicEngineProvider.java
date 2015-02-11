@@ -45,7 +45,7 @@ public class BasicEngineProvider extends EngineProvider
 
 	public SetEngine getSetEngine() {
 		if ( this.setEng == null )
-			this.setEng = new SetEngineSampleAlgorithm<Number[]>(getFunctionEngine(),createSkyGrid()); // functionEng
+			this.setEng = new SetBasicEngineWithSampleAlgorithm<Number[]>(getFunctionEngine(),createSkyGrid()); // functionEng
 		return this.setEng;
 	}
 

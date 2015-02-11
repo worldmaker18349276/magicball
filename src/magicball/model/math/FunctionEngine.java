@@ -29,10 +29,10 @@ public interface FunctionEngine
 	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 );
 
 	public < I > Function<I,Boolean> negate( Function<I,Boolean> func );
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings({"unchecked", "varargs"})
 	public < I > Function<I,Boolean> and( Function<I,Boolean>... funcs );
 	public < I > Function<I,Boolean> and( Function<I,Boolean> func1, Function<I,Boolean> func2 );
-	@SuppressWarnings({"unchecked"})
-	public < I > Function<I,Boolean> or( Function<I,Boolean>... func1s );
+	@SuppressWarnings({"unchecked", "varargs"})
+	public < I > Function<I,Boolean> or( Function<I,Boolean>... funcs );
 	public < I > Function<I,Boolean> or( Function<I,Boolean> func1, Function<I,Boolean> func2 );
 }

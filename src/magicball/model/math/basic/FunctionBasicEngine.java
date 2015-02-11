@@ -1,5 +1,7 @@
 package magicball.model.math.basic;
 
+import java.util.stream.*;
+
 import magicball.model.*;
 import magicball.model.math.*;
 
@@ -35,7 +37,7 @@ public class FunctionBasicEngine implements FunctionEngine
 	}
 
 	@Override
-	public < I, O > Function<I,O> createConstantFunction( final O c ) {
+	public < I, O > Function<I,O> createConstantFunction( O c ) {
 		return function(i->c);
 	}
 
@@ -106,7 +108,7 @@ public class FunctionBasicEngine implements FunctionEngine
 	}
 
 	@Override
-	@SafeVarargs
+	@SuppressWarnings({"unchecked", "varargs"})
 	public < I > Function<I,Boolean> and( Function<I,Boolean>... funcs ) {
 		return Stream.of(funcs)
 			.map(this::lambda)
@@ -123,7 +125,7 @@ public class FunctionBasicEngine implements FunctionEngine
 	}
 
 	@Override
-	@SafeVarargs
+	@SuppressWarnings({"unchecked", "varargs"})
 	public < I > Function<I,Boolean> or( Function<I,Boolean>... funcs ) {
 		return Stream.of(funcs)
 			.map(this::lambda)

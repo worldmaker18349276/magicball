@@ -1,6 +1,7 @@
 package magicball.model.math.basic;
 
-import java.util.Arrays;
+import java.util.stream.*;
+
 import magicball.model.*;
 import magicball.model.math.*;
 
@@ -72,8 +73,8 @@ public class SetBasicEngine implements SetEngine
 
 	// operator
 	@Override
-	@SafeVarargs
-	final public < E > Set<E> union( final Set<E>... sets ) {
+	@SuppressWarnings({"unchecked", "varargs"})
+	public < E > Set<E> union( Set<E>... sets ) {
 		return Stream.of(sets)
 			.map(this::function)
 			.reduce(this.funcEngine::or)
@@ -82,13 +83,13 @@ public class SetBasicEngine implements SetEngine
 	}
 
 	@Override
-	public < E > Set<E> union( final Set<E> set1, final Set<E> set2 ) {
+	public < E > Set<E> union( Set<E> set1, Set<E> set2 ) {
 		return createSetByFunction( funcEngine.or(function(set1),function(set2)) );
 	}
 
 	@Override
-	@SafeVarargs
-	final public < E > Set<E> intersect( final Set<E>... sets ) {
+	@SuppressWarnings({"unchecked", "varargs"})
+	public < E > Set<E> intersect( Set<E>... sets ) {
 		return Stream.of(sets)
 			.map(this::function)
 			.reduce(this.funcEngine::and)
@@ -97,17 +98,17 @@ public class SetBasicEngine implements SetEngine
 	}
 
 	@Override
-	public < E > Set<E> intersect( final Set<E> set1, final Set<E> set2 ) {
+	public < E > Set<E> intersect( Set<E> set1, Set<E> set2 ) {
 		return createSetByFunction( funcEngine.and(function(set1),function(set2)) );
 	}
 
 	@Override
-	public < E > Set<E> complement( final Set<E> set1, final Set<E> set2 ) {
+	public < E > Set<E> complement( Set<E> set1, Set<E> set2 ) {
 		return createSetByFunction( funcEngine.and(function(set1),funcEngine.negate(function(set2))) );
 	}
 
 	@Override
-	public < E > Set<E> complement( final Set<E> set ) {
+	public < E > Set<E> complement( Set<E> set ) {
 		return createSetByFunction( funcEngine.negate(function(set)) );
 	}
 

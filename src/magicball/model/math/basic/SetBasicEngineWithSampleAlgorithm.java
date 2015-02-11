@@ -1,20 +1,26 @@
 package magicball.model.math.basic;
 
+import java.util.stream.*;
+
 import magicball.model.*;
 import magicball.model.math.*;
 
-public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
+public class SetBasicEngineWithSampleAlgorithm < E > extends SetBasicEngine
 {
 	protected java.util.Set<E> samples;
 
-	public SetEngineSampleAlgorithm( FunctionEngine funcEng, java.util.Set<E> sam ) {
+	public SetBasicEngineWithSampleAlgorithm( EngineProvider provider, java.util.Set<E> sam ) {
+		this(provider.getFunctionEngine(), sam);
+	}
+
+	public SetBasicEngineWithSampleAlgorithm( FunctionEngine funcEng, java.util.Set<E> sam ) {
 		super(funcEng);
 		this.samples = sam;
 	}
 
 	@Override
-	public SetEngineSampleAlgorithm<E> clone() {
-		return new SetEngineSampleAlgorithm<E>(this.funcEngine,this.samples);
+	public SetBasicEngineWithSampleAlgorithm<E> clone() {
+		return new SetBasicEngineWithSampleAlgorithm<E>(this.funcEngine,this.samples);
 	}
 
 	@SuppressWarnings({"unchecked"})
@@ -42,9 +48,9 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 	public < E_ > java.util.Set<E_> createSampleSetOf( Set<E_> set_ ) {
 		Set<E> set = castToE(set_);
 		java.util.Set<E> subsamples = this.samples.stream()
-			.filter(lambda(set))
+			.filter(lambda(set)::apply)
 			.collect(Collectors.toSet());
-		return <E_>castToE_(subsamples);
+		return castToE_(subsamples);
 	}
 
 
@@ -54,7 +60,7 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 		Set<E> set1 = castToE(set1_);
 		Set<E> set2 = castToE(set2_);
 
-		return createSampleSetOf(set2).stream().allMatch(lambda(set1));
+		return createSampleSetOf(set2).stream().allMatch(lambda(set1)::apply);
 	}
 
 
@@ -63,14 +69,14 @@ public class SetEngineSampleAlgorithm < E > extends SetBasicEngine
 	public < E_ > boolean isEmpty( Set<E_> set_ ) {
 		Set<E> set = castToE(set_);
 		return this.samples.stream()
-			.noneMatch(lambda(set));
+			.noneMatch(lambda(set)::apply);
 	}
 
 	@Override
 	public < E_ > boolean isUniversal( Set<E_> set_ ) {
 		Set<E> set = castToE(set_);
 		return this.samples.stream()
-			.allMatch(lambda(set));
+			.allMatch(lambda(set)::apply);
 	}
 
 	@Override
