@@ -339,7 +339,7 @@ public class model_geometry
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
 					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
-					RegionEngine regEngine = new RegionBasicEngine(mathEngine,setEngine,funcEngine,faceEngine,transEngine);
+					RegionEngine regEngine = new RegionBasicEngine(mathEngine,funcEngine,faceEngine,transEngine);
 
 					Region reg = regEngine.createRegionByFunction(funcEngine.function(
 						( v ) -> (v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue() > 0)
@@ -362,7 +362,7 @@ public class model_geometry
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
 					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
-					RegionEngine regEngine = new RegionBasicEngine(mathEngine,setEngine,funcEngine,faceEngine,transEngine);
+					RegionEngine regEngine = new RegionBasicEngine(mathEngine,funcEngine,faceEngine,transEngine);
 
 					Region reg1 = regEngine.createUniversalRegion();
 					System.out.println("reg1 = universe()");
@@ -390,7 +390,7 @@ public class model_geometry
 					SetEngine setEngine = new SetBasicEngine(funcEngine);
 					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
 					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
-					RegionEngine regEngine = new RegionBasicEngine(mathEngine,setEngine,funcEngine,faceEngine,transEngine);
+					RegionEngine regEngine = new RegionBasicEngine(mathEngine,funcEngine,faceEngine,transEngine);
 
 					Region reg1 = regEngine.createRegionByFunction(funcEngine.function(
 						( v ) -> (v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue() > 0)
