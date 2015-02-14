@@ -45,7 +45,6 @@ public class RegionEngineForFunc implements RegionEngine
 
 
 	// creater
-	@Override
 	public Region createRegionBySet( Set<Number[]> set ) {
 		return new RegionSetExpression(set);
 	}
@@ -77,7 +76,6 @@ public class RegionEngineForFunc implements RegionEngine
 
 
 	// attribute
-	@Override
 	public Set<Number[]> getRegionSet( Region reg ) {
 		return cast(reg).getSet();
 	}

@@ -9,7 +9,6 @@ public interface RegionEngine
 
 
 	// creater
-	public Region createRegionBySet( Set<Number[]> set );
 	public Region createRegionByFunction( Function<Number[],Boolean> func );
 	public Region createRegionByFace( Surface face, int side );
 
@@ -18,7 +17,6 @@ public interface RegionEngine
 
 
 	// attribute
-	public Set<Number[]> getRegionSet( Region reg );
 	public Function<Number[],Boolean> getRegionIntensionFunction( Region reg );
 
 	public boolean contains( Region reg, Number[] point );
