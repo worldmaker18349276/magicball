@@ -39,14 +39,8 @@ public class BasicEngineProvider extends EngineProvider
 
 	public FunctionEngine getFunctionEngine() {
 		if ( this.functionEng == null )
-			this.functionEng = new FunctionBasicEngine();
+			this.functionEng = new FunctionBasicEngineWithSampleAlgorithm<Number[]>(createSkyGrid());
 		return this.functionEng;
-	}
-
-	public SetEngine getSetEngine() {
-		if ( this.setEng == null )
-			this.setEng = new SetBasicEngineWithSampleAlgorithm<Number[]>(getFunctionEngine(),createSkyGrid()); // functionEng
-		return this.setEng;
 	}
 
 	protected java.util.Set<Number[]> createSkyGrid() {
@@ -58,6 +52,12 @@ public class BasicEngineProvider extends EngineProvider
 				for ( double z=-a; z<a; z=z+d )
 					sam.add(math.vector(x,y,z));
 		return sam;
+	}
+
+	public SetEngine getSetEngine() {
+		if ( this.setEng == null )
+			this.setEng = new SetBasicEngine(getFunctionEngine()); // functionEng
+		return this.setEng;
 	}
 
 	public TransformationEngine getTransformationEngine() {
