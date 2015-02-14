@@ -27,8 +27,12 @@ public interface FunctionEngine
 	public < I, O > Function<O,I> invert( Function<I,O> func );
 	
 	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 );
+	public < I > boolean isAlwaysTrue( Function<I,Boolean> func );
+	public < I > boolean isAlwaysFalse( Function<I,Boolean> func );
+	public < I > boolean implies( Function<I,Boolean> func1, Function<I,Boolean> func2 );
 
-	public < I > Function<I,Boolean> negate( Function<I,Boolean> func );
+	public < I > Function<I,Boolean> not( Function<I,Boolean> func );
+	public < I > Function<I,Boolean> not( Function<I,Boolean> func1, Function<I,Boolean> func2 );
 	@SuppressWarnings({"unchecked", "varargs"})
 	public < I > Function<I,Boolean> and( Function<I,Boolean>... funcs );
 	public < I > Function<I,Boolean> and( Function<I,Boolean> func1, Function<I,Boolean> func2 );

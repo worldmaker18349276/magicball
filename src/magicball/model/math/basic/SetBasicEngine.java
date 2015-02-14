@@ -67,7 +67,7 @@ public class SetBasicEngine implements SetEngine
 
 	@Override
 	public < E > boolean containsAll( Set<E> set1, Set<E> set2 ) {
-		throw new UnsupportedAlgorithmException();
+		return this.funcEngine.implies(function(set2),function(set1));
 	}
 
 
@@ -104,26 +104,26 @@ public class SetBasicEngine implements SetEngine
 
 	@Override
 	public < E > Set<E> complement( Set<E> set1, Set<E> set2 ) {
-		return createSetByFunction( funcEngine.and(function(set1),funcEngine.negate(function(set2))) );
+		return createSetByFunction( funcEngine.not(function(set1),function(set2)) );
 	}
 
 	@Override
 	public < E > Set<E> complement( Set<E> set ) {
-		return createSetByFunction( funcEngine.negate(function(set)) );
+		return createSetByFunction( funcEngine.not(function(set)) );
 	}
 
 	@Override
 	public < E > boolean isEmpty( Set<E> set ) {
-		throw new UnsupportedAlgorithmException();
+		return funcEngine.isAlwaysFalse(function(set));
 	}
 
 	@Override
 	public < E > boolean isUniversal( Set<E> set ) {
-		throw new UnsupportedAlgorithmException();
+		return funcEngine.isAlwaysTrue(function(set));
 	}
 
 	@Override
 	public < E > boolean equals( Set<E> set1, Set<E> set2 ) {
-		throw new UnsupportedAlgorithmException();
+		return funcEngine.equals(function(set1), function(set2));
 	}
 }

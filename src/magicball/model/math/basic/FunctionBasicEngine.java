@@ -93,6 +93,21 @@ public class FunctionBasicEngine implements FunctionEngine
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
+	public < I > boolean isAlwaysTrue( Function<I,Boolean> func ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public < I > boolean isAlwaysFalse( Function<I,Boolean> func ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public < I > boolean implies( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
 
 	private < I > java.util.function.Predicate<I> cast( java.util.function.Function<I,Boolean> func ) {
 		return func::apply;
@@ -103,8 +118,13 @@ public class FunctionBasicEngine implements FunctionEngine
 	}
 
 	@Override
-	public < I > Function<I,Boolean> negate( Function<I,Boolean> func ) {
+	public < I > Function<I,Boolean> not( Function<I,Boolean> func ) {
 		return function(cast( cast(lambda(func)).negate() ));
+	}
+
+	@Override
+	public < I > Function<I,Boolean> not( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
+		return function(cast( cast(lambda(func1)).and(cast(lambda(func2)).negate()) ));
 	}
 
 	@Override
