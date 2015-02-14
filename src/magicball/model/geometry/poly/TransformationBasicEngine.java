@@ -107,16 +107,10 @@ public class TransformationBasicEngine implements TransformationEngine
 
 	@Override
 	public Function<Number[],Number[]> getTransformationFunction( Transformation trans ) {
-		final NumberEngine math = this.mathEngine;
-		final Number[][] mat = getRotationMatrix(trans);
-		final Number[] vec = getShiftVector(trans);
+		Number[][] mat = getRotationMatrix(trans);
+		Number[] vec = getShiftVector(trans);
 		return this.funcEngine.function(
-			new LambdaFunction<Number[],Number[]>() {
-				@Override
-				public Number[] apply( Number[] in ) {
-					return math.add(math.matrixMultiply(mat,in),vec);
-				}
-			}
+			in -> mathEngine.add(mathEngine.matrixMultiply(mat,in),vec)
 		);
 	}
 

@@ -11,9 +11,9 @@ public class SurfaceBasicEngine implements SurfaceEngine
 	protected FunctionEngine funcEngine;
 	protected NumberEngine mathEngine;
 
-	public SurfaceBasicEngine( TransformationEngine transEngine, FunctionEngine funcEngine, NumberEngine mathEng ) {
-		this.transEngine = transEngine;
-		this.funcEngine = funcEngine;
+	public SurfaceBasicEngine( TransformationEngine transEng, FunctionEngine funcEng, NumberEngine mathEng ) {
+		this.transEngine = transEng;
+		this.funcEngine = funcEng;
 		this.mathEngine = mathEng;
 	}
 
@@ -49,15 +49,9 @@ public class SurfaceBasicEngine implements SurfaceEngine
 		return createPlaneByVectorAndDistance(nvec,dis);
 	}
 	
-	public Surface createPlaneByVectorAndDistance( final Number[] nvec, final Number dis ) {
-		final NumberEngine math = this.mathEngine;
+	public Surface createPlaneByVectorAndDistance( Number[] nvec, Number dis ) {
 		return createSurfaceByFunction(this.funcEngine.function(
-			new LambdaFunction<Number[],Number>() {
-				@Override
-				public Number apply( Number[] vec ) {
-					return math.subtract(math.dotProduct(vec,nvec),dis);
-				}
-			}
+			vec -> mathEngine.subtract(mathEngine.dotProduct(vec,nvec),dis)
 		));
 	}
 

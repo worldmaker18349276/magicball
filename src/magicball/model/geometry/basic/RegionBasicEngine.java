@@ -56,18 +56,13 @@ public class RegionBasicEngine implements RegionEngine
 	}
 
 	@Override
-	public Region createRegionByFace( final Surface face, final int side ) {
-		final NumberEngine math = this.mathEngine;
-		final FunctionEngine funcEng = this.funcEngine;
-		final Function<Number[],Number> func = faceEngine.getIsosurfaceFunction(face);
-		return createRegionByFunction(funcEngine.function(new LambdaFunction<Number[],Boolean>() {
-			@Override
-			public Boolean apply( Number [] vec ) {
-				return math.greaterThan(
-					math.multiply( funcEng.applies(func,vec), math.number(side) ),
-					math.number0());
-			}
-		}));
+	public Region createRegionByFace( Surface face, int side ) {
+		Function<Number[],Number> func = faceEngine.getIsosurfaceFunction(face);
+		return createRegionByFunction(funcEngine.function(
+				vec -> mathEngine.greaterThan(
+					mathEngine.multiply( funcEngine.applies(func,vec), mathEngine.number(side) ),
+					mathEngine.number0())
+		));
 	}
 
 	@Override
