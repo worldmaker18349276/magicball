@@ -6,7 +6,7 @@ import magicball.model.*;
 import java.util.Arrays;
 
 
-public class RegionBasicEngine implements RegionEngine
+public class RegionEngineForFunc implements RegionEngine
 {
 	protected SetEngine setEngine;
 	protected NumberEngine mathEngine;
@@ -14,7 +14,7 @@ public class RegionBasicEngine implements RegionEngine
 	protected SurfaceEngine faceEngine;
 	protected TransformationEngine transEngine;
 
-	public RegionBasicEngine( NumberEngine mathEng, SetEngine setEng, FunctionEngine funcEng, SurfaceEngine faceEng, TransformationEngine transEng ) {
+	public RegionEngineForFunc( NumberEngine mathEng, SetEngine setEng, FunctionEngine funcEng, SurfaceEngine faceEng, TransformationEngine transEng ) {
 		this.mathEngine = mathEng;
 		this.setEngine = setEng;
 		this.funcEngine = funcEng;
@@ -22,7 +22,7 @@ public class RegionBasicEngine implements RegionEngine
 		this.transEngine = transEng;
 	}
 
-	public RegionBasicEngine( EngineProvider provider ) {
+	public RegionEngineForFunc( EngineProvider provider ) {
 		this.mathEngine = provider.getNumberEngine();
 		this.setEngine = provider.getSetEngine();
 		this.funcEngine = provider.getFunctionEngine();
@@ -31,8 +31,8 @@ public class RegionBasicEngine implements RegionEngine
 	}
 
 	@Override
-	public RegionBasicEngine clone() {
-		return new RegionBasicEngine(this.mathEngine,this.setEngine,this.funcEngine,this.faceEngine,this.transEngine);
+	public RegionEngineForFunc clone() {
+		return new RegionEngineForFunc(this.mathEngine,this.setEngine,this.funcEngine,this.faceEngine,this.transEngine);
 	}
 
 	protected RegionSetExpression cast( Region reg ) {
