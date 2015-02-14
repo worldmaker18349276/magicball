@@ -121,7 +121,7 @@ public class FunctionBasicEngine implements FunctionEngine
 
 	@Override
 	public < I > Function<I,Boolean> and( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
-		return function(cast( cast(lambda(func1)).and(cast(lambda(func1))) ));
+		return function(cast( cast(lambda(func1)).and(cast(lambda(func2))) ));
 	}
 
 	@Override
@@ -138,6 +138,6 @@ public class FunctionBasicEngine implements FunctionEngine
 
 	@Override
 	public < I > Function<I,Boolean> or( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
-		return function(cast( cast(lambda(func1)).or(cast(lambda(func1))) ));
+		return function(cast( cast(lambda(func1)).or(cast(lambda(func2))) ));
 	}
 }
