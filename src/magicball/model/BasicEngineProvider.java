@@ -16,7 +16,6 @@ public class BasicEngineProvider extends EngineProvider
 	protected double a;
 	protected int n;
 	protected NumberEngine numberEng;
-	protected SetEngine setEng;
 	protected FunctionEngine functionEng;
 	protected SurfaceEngine surfaceEng;
 	protected RegionEngine regionEng;
@@ -54,12 +53,6 @@ public class BasicEngineProvider extends EngineProvider
 		return sam;
 	}
 
-	public SetEngine getSetEngine() {
-		if ( this.setEng == null )
-			this.setEng = new SetBasicEngine(getFunctionEngine()); // functionEng
-		return this.setEng;
-	}
-
 	public TransformationEngine getTransformationEngine() {
 		if ( this.transformationEng == null )
 			this.transformationEng = new TransformationBasicEngine(this); // numberEng, functionEng
@@ -74,7 +67,7 @@ public class BasicEngineProvider extends EngineProvider
 
 	public RegionEngine getRegionEngine() {
 		if ( this.regionEng == null )
-			this.regionEng = new RegionBasicEngine(this); // numberEng, functionEng, setEng, transformationEng, surfaceEng
+			this.regionEng = new RegionBasicEngine(this); // numberEng, functionEng, transformationEng, surfaceEng
 		return this.regionEng;
 	}
 

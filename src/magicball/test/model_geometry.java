@@ -336,7 +336,6 @@ public class model_geometry
 
 					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
 					FunctionEngine funcEngine = new FunctionBasicEngine();
-					SetEngine setEngine = new SetBasicEngine(funcEngine);
 					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
 					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
 					RegionEngine regEngine = new RegionBasicEngine(mathEngine,funcEngine,faceEngine,transEngine);
@@ -359,7 +358,6 @@ public class model_geometry
 
 					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
 					FunctionEngine funcEngine = new FunctionBasicEngine();
-					SetEngine setEngine = new SetBasicEngine(funcEngine);
 					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
 					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
 					RegionEngine regEngine = new RegionBasicEngine(mathEngine,funcEngine,faceEngine,transEngine);
@@ -387,7 +385,6 @@ public class model_geometry
 
 					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
 					FunctionEngine funcEngine = new FunctionBasicEngine();
-					SetEngine setEngine = new SetBasicEngine(funcEngine);
 					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
 					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
 					RegionEngine regEngine = new RegionBasicEngine(mathEngine,funcEngine,faceEngine,transEngine);
