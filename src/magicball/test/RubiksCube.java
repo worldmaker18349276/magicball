@@ -17,7 +17,7 @@ public class RubiksCube
 			SurfaceEngine faceEng = provider.getSurfaceEngine();
 			RegionEngine regEng = provider.getRegionEngine();
 			TransformationEngine transEng = provider.getTransformationEngine();
-			MovementEngine moveEng = provider.getMovementEngine();
+			MotionEngine moveEng = provider.getMotionEngine();
 			SolidEngine solEng = provider.getSolidEngine();
 
 			Number[][] vecs = new Number [ 6 ][];
@@ -73,12 +73,12 @@ public class RubiksCube
 					}
 
 
-			Movement[] whole_moves = new Movement [ 6 ];
-			RegionalMovement[] moves = new RegionalMovement [ 6 ];
+			Motion[] whole_moves = new Motion [ 6 ];
+			RegionalMotion[] moves = new RegionalMotion [ 6 ];
 			for ( int i=0; i<6; i++ ) {
 				Transformation trans = transEng.createRotationByVector(math.multiply(vecs[i],t));
-				whole_moves[i] = moveEng.createSimpleMovementByTransformation(trans);
-				moves[i] = new RegionalMovement(regions[i],whole_moves[i]);
+				whole_moves[i] = moveEng.createSimpleMotionByTransformation(trans);
+				moves[i] = new RegionalMotion(regions[i],whole_moves[i]);
 			}
 
 

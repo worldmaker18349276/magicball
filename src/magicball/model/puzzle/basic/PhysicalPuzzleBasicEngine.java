@@ -8,16 +8,16 @@ import magicball.model.*;
 
 public class PhysicalPuzzleBasicEngine implements PhysicalPuzzleEngine
 {
-	protected MovementEngine moveEngine;
+	protected MotionEngine moveEngine;
 	protected SolidEngine solEngine;
 
-	public PhysicalPuzzleBasicEngine( MovementEngine moveEng, SolidEngine solEng ) {
+	public PhysicalPuzzleBasicEngine( MotionEngine moveEng, SolidEngine solEng ) {
 		this.moveEngine = moveEng;
 		this.solEngine = solEng;
 	}
 
 	public PhysicalPuzzleBasicEngine( EngineProvider provider ) {
-		this.moveEngine = provider.getMovementEngine();
+		this.moveEngine = provider.getMotionEngine();
 		this.solEngine = provider.getSolidEngine();
 	}
 
@@ -28,7 +28,7 @@ public class PhysicalPuzzleBasicEngine implements PhysicalPuzzleEngine
 
 
 	@Override
-	public void applies( PhysicalPuzzle puzzle, Movement move ) {
+	public void applies( PhysicalPuzzle puzzle, Motion move ) {
 		Transformation trans = moveEngine.getTransformation(move);
 		for ( Solid sol : puzzle.getComponents() )
 			solEngine.applies(sol,trans);
@@ -39,13 +39,13 @@ public class PhysicalPuzzleBasicEngine implements PhysicalPuzzleEngine
 	}
 
 	@Override
-	public void applies( PhysicalPuzzle puzzle, RegionalMovement rmove ) throws IllegalOperationException {
+	public void applies( PhysicalPuzzle puzzle, RegionalMotion rmove ) throws IllegalOperationException {
 		java.util.Set<Solid> selected_sols = solEngine.filterBy(puzzle.getComponents(),rmove.getRegion());
-		Transformation trans = moveEngine.getTransformation(rmove.getMovement());
+		Transformation trans = moveEngine.getTransformation(rmove.getMotion());
 		for ( Solid sol : selected_sols )
 			solEngine.applies(sol,trans);
 		// java.util.Set<Solid> selected_sols = solEngine.filterBy(getComponents(),rmove.getRegion());
-		// java.util.List<Transformation> trans_list = moveEngine.divideMovementByDivisor(rmove.getMovement(),10);
+		// java.util.List<Transformation> trans_list = moveEngine.divideMotionByDivisor(rmove.getMotion(),10);
 		// for ( Transformation trans : trans_list ) {
 		// 	for ( Solid sol : selected_sols )
 		// 		solEngine.applies(sol,trans);

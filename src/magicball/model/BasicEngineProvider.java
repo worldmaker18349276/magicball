@@ -20,7 +20,7 @@ public class BasicEngineProvider extends EngineProvider
 	protected SurfaceEngine surfaceEng;
 	protected RegionEngine regionEng;
 	protected TransformationEngine transformationEng;
-	protected MovementEngine movementEng;
+	protected MotionEngine MotionEng;
 	protected SolidEngine solidEng;
 
 
@@ -71,10 +71,10 @@ public class BasicEngineProvider extends EngineProvider
 		return this.regionEng;
 	}
 
-	public MovementEngine getMovementEngine() {
-		if ( this.movementEng == null )
-			this.movementEng = new SimpleMovementEngine(this); // numberEng, transformationEng
-		return this.movementEng;
+	public MotionEngine getMotionEngine() {
+		if ( this.MotionEng == null )
+			this.MotionEng = new SimpleMotionEngine(this); // numberEng, transformationEng
+		return this.MotionEng;
 	}
 
 	public SolidEngine getSolidEngine() {

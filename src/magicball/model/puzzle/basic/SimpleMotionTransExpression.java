@@ -4,17 +4,17 @@ import magicball.model.geometry.*;
 import magicball.model.puzzle.*;
 
 
-public class SimpleMovementTransExpression extends Movement
+public class SimpleMotionTransExpression extends Motion
 {
 	protected Transformation transformation;
 
-	public SimpleMovementTransExpression( Transformation trans ) {
+	public SimpleMotionTransExpression( Transformation trans ) {
 		this.transformation = trans;
 	}
 
 	@Override
-	public SimpleMovementTransExpression clone() {
-		return new SimpleMovementTransExpression(this.transformation);
+	public SimpleMotionTransExpression clone() {
+		return new SimpleMotionTransExpression(this.transformation);
 	}
 
 	public Transformation getTransformation() {

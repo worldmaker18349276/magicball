@@ -39,11 +39,11 @@ public class PhysicalPuzzle
 	}
 
 
-	public void apply( Movement move ) throws IllegalOperationException {
+	public void apply( Motion move ) throws IllegalOperationException {
 		engine.applies(this,move);
 	}
 
-	public void apply( RegionalMovement rmove ) throws IllegalOperationException {
+	public void apply( RegionalMotion rmove ) throws IllegalOperationException {
 		engine.applies(this,rmove);
 	}
 
