@@ -50,7 +50,7 @@ public class TransformationBasicEngine implements TransformationEngine
 		double sin = Math.sin(angle);
 		double versin = 1-cos;
 
-		Number [][] rmat = new Number [ 3 ][ 3 ];
+		Number[][] rmat = new Number [ 3 ][ 3 ];
 		rmat[0][0] = axis[0]*axis[0]*versin + cos;
 		rmat[1][1] = axis[1]*axis[1]*versin + cos;
 		rmat[2][2] = axis[2]*axis[2]*versin + cos;
@@ -67,17 +67,12 @@ public class TransformationBasicEngine implements TransformationEngine
 
 	// creater
 	@Override
-	public Transformation createTransformationByVectors( Number[] rvec, Number[] sh ) {
-		return new TransformationMatrixExpression(rotationVector2RotationMatrix(rvec),sh);
-	}
-
-	@Override
 	public Transformation createRotationByVector( Number[] rvec ) {
 		return new TransformationMatrixExpression(rotationVector2RotationMatrix(rvec),mathEngine.vector0(3));
 	}
 
 	@Override
-	public Transformation createShiftByVector( Number[] sh ) {
+	public Transformation createTranslationByVector( Number[] sh ) {
 		return new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 	}
 
@@ -87,43 +82,75 @@ public class TransformationBasicEngine implements TransformationEngine
 	}
 
 	@Override
-	public Reflection createReflectionByPlane( Surface plane ) {
+	public Transformation createReflectionByVector( Number[] fvec ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public Transformation createTransformationByFunction( Function<Number[],Number[]> func ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public Transformation createLinearTransformationByMatrix( Number[][] mat ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public Transformation createScalingByFactor( Number factor ) {
 		throw new UnsupportedAlgorithmException();
 	}
 
 
 	// attribute
 	@Override
-	public Number[][] getRotationMatrix( Transformation trans_ ) {
+	public Number[][] getTransformationMatrix( Transformation trans_ ) {
 		TransformationMatrixExpression trans = cast(trans_);
 		return trans.getRotationMatrix();
 	}
 
 	@Override
-	public Number[] getShiftVector( Transformation trans_ ) {
+	public Number[] getTranslationVector( Transformation trans_ ) {
 		TransformationMatrixExpression trans = cast(trans_);
 		return trans.getShiftVector();
 	}
 
 	@Override
 	public Function<Number[],Number[]> getTransformationFunction( Transformation trans ) {
-		Number[][] mat = getRotationMatrix(trans);
-		Number[] vec = getShiftVector(trans);
+		Number[][] mat = getTransformationMatrix(trans);
+		Number[] vec = getTranslationVector(trans);
 		return this.funcEngine.function(
 			in -> mathEngine.add(mathEngine.matrixMultiply(mat,in),vec)
 		);
 	}
 
 	@Override
-	public Function<Number[],Number[]> getReflectionFunction( Reflection ref ) {
+	public Number[] getRotationVector( Transformation trans ) {
+		return rotationMatrix2RotationVector(getTransformationMatrix(trans));
+	}
+	
+	@Override
+	public Number[] getReflectionVector( Transformation trans ) {
 		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public Number getScalingFactor( Transformation trans ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public Number[] applies( Transformation trans, Number[] point ) {
+		Number[][] mat = getTransformationMatrix(trans);
+		Number[] vec = getTranslationVector(trans);
+		return mathEngine.add(mathEngine.matrixMultiply(mat,point),vec);
 	}
 
 
 	// operator
 	public Transformation compose( Transformation trans1, Transformation trans2 ) {
-		Number [][] rot = mathEngine.matrixMultiply(getRotationMatrix(trans2),getRotationMatrix(trans1));
-		Number [] sh = mathEngine.add(getShiftVector(trans2),mathEngine.matrixMultiply(getRotationMatrix(trans2),getShiftVector(trans1)));
+		Number[][] rot = mathEngine.matrixMultiply(getTransformationMatrix(trans2),getTransformationMatrix(trans1));
+		Number[] sh = mathEngine.add(getTranslationVector(trans2),mathEngine.matrixMultiply(getTransformationMatrix(trans2),getTranslationVector(trans1)));
 		return new TransformationMatrixExpression(rot,sh);
 	}
 
@@ -145,8 +172,8 @@ public class TransformationBasicEngine implements TransformationEngine
 
 	@Override
 	public Transformation invert( Transformation trans ) {
-		Number [][] rot = mathEngine.transpose(getRotationMatrix(trans));
-		Number [] sh = mathEngine.negate(mathEngine.matrixMultiply(rot,getShiftVector(trans)));
+		Number[][] rot = mathEngine.transpose(getTransformationMatrix(trans));
+		Number[] sh = mathEngine.negate(mathEngine.matrixMultiply(rot,getTranslationVector(trans)));
 		return new TransformationMatrixExpression(rot,sh);
 	}
 
@@ -157,14 +184,14 @@ public class TransformationBasicEngine implements TransformationEngine
 			return trans;
 		} else if ( isRotation(trans) ) {
 
-			Number[][] rot = getRotationMatrix(trans);
-			Number [] rvec = rotationMatrix2RotationVector(rot);
+			Number[][] rot = getTransformationMatrix(trans);
+			Number[] rvec = rotationMatrix2RotationVector(rot);
 			rot = rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
 			return new TransformationMatrixExpression(rot,mathEngine.vector0(3));
 
-		} else if ( isShift(trans) ) {
+		} else if ( isTranslation(trans) ) {
 
-			Number[] sh = getShiftVector(trans);
+			Number[] sh = getTranslationVector(trans);
 			sh = mathEngine.dividedBy(sh,divisor);
 			return new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
 
@@ -172,9 +199,9 @@ public class TransformationBasicEngine implements TransformationEngine
 
 			int n = divisor.intValue();
 
-			Number[][] rot = getRotationMatrix(trans);
-			Number[] sh = getShiftVector(trans);
-			Number [] rvec = rotationMatrix2RotationVector(rot);
+			Number[][] rot = getTransformationMatrix(trans);
+			Number[] sh = getTranslationVector(trans);
+			Number[] rvec = rotationMatrix2RotationVector(rot);
 			Number[][] rot_n = rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
 
 			Number[][] m = mathEngine.matrix1(3);
@@ -191,24 +218,74 @@ public class TransformationBasicEngine implements TransformationEngine
 	}
 
 	@Override
+	public Transformation transformCoordinate( Transformation p, Transformation t ) {
+		return compose(p, t, invert(p));
+	}
+
+
+	@Override
+	public boolean isAffine( Transformation trans ) {
+		if ( !(trans instanceof TransformationMatrixExpression) )
+			throw new UnsupportedAlgorithmException();
+		return true;
+	}
+
+	@Override
+	public boolean isLinear( Transformation trans ) {
+		return mathEngine.equals(getTranslationVector(trans),mathEngine.vector0(3));
+	}
+
+	@Override
+	public boolean isSimilar( Transformation trans ) {
+		if ( !(trans instanceof TransformationMatrixExpression) )
+			throw new UnsupportedAlgorithmException();
+		return true;
+	}
+
+	@Override
+	public boolean isIsometric( Transformation trans ) {
+		if ( !(trans instanceof TransformationMatrixExpression) )
+			throw new UnsupportedAlgorithmException();
+		return true;
+	}
+
+	@Override
+	public boolean isRigid( Transformation trans ) {
+		if ( !(trans instanceof TransformationMatrixExpression) )
+			throw new UnsupportedAlgorithmException();
+		return true;
+	}
+
+
+	@Override
 	public boolean isIdentity( Transformation trans ) {
-		return mathEngine.equals(getRotationMatrix(trans),mathEngine.matrix1(3)) &&
-				mathEngine.equals(getShiftVector(trans),mathEngine.vector0(3));
+		return mathEngine.equals(getTransformationMatrix(trans),mathEngine.matrix1(3)) &&
+				mathEngine.equals(getTranslationVector(trans),mathEngine.vector0(3));
 	}
 
 	@Override
 	public boolean isRotation( Transformation trans ) {
-		return mathEngine.equals(getShiftVector(trans),mathEngine.vector0(3));
+		return mathEngine.equals(getTranslationVector(trans),mathEngine.vector0(3));
 	}
 
 	@Override
-	public boolean isShift( Transformation trans ) {
-		return mathEngine.equals(getRotationMatrix(trans),mathEngine.matrix1(3));
+	public boolean isReflection( Transformation trans ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public boolean isTranslation( Transformation trans ) {
+		return mathEngine.equals(getTransformationMatrix(trans),mathEngine.matrix1(3));
+	}
+
+	@Override
+	public boolean isScaling( Transformation trans ) {
+		throw new UnsupportedAlgorithmException();
 	}
 
 	@Override
 	public boolean equals( Transformation trans1, Transformation trans2 ) {
-		return mathEngine.equals(getRotationMatrix(trans1),getRotationMatrix(trans2)) &&
-				mathEngine.equals(getShiftVector(trans1),getShiftVector(trans2));
+		return mathEngine.equals(getTransformationMatrix(trans1),getTransformationMatrix(trans2)) &&
+				mathEngine.equals(getTranslationVector(trans1),getTranslationVector(trans2));
 	}
 }
