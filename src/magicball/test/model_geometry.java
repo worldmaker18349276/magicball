@@ -34,8 +34,8 @@ public class model_geometry
 					assert transEngine.isIdentity(trans0) == true;
 					System.out.println("isRotation(trans0) = true");
 					assert transEngine.isRotation(trans0) == true;
-					System.out.println("isShift(trans0) = true");
-					assert transEngine.isShift(trans0) == true;
+					System.out.println("isTranslation(trans0) = true");
+					assert transEngine.isTranslation(trans0) == true;
 
 					Transformation trans1 = transEngine.createRotationByVector(rvec);
 					System.out.println("trans1 = Trans(rvec) = \n" + toString(trans1));
@@ -43,17 +43,17 @@ public class model_geometry
 					assert transEngine.isIdentity(trans1) == false;
 					System.out.println("isRotation(trans1) = true");
 					assert transEngine.isRotation(trans1) == true;
-					System.out.println("isShift(trans1) = false");
-					assert transEngine.isShift(trans1) == false;
+					System.out.println("isTranslation(trans1) = false");
+					assert transEngine.isTranslation(trans1) == false;
 
-					Transformation trans2 = transEngine.createShiftByVector(sh);
+					Transformation trans2 = transEngine.createTranslationByVector(sh);
 					System.out.println("trans2 = Trans(sh) = \n" + toString(trans2));
 					System.out.println("isIdentity(trans2) = false");
 					assert transEngine.isIdentity(trans2) == false;
 					System.out.println("isRotation(trans2) = false");
 					assert transEngine.isRotation(trans2) == false;
-					System.out.println("isShift(trans2) = true");
-					assert transEngine.isShift(trans2) == true;
+					System.out.println("isTranslation(trans2) = true");
+					assert transEngine.isTranslation(trans2) == true;
 
 				}
 				System.out.println("TEST 1 END");
@@ -92,7 +92,7 @@ public class model_geometry
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
 					System.out.println("sh = " + toString(sh));
 
-					Transformation trans = transEngine.createShiftByVector(sh);
+					Transformation trans = transEngine.createTranslationByVector(sh);
 					System.out.println("trans = Trans(sh) = \n" + toString(trans));
 
 					Function<Number[],Number[]> func = transEngine.getTransformationFunction(trans);
@@ -117,7 +117,7 @@ public class model_geometry
 					System.out.println("rvec = " + toString(rvec));
 					System.out.println("sh = " + toString(sh));
 
-					Transformation trans = transEngine.createTransformationByVectors(rvec,sh);
+					Transformation trans = transEngine.compose(transEngine.createRotationByVector(rvec), transEngine.createTranslationByVector(sh));
 					System.out.println("trans = Trans(rvec,sh) = \n" + toString(trans));
 
 					Function<Number[],Number[]> func = transEngine.getTransformationFunction(trans);
@@ -141,13 +141,13 @@ public class model_geometry
 					System.out.println("rvec = " + toString(rvec));
 					System.out.println("sh = " + toString(sh));
 
-					Transformation trans0 = transEngine.createTransformationByVectors(rvec,sh);
+					Transformation trans0 = transEngine.compose(transEngine.createRotationByVector(rvec), transEngine.createTranslationByVector(sh));
 					System.out.println("trans0 = Trans(rvec,sh) = \n" + toString(trans0));
 
 					Transformation trans1 = transEngine.createRotationByVector(rvec);
 					System.out.println("trans1 = Trans(rvec) = \n" + toString(trans1));
 
-					Transformation trans2 = transEngine.createShiftByVector(sh);
+					Transformation trans2 = transEngine.createTranslationByVector(sh);
 					System.out.println("trans2 = Trans(sh) = \n" + toString(trans2));
 
 					Transformation trans12 = transEngine.compose(trans1,trans2);
@@ -173,7 +173,7 @@ public class model_geometry
 					Transformation trans1 = transEngine.createRotationByVector(rvec);
 					System.out.println("trans1 = Trans(rvec) = \n" + toString(trans1));
 
-					Transformation trans2 = transEngine.createShiftByVector(sh);
+					Transformation trans2 = transEngine.createTranslationByVector(sh);
 					System.out.println("trans2 = Trans(sh) = \n" + toString(trans2));
 
 					Transformation trans21 = transEngine.compose(trans2,trans1);
@@ -231,7 +231,7 @@ public class model_geometry
 
 					Number [] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
-					Transformation trans1 = transEngine.createTransformationByVectors(rvec,sh);
+					Transformation trans1 = transEngine.compose(transEngine.createRotationByVector(rvec), transEngine.createTranslationByVector(sh));
 					System.out.println("trans1 = Trans(rvec,sh) = \n" + toString(trans1));
 
 					Transformation trans_1 = transEngine.invert(trans1);
@@ -284,7 +284,7 @@ public class model_geometry
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
 					System.out.println("sh = " + toString(sh));
 
-					Transformation transs = transEngine.createShiftByVector(sh);
+					Transformation transs = transEngine.createTranslationByVector(sh);
 					System.out.println("transs = Trans(sh) = \n" + toString(transs));
 
 					Transformation transs_3 = transEngine.dividedBy(transs,mathEngine.number(3));
@@ -310,7 +310,7 @@ public class model_geometry
 					System.out.println("rvec = " + toString(rvec));
 					System.out.println("sh = " + toString(sh));
 
-					Transformation trans = transEngine.createTransformationByVectors(rvec,sh);
+					Transformation trans = transEngine.compose(transEngine.createRotationByVector(rvec), transEngine.createTranslationByVector(sh));
 					System.out.println("trans = Trans(rvec,sh) = \n" + toString(trans));
 
 					Transformation trans_3 = transEngine.dividedBy(trans,mathEngine.number(3));
