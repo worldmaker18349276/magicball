@@ -39,6 +39,16 @@ public class NumberBasicEngine implements NumberEngine
 	}
 
 	@Override
+	public Number pi() {
+		return number(Math.PI);
+	}
+
+	@Override
+	public Number e() {
+		return number(Math.E);
+	}
+
+	@Override
 	public double doubleValue( Number n ) {
 		return n.doubleValue();
 	}
@@ -113,6 +123,72 @@ public class NumberBasicEngine implements NumberEngine
 	public Number sqrt( Number n ) {
 		return number(Math.sqrt(doubleValue(n)));
 	}
+
+	@Override
+	public Number abs( Number n ) {
+		return number(Math.abs(doubleValue(n)));
+	}
+
+	@Override
+	public Number floor( Number n ) {
+		return number(Math.floor(doubleValue(n)));
+	}
+
+	@Override
+	public Number ceil( Number n ) {
+		return number(Math.ceil(doubleValue(n)));
+	}
+
+	@Override
+	public Number max( Number n1, Number n2 ) {
+		return number(Math.max(doubleValue(n1), doubleValue(n2)));
+	}
+
+	@Override
+	public Number min( Number n1, Number n2 ) {
+		return number(Math.min(doubleValue(n1), doubleValue(n2)));
+	}
+
+	@Override
+	public Number exp( Number n ) {
+		return number(Math.exp(doubleValue(n)));
+	}
+
+	@Override
+	public Number ln( Number n ) {
+		return number(Math.log(doubleValue(n)));
+	}
+
+	@Override
+	public Number sin( Number n ) {
+		return number(Math.sin(doubleValue(n)));
+	}
+
+	@Override
+	public Number cos( Number n ) {
+		return number(Math.cos(doubleValue(n)));
+	}
+
+	@Override
+	public Number tan( Number n ) {
+		return number(Math.tan(doubleValue(n)));
+	}
+
+	@Override
+	public Number asin( Number n ) {
+		return number(Math.asin(doubleValue(n)));
+	}
+
+	@Override
+	public Number acos( Number n ) {
+		return number(Math.acos(doubleValue(n)));
+	}
+
+	@Override
+	public Number atan( Number n ) {
+		return number(Math.atan(doubleValue(n)));
+	}
+
 
 
 

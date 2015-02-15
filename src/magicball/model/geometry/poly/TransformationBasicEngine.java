@@ -34,32 +34,38 @@ public class TransformationBasicEngine implements TransformationEngine
 	}
 
 	protected Number[] rotationMatrix2RotationVector( Number[][] rmat ) {
-		double angle = Math.acos((mathEngine.doubleValue(mathEngine.trace(rmat))-1)/2);
-		double factor = angle/(2*Math.sin(angle));
+		Number one = mathEngine.number1();
+		Number two = mathEngine.number(2);
+		Number trace = mathEngine.trace(rmat);
+		Number cos = mathEngine.dividedBy(mathEngine.subtract(trace, one), two);
+		Number angle = mathEngine.acos(cos);
+		Number sin = mathEngine.sin(angle);
+		Number factor = mathEngine.dividedBy(angle, mathEngine.multiply(two, sin));
 		Number[] axis = new Number [ 3 ];
 		axis[0] = mathEngine.subtract(rmat[2][1],rmat[1][2]);
 		axis[1] = mathEngine.subtract(rmat[0][2],rmat[2][0]);
 		axis[2] = mathEngine.subtract(rmat[1][0],rmat[0][1]);
-		return mathEngine.multiply(axis,mathEngine.number(factor));
+		return mathEngine.multiply(axis, factor);
 	}
 
 	protected Number[][] rotationVector2RotationMatrix( Number[] rvec ) {
-		double[] axis = mathEngine.doubleValue(mathEngine.normalize(rvec));
-		double angle = mathEngine.doubleValue(mathEngine.norm(rvec));
-		double cos = Math.cos(angle);
-		double sin = Math.sin(angle);
-		double versin = 1-cos;
+		Number[] axis = mathEngine.normalize(rvec);
+		Number angle = mathEngine.norm(rvec);
+		Number cos = mathEngine.cos(angle);
+		Number sin = mathEngine.sin(angle);
+		Number versin = mathEngine.subtract(mathEngine.number1(), cos);
+		Number[] sins = mathEngine.multiply(axis,sin);
 
 		Number[][] rmat = new Number [ 3 ][ 3 ];
-		rmat[0][0] = axis[0]*axis[0]*versin + cos;
-		rmat[1][1] = axis[1]*axis[1]*versin + cos;
-		rmat[2][2] = axis[2]*axis[2]*versin + cos;
-		rmat[0][1] = axis[0]*axis[1]*versin - sin*axis[2];
-		rmat[1][0] = axis[0]*axis[1]*versin + sin*axis[2];
-		rmat[1][2] = axis[1]*axis[2]*versin - sin*axis[0];
-		rmat[2][1] = axis[1]*axis[2]*versin + sin*axis[0];
-		rmat[2][0] = axis[2]*axis[0]*versin - sin*axis[1];
-		rmat[0][2] = axis[2]*axis[0]*versin + sin*axis[1];
+		rmat[0][0] =      mathEngine.add(mathEngine.multiply(axis[0],axis[0],versin), cos);
+		rmat[1][1] =      mathEngine.add(mathEngine.multiply(axis[1],axis[1],versin), cos);
+		rmat[2][2] =      mathEngine.add(mathEngine.multiply(axis[2],axis[2],versin), cos);
+		rmat[1][0] =      mathEngine.add(mathEngine.multiply(axis[0],axis[1],versin), sins[2]);
+		rmat[2][1] =      mathEngine.add(mathEngine.multiply(axis[1],axis[2],versin), sins[0]);
+		rmat[0][2] =      mathEngine.add(mathEngine.multiply(axis[2],axis[0],versin), sins[1]);
+		rmat[0][1] = mathEngine.subtract(mathEngine.multiply(axis[0],axis[1],versin), sins[2]);
+		rmat[1][2] = mathEngine.subtract(mathEngine.multiply(axis[1],axis[2],versin), sins[0]);
+		rmat[2][0] = mathEngine.subtract(mathEngine.multiply(axis[2],axis[0],versin), sins[1]);
 
 		return rmat;
 	}
