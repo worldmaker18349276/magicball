@@ -75,14 +75,6 @@ public class SurfaceBasicEngine implements SurfaceEngine
 	}
 	
 	@Override
-	public Surface reflectsBy( Surface face, Reflection ref ) {
-		Function<Number[],Number[]> ref_func = this.transEngine.getReflectionFunction(ref);
-		Function<Number[],Number> face_func = getIsosurfaceFunction(face);
-		Function<Number[],Number> face_func_ = this.funcEngine.compose(ref_func,face_func);
-		return createSurfaceByFunction(face_func_);
-	}
-
-	@Override
 	public boolean isPlane( Surface face ) {
 		throw new UnsupportedAlgorithmException();
 	}

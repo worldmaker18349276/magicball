@@ -130,14 +130,6 @@ public class RegionBasicEngine implements RegionEngine
 	}
 
 	@Override
-	public Region reflectsBy( Region reg, Reflection ref ) {
-		Function<Number[],Number[]> ref_func = transEngine.getReflectionFunction(ref);
-		Function<Number[],Boolean> reg_func = getRegionIntensionFunction(reg);
-		Function<Number[],Boolean> reg_func_ = funcEngine.compose(ref_func,reg_func);
-		return createRegionByFunction(reg_func_);
-	}
-
-	@Override
 	public boolean isEmpty( Region reg ) {
 		return funcEngine.isAlwaysFalse(function(reg));
 	}

@@ -30,7 +30,6 @@ public interface RegionEngine
 	public Region complement( Region reg2 );
 	
 	public Region transformsBy( Region reg, Transformation trans );
-	public Region reflectsBy( Region reg, Reflection ref );
 
 	public boolean isEmpty( Region reg );
 	public boolean isUniversal( Region reg );

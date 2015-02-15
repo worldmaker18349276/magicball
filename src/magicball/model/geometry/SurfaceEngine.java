@@ -20,7 +20,6 @@ public interface SurfaceEngine
 
 	// operator
 	public Surface transformsBy( Surface face, Transformation trans );
-	public Surface reflectsBy( Surface face, Reflection ref );
 	
 	public boolean isPlane( Surface face );
 }
