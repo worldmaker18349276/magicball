@@ -218,7 +218,7 @@ public class TransformationBasicEngine implements TransformationEngine
 	}
 
 	@Override
-	public Transformation transformCoordinate( Transformation p, Transformation t ) {
+	public Transformation transformsBy( Transformation t, Transformation p ) {
 		return compose(p, t, invert(p));
 	}
 

@@ -35,7 +35,7 @@ public interface TransformationEngine
 	public Transformation pow( Transformation trans, int exp );
 	public Transformation dividedBy( Transformation trans, Number divisor );
 	public Transformation invert( Transformation trans );
-	public Transformation transformCoordinate( Transformation p, Transformation t ); // = p * t * p^-1
+	public Transformation transformsBy( Transformation t, Transformation p ); // = p * t * p^-1
 
 	public boolean isAffine( Transformation trans ); // f(x) = Mx+b
 	public boolean isLinear( Transformation trans ); // f(x) = Mx
