@@ -9,19 +9,25 @@ public interface TransformationEngine
 
 
 	// creater
-	public Transformation createTransformationByVectors( Number[] rvec, Number[] sh );
-	public Transformation createRotationByVector( Number[] rvec );
-	public Transformation createShiftByVector( Number[] sh );
+	public Transformation createTransformationByFunction( Function<Number[],Number[]> func );
 	public Transformation createIdentityTransformation();
-
-	public Reflection createReflectionByPlane( Surface plane );
+	public Transformation createLinearTransformationByMatrix( Number[][] mat );
+	public Transformation createRotationByVector( Number[] rvec );
+	public Transformation createReflectionByVector( Number[] fvec );
+	public Transformation createTranslationByVector( Number[] sh );
+	public Transformation createScalingByFactor( Number factor );
+	// shear...
 
 
 	// attribute
-	public Number[][] getRotationMatrix( Transformation trans );
-	public Number[] getShiftVector( Transformation trans );
 	public Function<Number[],Number[]> getTransformationFunction( Transformation trans );
-	public Function<Number[],Number[]> getReflectionFunction( Reflection ref );
+	public Number[][] getTransformationMatrix( Transformation trans );
+	public Number[] getRotationVector( Transformation trans );
+	public Number[] getReflectionVector( Transformation trans );
+	public Number[] getTranslationVector( Transformation trans );
+	public Number getScalingFactor( Transformation trans );
+	
+	public Number[] applies( Transformation trans, Number[] point );
 
 
 	// operator
@@ -29,9 +35,19 @@ public interface TransformationEngine
 	public Transformation pow( Transformation trans, int exp );
 	public Transformation dividedBy( Transformation trans, Number divisor );
 	public Transformation invert( Transformation trans );
+	public Transformation transformCoordinate( Transformation p, Transformation t ); // = p * t * p^-1
 
-	public boolean isIdentity( Transformation trans );
-	public boolean isRotation( Transformation trans );
-	public boolean isShift( Transformation trans );
+	public boolean isAffine( Transformation trans ); // f(x) = Mx+b
+	public boolean isLinear( Transformation trans ); // f(x) = Mx
+	public boolean isSimilar( Transformation trans ); // f(x) = Rfx+b
+	public boolean isIsometric( Transformation trans ); // f(x) = Rx+b
+	public boolean isRigid( Transformation trans ); // f(x) = Rx+b, |R|==1
+
+	public boolean isIdentity( Transformation trans ); // f(x) = x
+	public boolean isRotation( Transformation trans ); // f(x) = Rx, |R|==1
+	public boolean isReflection( Transformation trans ); // f(x) = Px
+	public boolean isTranslation( Transformation trans ); // f(x) = x+b
+	public boolean isScaling( Transformation trans ); // f(x) = fx
+
 	public boolean equals( Transformation trans1, Transformation trans2 );
 }
