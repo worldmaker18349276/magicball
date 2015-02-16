@@ -3,7 +3,9 @@ package magicball.model.puzzle;
 import magicball.model.geometry.*;
 
 
-public interface PhysicalPuzzleBasicEngine
+public interface PhysicalPuzzleBasicEngine extends
+		PhysicalPuzzleBasicOperator,
+		PhysicalPuzzleBasicPredicate
 {
 	public PhysicalPuzzleBasicEngine clone();
 
