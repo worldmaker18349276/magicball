@@ -21,11 +21,10 @@ public interface SolidBasicEngine extends
 
 
 	// operator
-	public void applies( Solid sol, Transformation trans );
+	public void transformsBy( Solid sol, Transformation trans );
+	public java.util.Set<Solid> filtersBy( java.util.Set<Solid> sols, Region reg ) throws IllegalOperationException;
 	
-	public java.util.Set<Solid> filterBy( java.util.Set<Solid> sols, Region reg ) throws IllegalOperationException;
-	public boolean noDuplicateOccupy( java.util.Set<Solid> sols );
-
-	public boolean isSameShape( Solid sol1, Solid sol2 );
+	public boolean noDuplicateOccupyIn( java.util.Set<Solid> sols );
+	public boolean areSameShape( Solid sol1, Solid sol2 );
 	public boolean equals( Solid sol1, Solid sol2 );
 }

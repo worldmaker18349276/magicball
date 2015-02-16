@@ -5,6 +5,6 @@ import magicball.model.geometry.*;
 
 public interface PhysicalPuzzleBasicOperator
 {
-	public void applies( PhysicalPuzzle puzzle, Motion m ) throws IllegalOperationException;
-	public void applies( PhysicalPuzzle puzzle, RegionalMotion rm ) throws IllegalOperationException;
+	public void appliesBy( PhysicalPuzzle puzzle, Motion m ) throws IllegalOperationException;
+	public void appliesBy( PhysicalPuzzle puzzle, RegionalMotion rm ) throws IllegalOperationException;
 }

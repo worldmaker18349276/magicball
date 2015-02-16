@@ -39,12 +39,12 @@ public class PhysicalPuzzle
 	}
 
 
-	public void apply( Motion move ) throws IllegalOperationException {
-		engine.applies(this,move);
+	public void applyBy( Motion move ) throws IllegalOperationException {
+		engine.appliesBy(this,move);
 	}
 
-	public void apply( RegionalMotion rmove ) throws IllegalOperationException {
-		engine.applies(this,rmove);
+	public void applyBy( RegionalMotion rmove ) throws IllegalOperationException {
+		engine.appliesBy(this,rmove);
 	}
 
 	public boolean equals( Object puzzle2 ) {

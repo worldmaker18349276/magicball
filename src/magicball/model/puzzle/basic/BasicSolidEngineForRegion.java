@@ -49,13 +49,13 @@ public class BasicSolidEngineForRegion implements SolidBasicEngine
 
 	// operator
 	@Override
-	public void applies( Solid sol_, Transformation trans ) {
+	public void transformsBy( Solid sol_, Transformation trans ) {
 		BasicSolidRegionExpression sol = cast(sol_);
 		sol.setRegion(regEngine.transformsBy(sol.getRegion(),trans));
 	}
 
 	@Override
-	public java.util.Set<Solid> filterBy( java.util.Set<Solid> sols, Region reg ) throws IllegalOperationException {
+	public java.util.Set<Solid> filtersBy( java.util.Set<Solid> sols, Region reg ) throws IllegalOperationException {
 		java.util.Set<Solid> selected_sols = new java.util.HashSet<Solid>();
 		for ( Solid sol : sols )
 			if ( regEngine.containsAll(reg,getOccupiedRegion(sol)) )
@@ -64,7 +64,7 @@ public class BasicSolidEngineForRegion implements SolidBasicEngine
 	}
 
 	@Override
-	public boolean noDuplicateOccupy( java.util.Set<Solid> sols ) {
+	public boolean noDuplicateOccupyIn( java.util.Set<Solid> sols ) {
 		for ( Solid sol1 : sols )
 			for ( Solid sol2 : sols )
 				if ( sol1 != sol2 )
@@ -74,12 +74,12 @@ public class BasicSolidEngineForRegion implements SolidBasicEngine
 	}
 
 	@Override
-	public boolean isSameShape( Solid sol1, Solid sol2 ) {
+	public boolean areSameShape( Solid sol1, Solid sol2 ) {
 		return regEngine.equals(getOccupiedRegion(sol1),getOccupiedRegion(sol2));
 	}
 
 	@Override
 	public boolean equals( Solid sol1, Solid sol2 ) {
-		return isSameShape(sol1,sol2);
+		return areSameShape(sol1,sol2);
 	}
 }

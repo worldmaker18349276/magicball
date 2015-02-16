@@ -9,8 +9,8 @@ public interface PhysicalPuzzleBasicEngine extends
 {
 	public PhysicalPuzzleBasicEngine clone();
 
-	public void applies( PhysicalPuzzle puzzle, Motion m ) throws IllegalOperationException;
-	public void applies( PhysicalPuzzle puzzle, RegionalMotion rm ) throws IllegalOperationException;
+	public void appliesBy( PhysicalPuzzle puzzle, Motion m ) throws IllegalOperationException;
+	public void appliesBy( PhysicalPuzzle puzzle, RegionalMotion rm ) throws IllegalOperationException;
 
 	public boolean equals( PhysicalPuzzle puzzle1, PhysicalPuzzle puzzle2 );
 	public boolean isValid( PhysicalPuzzle puzzle );

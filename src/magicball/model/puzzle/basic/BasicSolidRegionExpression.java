@@ -36,12 +36,12 @@ public class BasicSolidRegionExpression extends Solid
 	}
 
 
-	public void apply( Transformation trans ) {
-		solEngine.applies(this,trans);
+	public void transformBy( Transformation trans ) {
+		solEngine.transformsBy(this,trans);
 	}
 	
-	public boolean isSameShape( Solid sol2 ) {
-		return solEngine.isSameShape(this,sol2);
+	public boolean isSameShapeWith( Solid sol2 ) {
+		return solEngine.areSameShape(this,sol2);
 	}
 
 	public boolean equals( Object sol2 ) {

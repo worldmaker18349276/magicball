@@ -28,27 +28,27 @@ public class PhysicalPuzzleEngineForBasic implements PhysicalPuzzleBasicEngine
 
 
 	@Override
-	public void applies( PhysicalPuzzle puzzle, Motion move ) {
+	public void appliesBy( PhysicalPuzzle puzzle, Motion move ) {
 		Transformation trans = moveEngine.getTransformation(move);
 		for ( Solid sol : puzzle.getComponents() )
-			solEngine.applies(sol,trans);
+			solEngine.transformsBy(sol,trans);
 		// Transformation trans = moveEngine.getTransformation(move);
 		// for ( Solid sol : getComponents() ) {
-		// 	solEngine.applies(sol,trans);
+		// 	solEngine.transformsBy(sol,trans);
 		// }
 	}
 
 	@Override
-	public void applies( PhysicalPuzzle puzzle, RegionalMotion rmove ) throws IllegalOperationException {
-		java.util.Set<Solid> selected_sols = solEngine.filterBy(puzzle.getComponents(),rmove.getRegion());
+	public void appliesBy( PhysicalPuzzle puzzle, RegionalMotion rmove ) throws IllegalOperationException {
+		java.util.Set<Solid> selected_sols = solEngine.filtersBy(puzzle.getComponents(),rmove.getRegion());
 		Transformation trans = moveEngine.getTransformation(rmove.getMotion());
 		for ( Solid sol : selected_sols )
-			solEngine.applies(sol,trans);
-		// java.util.Set<Solid> selected_sols = solEngine.filterBy(getComponents(),rmove.getRegion());
+			solEngine.transformsBy(sol,trans);
+		// java.util.Set<Solid> selected_sols = solEngine.filtersBy(getComponents(),rmove.getRegion());
 		// java.util.List<Transformation> trans_list = moveEngine.divideMotionByDivisor(rmove.getMotion(),10);
 		// for ( Transformation trans : trans_list ) {
 		// 	for ( Solid sol : selected_sols )
-		// 		solEngine.applies(sol,trans);
+		// 		solEngine.transformsBy(sol,trans);
 		// 	if ( !isValid(puzzle) )
 		// 		throw new IllegalOperationException();
 		// }
@@ -62,7 +62,7 @@ public class PhysicalPuzzleEngineForBasic implements PhysicalPuzzleBasicEngine
 
 	@Override
 	public boolean isValid( PhysicalPuzzle puzzle ) {
-		return solEngine.noDuplicateOccupy(puzzle.getComponents());
+		return solEngine.noDuplicateOccupyIn(puzzle.getComponents());
 	}
 
 }

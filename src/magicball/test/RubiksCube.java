@@ -127,14 +127,14 @@ public class RubiksCube
 					System.out.print("input operation(1~6): ");
 					input = console.readLine();
 					int i = Integer.parseInt(input) - 1;
-					rubiksCube.apply(moves[i]);
+					rubiksCube.applyBy(moves[i]);
 					break;
 
 				case "rotate":
 					System.out.print("input operation(1~6): ");
 					input = console.readLine();
 					int j = Integer.parseInt(input) - 1;
-					rubiksCube.apply(whole_moves[j]);
+					rubiksCube.applyBy(whole_moves[j]);
 					break;
 
 				case "exit":
