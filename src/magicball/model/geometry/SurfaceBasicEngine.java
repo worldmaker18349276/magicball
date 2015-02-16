@@ -3,7 +3,12 @@ package magicball.model.geometry;
 import magicball.model.math.*;
 
 
-public interface SurfaceBasicEngine
+public interface SurfaceBasicEngine extends
+		SurfaceBasicOperator,
+		SurfaceCreatorForFunc,
+		SurfaceAttributeForFunc,
+		PlaneCreator,
+		PlanePredicate
 {
 	public SurfaceBasicEngine clone();
 
