@@ -1,13 +1,21 @@
 package magicball.model.math;
 
 
-public interface FunctionBasicEngine
+public interface FunctionBasicEngine extends
+		FunctionBasicCreator,
+		FunctionBasicAttribute,
+		FunctionBasicOperator,
+		FunctionBasicPredicate,
+		FunctionCreatorForLambda,
+		FunctionAttributeForLambda,
+		BooleanFunctionOperator,
+		BooleanFunctionPredicate
 {
 	public FunctionBasicEngine clone();
 
 
 	// creater
-	public < I, O > Function<I,O> function( java.util.function.Function<I,O> lambda );
+	public < I, O > Function<I,O> createFunctionByLambda( java.util.function.Function<I,O> lambda );
 
 	public < I > Function<I,I> createIdentityFunction();
 	public < I, O > Function<I,O> createConstantFunction( O c );
@@ -27,6 +35,7 @@ public interface FunctionBasicEngine
 	public < I, O > Function<O,I> invert( Function<I,O> func );
 	
 	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 );
+	public < I, O > boolean isAlwaysEqualTo( Function<I,O> func, O value );
 	public < I > boolean isAlwaysTrue( Function<I,Boolean> func );
 	public < I > boolean isAlwaysFalse( Function<I,Boolean> func );
 	public < I > boolean implies( Function<I,Boolean> func1, Function<I,Boolean> func2 );

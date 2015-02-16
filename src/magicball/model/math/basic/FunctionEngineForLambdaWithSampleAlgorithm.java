@@ -42,6 +42,14 @@ public class FunctionEngineForLambdaWithSampleAlgorithm < E > extends FunctionEn
 	}
 
 	@Override
+	public < I, O > boolean isAlwaysEqualTo( Function<I,O> func_, O value ) {
+		Function<E,O> func = this.castToE(func_);
+		return samples.stream()
+			.map(e -> applies(func,e))
+			.allMatch(value::equals);
+	}
+
+	@Override
 	public < I > boolean isAlwaysTrue( Function<I,Boolean> func_ ) {
 		Function<E,Boolean> func = this.castToE(func_);
 		return samples.stream()

@@ -125,7 +125,7 @@ public class AffineTransformationEngineForMatrix implements TransformationBasicE
 	public Function<Number[],Number[]> getTransformationFunction( Transformation trans ) {
 		Number[][] mat = getTransformationMatrix(trans);
 		Number[] vec = getTranslationVector(trans);
-		return this.funcEngine.function(
+		return this.funcEngine.createFunctionByLambda(
 			in -> mathEngine.add(mathEngine.matrixMultiply(mat,in),vec)
 		);
 	}

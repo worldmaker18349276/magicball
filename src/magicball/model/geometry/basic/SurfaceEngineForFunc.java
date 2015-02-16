@@ -50,7 +50,7 @@ public class SurfaceEngineForFunc implements SurfaceBasicEngine
 	}
 	
 	public Surface createPlaneByVectorAndDistance( Number[] nvec, Number dis ) {
-		return createSurfaceByFunction(this.funcEngine.function(
+		return createSurfaceByFunction(this.funcEngine.createFunctionByLambda(
 			vec -> mathEngine.subtract(mathEngine.dotProduct(vec,nvec),dis)
 		));
 	}

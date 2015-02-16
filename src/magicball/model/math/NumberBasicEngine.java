@@ -1,7 +1,7 @@
 package magicball.model.math;
 
 
-public interface NumberBasicEngine
+public interface NumberBasicEngine extends ScalarEngine, VectorEngine, MatrixEngine
 {
 	public NumberBasicEngine clone();
 

@@ -52,7 +52,7 @@ public class RegionEngineForFunc implements RegionBasicEngine
 	@Override
 	public Region createRegionByFace( Surface face, int side ) {
 		Function<Number[],Number> func = faceEngine.getIsosurfaceFunction(face);
-		return createRegionByFunction(funcEngine.function(
+		return createRegionByFunction(funcEngine.createFunctionByLambda(
 				vec -> mathEngine.greaterThan(
 					mathEngine.multiply( funcEngine.applies(func,vec), mathEngine.number(side) ),
 					mathEngine.number0())

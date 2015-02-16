@@ -27,8 +27,12 @@ public class FunctionEngineForLambda implements FunctionBasicEngine
 
 	// creater
 	@Override
-	public < I, O > Function<I,O> function( java.util.function.Function<I,O> lambda ) {
+	public < I, O > Function<I,O> createFunctionByLambda( java.util.function.Function<I,O> lambda ) {
 		return new FunctionLambdaExpression<I,O>(lambda);
+	}
+
+	protected < I, O > Function<I,O> function( java.util.function.Function<I,O> lambda ) {
+		return createFunctionByLambda(lambda);
 	}
 
 	@Override
@@ -90,6 +94,11 @@ public class FunctionEngineForLambda implements FunctionBasicEngine
 
 	@Override
 	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public < I, O > boolean isAlwaysEqualTo( Function<I,O> func_, O value ) {
 		throw new UnsupportedAlgorithmException();
 	}
 
