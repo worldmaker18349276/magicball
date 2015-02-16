@@ -3,7 +3,11 @@ package magicball.model.puzzle;
 import magicball.model.geometry.*;
 
 
-public interface SolidBasicEngine
+public interface SolidBasicEngine extends
+		SolidBasicCreator,
+		SolidBasicAttribute,
+		SolidBasicOperator,
+		SolidBasicPredicate
 {
 	public SolidBasicEngine clone();
 
