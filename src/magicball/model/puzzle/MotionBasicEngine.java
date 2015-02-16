@@ -3,7 +3,11 @@ package magicball.model.puzzle;
 import magicball.model.geometry.*;
 
 
-public interface MotionBasicEngine
+public interface MotionBasicEngine extends
+		MotionBasicCreator,
+		MotionBasicAttribute,
+		MotionBasicOperator,
+		SimpleMotionPredicate
 {
 	public MotionBasicEngine clone();
 
