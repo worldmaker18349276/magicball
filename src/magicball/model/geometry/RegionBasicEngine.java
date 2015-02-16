@@ -3,7 +3,13 @@ package magicball.model.geometry;
 import magicball.model.math.*;
 
 
-public interface RegionBasicEngine
+public interface RegionBasicEngine extends
+		RegionBasicCreator,
+		RegionBasicAttribute,
+		RegionBasicOperator,
+		RegionBasicPredicate,
+		RegionCreatorForFunc,
+		RegionAttributeForFunc
 {
 	public RegionBasicEngine clone();
 
@@ -20,7 +26,6 @@ public interface RegionBasicEngine
 	public Function<Number[],Boolean> getRegionIntensionFunction( Region reg );
 
 	public boolean contains( Region reg, Number[] point );
-	public boolean containsAll( Region reg1, Region reg2 );
 
 
 	// operator
@@ -33,5 +38,6 @@ public interface RegionBasicEngine
 
 	public boolean isEmpty( Region reg );
 	public boolean isUniversal( Region reg );
+	public boolean containsAll( Region reg1, Region reg2 );
 	public boolean equals( Region reg1, Region reg2 );
 }
