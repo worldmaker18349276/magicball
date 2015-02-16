@@ -6,26 +6,26 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class SolidBasicEngine implements SolidEngine
+public class BasicSolidEngineForRegion implements SolidBasicEngine
 {
-	protected RegionEngine regEngine;
+	protected RegionBasicEngine regEngine;
 
-	public SolidBasicEngine( RegionEngine regEng ) {
+	public BasicSolidEngineForRegion( RegionBasicEngine regEng ) {
 		this.regEngine = regEng;
 	}
 
-	public SolidBasicEngine( EngineProvider provider ) {
+	public BasicSolidEngineForRegion( EngineProvider provider ) {
 		this.regEngine = provider.getRegionEngine();
 	}
 
 	@Override
-	public SolidBasicEngine clone() {
-		return new SolidBasicEngine(this.regEngine);
+	public BasicSolidEngineForRegion clone() {
+		return new BasicSolidEngineForRegion(this.regEngine);
 	}
 
-	protected BasicSolid cast( Solid sol ) {
+	protected BasicSolidRegionExpression cast( Solid sol ) {
 		try {
-			return (BasicSolid) sol;
+			return (BasicSolidRegionExpression) sol;
 		} catch ( ClassCastException e ) {
 			throw new UnsupportedExpressionException(sol.getClass());
 		}
@@ -35,14 +35,14 @@ public class SolidBasicEngine implements SolidEngine
 	// creater
 	@Override
 	public Solid createSolidByRegion( Region reg ) {
-		return new BasicSolid(reg,this);
+		return new BasicSolidRegionExpression(reg,this);
 	}
 
 
 	// attribute
 	@Override
 	public Region getOccupiedRegion( Solid sol_ ) {
-		BasicSolid sol = cast(sol_);
+		BasicSolidRegionExpression sol = cast(sol_);
 		return sol.getRegion();
 	}
 
@@ -50,7 +50,7 @@ public class SolidBasicEngine implements SolidEngine
 	// operator
 	@Override
 	public void applies( Solid sol_, Transformation trans ) {
-		BasicSolid sol = cast(sol_);
+		BasicSolidRegionExpression sol = cast(sol_);
 		sol.setRegion(regEngine.transformsBy(sol.getRegion(),trans));
 	}
 

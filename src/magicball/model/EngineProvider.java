@@ -7,11 +7,11 @@ import magicball.model.puzzle.*;
 
 public abstract class EngineProvider
 {
-	public abstract NumberEngine getNumberEngine();
-	public abstract FunctionEngine getFunctionEngine();
-	public abstract TransformationEngine getTransformationEngine();
-	public abstract SurfaceEngine getSurfaceEngine();
-	public abstract RegionEngine getRegionEngine();
-	public abstract MotionEngine getMotionEngine();
-	public abstract SolidEngine getSolidEngine();
+	public abstract NumberBasicEngine getNumberEngine();
+	public abstract FunctionBasicEngine getFunctionEngine();
+	public abstract TransformationBasicEngine getTransformationEngine();
+	public abstract SurfaceBasicEngine getSurfaceEngine();
+	public abstract RegionBasicEngine getRegionEngine();
+	public abstract MotionBasicEngine getMotionEngine();
+	public abstract SolidBasicEngine getSolidEngine();
 }

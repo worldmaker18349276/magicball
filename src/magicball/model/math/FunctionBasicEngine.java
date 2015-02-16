@@ -1,9 +1,9 @@
 package magicball.model.math;
 
 
-public interface FunctionEngine
+public interface FunctionBasicEngine
 {
-	public FunctionEngine clone();
+	public FunctionBasicEngine clone();
 
 
 	// creater

@@ -5,17 +5,17 @@ import java.util.stream.*;
 import magicball.model.*;
 import magicball.model.math.*;
 
-public class FunctionBasicEngineWithSampleAlgorithm < E > extends FunctionBasicEngine
+public class FunctionEngineForLambdaWithSampleAlgorithm < E > extends FunctionEngineForLambda
 {
 	protected java.util.Set<E> samples;
 
-	public FunctionBasicEngineWithSampleAlgorithm( java.util.Set<E> sam ) {
+	public FunctionEngineForLambdaWithSampleAlgorithm( java.util.Set<E> sam ) {
 		this.samples = sam;
 	}
 
 	@Override
-	public FunctionBasicEngineWithSampleAlgorithm<E> clone() {
-		return new FunctionBasicEngineWithSampleAlgorithm<E>(this.samples);
+	public FunctionEngineForLambdaWithSampleAlgorithm<E> clone() {
+		return new FunctionEngineForLambdaWithSampleAlgorithm<E>(this.samples);
 	}
 
 	@SuppressWarnings({"unchecked"})

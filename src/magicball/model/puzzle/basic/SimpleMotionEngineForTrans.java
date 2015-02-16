@@ -6,24 +6,24 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class SimpleMotionEngine implements MotionEngine
+public class SimpleMotionEngineForTrans implements MotionBasicEngine
 {
-	protected TransformationEngine transEngine;
-	protected NumberEngine mathEngine;
+	protected TransformationBasicEngine transEngine;
+	protected NumberBasicEngine mathEngine;
 
-	public SimpleMotionEngine( NumberEngine mathEng, TransformationEngine transEng ) {
+	public SimpleMotionEngineForTrans( NumberBasicEngine mathEng, TransformationBasicEngine transEng ) {
 		this.mathEngine = mathEng;
 		this.transEngine = transEng;
 	}
 
-	public SimpleMotionEngine( EngineProvider provider ) {
+	public SimpleMotionEngineForTrans( EngineProvider provider ) {
 		this.mathEngine = provider.getNumberEngine();
 		this.transEngine = provider.getTransformationEngine();
 	}
 
 	@Override
-	public SimpleMotionEngine clone() {
-		return new SimpleMotionEngine(this.mathEngine,this.transEngine);
+	public SimpleMotionEngineForTrans clone() {
+		return new SimpleMotionEngineForTrans(this.mathEngine,this.transEngine);
 	}
 
 	protected SimpleMotionTransExpression castToSimpleMotion( Motion move ) {

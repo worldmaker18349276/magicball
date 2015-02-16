@@ -3,9 +3,9 @@ package magicball.model.geometry;
 import magicball.model.math.*;
 
 
-public interface RegionEngine
+public interface RegionBasicEngine
 {
-	public RegionEngine clone();
+	public RegionBasicEngine clone();
 
 
 	// creater

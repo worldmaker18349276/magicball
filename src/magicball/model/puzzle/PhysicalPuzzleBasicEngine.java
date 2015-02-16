@@ -3,9 +3,9 @@ package magicball.model.puzzle;
 import magicball.model.geometry.*;
 
 
-public interface PhysicalPuzzleEngine
+public interface PhysicalPuzzleBasicEngine
 {
-	public PhysicalPuzzleEngine clone();
+	public PhysicalPuzzleBasicEngine clone();
 
 	public void applies( PhysicalPuzzle puzzle, Motion m ) throws IllegalOperationException;
 	public void applies( PhysicalPuzzle puzzle, RegionalMotion rm ) throws IllegalOperationException;

@@ -6,10 +6,10 @@ import magicball.model.geometry.*;
 public class PhysicalPuzzle
 {
 	protected java.util.Set<Solid> components;
-	protected PhysicalPuzzleEngine engine;
+	protected PhysicalPuzzleBasicEngine engine;
 
 
-	public PhysicalPuzzle( java.util.Set<Solid> sols, PhysicalPuzzleEngine eng ) {
+	public PhysicalPuzzle( java.util.Set<Solid> sols, PhysicalPuzzleBasicEngine eng ) {
 		setComponents(sols);
 		setEngine(eng);
 	}
@@ -22,11 +22,11 @@ public class PhysicalPuzzle
 		this.components = sols;
 	}
 
-	public PhysicalPuzzleEngine getEngine() {
+	public PhysicalPuzzleBasicEngine getEngine() {
 		return this.engine;
 	}
 
-	public void setEngine( PhysicalPuzzleEngine eng ) {
+	public void setEngine( PhysicalPuzzleBasicEngine eng ) {
 		this.engine = eng;
 	}
 

@@ -3,9 +3,9 @@ package magicball.model.geometry;
 import magicball.model.math.*;
 
 
-public interface SurfaceEngine
+public interface SurfaceBasicEngine
 {
-	public SurfaceEngine clone();
+	public SurfaceBasicEngine clone();
 
 
 	// creater

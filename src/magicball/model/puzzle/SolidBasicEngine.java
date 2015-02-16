@@ -3,9 +3,9 @@ package magicball.model.puzzle;
 import magicball.model.geometry.*;
 
 
-public interface SolidEngine
+public interface SolidBasicEngine
 {
-	public SolidEngine clone();
+	public SolidBasicEngine clone();
 
 
 	// creater

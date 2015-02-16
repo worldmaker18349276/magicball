@@ -5,26 +5,26 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class SurfaceBasicEngine implements SurfaceEngine
+public class SurfaceEngineForFunc implements SurfaceBasicEngine
 {
-	protected TransformationEngine transEngine;
-	protected FunctionEngine funcEngine;
-	protected NumberEngine mathEngine;
+	protected TransformationBasicEngine transEngine;
+	protected FunctionBasicEngine funcEngine;
+	protected NumberBasicEngine mathEngine;
 
-	public SurfaceBasicEngine( TransformationEngine transEng, FunctionEngine funcEng, NumberEngine mathEng ) {
+	public SurfaceEngineForFunc( TransformationBasicEngine transEng, FunctionBasicEngine funcEng, NumberBasicEngine mathEng ) {
 		this.transEngine = transEng;
 		this.funcEngine = funcEng;
 		this.mathEngine = mathEng;
 	}
 
-	public SurfaceBasicEngine( EngineProvider provider ) {
+	public SurfaceEngineForFunc( EngineProvider provider ) {
 		this.transEngine = provider.getTransformationEngine();
 		this.funcEngine = provider.getFunctionEngine();
 		this.mathEngine = provider.getNumberEngine();
 	}
 
-	public SurfaceBasicEngine clone() {
-		return new SurfaceBasicEngine(this.transEngine,this.funcEngine,this.mathEngine);
+	public SurfaceEngineForFunc clone() {
+		return new SurfaceEngineForFunc(this.transEngine,this.funcEngine,this.mathEngine);
 	}
 
 	protected SurfaceFuncExpression cast( Surface face ) {

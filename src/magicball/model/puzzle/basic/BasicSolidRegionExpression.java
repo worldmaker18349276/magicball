@@ -4,19 +4,19 @@ import magicball.model.geometry.*;
 import magicball.model.puzzle.*;
 
 
-public class BasicSolid extends Solid
+public class BasicSolidRegionExpression extends Solid
 {
 	protected Region region;
-	protected SolidEngine solEngine;
+	protected SolidBasicEngine solEngine;
 
-	public BasicSolid( Region reg, SolidEngine solEng ) {
+	public BasicSolidRegionExpression( Region reg, SolidBasicEngine solEng ) {
 		setRegion(reg);
 		setEngine(solEng);
 	}
 
 	@Override
-	public BasicSolid clone() {
-		return new BasicSolid(getRegion(),getEngine());
+	public BasicSolidRegionExpression clone() {
+		return new BasicSolidRegionExpression(getRegion(),getEngine());
 	}
 
 	public Region getRegion() {
@@ -27,11 +27,11 @@ public class BasicSolid extends Solid
 		this.region = reg;
 	}
 
-	public SolidEngine getEngine() {
+	public SolidBasicEngine getEngine() {
 		return this.solEngine;
 	}
 
-	public void setEngine( SolidEngine solEng ) {
+	public void setEngine( SolidBasicEngine solEng ) {
 		this.solEngine = solEng;
 	}
 

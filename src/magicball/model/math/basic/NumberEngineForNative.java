@@ -4,17 +4,17 @@ import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class NumberBasicEngine implements NumberEngine
+public class NumberEngineForNative implements NumberBasicEngine
 {
 	protected double epsilon;
 
-	public NumberBasicEngine( double eps ) {
+	public NumberEngineForNative( double eps ) {
 		this.epsilon = eps;
 	}
 
 	@Override
-	public NumberBasicEngine clone() {
-		return new NumberBasicEngine(this.epsilon);
+	public NumberEngineForNative clone() {
+		return new NumberEngineForNative(this.epsilon);
 	}
 
 	public double eps() {

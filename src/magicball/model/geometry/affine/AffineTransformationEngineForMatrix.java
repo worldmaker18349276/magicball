@@ -1,33 +1,33 @@
-package magicball.model.geometry.poly;
+package magicball.model.geometry.affine;
 
 import magicball.model.geometry.*;
 import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class TransformationBasicEngine implements TransformationEngine
+public class AffineTransformationEngineForMatrix implements TransformationBasicEngine
 {
-	protected NumberEngine mathEngine;
-	protected FunctionEngine funcEngine;
+	protected NumberBasicEngine mathEngine;
+	protected FunctionBasicEngine funcEngine;
 
-	public TransformationBasicEngine( NumberEngine mathEng, FunctionEngine funcEng ) {
+	public AffineTransformationEngineForMatrix( NumberBasicEngine mathEng, FunctionBasicEngine funcEng ) {
 		this.mathEngine = mathEng;
 		this.funcEngine = funcEng;
 	}
 
-	public TransformationBasicEngine( EngineProvider provider ) {
+	public AffineTransformationEngineForMatrix( EngineProvider provider ) {
 		this.mathEngine = provider.getNumberEngine();
 		this.funcEngine = provider.getFunctionEngine();
 	}
 
 	@Override
-	public TransformationBasicEngine clone() {
-		return new TransformationBasicEngine(this.mathEngine,this.funcEngine);
+	public AffineTransformationEngineForMatrix clone() {
+		return new AffineTransformationEngineForMatrix(this.mathEngine,this.funcEngine);
 	}
 
-	protected TransformationMatrixExpression cast( Transformation trans ) {
+	protected AffineTransformationMatrixExpression cast( Transformation trans ) {
 		try {
-			return (TransformationMatrixExpression) trans;
+			return (AffineTransformationMatrixExpression) trans;
 		} catch ( ClassCastException e ) {
 			throw new UnsupportedExpressionException(trans.getClass());
 		}
@@ -74,17 +74,17 @@ public class TransformationBasicEngine implements TransformationEngine
 	// creater
 	@Override
 	public Transformation createRotationByVector( Number[] rvec ) {
-		return new TransformationMatrixExpression(rotationVector2RotationMatrix(rvec),mathEngine.vector0(3));
+		return new AffineTransformationMatrixExpression(rotationVector2RotationMatrix(rvec),mathEngine.vector0(3));
 	}
 
 	@Override
 	public Transformation createTranslationByVector( Number[] sh ) {
-		return new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
+		return new AffineTransformationMatrixExpression(mathEngine.matrix1(3),sh);
 	}
 
 	@Override
 	public Transformation createIdentityTransformation() {
-		return new TransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
+		return new AffineTransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
 	}
 
 	@Override
@@ -111,13 +111,13 @@ public class TransformationBasicEngine implements TransformationEngine
 	// attribute
 	@Override
 	public Number[][] getTransformationMatrix( Transformation trans_ ) {
-		TransformationMatrixExpression trans = cast(trans_);
+		AffineTransformationMatrixExpression trans = cast(trans_);
 		return trans.getRotationMatrix();
 	}
 
 	@Override
 	public Number[] getTranslationVector( Transformation trans_ ) {
-		TransformationMatrixExpression trans = cast(trans_);
+		AffineTransformationMatrixExpression trans = cast(trans_);
 		return trans.getShiftVector();
 	}
 
@@ -157,7 +157,7 @@ public class TransformationBasicEngine implements TransformationEngine
 	public Transformation compose( Transformation trans1, Transformation trans2 ) {
 		Number[][] rot = mathEngine.matrixMultiply(getTransformationMatrix(trans2),getTransformationMatrix(trans1));
 		Number[] sh = mathEngine.add(getTranslationVector(trans2),mathEngine.matrixMultiply(getTransformationMatrix(trans2),getTranslationVector(trans1)));
-		return new TransformationMatrixExpression(rot,sh);
+		return new AffineTransformationMatrixExpression(rot,sh);
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class TransformationBasicEngine implements TransformationEngine
 	public Transformation invert( Transformation trans ) {
 		Number[][] rot = mathEngine.transpose(getTransformationMatrix(trans));
 		Number[] sh = mathEngine.negate(mathEngine.matrixMultiply(rot,getTranslationVector(trans)));
-		return new TransformationMatrixExpression(rot,sh);
+		return new AffineTransformationMatrixExpression(rot,sh);
 	}
 
 	@Override
@@ -193,13 +193,13 @@ public class TransformationBasicEngine implements TransformationEngine
 			Number[][] rot = getTransformationMatrix(trans);
 			Number[] rvec = rotationMatrix2RotationVector(rot);
 			rot = rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
-			return new TransformationMatrixExpression(rot,mathEngine.vector0(3));
+			return new AffineTransformationMatrixExpression(rot,mathEngine.vector0(3));
 
 		} else if ( isTranslation(trans) ) {
 
 			Number[] sh = getTranslationVector(trans);
 			sh = mathEngine.dividedBy(sh,divisor);
-			return new TransformationMatrixExpression(mathEngine.matrix1(3),sh);
+			return new AffineTransformationMatrixExpression(mathEngine.matrix1(3),sh);
 
 		} else { // only for int divisor
 
@@ -218,7 +218,7 @@ public class TransformationBasicEngine implements TransformationEngine
 			}
 			Number[] sh_n = mathEngine.matrixMultiply(mathEngine.invert33(m),sh);
 
-			return new TransformationMatrixExpression(rot_n,sh_n);
+			return new AffineTransformationMatrixExpression(rot_n,sh_n);
 
 		}
 	}
@@ -231,7 +231,7 @@ public class TransformationBasicEngine implements TransformationEngine
 
 	@Override
 	public boolean isAffine( Transformation trans ) {
-		if ( !(trans instanceof TransformationMatrixExpression) )
+		if ( !(trans instanceof AffineTransformationMatrixExpression) )
 			throw new UnsupportedAlgorithmException();
 		return true;
 	}
@@ -243,21 +243,21 @@ public class TransformationBasicEngine implements TransformationEngine
 
 	@Override
 	public boolean isSimilar( Transformation trans ) {
-		if ( !(trans instanceof TransformationMatrixExpression) )
+		if ( !(trans instanceof AffineTransformationMatrixExpression) )
 			throw new UnsupportedAlgorithmException();
 		return true;
 	}
 
 	@Override
 	public boolean isIsometric( Transformation trans ) {
-		if ( !(trans instanceof TransformationMatrixExpression) )
+		if ( !(trans instanceof AffineTransformationMatrixExpression) )
 			throw new UnsupportedAlgorithmException();
 		return true;
 	}
 
 	@Override
 	public boolean isRigid( Transformation trans ) {
-		if ( !(trans instanceof TransformationMatrixExpression) )
+		if ( !(trans instanceof AffineTransformationMatrixExpression) )
 			throw new UnsupportedAlgorithmException();
 		return true;
 	}

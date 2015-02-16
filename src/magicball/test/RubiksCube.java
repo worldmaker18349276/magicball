@@ -13,12 +13,12 @@ public class RubiksCube
 		try {
 
 			EngineProvider provider = new BasicEngineProvider(1E-6,1.5,100);
-			NumberEngine math = provider.getNumberEngine();
-			SurfaceEngine faceEng = provider.getSurfaceEngine();
-			RegionEngine regEng = provider.getRegionEngine();
-			TransformationEngine transEng = provider.getTransformationEngine();
-			MotionEngine moveEng = provider.getMotionEngine();
-			SolidEngine solEng = provider.getSolidEngine();
+			NumberBasicEngine math = provider.getNumberEngine();
+			SurfaceBasicEngine faceEng = provider.getSurfaceEngine();
+			RegionBasicEngine regEng = provider.getRegionEngine();
+			TransformationBasicEngine transEng = provider.getTransformationEngine();
+			MotionBasicEngine moveEng = provider.getMotionEngine();
+			SolidBasicEngine solEng = provider.getSolidEngine();
 
 			Number[][] vecs = new Number [ 6 ][];
 
@@ -82,7 +82,7 @@ public class RubiksCube
 			}
 
 
-			PhysicalPuzzleEngine engine = new PhysicalPuzzleBasicEngine(provider);
+			PhysicalPuzzleBasicEngine engine = new PhysicalPuzzleEngineForBasic(provider);
 			PhysicalPuzzle rubiksCube = new PhysicalPuzzle(components,engine);
 			// rubiksCube.validate();
 

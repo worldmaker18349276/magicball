@@ -6,24 +6,24 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class PhysicalPuzzleBasicEngine implements PhysicalPuzzleEngine
+public class PhysicalPuzzleEngineForBasic implements PhysicalPuzzleBasicEngine
 {
-	protected MotionEngine moveEngine;
-	protected SolidEngine solEngine;
+	protected MotionBasicEngine moveEngine;
+	protected SolidBasicEngine solEngine;
 
-	public PhysicalPuzzleBasicEngine( MotionEngine moveEng, SolidEngine solEng ) {
+	public PhysicalPuzzleEngineForBasic( MotionBasicEngine moveEng, SolidBasicEngine solEng ) {
 		this.moveEngine = moveEng;
 		this.solEngine = solEng;
 	}
 
-	public PhysicalPuzzleBasicEngine( EngineProvider provider ) {
+	public PhysicalPuzzleEngineForBasic( EngineProvider provider ) {
 		this.moveEngine = provider.getMotionEngine();
 		this.solEngine = provider.getSolidEngine();
 	}
 
 	@Override
-	public PhysicalPuzzleEngine clone() {
-		return new PhysicalPuzzleBasicEngine(this.moveEngine,this.solEngine);
+	public PhysicalPuzzleBasicEngine clone() {
+		return new PhysicalPuzzleEngineForBasic(this.moveEngine,this.solEngine);
 	}
 
 

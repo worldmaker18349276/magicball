@@ -7,13 +7,13 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class FunctionBasicEngine implements FunctionEngine
+public class FunctionEngineForLambda implements FunctionBasicEngine
 {
-	public FunctionBasicEngine() { }
+	public FunctionEngineForLambda() { }
 
 	@Override
-	public FunctionBasicEngine clone() {
-		return new FunctionBasicEngine();
+	public FunctionEngineForLambda clone() {
+		return new FunctionEngineForLambda();
 	}
 
 	protected < I, O > FunctionLambdaExpression<I,O> cast( Function<I,O> func ) {

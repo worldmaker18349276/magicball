@@ -3,9 +3,9 @@ package magicball.model.geometry;
 import magicball.model.math.Function;
 
 
-public interface TransformationEngine
+public interface TransformationBasicEngine
 {
-	public TransformationEngine clone();
+	public TransformationBasicEngine clone();
 
 
 	// creater

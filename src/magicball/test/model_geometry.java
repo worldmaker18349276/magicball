@@ -4,7 +4,7 @@ import magicball.model.math.*;
 import magicball.model.math.basic.*;
 import magicball.model.geometry.*;
 import magicball.model.geometry.basic.*;
-import magicball.model.geometry.poly.*;
+import magicball.model.geometry.affine.*;
 
 
 public class model_geometry
@@ -18,9 +18,9 @@ public class model_geometry
 
 				System.out.println("TEST 1:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 
 					Number [] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
@@ -61,9 +61,9 @@ public class model_geometry
 
 				System.out.println("TEST 2:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 
 					Number [] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
@@ -84,9 +84,9 @@ public class model_geometry
 
 				System.out.println("TEST 3:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
@@ -107,9 +107,9 @@ public class model_geometry
 
 				System.out.println("TEST 4:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 
 					Number[] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
@@ -132,9 +132,9 @@ public class model_geometry
 
 				System.out.println("TEST 5:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 					Number[] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
@@ -161,9 +161,9 @@ public class model_geometry
 
 				System.out.println("TEST 6:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 					Number[] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
@@ -197,9 +197,9 @@ public class model_geometry
 
 				System.out.println("TEST 7:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 
 					Number[] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
@@ -224,9 +224,9 @@ public class model_geometry
 
 				System.out.println("TEST 8:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 
 					Number [] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
@@ -253,9 +253,9 @@ public class model_geometry
 
 				System.out.println("TEST 9:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 
 					Number[] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
@@ -276,9 +276,9 @@ public class model_geometry
 
 				System.out.println("TEST 10:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 
 					Number [] sh = mathEngine.vector(new double[]{ 1, 0, 0 });
@@ -300,9 +300,9 @@ public class model_geometry
 
 				System.out.println("TEST 11:");
 				{
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
 
 					Number [] rvec = mathEngine.vector(new double[]{ 0, 0, Math.PI/2 });
@@ -334,11 +334,11 @@ public class model_geometry
 				System.out.println("TEST 1:");
 				{
 
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
-					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
-					RegionEngine regEngine = new RegionBasicEngine(mathEngine,funcEngine,faceEngine,transEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
+					SurfaceBasicEngine faceEngine = new SurfaceEngineForFunc(transEngine,funcEngine,mathEngine);
+					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,funcEngine,faceEngine,transEngine);
 
 					Region reg = regEngine.createRegionByFunction(funcEngine.function(
 						( v ) -> (v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue() > 0)
@@ -356,11 +356,11 @@ public class model_geometry
 				System.out.println("TEST 2:");
 				{
 
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
-					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
-					RegionEngine regEngine = new RegionBasicEngine(mathEngine,funcEngine,faceEngine,transEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
+					SurfaceBasicEngine faceEngine = new SurfaceEngineForFunc(transEngine,funcEngine,mathEngine);
+					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,funcEngine,faceEngine,transEngine);
 
 					Region reg1 = regEngine.createUniversalRegion();
 					System.out.println("reg1 = universe()");
@@ -383,11 +383,11 @@ public class model_geometry
 				System.out.println("TEST 3:");
 				{
 
-					NumberEngine mathEngine = new NumberBasicEngine(1E-6);
-					FunctionEngine funcEngine = new FunctionBasicEngine();
-					TransformationEngine transEngine = new TransformationBasicEngine(mathEngine,funcEngine);
-					SurfaceEngine faceEngine = new SurfaceBasicEngine(transEngine,funcEngine,mathEngine);
-					RegionEngine regEngine = new RegionBasicEngine(mathEngine,funcEngine,faceEngine,transEngine);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
+					TransformationBasicEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
+					SurfaceBasicEngine faceEngine = new SurfaceEngineForFunc(transEngine,funcEngine,mathEngine);
+					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,funcEngine,faceEngine,transEngine);
 
 					Region reg1 = regEngine.createRegionByFunction(funcEngine.function(
 						( v ) -> (v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue() > 0)
@@ -487,7 +487,7 @@ public class model_geometry
 	}
 
 	public static String toString( Transformation trans_ ) {
-		TransformationMatrixExpression trans = (TransformationMatrixExpression) trans_;
+		AffineTransformationMatrixExpression trans = (AffineTransformationMatrixExpression) trans_;
 		String str = "";
 		str = str + "    rotation:\n";
 		str = str + toString(trans.getRotationMatrix());

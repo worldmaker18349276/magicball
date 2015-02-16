@@ -1,14 +1,14 @@
-package magicball.model.geometry.poly;
+package magicball.model.geometry.affine;
 
 import magicball.model.geometry.*;
 
 
-public class TransformationMatrixExpression extends Transformation
+public class AffineTransformationMatrixExpression extends Transformation
 {
 	final private Number [][] rotation;
 	final private Number [] shift;
 
-	public TransformationMatrixExpression( Number [][] rot, Number [] sh ) {
+	public AffineTransformationMatrixExpression( Number [][] rot, Number [] sh ) {
 		this.rotation = rot;
 		this.shift = sh;
 	}
