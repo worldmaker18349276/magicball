@@ -14,7 +14,6 @@ public interface RegionBasicEngine extends
 
 	// creater
 	public Region createRegionByFunction( Function<Number[],Boolean> func );
-	public Region createRegionByFace( Surface face, int side );
 
 	public Region createUniversalRegion();
 	public Region createEmptyRegion();

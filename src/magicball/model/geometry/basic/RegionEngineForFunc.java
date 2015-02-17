@@ -12,26 +12,23 @@ public class RegionEngineForFunc implements RegionBasicEngine
 {
 	protected NumberBasicEngine mathEngine;
 	protected FunctionBasicEngine funcEngine;
-	protected SurfaceBasicEngine faceEngine;
 	protected TransformationBasicEngine transEngine;
 
-	public RegionEngineForFunc( NumberBasicEngine mathEng, FunctionBasicEngine funcEng, SurfaceBasicEngine faceEng, TransformationBasicEngine transEng ) {
+	public RegionEngineForFunc( NumberBasicEngine mathEng, FunctionBasicEngine funcEng, TransformationBasicEngine transEng ) {
 		this.mathEngine = mathEng;
 		this.funcEngine = funcEng;
-		this.faceEngine = faceEng;
 		this.transEngine = transEng;
 	}
 
 	public RegionEngineForFunc( EngineProvider provider ) {
 		this.mathEngine = provider.getNumberEngine();
 		this.funcEngine = provider.getFunctionEngine();
-		this.faceEngine = provider.getSurfaceEngine();
 		this.transEngine = provider.getTransformationEngine();
 	}
 
 	@Override
 	public RegionEngineForFunc clone() {
-		return new RegionEngineForFunc(this.mathEngine,this.funcEngine,this.faceEngine,this.transEngine);
+		return new RegionEngineForFunc(this.mathEngine,this.funcEngine,this.transEngine);
 	}
 
 	protected RegionFuncExpression cast( Region reg ) {
@@ -47,16 +44,6 @@ public class RegionEngineForFunc implements RegionBasicEngine
 	@Override
 	public Region createRegionByFunction( Function<Number[],Boolean> func ) {
 		return new RegionFuncExpression(func);
-	}
-
-	@Override
-	public Region createRegionByFace( Surface face, int side ) {
-		Function<Number[],Number> func = faceEngine.getIsosurfaceFunction(face);
-		return createRegionByFunction(funcEngine.createFunctionByLambda(
-				vec -> mathEngine.greaterThan(
-					mathEngine.multiply( funcEngine.applies(func,vec), mathEngine.number(side) ),
-					mathEngine.number0())
-		));
 	}
 
 	@Override

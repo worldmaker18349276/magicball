@@ -17,7 +17,6 @@ public class BasicEngineProvider extends EngineProvider
 	protected int n;
 	protected NumberBasicEngine numberEng;
 	protected FunctionBasicEngine functionEng;
-	protected SurfaceBasicEngine surfaceEng;
 	protected RegionBasicEngine regionEng;
 	protected TransformationBasicEngine transformationEng;
 	protected MotionBasicEngine MotionEng;
@@ -57,12 +56,6 @@ public class BasicEngineProvider extends EngineProvider
 		if ( this.transformationEng == null )
 			this.transformationEng = new AffineTransformationEngineForMatrix(this); // numberEng, functionEng
 		return this.transformationEng;
-	}
-
-	public SurfaceBasicEngine getSurfaceEngine() {
-		if ( this.surfaceEng == null )
-			this.surfaceEng = new SurfaceEngineForFunc(this); // numberEng, functionEng, transformationEng
-		return this.surfaceEng;
 	}
 
 	public RegionBasicEngine getRegionEngine() {

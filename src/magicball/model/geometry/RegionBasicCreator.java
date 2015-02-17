@@ -6,9 +6,8 @@ import magicball.model.math.*;
 public interface RegionBasicCreator
 {
 	// creater
+	public Region createRegionByFunction( Function<Number[],Boolean> func );
+
 	public Region createUniversalRegion();
 	public Region createEmptyRegion();
-
-	public Region createRegionByFunction( Function<Number[],Boolean> func );
-	public Region createRegionByFace( Surface face, int side );
 }
