@@ -30,6 +30,7 @@ public interface TransformationBasicEngine extends
 	// attribute
 	public Number[] applies( Transformation trans, Number[] point );
 
+	public Function<Number[],Number[]> getTransformationFunction( Transformation trans );
 	public Number[][] getTransformationMatrix( Transformation trans );
 	public Number[] getRotationVector( Transformation trans );
 	public Number[] getReflectionVector( Transformation trans );

@@ -58,13 +58,8 @@ public class RegionEngineForFunc implements RegionBasicEngine
 
 
 	// attribute
-	@Override
-	public Function<Number[],Boolean> getRegionIntensionFunction( Region reg ) {
-		return cast(reg).getFunction();
-	}
-
 	private Function<Number[],Boolean> function( Region reg ) {
-		return getRegionIntensionFunction(reg);
+		return cast(reg).getFunction();
 	}
 
 	@Override
@@ -111,7 +106,7 @@ public class RegionEngineForFunc implements RegionBasicEngine
 	public Region transformsBy( Region reg, Transformation trans ) {
 		Transformation _trans = transEngine.invert(trans);
 		Function<Number[],Number[]> trans_func = transEngine.getTransformationFunction(_trans);
-		Function<Number[],Boolean> reg_func = getRegionIntensionFunction(reg);
+		Function<Number[],Boolean> reg_func = function(reg);
 		Function<Number[],Boolean> reg_func_ = funcEngine.compose(trans_func,reg_func);
 		return createRegionByFunction(reg_func_);
 	}
