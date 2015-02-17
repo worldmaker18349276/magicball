@@ -47,37 +47,14 @@ public class FunctionEngineForLambda implements FunctionBasicEngine
 
 
 	// attribute
-	@Override
-	public < I, O > java.util.function.Function<I,O> getLambdaFunction( Function<I,O> func_ ) {
+	private < I, O > java.util.function.Function<I,O> lambda( Function<I,O> func_ ) {
 		FunctionLambdaExpression<I,O> func = cast(func_);
 		return func.getLambdaFunction();
-	}
-
-	private < I, O > java.util.function.Function<I,O> lambda( Function<I,O> func_ ) {
-		return getLambdaFunction(func_);
 	}
 
 	@Override
 	public < I, O > O applies( Function<I,O> func, I in ) {
 		return lambda(func).apply(in);
-	}
-
-	@Override
-	public < I, O > java.util.Set<O> appliesAll( Function<I,O> func, java.util.Set<I> ins ) {
-		return ins.stream()
-			.map(lambda(func))
-			.collect(Collectors.toSet());
-	}
-
-	@Override
-	public < I, O > java.util.Map.Entry<I,O> maps( Function<I,O> func, I in ) {
-		return new java.util.AbstractMap.SimpleEntry<I,O>(in,applies(func,in));
-	}
-
-	@Override
-	public < I, O > java.util.Map<I,O> mapsAll( Function<I,O> func, java.util.Set<I> ins ) {
-		return ins.stream()
-			.collect(Collectors.toMap(i->i, lambda(func)));
 	}
 
 
