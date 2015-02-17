@@ -14,11 +14,28 @@ public class RubiksCube
 
 			EngineProvider provider = new BasicEngineProvider(1E-6,1.5,100);
 			NumberBasicEngine math = provider.getNumberEngine();
-			SurfaceBasicEngine faceEng = provider.getSurfaceEngine();
+			FunctionBasicEngine funcEng = provider.getFunctionEngine();
 			RegionBasicEngine regEng = provider.getRegionEngine();
 			TransformationBasicEngine transEng = provider.getTransformationEngine();
 			MotionBasicEngine moveEng = provider.getMotionEngine();
 			SolidBasicEngine solEng = provider.getSolidEngine();
+
+			java.util.function.Function< Number[], Function<Number[],Number> > createPlaneFunction;
+			createPlaneFunction = ( fvec ) -> {
+				Number dis = math.norm(fvec);
+				Number[] nvec = math.normalize(fvec);
+				return funcEng.createFunctionByLambda(
+					vec -> math.subtract(math.dotProduct(vec,nvec),dis)
+				);
+			};
+
+			java.util.function.BiFunction< Function<Number[],Number>, Integer, Region > createRegionByFace;
+			createRegionByFace = ( face, side ) -> {
+				return regEng.createRegionByFunction(funcEng.createFunctionByLambda(
+					vec -> funcEng.applies(face,vec).doubleValue()*side > 0
+				));
+			};
+
 
 			Number[][] vecs = new Number [ 6 ][];
 
@@ -32,35 +49,35 @@ public class RubiksCube
 			Number t = math.number(Math.PI/2);
 
 
-			Surface[] surfaces = new Surface [ 6 ];
+			Function<Number[],Number>[] surfaces = new Function [ 6 ];
 			for ( int i=0; i<6; i++ )
-				surfaces[i] = faceEng.createPlaneByVector(vecs[i]);
+				surfaces[i] = createPlaneFunction.apply(vecs[i]);
 
 			Region whole = regEng.createUniversalRegion();
-			for ( Surface face : surfaces )
-				whole = regEng.intersect(whole,regEng.createRegionByFace(face,-1));
+			for ( Function<Number[],Number> face : surfaces )
+				whole = regEng.intersect(whole,createRegionByFace.apply(face,-1));
 
 
-			Surface[] cutfaces = new Surface [ 6 ];
+			Function<Number[],Number>[] cutfaces = new Function [ 6 ];
 			for ( int i=0; i<6; i++ )
-				cutfaces[i] = faceEng.createPlaneByVector(math.multiply(vecs[i],d));
+				cutfaces[i] = createPlaneFunction.apply(math.multiply(vecs[i],d));
 
 			Region[] regions = new Region [ 6 ];
 			for ( int i=0; i<6; i++ )
-				regions[i] = regEng.createRegionByFace(cutfaces[i],1);
+				regions[i] = createRegionByFace.apply(cutfaces[i],1);
 			
 
 			Region[] x_layars = new Region [ 3 ];
 			x_layars[0] = regions[0];
-			x_layars[1] = regEng.intersect(regEng.createRegionByFace(cutfaces[0],-1),regEng.createRegionByFace(cutfaces[1],-1));
+			x_layars[1] = regEng.intersect(createRegionByFace.apply(cutfaces[0],-1),createRegionByFace.apply(cutfaces[1],-1));
 			x_layars[2] = regions[1];
 			Region[] y_layars = new Region [ 3 ];
 			y_layars[0] = regions[2];
-			y_layars[1] = regEng.intersect(regEng.createRegionByFace(cutfaces[2],-1),regEng.createRegionByFace(cutfaces[3],-1));
+			y_layars[1] = regEng.intersect(createRegionByFace.apply(cutfaces[2],-1),createRegionByFace.apply(cutfaces[3],-1));
 			y_layars[2] = regions[3];
 			Region[] z_layars = new Region [ 3 ];
 			z_layars[0] = regions[4];
-			z_layars[1] = regEng.intersect(regEng.createRegionByFace(cutfaces[4],-1),regEng.createRegionByFace(cutfaces[5],-1));
+			z_layars[1] = regEng.intersect(createRegionByFace.apply(cutfaces[4],-1),createRegionByFace.apply(cutfaces[5],-1));
 			z_layars[2] = regions[5];
 
 			Solid[][][] parts = new Solid [ 3 ][ 3 ][ 3 ];
