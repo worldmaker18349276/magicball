@@ -7,9 +7,7 @@ public interface RegionBasicEngine extends
 		RegionBasicCreator,
 		RegionBasicAttribute,
 		RegionBasicOperator,
-		RegionBasicPredicate,
-		RegionCreatorForFunc,
-		RegionAttributeForFunc
+		RegionBasicPredicate
 {
 	public RegionBasicEngine clone();
 
@@ -23,8 +21,6 @@ public interface RegionBasicEngine extends
 
 
 	// attribute
-	public Function<Number[],Boolean> getRegionIntensionFunction( Region reg );
-
 	public boolean contains( Region reg, Number[] point );
 
 
@@ -36,6 +32,8 @@ public interface RegionBasicEngine extends
 	
 	public Region transformsBy( Region reg, Transformation trans );
 
+
+	// predicate
 	public boolean isEmpty( Region reg );
 	public boolean isUniversal( Region reg );
 	public boolean containsAll( Region reg1, Region reg2 );

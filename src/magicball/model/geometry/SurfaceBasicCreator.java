@@ -3,7 +3,7 @@ package magicball.model.geometry;
 import magicball.model.math.*;
 
 
-public interface SurfaceCreatorForFunc
+public interface SurfaceBasicCreator
 {
 	// creater
 	public Surface createSurfaceByFunction( Function<Number[],Number> func );

@@ -4,9 +4,8 @@ import magicball.model.math.*;
 
 
 public interface SurfaceBasicEngine extends
+		SurfaceBasicCreator,
 		SurfaceBasicOperator,
-		SurfaceCreatorForFunc,
-		SurfaceAttributeForFunc,
 		PlaneCreator,
 		PlanePredicate
 {
@@ -15,16 +14,13 @@ public interface SurfaceBasicEngine extends
 
 	// creater
 	public Surface createSurfaceByFunction( Function<Number[],Number> func );
-
 	public Surface createPlaneByVector( Number[] fvec );
-
-
-	// attribute
-	public Function<Number[],Number> getIsosurfaceFunction( Surface face );
 
 
 	// operator
 	public Surface transformsBy( Surface face, Transformation trans );
 	
+
+	// predicate
 	public boolean isPlane( Surface face );
 }
