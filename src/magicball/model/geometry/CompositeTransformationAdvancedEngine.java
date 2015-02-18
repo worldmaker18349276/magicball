@@ -4,20 +4,20 @@ import magicball.model.math.Function;
 import magicball.model.*;
 
 
-public class CompositeTransformationBasicEngine extends CompositeEngine<Transformation> implements TransformationAdvancedEngine
+public class CompositeTransformationAdvancedEngine extends CompositeEngine<Transformation> implements TransformationAdvancedEngine
 {
 	protected java.util.List<Engine<? extends Transformation>> engines;
 
-	public CompositeTransformationBasicEngine() {
+	public CompositeTransformationAdvancedEngine() {
 		engines = new java.util.LinkedList<>();
 	}
 
-	public CompositeTransformationBasicEngine( java.util.List<Engine<? extends Transformation>> eng ) {
+	public CompositeTransformationAdvancedEngine( java.util.List<Engine<? extends Transformation>> eng ) {
 		engines = eng;
 	}
 
-	public CompositeTransformationBasicEngine clone() {
-		return new CompositeTransformationBasicEngine(new java.util.LinkedList<>(engines));
+	public CompositeTransformationAdvancedEngine clone() {
+		return new CompositeTransformationAdvancedEngine(new java.util.LinkedList<>(engines));
 	}
 
 	public void add( Engine<? extends Transformation> engine ) {

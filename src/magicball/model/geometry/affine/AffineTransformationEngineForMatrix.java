@@ -7,10 +7,10 @@ import magicball.model.*;
 
 public class AffineTransformationEngineForMatrix implements TransformationAdvancedEngine, Engine<AffineTransformationMatrixExpression>
 {
-	protected NumberAdvancedEngine mathEngine;
+	protected NumberBasicEngine mathEngine;
 	protected FunctionAdvancedEngine funcEngine;
 
-	public AffineTransformationEngineForMatrix( NumberAdvancedEngine mathEng, FunctionAdvancedEngine funcEng ) {
+	public AffineTransformationEngineForMatrix( NumberBasicEngine mathEng, FunctionAdvancedEngine funcEng ) {
 		this.mathEngine = mathEng;
 		this.funcEngine = funcEng;
 	}

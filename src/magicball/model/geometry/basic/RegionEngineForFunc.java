@@ -10,11 +10,11 @@ import java.util.Arrays;
 
 public class RegionEngineForFunc implements RegionBasicEngine, Engine<RegionFuncExpression>
 {
-	protected NumberAdvancedEngine mathEngine;
+	protected NumberBasicEngine mathEngine;
 	protected FunctionAdvancedEngine funcEngine;
 	protected TransformationAdvancedEngine transEngine;
 
-	public RegionEngineForFunc( NumberAdvancedEngine mathEng, FunctionAdvancedEngine funcEng, TransformationAdvancedEngine transEng ) {
+	public RegionEngineForFunc( NumberBasicEngine mathEng, FunctionAdvancedEngine funcEng, TransformationAdvancedEngine transEng ) {
 		this.mathEngine = mathEng;
 		this.funcEngine = funcEng;
 		this.transEngine = transEng;

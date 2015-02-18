@@ -16,9 +16,9 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	protected double a;
 	protected int n;
 	protected CompositeNumberBasicEngine numberEng;
-	protected CompositeFunctionBasicEngine functionEng;
+	protected CompositeFunctionAdvancedEngine functionEng;
 	protected CompositeRegionBasicEngine regionEng;
-	protected CompositeTransformationBasicEngine transformationEng;
+	protected CompositeTransformationAdvancedEngine transformationEng;
 	protected CompositeMotionBasicEngine motionEng;
 	protected CompositeSolidBasicEngine solidEng;
 
@@ -29,7 +29,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 		this.n = n;
 	}
 
-	public NumberAdvancedEngine getNumberEngine() {
+	public NumberBasicEngine getNumberEngine() {
 		if ( this.numberEng == null ) {
 			this.numberEng = new CompositeNumberBasicEngine();
 			this.numberEng.add(new NumberEngineForNative(this.epsilon));
@@ -39,7 +39,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 
 	public FunctionAdvancedEngine getFunctionEngine() {
 		if ( this.functionEng == null ) {
-			this.functionEng = new CompositeFunctionBasicEngine();
+			this.functionEng = new CompositeFunctionAdvancedEngine();
 			this.functionEng.add(new FunctionEngineForLambdaWithSampleAlgorithm<Number[]>(createSkyGrid()));
 		}
 		return this.functionEng;
@@ -47,7 +47,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 
 	protected java.util.Set<Number[]> createSkyGrid() {
 		java.util.Set<Number[]> sam = new java.util.HashSet<Number[]>();
-		NumberAdvancedEngine math = getNumberEngine();
+		NumberBasicEngine math = getNumberEngine();
 		double d = 2*a / n;
 		for ( double x=-a; x<a; x=x+d )
 			for ( double y=-a; y<a; y=y+d )
@@ -58,7 +58,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 
 	public TransformationAdvancedEngine getTransformationEngine() {
 		if ( this.transformationEng == null ) {
-			this.transformationEng = new CompositeTransformationBasicEngine();
+			this.transformationEng = new CompositeTransformationAdvancedEngine();
 			this.transformationEng.add(new AffineTransformationEngineForMatrix(this)); // numberEng, functionEng
 		}
 		return this.transformationEng;

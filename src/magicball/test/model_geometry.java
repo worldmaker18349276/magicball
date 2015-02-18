@@ -18,7 +18,7 @@ public class model_geometry
 
 				System.out.println("TEST 1:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -55,7 +55,7 @@ public class model_geometry
 
 				System.out.println("TEST 2:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -78,7 +78,7 @@ public class model_geometry
 
 				System.out.println("TEST 3:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -101,7 +101,7 @@ public class model_geometry
 
 				System.out.println("TEST 4:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -126,7 +126,7 @@ public class model_geometry
 
 				System.out.println("TEST 5:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -155,7 +155,7 @@ public class model_geometry
 
 				System.out.println("TEST 6:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -191,7 +191,7 @@ public class model_geometry
 
 				System.out.println("TEST 7:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -218,7 +218,7 @@ public class model_geometry
 
 				System.out.println("TEST 8:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -247,7 +247,7 @@ public class model_geometry
 
 				System.out.println("TEST 9:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -270,7 +270,7 @@ public class model_geometry
 
 				System.out.println("TEST 10:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -294,7 +294,7 @@ public class model_geometry
 
 				System.out.println("TEST 11:");
 				{
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 
@@ -328,7 +328,7 @@ public class model_geometry
 				System.out.println("TEST 1:");
 				{
 
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,funcEngine,transEngine);
@@ -349,7 +349,7 @@ public class model_geometry
 				System.out.println("TEST 2:");
 				{
 
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,funcEngine,transEngine);
@@ -375,7 +375,7 @@ public class model_geometry
 				System.out.println("TEST 3:");
 				{
 
-					NumberAdvancedEngine mathEngine = new NumberEngineForNative(1E-6);
+					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
 					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,funcEngine,transEngine);

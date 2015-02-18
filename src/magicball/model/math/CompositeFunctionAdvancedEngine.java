@@ -3,20 +3,20 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public class CompositeFunctionBasicEngine extends CompositeEngine<Function> implements FunctionAdvancedEngine
+public class CompositeFunctionAdvancedEngine extends CompositeEngine<Function> implements FunctionAdvancedEngine
 {
 	protected java.util.List<Engine<? extends Function>> engines;
 
-	public CompositeFunctionBasicEngine() {
+	public CompositeFunctionAdvancedEngine() {
 		engines = new java.util.LinkedList<>();
 	}
 
-	public CompositeFunctionBasicEngine( java.util.List<Engine<? extends Function>> eng ) {
+	public CompositeFunctionAdvancedEngine( java.util.List<Engine<? extends Function>> eng ) {
 		engines = eng;
 	}
 
-	public CompositeFunctionBasicEngine clone() {
-		return new CompositeFunctionBasicEngine(new java.util.LinkedList<>(engines));
+	public CompositeFunctionAdvancedEngine clone() {
+		return new CompositeFunctionAdvancedEngine(new java.util.LinkedList<>(engines));
 	}
 
 	public void add( Engine<? extends Function> engine ) {

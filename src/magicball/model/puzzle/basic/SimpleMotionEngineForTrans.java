@@ -9,9 +9,9 @@ import magicball.model.*;
 public class SimpleMotionEngineForTrans implements MotionBasicEngine, Engine<SimpleMotionTransExpression>
 {
 	protected TransformationAdvancedEngine transEngine;
-	protected NumberAdvancedEngine mathEngine;
+	protected NumberBasicEngine mathEngine;
 
-	public SimpleMotionEngineForTrans( NumberAdvancedEngine mathEng, TransformationAdvancedEngine transEng ) {
+	public SimpleMotionEngineForTrans( NumberBasicEngine mathEng, TransformationAdvancedEngine transEng ) {
 		this.mathEngine = mathEng;
 		this.transEngine = transEng;
 	}
