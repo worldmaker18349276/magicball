@@ -6,7 +6,7 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class BasicSolidEngineForRegion implements SolidBasicEngine
+public class BasicSolidEngineForRegion implements SolidBasicEngine, Engine<BasicSolidRegionExpression>
 {
 	protected RegionBasicEngine regEngine;
 
@@ -21,14 +21,6 @@ public class BasicSolidEngineForRegion implements SolidBasicEngine
 	@Override
 	public BasicSolidEngineForRegion clone() {
 		return new BasicSolidEngineForRegion(this.regEngine);
-	}
-
-	protected BasicSolidRegionExpression cast( Solid sol ) {
-		try {
-			return (BasicSolidRegionExpression) sol;
-		} catch ( ClassCastException e ) {
-			throw new UnsupportedExpressionException(sol.getClass());
-		}
 	}
 
 

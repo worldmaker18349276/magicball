@@ -4,7 +4,7 @@ import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class NumberEngineForNative implements NumberBasicEngine
+public class NumberEngineForNative implements NumberBasicEngine, Engine<Double>
 {
 	protected double epsilon;
 

@@ -6,7 +6,7 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class SimpleMotionEngineForTrans implements MotionBasicEngine
+public class SimpleMotionEngineForTrans implements MotionBasicEngine, Engine<SimpleMotionTransExpression>
 {
 	protected TransformationBasicEngine transEngine;
 	protected NumberBasicEngine mathEngine;
@@ -26,14 +26,6 @@ public class SimpleMotionEngineForTrans implements MotionBasicEngine
 		return new SimpleMotionEngineForTrans(this.mathEngine,this.transEngine);
 	}
 
-	protected SimpleMotionTransExpression castToSimpleMotion( Motion move ) {
-		try {
-			return (SimpleMotionTransExpression) move;
-		} catch ( ClassCastException e ) {
-			throw new UnsupportedExpressionException(move.getClass());
-		}
-	}
-
 
 	// creater
 	@Override
@@ -50,7 +42,7 @@ public class SimpleMotionEngineForTrans implements MotionBasicEngine
 	// attribute
 	@Override
 	public Transformation getTransformation( Motion move_ ) {
-		SimpleMotionTransExpression smove = castToSimpleMotion(move_);
+		SimpleMotionTransExpression smove = cast(move_);
 		return smove.getTransformation();
 	}
 

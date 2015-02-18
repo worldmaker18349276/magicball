@@ -7,7 +7,7 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class FunctionEngineForLambda implements FunctionBasicEngine
+public class FunctionEngineForLambda implements FunctionBasicEngine, Engine<FunctionLambdaExpression>
 {
 	public FunctionEngineForLambda() { }
 
@@ -16,7 +16,7 @@ public class FunctionEngineForLambda implements FunctionBasicEngine
 		return new FunctionEngineForLambda();
 	}
 
-	protected < I, O > FunctionLambdaExpression<I,O> cast( Function<I,O> func ) {
+	public < I, O > FunctionLambdaExpression<I,O> cast( Function<I,O> func ) {
 		try {
 			return (FunctionLambdaExpression<I,O>) func;
 		} catch ( ClassCastException e ) {

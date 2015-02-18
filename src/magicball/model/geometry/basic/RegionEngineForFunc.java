@@ -8,7 +8,7 @@ import magicball.model.*;
 import java.util.Arrays;
 
 
-public class RegionEngineForFunc implements RegionBasicEngine
+public class RegionEngineForFunc implements RegionBasicEngine, Engine<RegionFuncExpression>
 {
 	protected NumberBasicEngine mathEngine;
 	protected FunctionBasicEngine funcEngine;
@@ -29,14 +29,6 @@ public class RegionEngineForFunc implements RegionBasicEngine
 	@Override
 	public RegionEngineForFunc clone() {
 		return new RegionEngineForFunc(this.mathEngine,this.funcEngine,this.transEngine);
-	}
-
-	protected RegionFuncExpression cast( Region reg ) {
-		try {
-			return (RegionFuncExpression) reg;
-		} catch ( ClassCastException e ) {
-			throw new UnsupportedExpressionException(reg.getClass());
-		}
 	}
 
 

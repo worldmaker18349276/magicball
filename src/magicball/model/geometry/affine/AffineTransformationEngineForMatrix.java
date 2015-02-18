@@ -5,7 +5,7 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class AffineTransformationEngineForMatrix implements TransformationBasicEngine
+public class AffineTransformationEngineForMatrix implements TransformationBasicEngine, Engine<AffineTransformationMatrixExpression>
 {
 	protected NumberBasicEngine mathEngine;
 	protected FunctionBasicEngine funcEngine;
@@ -23,14 +23,6 @@ public class AffineTransformationEngineForMatrix implements TransformationBasicE
 	@Override
 	public AffineTransformationEngineForMatrix clone() {
 		return new AffineTransformationEngineForMatrix(this.mathEngine,this.funcEngine);
-	}
-
-	protected AffineTransformationMatrixExpression cast( Transformation trans ) {
-		try {
-			return (AffineTransformationMatrixExpression) trans;
-		} catch ( ClassCastException e ) {
-			throw new UnsupportedExpressionException(trans.getClass());
-		}
 	}
 
 	protected Number[] rotationMatrix2RotationVector( Number[][] rmat ) {
