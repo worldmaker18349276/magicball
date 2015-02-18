@@ -15,8 +15,8 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	protected double epsilon;
 	protected double a;
 	protected int n;
-	protected NumberBasicEngine numberEng;
-	protected FunctionBasicEngine functionEng;
+	protected CompositeNumberBasicEngine numberEng;
+	protected CompositeFunctionBasicEngine functionEng;
 	protected RegionBasicEngine regionEng;
 	protected TransformationBasicEngine transformationEng;
 	protected MotionBasicEngine MotionEng;
@@ -30,14 +30,18 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	}
 
 	public NumberBasicEngine getNumberEngine() {
-		if ( this.numberEng == null )
-			this.numberEng = new NumberEngineForNative(this.epsilon);
+		if ( this.numberEng == null ) {
+			this.numberEng = new CompositeNumberBasicEngine();
+			this.numberEng.add(new NumberEngineForNative(this.epsilon));
+		}
 		return this.numberEng;
 	}
 
 	public FunctionBasicEngine getFunctionEngine() {
-		if ( this.functionEng == null )
-			this.functionEng = new FunctionEngineForLambdaWithSampleAlgorithm<Number[]>(createSkyGrid());
+		if ( this.functionEng == null ) {
+			this.functionEng = new CompositeFunctionBasicEngine();
+			this.functionEng.add(new FunctionEngineForLambdaWithSampleAlgorithm<Number[]>(createSkyGrid()));
+		}
 		return this.functionEng;
 	}
 
