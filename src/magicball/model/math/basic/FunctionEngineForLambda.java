@@ -11,11 +11,6 @@ public class FunctionEngineForLambda implements FunctionAdvancedEngine, Engine<F
 {
 	public FunctionEngineForLambda() { }
 
-	@Override
-	public FunctionEngineForLambda clone() {
-		return new FunctionEngineForLambda();
-	}
-
 	public < I, O > FunctionLambdaExpression<I,O> cast( Function<I,O> func ) {
 		try {
 			return (FunctionLambdaExpression<I,O>) func;

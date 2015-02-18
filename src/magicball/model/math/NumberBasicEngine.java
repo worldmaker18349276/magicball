@@ -3,9 +3,6 @@ package magicball.model.math;
 
 public interface NumberBasicEngine extends ScalarEngine, VectorEngine, MatrixEngine
 {
-	public NumberBasicEngine clone();
-
-
 	// scalar ( Number )
 	public Number number( double n );
 	public Number number0();

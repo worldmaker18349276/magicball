@@ -10,9 +10,6 @@ public interface FunctionAdvancedEngine extends
 		BooleanFunctionOperator,
 		BooleanFunctionPredicate
 {
-	public FunctionAdvancedEngine clone();
-
-
 	// creater
 	public < I, O > Function<I,O> createFunctionByLambda( java.util.function.Function<I,O> lambda );
 

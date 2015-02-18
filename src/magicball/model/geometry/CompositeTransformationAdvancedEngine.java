@@ -240,19 +240,6 @@ public class CompositeTransformationAdvancedEngine extends CompositeEngine<Trans
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-	
-	public Number getScalingFactor( Transformation trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAttribute ) {
-
-			try {
-				return ((AffineTransformationAttribute)engine).getScalingFactor(trans);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
 
 
 	// operator

@@ -12,11 +12,6 @@ public class NumberEngineForNative implements NumberBasicEngine, Engine<Double>
 		this.epsilon = eps;
 	}
 
-	@Override
-	public NumberEngineForNative clone() {
-		return new NumberEngineForNative(this.epsilon);
-	}
-
 	public double eps() {
 		return this.epsilon;
 	}

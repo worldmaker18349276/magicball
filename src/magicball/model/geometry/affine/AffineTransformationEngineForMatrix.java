@@ -20,11 +20,6 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 		this.funcEngine = provider.getFunctionEngine();
 	}
 
-	@Override
-	public AffineTransformationEngineForMatrix clone() {
-		return new AffineTransformationEngineForMatrix(this.mathEngine,this.funcEngine);
-	}
-
 	protected Number[] rotationMatrix2RotationVector( Number[][] rmat ) {
 		Number one = mathEngine.number1();
 		Number two = mathEngine.number(2);
@@ -65,8 +60,15 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	// creater
 	@Override
+	public Transformation createTransformationByFunction( Function<Number[],Number[]> func ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
 	public Transformation createAffineTransformationByAugmentedMatrix( Number[][] mat ) {
-		return new AffineTransformationMatrixExpression(mathEngine.submatrix(mat,0,3,0,3),mathEngine.transpose(mathEngine.submatrix(mat,0,3,3,4))[0]);
+		Number[][] m = mathEngine.submatrix(mat,0,3,0,3);
+		Number[][] v = mathEngine.transpose(mathEngine.submatrix(mat,0,3,3,4));
+		return new AffineTransformationMatrixExpression(m,v[0]);
 	}
 
 	@Override
@@ -75,8 +77,21 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 	}
 
 	@Override
+	public Transformation createLinearTransformationByMatrix( Number[][] mat ) {
+		return new AffineTransformationMatrixExpression(mat,mathEngine.vector0(3));
+	}
+
+	@Override
 	public Transformation createRotationByVector( Number[] rvec ) {
-		return new AffineTransformationMatrixExpression(rotationVector2RotationMatrix(rvec),mathEngine.vector0(3));
+		return createLinearTransformationByMatrix(rotationVector2RotationMatrix(rvec));
+	}
+
+	@Override
+	public Transformation createReflectionByVector( Number[] fvec ) {
+		Number[] nvec = mathEngine.normalize(fvec);
+		Number[][] nn = mathEngine.matrixMultiply(mathEngine.colVector(nvec), mathEngine.rowVector(nvec));
+		Number[][] mat = mathEngine.subtract(mathEngine.matrix1(3), mathEngine.multiply(nn, mathEngine.number(2)));
+		return createLinearTransformationByMatrix(mat);
 	}
 
 	@Override
@@ -85,47 +100,41 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 	}
 
 	@Override
-	public Transformation createIdentityTransformation() {
-		return new AffineTransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
-	}
-
-	@Override
-	public Transformation createReflectionByVector( Number[] fvec ) {
-		throw new UnsupportedAlgorithmException();
-	}
-
-	@Override
-	public Transformation createTransformationByFunction( Function<Number[],Number[]> func ) {
-		throw new UnsupportedAlgorithmException();
-	}
-
-	@Override
-	public Transformation createLinearTransformationByMatrix( Number[][] mat ) {
-		throw new UnsupportedAlgorithmException();
-	}
-
-	@Override
 	public Transformation createScalingByFactor( Number factor ) {
-		throw new UnsupportedAlgorithmException();
+		return createLinearTransformationByMatrix(mathEngine.multiply(mathEngine.matrix1(3),factor));
 	}
 
 	@Override
 	public Transformation createShearingByOffsets( Number a, Number b ) {
-		throw new UnsupportedAlgorithmException();
+		Number[][] mat = mathEngine.matrix1(3);
+		mat[0][2] = a;
+		mat[1][2] = b;
+		return createLinearTransformationByMatrix(mat);
+	}
+
+	@Override
+	public Transformation createIdentityTransformation() {
+		return new AffineTransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
 	}
 
 
 	// attribute
 	@Override
 	public Number[][] getTransformationMatrix( Transformation trans_ ) {
-		AffineTransformationMatrixExpression trans = cast(trans_);
-		return trans.getRotationMatrix();
+		if ( isAffine(trans_) ) {
+			AffineTransformationMatrixExpression trans = cast(trans_);
+			return trans.getMatrix();
+		} else
+			throw new ArithmeticException("this transformation is not affine");
 	}
 
 	@Override
 	public Number[] getTranslationVector( Transformation trans_ ) {
-		AffineTransformationMatrixExpression trans = cast(trans_);
-		return trans.getShiftVector();
+		if ( isAffine(trans_) ) {
+			AffineTransformationMatrixExpression trans = cast(trans_);
+			return trans.getVector();
+		} else
+			throw new ArithmeticException("this transformation is not affine");
 	}
 
 	@Override
@@ -139,17 +148,18 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public Number[] getRotationVector( Transformation trans ) {
-		return rotationMatrix2RotationVector(getTransformationMatrix(trans));
+		if ( isRigid(trans) )
+			return rotationMatrix2RotationVector(getTransformationMatrix(trans));
+		else
+			throw new ArithmeticException("this transformation is not rigid");
 	}
 	
 	@Override
 	public Number[] getReflectionVector( Transformation trans ) {
-		throw new UnsupportedAlgorithmException();
-	}
-
-	@Override
-	public Number getScalingFactor( Transformation trans ) {
-		throw new UnsupportedAlgorithmException();
+		if ( isIsometric(trans) && !isRigid(trans) )
+			throw new UnsupportedAlgorithmException();
+		else
+			throw new ArithmeticException("this transformation is not reflection");
 	}
 
 	@Override
@@ -162,9 +172,13 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	// operator
 	public Transformation compose( Transformation trans1, Transformation trans2 ) {
-		Number[][] rot = mathEngine.matrixMultiply(getTransformationMatrix(trans2),getTransformationMatrix(trans1));
-		Number[] sh = mathEngine.add(getTranslationVector(trans2),mathEngine.matrixMultiply(getTransformationMatrix(trans2),getTranslationVector(trans1)));
-		return new AffineTransformationMatrixExpression(rot,sh);
+		Number[][] mat1 = getTransformationMatrix(trans1);
+		Number[] vec1 = getTranslationVector(trans1);
+		Number[][] mat2 = getTransformationMatrix(trans2);
+		Number[] vec2 = getTranslationVector(trans2);
+		Number[][] mat = mathEngine.matrixMultiply(mat2,mat1);
+		Number[] vec = mathEngine.add(vec2,mathEngine.matrixMultiply(mat2,vec1));
+		return new AffineTransformationMatrixExpression(mat,vec);
 	}
 
 	@Override
@@ -185,9 +199,9 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public Transformation invert( Transformation trans ) {
-		Number[][] rot = mathEngine.transpose(getTransformationMatrix(trans));
-		Number[] sh = mathEngine.negate(mathEngine.matrixMultiply(rot,getTranslationVector(trans)));
-		return new AffineTransformationMatrixExpression(rot,sh);
+		Number[][] mat = mathEngine.invert33(getTransformationMatrix(trans));
+		Number[] vec = mathEngine.negate(mathEngine.matrixMultiply(mat,getTranslationVector(trans)));
+		return new AffineTransformationMatrixExpression(mat,vec);
 	}
 
 	@Override
@@ -195,7 +209,7 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 		// TODO: use arg to select number of turns
 		if ( isIdentity(trans) ) {
 			return trans;
-		} else if ( isLinear(trans) ) {
+		} else if ( isLinear(trans) && isRigid(trans) ) {
 
 			Number[][] rot = getTransformationMatrix(trans);
 			Number[] rvec = rotationMatrix2RotationVector(rot);
@@ -208,7 +222,7 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 			sh = mathEngine.dividedBy(sh,divisor);
 			return new AffineTransformationMatrixExpression(mathEngine.matrix1(3),sh);
 
-		} else { // only for int divisor
+		} else if ( isRigid(trans) ) { // only for int divisor
 
 			int n = divisor.intValue();
 
@@ -227,6 +241,8 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 			return new AffineTransformationMatrixExpression(rot_n,sh_n);
 
+		} else {
+			throw new UnsupportedAlgorithmException();
 		}
 	}
 
@@ -238,9 +254,10 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public boolean isAffine( Transformation trans ) {
-		if ( !(trans instanceof AffineTransformationMatrixExpression) )
+		if ( trans instanceof AffineTransformationMatrixExpression )
+			return true;
+		else
 			throw new UnsupportedAlgorithmException();
-		return true;
 	}
 
 	@Override
@@ -250,23 +267,37 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public boolean isSimilar( Transformation trans ) {
-		if ( !(trans instanceof AffineTransformationMatrixExpression) )
+		if ( trans instanceof AffineTransformationMatrixExpression ) {
+			Number[][] mat = getTransformationMatrix(trans);
+			return mathEngine.equals(mathEngine.invert33(mat),mathEngine.transpose(mat));
+		} else
 			throw new UnsupportedAlgorithmException();
-		return true;
 	}
 
 	@Override
 	public boolean isIsometric( Transformation trans ) {
-		if ( !(trans instanceof AffineTransformationMatrixExpression) )
+		if ( trans instanceof AffineTransformationMatrixExpression ) {
+			if ( isSimilar(trans) ) {
+				Number[][] mat = getTransformationMatrix(trans);
+				Number det = mathEngine.determinant33(mat);
+				return mathEngine.equals(mathEngine.abs(det),mathEngine.number1());
+			} else
+				return false;
+		} else
 			throw new UnsupportedAlgorithmException();
-		return true;
 	}
 
 	@Override
 	public boolean isRigid( Transformation trans ) {
-		if ( !(trans instanceof AffineTransformationMatrixExpression) )
+		if ( trans instanceof AffineTransformationMatrixExpression ) {
+			if ( isSimilar(trans) ) {
+				Number[][] mat = getTransformationMatrix(trans);
+				Number det = mathEngine.determinant33(mat);
+				return mathEngine.equals(det,mathEngine.number1());
+			} else
+				return false;
+		} else
 			throw new UnsupportedAlgorithmException();
-		return true;
 	}
 
 	@Override

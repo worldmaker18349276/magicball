@@ -18,11 +18,6 @@ public class BasicSolidEngineForRegion implements SolidBasicEngine, Engine<Basic
 		this.regEngine = provider.getRegionEngine();
 	}
 
-	@Override
-	public BasicSolidEngineForRegion clone() {
-		return new BasicSolidEngineForRegion(this.regEngine);
-	}
-
 
 	// creater
 	@Override

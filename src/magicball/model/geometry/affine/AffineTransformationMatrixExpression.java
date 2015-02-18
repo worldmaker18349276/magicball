@@ -5,20 +5,20 @@ import magicball.model.geometry.*;
 
 public class AffineTransformationMatrixExpression extends Transformation
 {
-	final private Number [][] rotation;
-	final private Number [] shift;
+	final private Number[][] matrix;
+	final private Number[] vector;
 
-	public AffineTransformationMatrixExpression( Number [][] rot, Number [] sh ) {
-		this.rotation = rot;
-		this.shift = sh;
+	public AffineTransformationMatrixExpression( Number[][] mat, Number[] vec ) {
+		this.matrix = mat;
+		this.vector = vec;
 	}
 
-	final public Number [][] getRotationMatrix() {
-		return this.rotation;
+	public Number[][] getMatrix() {
+		return this.matrix;
 	}
 
-	final public Number [] getShiftVector() {
-		return this.shift;
+	public Number[] getVector() {
+		return this.vector;
 	}
 }
 

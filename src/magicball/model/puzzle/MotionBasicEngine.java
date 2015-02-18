@@ -9,9 +9,6 @@ public interface MotionBasicEngine extends
 		MotionBasicOperator,
 		SimpleMotionPredicate
 {
-	public MotionBasicEngine clone();
-
-
 	// creater
 	public Motion createSimpleMotionByTransformation( Transformation trans );
 	public RegionalMotion createRegionalMotion( Region reg, Motion move );

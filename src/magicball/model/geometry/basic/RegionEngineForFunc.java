@@ -26,11 +26,6 @@ public class RegionEngineForFunc implements RegionBasicEngine, Engine<RegionFunc
 		this.transEngine = provider.getTransformationEngine();
 	}
 
-	@Override
-	public RegionEngineForFunc clone() {
-		return new RegionEngineForFunc(this.mathEngine,this.funcEngine,this.transEngine);
-	}
-
 
 	// creater
 	@Override

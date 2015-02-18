@@ -21,11 +21,6 @@ public class PhysicalPuzzleEngineForBasic implements PhysicalPuzzleBasicEngine
 		this.solEngine = provider.getSolidEngine();
 	}
 
-	@Override
-	public PhysicalPuzzleBasicEngine clone() {
-		return new PhysicalPuzzleEngineForBasic(this.moveEngine,this.solEngine);
-	}
-
 
 	@Override
 	public void appliesBy( PhysicalPuzzle puzzle, Motion move ) {

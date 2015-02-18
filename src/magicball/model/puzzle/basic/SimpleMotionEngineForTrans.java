@@ -21,11 +21,6 @@ public class SimpleMotionEngineForTrans implements MotionBasicEngine, Engine<Sim
 		this.transEngine = provider.getTransformationEngine();
 	}
 
-	@Override
-	public SimpleMotionEngineForTrans clone() {
-		return new SimpleMotionEngineForTrans(this.mathEngine,this.transEngine);
-	}
-
 
 	// creater
 	@Override

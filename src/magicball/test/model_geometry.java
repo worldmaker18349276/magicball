@@ -481,10 +481,10 @@ public class model_geometry
 		AffineTransformationMatrixExpression trans = (AffineTransformationMatrixExpression) trans_;
 		String str = "";
 		str = str + "    rotation:\n";
-		str = str + toString(trans.getRotationMatrix());
+		str = str + toString(trans.getMatrix());
 		str = str + "\n";
 		str = str + "    shift:\n";
-		str = str + toString(trans.getShiftVector());
+		str = str + toString(trans.getVector());
 		str = str + "\n";
 		return str;
 	}

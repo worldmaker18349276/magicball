@@ -13,11 +13,6 @@ public class FunctionEngineForLambdaWithSampleAlgorithm < E > extends FunctionEn
 		this.samples = sam;
 	}
 
-	@Override
-	public FunctionEngineForLambdaWithSampleAlgorithm<E> clone() {
-		return new FunctionEngineForLambdaWithSampleAlgorithm<E>(this.samples);
-	}
-
 	@SuppressWarnings({"unchecked"})
 	private < O > Function<E,O> castToE( Function<?,O> func ) {
 		try {

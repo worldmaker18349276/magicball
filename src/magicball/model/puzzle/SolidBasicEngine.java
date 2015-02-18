@@ -9,9 +9,6 @@ public interface SolidBasicEngine extends
 		SolidBasicOperator,
 		SolidBasicPredicate
 {
-	public SolidBasicEngine clone();
-
-
 	// creater
 	public Solid createSolidByRegion( Region reg );
 

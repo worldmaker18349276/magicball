@@ -12,9 +12,6 @@ public interface TransformationAdvancedEngine extends
 		AffineTransformationAttribute,
 		AffineTransformationPredicate
 {
-	public TransformationAdvancedEngine clone();
-
-
 	// creater
 	public Transformation createTransformationByFunction( Function<Number[],Number[]> func );
 
@@ -37,7 +34,6 @@ public interface TransformationAdvancedEngine extends
 	public Number[] getRotationVector( Transformation trans );
 	public Number[] getReflectionVector( Transformation trans );
 	public Number[] getTranslationVector( Transformation trans );
-	public Number getScalingFactor( Transformation trans );
 
 
 	// operator

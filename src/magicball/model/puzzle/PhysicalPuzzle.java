@@ -35,7 +35,7 @@ public class PhysicalPuzzle
 		for ( Solid sol : getComponents() ) {
 			sols.add(sol.clone());
 		}
-		return new PhysicalPuzzle(sols,getEngine().clone());
+		return new PhysicalPuzzle(sols,getEngine());
 	}
 
 

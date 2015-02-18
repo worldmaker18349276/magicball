@@ -10,5 +10,4 @@ public interface AffineTransformationAttribute
 	public Number[] getRotationVector( Transformation trans );
 	public Number[] getReflectionVector( Transformation trans );
 	public Number[] getTranslationVector( Transformation trans );
-	public Number getScalingFactor( Transformation trans );
 }

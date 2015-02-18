@@ -9,9 +9,6 @@ public interface RegionBasicEngine extends
 		RegionBasicOperator,
 		RegionBasicPredicate
 {
-	public RegionBasicEngine clone();
-
-
 	// creater
 	public Region createRegionByFunction( Function<Number[],Boolean> func );
 
