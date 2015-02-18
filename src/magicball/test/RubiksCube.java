@@ -12,7 +12,7 @@ public class RubiksCube
 	public static void main( String [] args ) {
 		try {
 
-			EngineProvider provider = new BasicEngineProvider(1E-6,1.5,100);
+			BasicEngineProvider provider = new DefaultEngineProvider(1E-6,1.5,100);
 			NumberBasicEngine math = provider.getNumberEngine();
 			FunctionBasicEngine funcEng = provider.getFunctionEngine();
 			RegionBasicEngine regEng = provider.getRegionEngine();

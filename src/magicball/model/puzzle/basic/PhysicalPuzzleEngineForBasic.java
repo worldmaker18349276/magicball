@@ -16,7 +16,7 @@ public class PhysicalPuzzleEngineForBasic implements PhysicalPuzzleBasicEngine
 		this.solEngine = solEng;
 	}
 
-	public PhysicalPuzzleEngineForBasic( EngineProvider provider ) {
+	public PhysicalPuzzleEngineForBasic( BasicEngineProvider provider ) {
 		this.moveEngine = provider.getMotionEngine();
 		this.solEngine = provider.getSolidEngine();
 	}

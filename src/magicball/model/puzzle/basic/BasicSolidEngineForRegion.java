@@ -14,7 +14,7 @@ public class BasicSolidEngineForRegion implements SolidBasicEngine, Engine<Basic
 		this.regEngine = regEng;
 	}
 
-	public BasicSolidEngineForRegion( EngineProvider provider ) {
+	public BasicSolidEngineForRegion( BasicEngineProvider provider ) {
 		this.regEngine = provider.getRegionEngine();
 	}
 

@@ -16,7 +16,7 @@ public class SimpleMotionEngineForTrans implements MotionBasicEngine, Engine<Sim
 		this.transEngine = transEng;
 	}
 
-	public SimpleMotionEngineForTrans( EngineProvider provider ) {
+	public SimpleMotionEngineForTrans( BasicEngineProvider provider ) {
 		this.mathEngine = provider.getNumberEngine();
 		this.transEngine = provider.getTransformationEngine();
 	}

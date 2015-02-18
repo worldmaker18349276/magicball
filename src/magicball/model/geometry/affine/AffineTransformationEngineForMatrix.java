@@ -15,7 +15,7 @@ public class AffineTransformationEngineForMatrix implements TransformationBasicE
 		this.funcEngine = funcEng;
 	}
 
-	public AffineTransformationEngineForMatrix( EngineProvider provider ) {
+	public AffineTransformationEngineForMatrix( BasicEngineProvider provider ) {
 		this.mathEngine = provider.getNumberEngine();
 		this.funcEngine = provider.getFunctionEngine();
 	}

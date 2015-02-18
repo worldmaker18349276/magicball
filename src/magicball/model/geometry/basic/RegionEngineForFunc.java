@@ -20,7 +20,7 @@ public class RegionEngineForFunc implements RegionBasicEngine, Engine<RegionFunc
 		this.transEngine = transEng;
 	}
 
-	public RegionEngineForFunc( EngineProvider provider ) {
+	public RegionEngineForFunc( BasicEngineProvider provider ) {
 		this.mathEngine = provider.getNumberEngine();
 		this.funcEngine = provider.getFunctionEngine();
 		this.transEngine = provider.getTransformationEngine();
