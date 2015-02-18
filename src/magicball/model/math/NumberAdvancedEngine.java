@@ -44,6 +44,8 @@ public interface NumberAdvancedEngine extends ScalarEngine, VectorEngine, Matrix
 	// vector ( Number[] )
 	public Number[] vector( double... ns );
 	public Number[] vector0( int d );
+	public Number[] subvector( Number[] v, int i1, int i2 );
+	public Number[] augment( Number[] v1, Number[] v2 );
 	public double[] doubleValue( Number[] v );
 	public boolean equals( Number[] v1, Number[] v2 );
 	public Number[] negate( Number[] v );
@@ -62,6 +64,11 @@ public interface NumberAdvancedEngine extends ScalarEngine, VectorEngine, Matrix
 	public Number[][] matrix( double[][] ns );
 	public Number[][] matrix0( int d1, int d2 );
 	public Number[][] matrix1( int d );
+	public Number[][] colVector( Number[] v );
+	public Number[][] rowVector( Number[] v );
+	public Number[][] submatrix( Number[][] m, int i1, int i2, int j1, int j2 );
+	public Number[][] augmentCol( Number[][] m1, Number[][] m2 );
+	public Number[][] augmentRow( Number[][] m1, Number[][] m2 );
 	public double[][] doubleValue( Number[][] m );
 	public boolean equals( Number[][] m1, Number[][] m2 );
 	public Number[][] negate( Number[][] m );

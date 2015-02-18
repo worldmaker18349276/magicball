@@ -210,6 +210,24 @@ public class NumberEngineForNative implements NumberAdvancedEngine, Engine<Doubl
 	}
 
 	@Override
+	public Number[] subvector( Number[] v, int i1, int i2 ) {
+		Number[] v_ = new Number [ i2-i1 ];
+		for ( int i=i1; i<i2; i++ )
+			v_[i-i1] = v[i];
+		return v_;
+	}
+
+	@Override
+	public Number[] augment( Number[] v1, Number[] v2 ) {
+		Number[] v12 = new Number [ v1.length+v2.length ];
+		for ( int i=0; i<v1.length; i++ )
+			v12[i] = v1[i];
+		for ( int i=0; i<v2.length; i++ )
+			v12[i+v1.length] = v2[i];
+		return v12;
+	}
+
+	@Override
 	public double[] doubleValue( Number[] v ) {
 		double[] result = new double [ v.length ];
 		for ( int i=0; i<result.length; i++ )
@@ -327,6 +345,47 @@ public class NumberEngineForNative implements NumberAdvancedEngine, Engine<Doubl
 		for ( int i=0; i<mat.length; i++ )
 			mat[i][i] = number1();
 		return mat;
+	}
+
+	@Override
+	public Number[][] colVector( Number[] v ) {
+		Number[][] mat = new Number [ v.length ][ 1 ];
+		for ( int i=0; i<mat.length; i++ )
+			mat[i][0] = v[i];
+		return mat;
+	}
+
+	@Override
+	public Number[][] rowVector( Number[] v ) {
+		Number[][] mat = new Number [ 1 ][];
+		mat[0] = v;
+		return mat;
+	}
+
+	@Override
+	public Number[][] submatrix( Number[][] m, int i1, int i2, int j1, int j2 ) {
+		Number[][] m_ = new Number [ i2-i1 ][];
+		for ( int i=i1; i<i2; i++ )
+			m_[i-i1] = subvector(m[i], j1, j2);
+		return m_;
+	}
+
+	@Override
+	public Number[][] augmentCol( Number[][] m1, Number[][] m2 ) {
+		Number[][] m12 = new Number [ m1.length+m2.length ][];
+		for ( int i=0; i<m1.length; i++ )
+			m12[i] = m1[i];
+		for ( int i=0; i<m2.length; i++ )
+			m12[i+m1.length] = m2[i];
+		return m12;
+	}
+
+	@Override
+	public Number[][] augmentRow( Number[][] m1, Number[][] m2 ) {
+		Number[][] m12 = new Number [ m1.length ][];
+		for ( int i=0; i<m12.length; i++ )
+			m12[i] = augment(m1[i],m2[i]);
+		return m12;
 	}
 
 	@Override

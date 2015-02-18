@@ -486,6 +486,31 @@ public class CompositeNumberBasicEngine extends CompositeEngine<Number> implemen
 		throw new UnsupportedAlgorithmException();
 	}
 
+	public Number[] subvector( Number[] v, int i1, int i2 ) {
+		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+
+			try {
+				return ((VectorEngine)engine).subvector(v,i1,i2);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	public Number[] augment( Number[] v1, Number[] v2 ) {
+		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+
+			try {
+				return ((VectorEngine)engine).augment(v1,v2);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
 
 	public boolean equals( Number[] v1, Number[] v2 ) {
 		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
@@ -666,6 +691,71 @@ public class CompositeNumberBasicEngine extends CompositeEngine<Number> implemen
 
 			try {
 				return ((MatrixEngine)engine).matrix1(d);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	public Number[][] colVector( Number[] v ) {
+		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+
+			try {
+				return ((MatrixEngine)engine).colVector(v);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	public Number[][] rowVector( Number[] v ) {
+		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+
+			try {
+				return ((MatrixEngine)engine).rowVector(v);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	public Number[][] submatrix( Number[][] m, int i1, int i2, int j1, int j2 ) {
+		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+
+			try {
+				return ((MatrixEngine)engine).submatrix(m,i1,i2,j1,j2);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	public Number[][] augmentCol( Number[][] m1, Number[][] m2 ) {
+		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+
+			try {
+				return ((MatrixEngine)engine).augmentCol(m1,m2);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	public Number[][] augmentRow( Number[][] m1, Number[][] m2 ) {
+		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+
+			try {
+				return ((MatrixEngine)engine).augmentRow(m1,m2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}

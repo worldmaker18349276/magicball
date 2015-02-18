@@ -12,6 +12,7 @@ public interface BooleanFunctionOperator
 	@SuppressWarnings({"unchecked", "varargs"})
 	public < I > Function<I,Boolean> or( Function<I,Boolean>... funcs );
 	public < I > Function<I,Boolean> or( Function<I,Boolean> func1, Function<I,Boolean> func2 );
+	@SuppressWarnings({"unchecked", "varargs"})
 	public < I > Function<I,Boolean> xor( Function<I,Boolean>... funcs );
 	public < I > Function<I,Boolean> xor( Function<I,Boolean> func1, Function<I,Boolean> func2 );
 }
