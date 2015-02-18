@@ -109,6 +109,11 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
+	public Transformation createShearingByOffsets( Number a, Number b ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
 
 	// attribute
 	@Override
@@ -190,7 +195,7 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 		// TODO: use arg to select number of turns
 		if ( isIdentity(trans) ) {
 			return trans;
-		} else if ( isRotation(trans) ) {
+		} else if ( isLinear(trans) ) {
 
 			Number[][] rot = getTransformationMatrix(trans);
 			Number[] rvec = rotationMatrix2RotationVector(rot);
@@ -264,31 +269,16 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 		return true;
 	}
 
-
-	@Override
-	public boolean isIdentity( Transformation trans ) {
-		return mathEngine.equals(getTransformationMatrix(trans),mathEngine.matrix1(3)) &&
-				mathEngine.equals(getTranslationVector(trans),mathEngine.vector0(3));
-	}
-
-	@Override
-	public boolean isRotation( Transformation trans ) {
-		return mathEngine.equals(getTranslationVector(trans),mathEngine.vector0(3));
-	}
-
-	@Override
-	public boolean isReflection( Transformation trans ) {
-		throw new UnsupportedAlgorithmException();
-	}
-
 	@Override
 	public boolean isTranslation( Transformation trans ) {
 		return mathEngine.equals(getTransformationMatrix(trans),mathEngine.matrix1(3));
 	}
 
+
 	@Override
-	public boolean isScaling( Transformation trans ) {
-		throw new UnsupportedAlgorithmException();
+	public boolean isIdentity( Transformation trans ) {
+		return mathEngine.equals(getTransformationMatrix(trans),mathEngine.matrix1(3)) &&
+				mathEngine.equals(getTranslationVector(trans),mathEngine.vector0(3));
 	}
 
 	@Override

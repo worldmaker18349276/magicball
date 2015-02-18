@@ -147,6 +147,19 @@ public class CompositeTransformationBasicEngine extends CompositeEngine<Transfor
 		throw new UnsupportedAlgorithmException();
 	}
 
+	public Transformation createShearingByOffsets( Number a, Number b ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationCreator ) {
+
+			try {
+				return ((AffineTransformationCreator)engine).createShearingByOffsets(a,b);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
 
 
 	// attribute
@@ -402,32 +415,6 @@ public class CompositeTransformationBasicEngine extends CompositeEngine<Transfor
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public boolean isRotation( Transformation trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationPredicate ) {
-
-			try {
-				return ((AffineTransformationPredicate)engine).isRotation(trans);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public boolean isReflection( Transformation trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationPredicate ) {
-
-			try {
-				return ((AffineTransformationPredicate)engine).isReflection(trans);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
 	public boolean isTranslation( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationPredicate ) {
 
@@ -440,18 +427,4 @@ public class CompositeTransformationBasicEngine extends CompositeEngine<Transfor
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public boolean isScaling( Transformation trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationPredicate ) {
-
-			try {
-				return ((AffineTransformationPredicate)engine).isScaling(trans);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
 }

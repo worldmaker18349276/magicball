@@ -32,8 +32,6 @@ public class model_geometry
 					System.out.println("trans0 = Identity() = \n" + toString(trans0));
 					System.out.println("isIdentity(trans0) = true");
 					assert transEngine.isIdentity(trans0) == true;
-					System.out.println("isRotation(trans0) = true");
-					assert transEngine.isRotation(trans0) == true;
 					System.out.println("isTranslation(trans0) = true");
 					assert transEngine.isTranslation(trans0) == true;
 
@@ -41,8 +39,6 @@ public class model_geometry
 					System.out.println("trans1 = Trans(rvec) = \n" + toString(trans1));
 					System.out.println("isIdentity(trans1) = false");
 					assert transEngine.isIdentity(trans1) == false;
-					System.out.println("isRotation(trans1) = true");
-					assert transEngine.isRotation(trans1) == true;
 					System.out.println("isTranslation(trans1) = false");
 					assert transEngine.isTranslation(trans1) == false;
 
@@ -50,8 +46,6 @@ public class model_geometry
 					System.out.println("trans2 = Trans(sh) = \n" + toString(trans2));
 					System.out.println("isIdentity(trans2) = false");
 					assert transEngine.isIdentity(trans2) == false;
-					System.out.println("isRotation(trans2) = false");
-					assert transEngine.isRotation(trans2) == false;
 					System.out.println("isTranslation(trans2) = true");
 					assert transEngine.isTranslation(trans2) == true;
 

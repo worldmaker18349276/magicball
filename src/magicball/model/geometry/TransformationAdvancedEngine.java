@@ -18,7 +18,6 @@ public interface TransformationAdvancedEngine extends
 	// creater
 	public Transformation createTransformationByFunction( Function<Number[],Number[]> func );
 
-	public Transformation createIdentityTransformation();
 	public Transformation createAffineTransformationByAugmentedMatrix( Number[][] mat );
 	public Transformation createAffineTransformationByMatrixAndVector( Number[][] mat, Number[] vec );
 	public Transformation createLinearTransformationByMatrix( Number[][] mat );
@@ -26,7 +25,8 @@ public interface TransformationAdvancedEngine extends
 	public Transformation createReflectionByVector( Number[] fvec );
 	public Transformation createTranslationByVector( Number[] sh );
 	public Transformation createScalingByFactor( Number factor );
-	// shearing...
+	public Transformation createShearingByOffsets( Number a, Number b );
+	public Transformation createIdentityTransformation();
 
 
 	// attribute
@@ -49,7 +49,6 @@ public interface TransformationAdvancedEngine extends
 
 
 	// predicate
-	public boolean isIdentity( Transformation trans );
 	public boolean equals( Transformation trans1, Transformation trans2 );
 
 	public boolean isAffine( Transformation trans ); // f(x) = Mx+b
@@ -57,9 +56,6 @@ public interface TransformationAdvancedEngine extends
 	public boolean isSimilar( Transformation trans ); // f(x) = Rfx+b
 	public boolean isIsometric( Transformation trans ); // f(x) = Rx+b
 	public boolean isRigid( Transformation trans ); // f(x) = Rx+b, |R|==1
-
-	public boolean isRotation( Transformation trans ); // f(x) = Rx, |R|==1
-	public boolean isReflection( Transformation trans ); // f(x) = Px
 	public boolean isTranslation( Transformation trans ); // f(x) = x+b
-	public boolean isScaling( Transformation trans ); // f(x) = fx
+	public boolean isIdentity( Transformation trans ); // f(x) = x
 }

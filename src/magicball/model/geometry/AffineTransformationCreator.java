@@ -13,5 +13,5 @@ public interface AffineTransformationCreator
 	public Transformation createReflectionByVector( Number[] fvec );
 	public Transformation createTranslationByVector( Number[] sh );
 	public Transformation createScalingByFactor( Number factor );
-	// shear...
+	public Transformation createShearingByOffsets( Number a, Number b ); // x'=x+az, y'=y+bz
 }
