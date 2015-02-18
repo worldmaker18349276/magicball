@@ -17,14 +17,14 @@ public interface TransformationBasicEngine extends
 
 	// creater
 	public Transformation createTransformationByFunction( Function<Number[],Number[]> func );
+
+	public Transformation createIdentityTransformation();
 	public Transformation createLinearTransformationByMatrix( Number[][] mat );
 	public Transformation createRotationByVector( Number[] rvec );
 	public Transformation createReflectionByVector( Number[] fvec );
 	public Transformation createTranslationByVector( Number[] sh );
 	public Transformation createScalingByFactor( Number factor );
 	// shearing...
-
-	public Transformation createIdentityTransformation();
 
 
 	// attribute
