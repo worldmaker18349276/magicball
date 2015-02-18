@@ -56,6 +56,32 @@ public class CompositeTransformationBasicEngine extends CompositeEngine<Transfor
 		throw new UnsupportedAlgorithmException();
 	}
 
+	public Transformation createAffineTransformationByAugmentedMatrix( Number[][] mat ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationCreator ) {
+
+			try {
+				return ((AffineTransformationCreator)engine).createAffineTransformationByAugmentedMatrix(mat);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	public Transformation createAffineTransformationByMatrixAndVector( Number[][] mat, Number[] vec ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationCreator ) {
+
+			try {
+				return ((AffineTransformationCreator)engine).createAffineTransformationByMatrixAndVector(mat,vec);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
 	public Transformation createLinearTransformationByMatrix( Number[][] mat ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationCreator ) {
 

@@ -65,6 +65,16 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	// creater
 	@Override
+	public Transformation createAffineTransformationByAugmentedMatrix( Number[][] mat ) {
+		return new AffineTransformationMatrixExpression(mathEngine.submatrix(mat,0,3,0,3),mathEngine.transpose(mathEngine.submatrix(mat,0,3,3,4))[0]);
+	}
+
+	@Override
+	public Transformation createAffineTransformationByMatrixAndVector( Number[][] mat, Number[] vec ) {
+		return new AffineTransformationMatrixExpression(mat,vec);
+	}
+
+	@Override
 	public Transformation createRotationByVector( Number[] rvec ) {
 		return new AffineTransformationMatrixExpression(rotationVector2RotationMatrix(rvec),mathEngine.vector0(3));
 	}

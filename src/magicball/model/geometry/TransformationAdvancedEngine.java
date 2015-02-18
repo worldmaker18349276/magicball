@@ -19,6 +19,8 @@ public interface TransformationAdvancedEngine extends
 	public Transformation createTransformationByFunction( Function<Number[],Number[]> func );
 
 	public Transformation createIdentityTransformation();
+	public Transformation createAffineTransformationByAugmentedMatrix( Number[][] mat );
+	public Transformation createAffineTransformationByMatrixAndVector( Number[][] mat, Number[] vec );
 	public Transformation createLinearTransformationByMatrix( Number[][] mat );
 	public Transformation createRotationByVector( Number[] rvec );
 	public Transformation createReflectionByVector( Number[] fvec );
