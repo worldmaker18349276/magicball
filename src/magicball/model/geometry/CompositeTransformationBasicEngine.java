@@ -4,7 +4,7 @@ import magicball.model.math.Function;
 import magicball.model.*;
 
 
-public class CompositeTransformationBasicEngine extends CompositeEngine<Transformation> implements TransformationBasicEngine
+public class CompositeTransformationBasicEngine extends CompositeEngine<Transformation> implements TransformationAdvancedEngine
 {
 	protected java.util.List<Engine<? extends Transformation>> engines;
 

@@ -3,7 +3,7 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public class CompositeFunctionBasicEngine extends CompositeEngine<Function> implements FunctionBasicEngine
+public class CompositeFunctionBasicEngine extends CompositeEngine<Function> implements FunctionAdvancedEngine
 {
 	protected java.util.List<Engine<? extends Function>> engines;
 

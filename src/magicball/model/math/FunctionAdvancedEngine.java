@@ -1,7 +1,7 @@
 package magicball.model.math;
 
 
-public interface FunctionBasicEngine extends
+public interface FunctionAdvancedEngine extends
 		FunctionBasicCreator,
 		FunctionBasicAttribute,
 		FunctionBasicOperator,
@@ -9,7 +9,7 @@ public interface FunctionBasicEngine extends
 		BooleanFunctionOperator,
 		BooleanFunctionPredicate
 {
-	public FunctionBasicEngine clone();
+	public FunctionAdvancedEngine clone();
 
 
 	// creater

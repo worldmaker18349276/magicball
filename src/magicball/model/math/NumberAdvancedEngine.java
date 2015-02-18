@@ -1,9 +1,9 @@
 package magicball.model.math;
 
 
-public interface NumberBasicEngine extends ScalarEngine, VectorEngine, MatrixEngine
+public interface NumberAdvancedEngine extends ScalarEngine, VectorEngine, MatrixEngine
 {
-	public NumberBasicEngine clone();
+	public NumberAdvancedEngine clone();
 
 
 	// scalar ( Number )

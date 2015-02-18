@@ -3,7 +3,7 @@ package magicball.model.geometry;
 import magicball.model.math.Function;
 
 
-public interface TransformationBasicEngine extends
+public interface TransformationAdvancedEngine extends
 		TransformationBasicCreator,
 		TransformationBasicAttribute,
 		TransformationBasicOperator,
@@ -12,7 +12,7 @@ public interface TransformationBasicEngine extends
 		AffineTransformationAttribute,
 		AffineTransformationPredicate
 {
-	public TransformationBasicEngine clone();
+	public TransformationAdvancedEngine clone();
 
 
 	// creater

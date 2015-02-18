@@ -5,12 +5,12 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class AffineTransformationEngineForMatrix implements TransformationBasicEngine, Engine<AffineTransformationMatrixExpression>
+public class AffineTransformationEngineForMatrix implements TransformationAdvancedEngine, Engine<AffineTransformationMatrixExpression>
 {
-	protected NumberBasicEngine mathEngine;
-	protected FunctionBasicEngine funcEngine;
+	protected NumberAdvancedEngine mathEngine;
+	protected FunctionAdvancedEngine funcEngine;
 
-	public AffineTransformationEngineForMatrix( NumberBasicEngine mathEng, FunctionBasicEngine funcEng ) {
+	public AffineTransformationEngineForMatrix( NumberAdvancedEngine mathEng, FunctionAdvancedEngine funcEng ) {
 		this.mathEngine = mathEng;
 		this.funcEngine = funcEng;
 	}

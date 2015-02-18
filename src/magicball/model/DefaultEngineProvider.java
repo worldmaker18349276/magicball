@@ -29,7 +29,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 		this.n = n;
 	}
 
-	public NumberBasicEngine getNumberEngine() {
+	public NumberAdvancedEngine getNumberEngine() {
 		if ( this.numberEng == null ) {
 			this.numberEng = new CompositeNumberBasicEngine();
 			this.numberEng.add(new NumberEngineForNative(this.epsilon));
@@ -37,7 +37,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 		return this.numberEng;
 	}
 
-	public FunctionBasicEngine getFunctionEngine() {
+	public FunctionAdvancedEngine getFunctionEngine() {
 		if ( this.functionEng == null ) {
 			this.functionEng = new CompositeFunctionBasicEngine();
 			this.functionEng.add(new FunctionEngineForLambdaWithSampleAlgorithm<Number[]>(createSkyGrid()));
@@ -47,7 +47,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 
 	protected java.util.Set<Number[]> createSkyGrid() {
 		java.util.Set<Number[]> sam = new java.util.HashSet<Number[]>();
-		NumberBasicEngine math = getNumberEngine();
+		NumberAdvancedEngine math = getNumberEngine();
 		double d = 2*a / n;
 		for ( double x=-a; x<a; x=x+d )
 			for ( double y=-a; y<a; y=y+d )
@@ -56,7 +56,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 		return sam;
 	}
 
-	public TransformationBasicEngine getTransformationEngine() {
+	public TransformationAdvancedEngine getTransformationEngine() {
 		if ( this.transformationEng == null ) {
 			this.transformationEng = new CompositeTransformationBasicEngine();
 			this.transformationEng.add(new AffineTransformationEngineForMatrix(this)); // numberEng, functionEng
