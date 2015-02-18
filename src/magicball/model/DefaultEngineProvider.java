@@ -19,8 +19,8 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	protected CompositeFunctionBasicEngine functionEng;
 	protected CompositeRegionBasicEngine regionEng;
 	protected CompositeTransformationBasicEngine transformationEng;
-	protected MotionBasicEngine MotionEng;
-	protected SolidBasicEngine solidEng;
+	protected CompositeMotionBasicEngine motionEng;
+	protected CompositeSolidBasicEngine solidEng;
 
 
 	public DefaultEngineProvider( double eps, double a, int n ) {
@@ -73,14 +73,18 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	}
 
 	public MotionBasicEngine getMotionEngine() {
-		if ( this.MotionEng == null )
-			this.MotionEng = new SimpleMotionEngineForTrans(this); // numberEng, transformationEng
-		return this.MotionEng;
+		if ( this.motionEng == null ) {
+			this.motionEng = new CompositeMotionBasicEngine();
+			this.motionEng.add(new SimpleMotionEngineForTrans(this)); // numberEng, transformationEng
+		}
+		return this.motionEng;
 	}
 
 	public SolidBasicEngine getSolidEngine() {
-		if ( this.solidEng == null )
-			this.solidEng = new BasicSolidEngineForRegion(this); // regionEng
+		if ( this.solidEng == null ) {
+			this.solidEng = new CompositeSolidBasicEngine();
+			this.solidEng.add(new BasicSolidEngineForRegion(this)); // regionEng
+		}
 		return this.solidEng;
 	}
 }
