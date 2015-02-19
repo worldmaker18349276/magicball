@@ -3,31 +3,8 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public class CompositeFunctionAdvancedEngine extends CompositeEngine<Function> implements FunctionAdvancedEngine
+public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Function> implements FunctionAdvancedEngine
 {
-	protected java.util.List<Engine<? extends Function>> engines;
-
-	public CompositeFunctionAdvancedEngine() {
-		engines = new java.util.LinkedList<>();
-	}
-
-	public CompositeFunctionAdvancedEngine( java.util.List<Engine<? extends Function>> eng ) {
-		engines = eng;
-	}
-
-	public CompositeFunctionAdvancedEngine clone() {
-		return new CompositeFunctionAdvancedEngine(new java.util.LinkedList<>(engines));
-	}
-
-	public void add( Engine<? extends Function> engine ) {
-		engines.add(engine);
-	}
-
-	public void add( int index, Engine<? extends Function> engine ) {
-		engines.add(index, engine);
-	}
-
-
 	// creater
 	public < I, O > Function<I,O> createFunctionByLambda( java.util.function.Function<I,O> lambda ) {
 		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicCreator ) {

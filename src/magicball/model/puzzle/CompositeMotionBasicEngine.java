@@ -4,31 +4,8 @@ import magicball.model.geometry.*;
 import magicball.model.*;
 
 
-public class CompositeMotionBasicEngine extends CompositeEngine<Motion> implements MotionBasicEngine
+public class CompositeMotionBasicEngine extends DefaultCompositeEngine<Motion> implements MotionBasicEngine
 {
-	protected java.util.List<Engine<? extends Motion>> engines;
-
-	public CompositeMotionBasicEngine() {
-		engines = new java.util.LinkedList<>();
-	}
-
-	public CompositeMotionBasicEngine( java.util.List<Engine<? extends Motion>> eng ) {
-		engines = eng;
-	}
-
-	public CompositeMotionBasicEngine clone() {
-		return new CompositeMotionBasicEngine(new java.util.LinkedList<>(engines));
-	}
-
-	public void add( Engine<? extends Motion> engine ) {
-		engines.add(engine);
-	}
-
-	public void add( int index, Engine<? extends Motion> engine ) {
-		engines.add(index, engine);
-	}
-
-
 	// creater
 	public Motion createSimpleMotionByTransformation( Transformation trans ) {
 		for ( Engine<? extends Motion> engine : engines ) if ( engine instanceof MotionBasicCreator ) {

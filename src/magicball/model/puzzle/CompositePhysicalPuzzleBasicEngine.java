@@ -4,31 +4,8 @@ import magicball.model.geometry.*;
 import magicball.model.*;
 
 
-public class CompositePhysicalPuzzleBasicEngine extends CompositeEngine<PhysicalPuzzle> implements PhysicalPuzzleBasicEngine
+public class CompositePhysicalPuzzleBasicEngine extends DefaultCompositeEngine<PhysicalPuzzle> implements PhysicalPuzzleBasicEngine
 {
-	protected java.util.List<Engine<? extends PhysicalPuzzle>> engines;
-
-	public CompositePhysicalPuzzleBasicEngine() {
-		engines = new java.util.LinkedList<>();
-	}
-
-	public CompositePhysicalPuzzleBasicEngine( java.util.List<Engine<? extends PhysicalPuzzle>> eng ) {
-		engines = eng;
-	}
-
-	public CompositePhysicalPuzzleBasicEngine clone() {
-		return new CompositePhysicalPuzzleBasicEngine(new java.util.LinkedList<>(engines));
-	}
-
-	public void add( Engine<? extends PhysicalPuzzle> engine ) {
-		engines.add(engine);
-	}
-
-	public void add( int index, Engine<? extends PhysicalPuzzle> engine ) {
-		engines.add(index, engine);
-	}
-
-
 	public void appliesBy( PhysicalPuzzle puzzle, Motion m ) throws IllegalOperationException {
 		for ( Engine<? extends PhysicalPuzzle> engine : engines ) if ( engine instanceof PhysicalPuzzleBasicOperator ) {
 

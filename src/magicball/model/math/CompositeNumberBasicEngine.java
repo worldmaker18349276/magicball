@@ -3,31 +3,8 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public class CompositeNumberBasicEngine extends CompositeEngine<Number> implements NumberBasicEngine
+public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> implements NumberBasicEngine
 {
-	protected java.util.List<Engine<? extends Number>> engines;
-
-	public CompositeNumberBasicEngine() {
-		engines = new java.util.LinkedList<>();
-	}
-
-	public CompositeNumberBasicEngine( java.util.List<Engine<? extends Number>> eng ) {
-		engines = eng;
-	}
-
-	public CompositeNumberBasicEngine clone() {
-		return new CompositeNumberBasicEngine(new java.util.LinkedList<>(engines));
-	}
-
-	public void add( Engine<? extends Number> engine ) {
-		engines.add(engine);
-	}
-
-	public void add( int index, Engine<? extends Number> engine ) {
-		engines.add(index, engine);
-	}
-
-
 	// scalar ( Number )
 	public Number number( double n ) {
 		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {

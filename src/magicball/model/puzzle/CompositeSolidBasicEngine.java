@@ -4,31 +4,8 @@ import magicball.model.geometry.*;
 import magicball.model.*;
 
 
-public class CompositeSolidBasicEngine extends CompositeEngine<Solid> implements SolidBasicEngine
+public class CompositeSolidBasicEngine extends DefaultCompositeEngine<Solid> implements SolidBasicEngine
 {
-	protected java.util.List<Engine<? extends Solid>> engines;
-
-	public CompositeSolidBasicEngine() {
-		engines = new java.util.LinkedList<>();
-	}
-
-	public CompositeSolidBasicEngine( java.util.List<Engine<? extends Solid>> eng ) {
-		engines = eng;
-	}
-
-	public CompositeSolidBasicEngine clone() {
-		return new CompositeSolidBasicEngine(new java.util.LinkedList<>(engines));
-	}
-
-	public void add( Engine<? extends Solid> engine ) {
-		engines.add(engine);
-	}
-
-	public void add( int index, Engine<? extends Solid> engine ) {
-		engines.add(index, engine);
-	}
-
-
 	// creater
 	public Solid createSolidByRegion( Region reg ) {
 		for ( Engine<? extends Solid> engine : engines ) if ( engine instanceof SolidBasicCreator ) {

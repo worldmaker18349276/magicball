@@ -4,31 +4,8 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class CompositeRegionBasicEngine extends CompositeEngine<Region> implements RegionBasicEngine
+public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> implements RegionBasicEngine
 {
-	protected java.util.List<Engine<? extends Region>> engines;
-
-	public CompositeRegionBasicEngine() {
-		engines = new java.util.LinkedList<>();
-	}
-
-	public CompositeRegionBasicEngine( java.util.List<Engine<? extends Region>> eng ) {
-		engines = eng;
-	}
-
-	public CompositeRegionBasicEngine clone() {
-		return new CompositeRegionBasicEngine(new java.util.LinkedList<>(engines));
-	}
-
-	public void add( Engine<? extends Region> engine ) {
-		engines.add(engine);
-	}
-
-	public void add( int index, Engine<? extends Region> engine ) {
-		engines.add(index, engine);
-	}
-
-
 	// creater
 	public Region createRegionByFunction( Function<Number[],Boolean> func ) {
 		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicCreator ) {
