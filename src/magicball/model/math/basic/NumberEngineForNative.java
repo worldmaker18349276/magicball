@@ -205,6 +205,14 @@ public class NumberEngineForNative implements NumberBasicEngine, Engine<Double>
 	}
 
 	@Override
+	public Number[] clone( Number[] v ) {
+		Number[] vec = new Number [ v.length ];
+		for ( int i=0; i<vec.length; i++ )
+			vec[i] = v[i];
+		return vec;
+	}
+
+	@Override
 	public Number[] subvector( Number[] v, int i1, int i2 ) {
 		Number[] v_ = new Number [ i2-i1 ];
 		for ( int i=i1; i<i2; i++ )
@@ -339,6 +347,14 @@ public class NumberEngineForNative implements NumberBasicEngine, Engine<Double>
 		Number[][] mat = matrix0(d,d);
 		for ( int i=0; i<mat.length; i++ )
 			mat[i][i] = number1();
+		return mat;
+	}
+
+	@Override
+	public Number[][] clone( Number[][] m ) {
+		Number[][] mat = new Number [ m.length ][];
+		for ( int i=0; i<mat.length; i++ )
+			mat[i] = clone(m[i]);
 		return mat;
 	}
 

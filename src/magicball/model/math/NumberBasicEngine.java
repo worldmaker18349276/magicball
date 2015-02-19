@@ -45,6 +45,7 @@ public interface NumberBasicEngine extends ScalarEngine, VectorEngine, MatrixEng
 	// vector ( Number[] )
 	public Number[] vector( double... ns );
 	public Number[] vector0( int d );
+	public Number[] clone( Number[] v );
 	public Number[] subvector( Number[] v, int i1, int i2 );
 	public Number[] augment( Number[] v1, Number[] v2 );
 	public double[] doubleValue( Number[] v );
@@ -65,6 +66,7 @@ public interface NumberBasicEngine extends ScalarEngine, VectorEngine, MatrixEng
 	public Number[][] matrix( double[][] ns );
 	public Number[][] matrix0( int d1, int d2 );
 	public Number[][] matrix1( int d );
+	public Number[][] clone( Number[][] m );
 	public Number[][] colVector( Number[] v );
 	public Number[][] rowVector( Number[] v );
 	public Number[][] submatrix( Number[][] m, int i1, int i2, int j1, int j2 );

@@ -9,6 +9,7 @@ public interface VectorEngine
 	// vector ( Number[] )
 	public Number[] vector( double... ns );
 	public Number[] vector0( int d );
+	public Number[] clone( Number[] v );
 	public Number[] subvector( Number[] v, int i1, int i2 );
 	public Number[] augment( Number[] v1, Number[] v2 );
 	public double[] doubleValue( Number[] v );

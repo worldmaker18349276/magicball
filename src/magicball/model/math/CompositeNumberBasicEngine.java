@@ -450,6 +450,19 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
+	public Number[] clone( Number[] v ) {
+		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+
+			try {
+				return ((VectorEngine)engine).clone(v);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
 	public double[] doubleValue( Number[] v ) {
 		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
 
@@ -668,6 +681,19 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 
 			try {
 				return ((MatrixEngine)engine).matrix1(d);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	public Number[][] clone( Number[][] m ) {
+		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+
+			try {
+				return ((MatrixEngine)engine).clone(m);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}

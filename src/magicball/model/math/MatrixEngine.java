@@ -10,6 +10,7 @@ public interface MatrixEngine
 	public Number[][] matrix( double[][] ns );
 	public Number[][] matrix0( int d1, int d2 );
 	public Number[][] matrix1( int d );
+	public Number[][] clone( Number[][] m );
 	public Number[][] colVector( Number[] v );
 	public Number[][] rowVector( Number[] v );
 	public Number[][] submatrix( Number[][] m, int i1, int i2, int j1, int j2 );

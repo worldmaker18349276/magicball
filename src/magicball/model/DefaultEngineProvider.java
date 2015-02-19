@@ -32,7 +32,9 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	public NumberBasicEngine getNumberEngine() {
 		if ( this.numberEng == null ) {
 			this.numberEng = new CompositeNumberBasicEngine();
-			this.numberEng.add(new NumberEngineForNative(this.epsilon));
+			this.numberEng.add(new ScalarEngineForDouble(this.epsilon));
+			this.numberEng.add(new DefaultVectorEngine(this.numberEng));
+			this.numberEng.add(new DefaultMatrixEngine(this.numberEng,this.numberEng));
 		}
 		return this.numberEng;
 	}
