@@ -1,58 +1,74 @@
 package magicball.model.geometry.affine;
 
+import io.netty.util.DefaultAttributeMap;
+
 import magicball.model.geometry.*;
 import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class AffineTransformationEngineForMatrix implements TransformationAdvancedEngine, Engine<AffineTransformationMatrixExpression>
+public class AffineTransformationEngineForMatrix extends DefaultAttributeMap implements TransformationAdvancedEngine, Engine<AffineTransformationMatrixExpression>
 {
-	protected NumberBasicEngine mathEngine;
-	protected FunctionAdvancedEngine funcEngine;
-
-	public AffineTransformationEngineForMatrix( NumberBasicEngine mathEng, FunctionAdvancedEngine funcEng ) {
-		this.mathEngine = mathEng;
-		this.funcEngine = funcEng;
+	public AffineTransformationEngineForMatrix() {
+		super();
 	}
 
-	public AffineTransformationEngineForMatrix( BasicEngineProvider provider ) {
-		this.mathEngine = provider.getNumberEngine();
-		this.funcEngine = provider.getFunctionEngine();
+	public AffineTransformationEngineForMatrix( NumberBasicEngine numEng, FunctionAdvancedEngine funcEng ) {
+		super();
+		setEngine(numEng);
+		setEngine(funcEng);
 	}
+
+	public void setEngine( NumberBasicEngine numEng ) {
+		attr(NumberBasicEngine.KEY).set(numEng);
+	}
+
+	public void setEngine( FunctionAdvancedEngine funcEng ) {
+		attr(FunctionAdvancedEngine.KEY).set(funcEng);
+	}
+
+	public NumberBasicEngine numEngine() {
+		return attr(NumberBasicEngine.KEY).get();
+	}
+
+	public FunctionAdvancedEngine funcEngine() {
+		return attr(FunctionAdvancedEngine.KEY).get();
+	}
+
 
 	protected Number[] rotationMatrix2RotationVector( Number[][] rmat ) {
-		Number one = mathEngine.number1();
-		Number two = mathEngine.number(2);
-		Number trace = mathEngine.trace(rmat);
-		Number cos = mathEngine.dividedBy(mathEngine.subtract(trace, one), two);
-		Number angle = mathEngine.acos(cos);
-		Number sin = mathEngine.sin(angle);
-		Number factor = mathEngine.dividedBy(angle, mathEngine.multiply(two, sin));
+		Number one = numEngine().number1();
+		Number two = numEngine().number(2);
+		Number trace = numEngine().trace(rmat);
+		Number cos = numEngine().dividedBy(numEngine().subtract(trace, one), two);
+		Number angle = numEngine().acos(cos);
+		Number sin = numEngine().sin(angle);
+		Number factor = numEngine().dividedBy(angle, numEngine().multiply(two, sin));
 		Number[] axis = new Number [ 3 ];
-		axis[0] = mathEngine.subtract(rmat[2][1],rmat[1][2]);
-		axis[1] = mathEngine.subtract(rmat[0][2],rmat[2][0]);
-		axis[2] = mathEngine.subtract(rmat[1][0],rmat[0][1]);
-		return mathEngine.multiply(axis, factor);
+		axis[0] = numEngine().subtract(rmat[2][1],rmat[1][2]);
+		axis[1] = numEngine().subtract(rmat[0][2],rmat[2][0]);
+		axis[2] = numEngine().subtract(rmat[1][0],rmat[0][1]);
+		return numEngine().multiply(axis, factor);
 	}
 
 	protected Number[][] rotationVector2RotationMatrix( Number[] rvec ) {
-		Number[] axis = mathEngine.normalize(rvec);
-		Number angle = mathEngine.norm(rvec);
-		Number cos = mathEngine.cos(angle);
-		Number sin = mathEngine.sin(angle);
-		Number versin = mathEngine.subtract(mathEngine.number1(), cos);
-		Number[] sins = mathEngine.multiply(axis,sin);
+		Number[] axis = numEngine().normalize(rvec);
+		Number angle = numEngine().norm(rvec);
+		Number cos = numEngine().cos(angle);
+		Number sin = numEngine().sin(angle);
+		Number versin = numEngine().subtract(numEngine().number1(), cos);
+		Number[] sins = numEngine().multiply(axis,sin);
 
 		Number[][] rmat = new Number [ 3 ][ 3 ];
-		rmat[0][0] =      mathEngine.add(mathEngine.multiply(axis[0],axis[0],versin), cos);
-		rmat[1][1] =      mathEngine.add(mathEngine.multiply(axis[1],axis[1],versin), cos);
-		rmat[2][2] =      mathEngine.add(mathEngine.multiply(axis[2],axis[2],versin), cos);
-		rmat[1][0] =      mathEngine.add(mathEngine.multiply(axis[0],axis[1],versin), sins[2]);
-		rmat[2][1] =      mathEngine.add(mathEngine.multiply(axis[1],axis[2],versin), sins[0]);
-		rmat[0][2] =      mathEngine.add(mathEngine.multiply(axis[2],axis[0],versin), sins[1]);
-		rmat[0][1] = mathEngine.subtract(mathEngine.multiply(axis[0],axis[1],versin), sins[2]);
-		rmat[1][2] = mathEngine.subtract(mathEngine.multiply(axis[1],axis[2],versin), sins[0]);
-		rmat[2][0] = mathEngine.subtract(mathEngine.multiply(axis[2],axis[0],versin), sins[1]);
+		rmat[0][0] =      numEngine().add(numEngine().multiply(axis[0],axis[0],versin), cos);
+		rmat[1][1] =      numEngine().add(numEngine().multiply(axis[1],axis[1],versin), cos);
+		rmat[2][2] =      numEngine().add(numEngine().multiply(axis[2],axis[2],versin), cos);
+		rmat[1][0] =      numEngine().add(numEngine().multiply(axis[0],axis[1],versin), sins[2]);
+		rmat[2][1] =      numEngine().add(numEngine().multiply(axis[1],axis[2],versin), sins[0]);
+		rmat[0][2] =      numEngine().add(numEngine().multiply(axis[2],axis[0],versin), sins[1]);
+		rmat[0][1] = numEngine().subtract(numEngine().multiply(axis[0],axis[1],versin), sins[2]);
+		rmat[1][2] = numEngine().subtract(numEngine().multiply(axis[1],axis[2],versin), sins[0]);
+		rmat[2][0] = numEngine().subtract(numEngine().multiply(axis[2],axis[0],versin), sins[1]);
 
 		return rmat;
 	}
@@ -66,8 +82,8 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public Transformation createAffineTransformationByAugmentedMatrix( Number[][] mat ) {
-		Number[][] m = mathEngine.submatrix(mat,0,3,0,3);
-		Number[][] v = mathEngine.transpose(mathEngine.submatrix(mat,0,3,3,4));
+		Number[][] m = numEngine().submatrix(mat,0,3,0,3);
+		Number[][] v = numEngine().transpose(numEngine().submatrix(mat,0,3,3,4));
 		return new AffineTransformationMatrixExpression(m,v[0]);
 	}
 
@@ -78,7 +94,7 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public Transformation createLinearTransformationByMatrix( Number[][] mat ) {
-		return new AffineTransformationMatrixExpression(mat,mathEngine.vector0(3));
+		return new AffineTransformationMatrixExpression(mat,numEngine().vector0(3));
 	}
 
 	@Override
@@ -88,25 +104,25 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public Transformation createReflectionByVector( Number[] fvec ) {
-		Number[] nvec = mathEngine.normalize(fvec);
-		Number[][] nn = mathEngine.matrixMultiply(mathEngine.colVector(nvec), mathEngine.rowVector(nvec));
-		Number[][] mat = mathEngine.subtract(mathEngine.matrix1(3), mathEngine.multiply(nn, mathEngine.number(2)));
+		Number[] nvec = numEngine().normalize(fvec);
+		Number[][] nn = numEngine().matrixMultiply(numEngine().colVector(nvec), numEngine().rowVector(nvec));
+		Number[][] mat = numEngine().subtract(numEngine().matrix1(3), numEngine().multiply(nn, numEngine().number(2)));
 		return createLinearTransformationByMatrix(mat);
 	}
 
 	@Override
 	public Transformation createTranslationByVector( Number[] sh ) {
-		return new AffineTransformationMatrixExpression(mathEngine.matrix1(3),sh);
+		return new AffineTransformationMatrixExpression(numEngine().matrix1(3),sh);
 	}
 
 	@Override
 	public Transformation createScalingByFactor( Number factor ) {
-		return createLinearTransformationByMatrix(mathEngine.multiply(mathEngine.matrix1(3),factor));
+		return createLinearTransformationByMatrix(numEngine().multiply(numEngine().matrix1(3),factor));
 	}
 
 	@Override
 	public Transformation createShearingByOffsets( Number a, Number b ) {
-		Number[][] mat = mathEngine.matrix1(3);
+		Number[][] mat = numEngine().matrix1(3);
 		mat[0][2] = a;
 		mat[1][2] = b;
 		return createLinearTransformationByMatrix(mat);
@@ -114,7 +130,7 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public Transformation createIdentityTransformation() {
-		return new AffineTransformationMatrixExpression(mathEngine.matrix1(3),mathEngine.vector0(3));
+		return new AffineTransformationMatrixExpression(numEngine().matrix1(3),numEngine().vector0(3));
 	}
 
 
@@ -141,8 +157,8 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 	public Function<Number[],Number[]> getTransformationFunction( Transformation trans ) {
 		Number[][] mat = getTransformationMatrix(trans);
 		Number[] vec = getTranslationVector(trans);
-		return this.funcEngine.createFunctionByLambda(
-			in -> mathEngine.add(mathEngine.matrixMultiply(mat,in),vec)
+		return funcEngine().createFunctionByLambda(
+			in -> numEngine().add(numEngine().matrixMultiply(mat,in),vec)
 		);
 	}
 
@@ -166,7 +182,7 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 	public Number[] applies( Transformation trans, Number[] point ) {
 		Number[][] mat = getTransformationMatrix(trans);
 		Number[] vec = getTranslationVector(trans);
-		return mathEngine.add(mathEngine.matrixMultiply(mat,point),vec);
+		return numEngine().add(numEngine().matrixMultiply(mat,point),vec);
 	}
 
 
@@ -176,8 +192,8 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 		Number[] vec1 = getTranslationVector(trans1);
 		Number[][] mat2 = getTransformationMatrix(trans2);
 		Number[] vec2 = getTranslationVector(trans2);
-		Number[][] mat = mathEngine.matrixMultiply(mat2,mat1);
-		Number[] vec = mathEngine.add(vec2,mathEngine.matrixMultiply(mat2,vec1));
+		Number[][] mat = numEngine().matrixMultiply(mat2,mat1);
+		Number[] vec = numEngine().add(vec2,numEngine().matrixMultiply(mat2,vec1));
 		return new AffineTransformationMatrixExpression(mat,vec);
 	}
 
@@ -199,8 +215,8 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public Transformation invert( Transformation trans ) {
-		Number[][] mat = mathEngine.invert33(getTransformationMatrix(trans));
-		Number[] vec = mathEngine.negate(mathEngine.matrixMultiply(mat,getTranslationVector(trans)));
+		Number[][] mat = numEngine().invert33(getTransformationMatrix(trans));
+		Number[] vec = numEngine().negate(numEngine().matrixMultiply(mat,getTranslationVector(trans)));
 		return new AffineTransformationMatrixExpression(mat,vec);
 	}
 
@@ -213,14 +229,14 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 			Number[][] rot = getTransformationMatrix(trans);
 			Number[] rvec = rotationMatrix2RotationVector(rot);
-			rot = rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
-			return new AffineTransformationMatrixExpression(rot,mathEngine.vector0(3));
+			rot = rotationVector2RotationMatrix(numEngine().dividedBy(rvec,divisor));
+			return new AffineTransformationMatrixExpression(rot,numEngine().vector0(3));
 
 		} else if ( isTranslation(trans) ) {
 
 			Number[] sh = getTranslationVector(trans);
-			sh = mathEngine.dividedBy(sh,divisor);
-			return new AffineTransformationMatrixExpression(mathEngine.matrix1(3),sh);
+			sh = numEngine().dividedBy(sh,divisor);
+			return new AffineTransformationMatrixExpression(numEngine().matrix1(3),sh);
 
 		} else if ( isRigid(trans) ) { // only for int divisor
 
@@ -229,15 +245,15 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 			Number[][] rot = getTransformationMatrix(trans);
 			Number[] sh = getTranslationVector(trans);
 			Number[] rvec = rotationMatrix2RotationVector(rot);
-			Number[][] rot_n = rotationVector2RotationMatrix(mathEngine.dividedBy(rvec,divisor));
+			Number[][] rot_n = rotationVector2RotationMatrix(numEngine().dividedBy(rvec,divisor));
 
-			Number[][] m = mathEngine.matrix1(3);
-			Number[][] rot_i = mathEngine.matrix1(3);
+			Number[][] m = numEngine().matrix1(3);
+			Number[][] rot_i = numEngine().matrix1(3);
 			for ( int i=1; i<n; i++ ) {
-				rot_i = mathEngine.matrixMultiply(rot_i,rot_n);
-				m = mathEngine.add(m,rot_i);
+				rot_i = numEngine().matrixMultiply(rot_i,rot_n);
+				m = numEngine().add(m,rot_i);
 			}
-			Number[] sh_n = mathEngine.matrixMultiply(mathEngine.invert33(m),sh);
+			Number[] sh_n = numEngine().matrixMultiply(numEngine().invert33(m),sh);
 
 			return new AffineTransformationMatrixExpression(rot_n,sh_n);
 
@@ -262,14 +278,14 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public boolean isLinear( Transformation trans ) {
-		return mathEngine.equals(getTranslationVector(trans),mathEngine.vector0(3));
+		return numEngine().equals(getTranslationVector(trans),numEngine().vector0(3));
 	}
 
 	@Override
 	public boolean isSimilar( Transformation trans ) {
 		if ( trans instanceof AffineTransformationMatrixExpression ) {
 			Number[][] mat = getTransformationMatrix(trans);
-			return mathEngine.equals(mathEngine.invert33(mat),mathEngine.transpose(mat));
+			return numEngine().equals(numEngine().invert33(mat),numEngine().transpose(mat));
 		} else
 			throw new UnsupportedAlgorithmException();
 	}
@@ -279,8 +295,8 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 		if ( trans instanceof AffineTransformationMatrixExpression ) {
 			if ( isSimilar(trans) ) {
 				Number[][] mat = getTransformationMatrix(trans);
-				Number det = mathEngine.determinant33(mat);
-				return mathEngine.equals(mathEngine.abs(det),mathEngine.number1());
+				Number det = numEngine().determinant33(mat);
+				return numEngine().equals(numEngine().abs(det),numEngine().number1());
 			} else
 				return false;
 		} else
@@ -292,8 +308,8 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 		if ( trans instanceof AffineTransformationMatrixExpression ) {
 			if ( isSimilar(trans) ) {
 				Number[][] mat = getTransformationMatrix(trans);
-				Number det = mathEngine.determinant33(mat);
-				return mathEngine.equals(det,mathEngine.number1());
+				Number det = numEngine().determinant33(mat);
+				return numEngine().equals(det,numEngine().number1());
 			} else
 				return false;
 		} else
@@ -302,19 +318,19 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 
 	@Override
 	public boolean isTranslation( Transformation trans ) {
-		return mathEngine.equals(getTransformationMatrix(trans),mathEngine.matrix1(3));
+		return numEngine().equals(getTransformationMatrix(trans),numEngine().matrix1(3));
 	}
 
 
 	@Override
 	public boolean isIdentity( Transformation trans ) {
-		return mathEngine.equals(getTransformationMatrix(trans),mathEngine.matrix1(3)) &&
-				mathEngine.equals(getTranslationVector(trans),mathEngine.vector0(3));
+		return numEngine().equals(getTransformationMatrix(trans),numEngine().matrix1(3)) &&
+				numEngine().equals(getTranslationVector(trans),numEngine().vector0(3));
 	}
 
 	@Override
 	public boolean equals( Transformation trans1, Transformation trans2 ) {
-		return mathEngine.equals(getTransformationMatrix(trans1),getTransformationMatrix(trans2)) &&
-				mathEngine.equals(getTranslationVector(trans1),getTranslationVector(trans2));
+		return numEngine().equals(getTransformationMatrix(trans1),getTransformationMatrix(trans2)) &&
+				numEngine().equals(getTranslationVector(trans1),getTranslationVector(trans2));
 	}
 }

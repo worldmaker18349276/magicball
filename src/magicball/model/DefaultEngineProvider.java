@@ -59,7 +59,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	public TransformationAdvancedEngine getTransformationEngine() {
 		if ( this.transformationEng == null ) {
 			this.transformationEng = new CompositeTransformationAdvancedEngine();
-			this.transformationEng.add(new AffineTransformationEngineForMatrix(this)); // numberEng, functionEng
+			this.transformationEng.add(new AffineTransformationEngineForMatrix(getNumberEngine(), getFunctionEngine()));
 		}
 		return this.transformationEng;
 	}
@@ -67,7 +67,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	public RegionBasicEngine getRegionEngine() {
 		if ( this.regionEng == null ) {
 			this.regionEng = new CompositeRegionBasicEngine();
-			this.regionEng.add(new RegionEngineForFunc(this)); // numberEng, functionEng, transformationEng, surfaceEng
+			this.regionEng.add(new RegionEngineForFunc(getFunctionEngine(), getTransformationEngine()));
 		}
 		return this.regionEng;
 	}
@@ -75,7 +75,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	public MotionBasicEngine getMotionEngine() {
 		if ( this.motionEng == null ) {
 			this.motionEng = new CompositeMotionBasicEngine();
-			this.motionEng.add(new SimpleMotionEngineForTrans(this)); // numberEng, transformationEng
+			this.motionEng.add(new SimpleMotionEngineForTrans(getNumberEngine(), getTransformationEngine()));
 		}
 		return this.motionEng;
 	}
@@ -83,7 +83,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	public SolidBasicEngine getSolidEngine() {
 		if ( this.solidEng == null ) {
 			this.solidEng = new CompositeSolidBasicEngine();
-			this.solidEng.add(new BasicSolidEngineForRegion(this)); // regionEng
+			this.solidEng.add(new BasicSolidEngineForRegion(getRegionEngine()));
 		}
 		return this.solidEng;
 	}

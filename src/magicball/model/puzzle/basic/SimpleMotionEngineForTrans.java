@@ -1,24 +1,39 @@
 package magicball.model.puzzle.basic;
 
+import io.netty.util.DefaultAttributeMap;
+
 import magicball.model.geometry.*;
 import magicball.model.puzzle.*;
 import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class SimpleMotionEngineForTrans implements MotionBasicEngine, Engine<SimpleMotionTransExpression>
+public class SimpleMotionEngineForTrans extends DefaultAttributeMap implements MotionBasicEngine, Engine<SimpleMotionTransExpression>
 {
-	protected TransformationAdvancedEngine transEngine;
-	protected NumberBasicEngine mathEngine;
-
-	public SimpleMotionEngineForTrans( NumberBasicEngine mathEng, TransformationAdvancedEngine transEng ) {
-		this.mathEngine = mathEng;
-		this.transEngine = transEng;
+	public SimpleMotionEngineForTrans() {
+		super();
 	}
 
-	public SimpleMotionEngineForTrans( BasicEngineProvider provider ) {
-		this.mathEngine = provider.getNumberEngine();
-		this.transEngine = provider.getTransformationEngine();
+	public SimpleMotionEngineForTrans( NumberBasicEngine numEng, TransformationAdvancedEngine transEng ) {
+		super();
+		setEngine(numEng);
+		setEngine(transEng);
+	}
+
+	public void setEngine( NumberBasicEngine numEng ) {
+		attr(NumberBasicEngine.KEY).set(numEng);
+	}
+
+	public void setEngine( TransformationAdvancedEngine transEng ) {
+		attr(TransformationAdvancedEngine.KEY).set(transEng);
+	}
+
+	public NumberBasicEngine numEngine() {
+		return attr(NumberBasicEngine.KEY).get();
+	}
+
+	public TransformationAdvancedEngine transEngine() {
+		return attr(TransformationAdvancedEngine.KEY).get();
 	}
 
 
@@ -46,7 +61,7 @@ public class SimpleMotionEngineForTrans implements MotionBasicEngine, Engine<Sim
 	@Override
 	public Transformation divideMotionIntoTransformation( Motion move, Number from, Number to ) {
 		if ( isSimpleMotion(move) )
-			return transEngine.dividedBy(getTransformation(move),mathEngine.subtract(to,from));
+			return transEngine().dividedBy(getTransformation(move),numEngine().subtract(to,from));
 		else
 			throw new UnsupportedAlgorithmException();
 	}
@@ -56,9 +71,9 @@ public class SimpleMotionEngineForTrans implements MotionBasicEngine, Engine<Sim
 		java.util.List<Transformation> trans_list = new java.util.ArrayList<Transformation>();
 		Number from = (Integer) 0;
 		Number to = (Integer) 0;
-		Number d = mathEngine.dividedBy(mathEngine.number1(),mathEngine.number(divisor));
+		Number d = numEngine().dividedBy(numEngine().number1(),numEngine().number(divisor));
 		for ( int i=0; i<=divisor; i++ ) {
-			to = mathEngine.add(from,d);
+			to = numEngine().add(from,d);
 			trans_list.add(divideMotionIntoTransformation(move,from,to));
 			from = to;
 		}
@@ -71,7 +86,7 @@ public class SimpleMotionEngineForTrans implements MotionBasicEngine, Engine<Sim
 		Number from = (Integer) 0;
 		Number to = (Integer) 0;
 		for ( Number d : intervals ) {
-			to = mathEngine.add(from,d);
+			to = numEngine().add(from,d);
 			trans_list.add(divideMotionIntoTransformation(move,from,to));
 			from = to;
 		}

@@ -1,5 +1,7 @@
 package magicball.model.geometry;
 
+import io.netty.util.AttributeKey;
+
 import magicball.model.math.*;
 
 
@@ -9,6 +11,8 @@ public interface RegionBasicEngine extends
 		RegionBasicOperator,
 		RegionBasicPredicate
 {
+	public static AttributeKey<RegionBasicEngine> KEY = AttributeKey.<RegionBasicEngine>valueOf("RegionBasicEngine");
+
 	// creater
 	public Region createRegionByFunction( Function<Number[],Boolean> func );
 

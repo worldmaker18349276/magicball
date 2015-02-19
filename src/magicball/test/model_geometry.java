@@ -331,7 +331,7 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
-					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,funcEngine,transEngine);
+					RegionBasicEngine regEngine = new RegionEngineForFunc(funcEngine,transEngine);
 
 					Region reg = regEngine.createRegionByFunction(funcEngine.createFunctionByLambda(
 						( v ) -> (v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue() > 0)
@@ -352,7 +352,7 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
-					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,funcEngine,transEngine);
+					RegionBasicEngine regEngine = new RegionEngineForFunc(funcEngine,transEngine);
 
 					Region reg1 = regEngine.createUniversalRegion();
 					System.out.println("reg1 = universe()");
@@ -378,7 +378,7 @@ public class model_geometry
 					NumberBasicEngine mathEngine = new NumberEngineForNative(1E-6);
 					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
 					TransformationAdvancedEngine transEngine = new AffineTransformationEngineForMatrix(mathEngine,funcEngine);
-					RegionBasicEngine regEngine = new RegionEngineForFunc(mathEngine,funcEngine,transEngine);
+					RegionBasicEngine regEngine = new RegionEngineForFunc(funcEngine,transEngine);
 
 					Region reg1 = regEngine.createRegionByFunction(funcEngine.createFunctionByLambda(
 						( v ) -> (v[0].doubleValue()*2 + v[1].doubleValue()*5 - v[2].doubleValue() > 0)
