@@ -1,8 +1,11 @@
 package magicball.model.math;
 
+import io.netty.util.AttributeKey;
+
 
 public interface VectorEngine
 {
+	public static AttributeKey<VectorEngine> KEY = AttributeKey.<VectorEngine>valueOf("VectorEngine");
 	// vector ( Number[] )
 	public Number[] vector( double... ns );
 	public Number[] vector0( int d );

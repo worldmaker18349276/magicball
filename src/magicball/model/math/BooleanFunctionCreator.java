@@ -1,8 +1,11 @@
 package magicball.model.math;
 
+import io.netty.util.AttributeKey;
+
 
 public interface BooleanFunctionCreator
 {
+	public static AttributeKey<BooleanFunctionCreator> KEY = AttributeKey.<BooleanFunctionCreator>valueOf("BooleanFunctionCreator");
 	// creater
 	public < I > Function<I,Boolean> createEqualToFunction( I in );
 

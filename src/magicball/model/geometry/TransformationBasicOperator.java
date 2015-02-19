@@ -1,10 +1,13 @@
 package magicball.model.geometry;
 
+import io.netty.util.AttributeKey;
+
 import magicball.model.math.Function;
 
 
 public interface TransformationBasicOperator
 {
+	public static AttributeKey<TransformationBasicOperator> KEY = AttributeKey.<TransformationBasicOperator>valueOf("TransformationBasicOperator");
 	// operator
 	public Transformation compose( Transformation... trans );
 	public Transformation pow( Transformation trans, int exp );
