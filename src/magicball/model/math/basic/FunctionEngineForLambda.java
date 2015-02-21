@@ -35,10 +35,6 @@ public class FunctionEngineForLambda implements FunctionAdvancedEngine, Engine<F
 		return createFunctionByLambda(lambda);
 	}
 
-	protected < I1, I2, O > Function<I1,Function<I2,O>> function( java.util.function.BiFunction<I1,I2,O> lambda ) {
-		return createFunctionByLambda(lambda);
-	}
-
 	@Override
 	public < I > Function<I,I> createIdentityFunction() {
 		return function(i->i);

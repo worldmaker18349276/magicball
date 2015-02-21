@@ -42,7 +42,12 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	public FunctionAdvancedEngine getFunctionEngine() {
 		if ( this.functionEng == null ) {
 			this.functionEng = new CompositeFunctionAdvancedEngine();
-			this.functionEng.add(new FunctionEngineForLambdaWithSampleAlgorithm<Number[]>(createSkyGrid()));
+			this.functionEng.add(new FunctionBasicCreatorForLambda());
+			this.functionEng.add(new BooleanFunctionOperatorForLambda(this.functionEng));
+			this.functionEng.add(new FunctionBasicAttributeForLambda());
+			this.functionEng.add(new FunctionBasicOperatorForLambda(this.functionEng));
+			this.functionEng.add(new FunctionBasicPredicateWithSampleAlgorithm<Number[]>(createSkyGrid(),this.functionEng));
+			this.functionEng.add(new DefaultBooleanFunctionPredicate(this.functionEng,this.functionEng));
 		}
 		return this.functionEng;
 	}

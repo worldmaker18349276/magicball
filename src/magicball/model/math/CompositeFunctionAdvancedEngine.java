@@ -58,19 +58,6 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Function<Boolean,Boolean> createNotFunction() {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionCreator ) {
-
-			try {
-				return ((BooleanFunctionCreator)engine).createNotFunction();
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
 
 	// attribute
 	public < I, O > O applies( Function<I,O> func, I in ) {
