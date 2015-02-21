@@ -11,4 +11,5 @@ public interface FunctionBasicCreator
 	public < I, O > Function<I,O> createConstantFunction( O c );
 	
 	public < I, O > Function<I,O> createFunctionByLambda( java.util.function.Function<I,O> lambda );
+	public < I, O > Function<I,O> createFunctionByDescription( String syntax, String description );
 }

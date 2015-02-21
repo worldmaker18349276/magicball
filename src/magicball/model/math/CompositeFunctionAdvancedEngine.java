@@ -19,6 +19,19 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 		throw new UnsupportedAlgorithmException();
 	}
 
+	public < I, O > Function<I,O> createFunctionByDescription( String syntax, String description ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicCreator ) {
+
+			try {
+				return ((FunctionBasicCreator)engine).<I,O>createFunctionByDescription(syntax,description);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
 	public < I > Function<I,I> createIdentityFunction() {
 		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicCreator ) {
 
@@ -45,76 +58,11 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I > Function<I,Boolean> createEqualToFunction( I in ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionCreator ) {
-
-			try {
-				return ((BooleanFunctionCreator)engine).<I>createEqualToFunction(in);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
 	public Function<Boolean,Boolean> createNotFunction() {
 		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionCreator ) {
 
 			try {
 				return ((BooleanFunctionCreator)engine).createNotFunction();
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public Function<Boolean,Function<Boolean,Boolean>> createNotToFunction() {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionCreator ) {
-
-			try {
-				return ((BooleanFunctionCreator)engine).createNotToFunction();
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public Function<Boolean,Function<Boolean,Boolean>> createAndFunction() {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionCreator ) {
-
-			try {
-				return ((BooleanFunctionCreator)engine).createAndFunction();
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public Function<Boolean,Function<Boolean,Boolean>> createOrFunction() {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionCreator ) {
-
-			try {
-				return ((BooleanFunctionCreator)engine).createOrFunction();
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public Function<Boolean,Function<Boolean,Boolean>> createXorFunction() {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionCreator ) {
-
-			try {
-				return ((BooleanFunctionCreator)engine).createXorFunction();
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -130,19 +78,6 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 
 			try {
 				return ((FunctionBasicAttribute)engine).<I,O>applies(func, in);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public < I1, I2, O > O applies( Function<I1,Function<I2,O>> func, I1 in1, I2 in2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicAttribute ) {
-
-			try {
-				return ((FunctionBasicAttribute)engine).<I1,I2,O>applies(func, in1, in2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -179,32 +114,6 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I1, I2, O > Function<I2,Function<I1,O>> swap( Function<I1,Function<I2,O>> func ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicOperator ) {
-
-			try {
-				return ((FunctionBasicOperator)engine).<I1,I2,O>swap(func);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public < I, O > Function<I,O> duplicateInput( Function<I,Function<I,O>> func ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicOperator ) {
-
-			try {
-				return ((FunctionBasicOperator)engine).<I,O>duplicateInput(func);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-	
 	public < I > Function<I,Boolean> not( Function<I,Boolean> func ) {
 		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
 

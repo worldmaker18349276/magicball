@@ -26,12 +26,17 @@ public class FunctionEngineForLambda implements FunctionAdvancedEngine, Engine<F
 		return new FunctionLambdaExpression<I,O>(lambda);
 	}
 
+	@Override
+	public < I, O > Function<I,O> createFunctionByDescription( String syntax, String description ) {
+		throw new UnsupportedAlgorithmException();
+	}
+
 	protected < I, O > Function<I,O> function( java.util.function.Function<I,O> lambda ) {
 		return createFunctionByLambda(lambda);
 	}
 
 	protected < I1, I2, O > Function<I1,Function<I2,O>> function( java.util.function.BiFunction<I1,I2,O> lambda ) {
-		return createFunctionByLambda(in1 -> createFunctionByLambda(in2 -> lambda.apply(in1, in2)));
+		return createFunctionByLambda(lambda);
 	}
 
 	@Override
@@ -42,32 +47,6 @@ public class FunctionEngineForLambda implements FunctionAdvancedEngine, Engine<F
 	@Override
 	public < I, O > Function<I,O> createConstantFunction( O c ) {
 		return function(i->c);
-	}
-
-	@Override
-	public < I > Function<I,Boolean> createEqualToFunction( I in ) {
-		return function(i -> in.equals(i));
-	}
-
-	@Override
-	public Function<Boolean,Boolean> createNotFunction() {
-		return function(p -> !p);
-	}
-
-	public Function<Boolean,Function<Boolean,Boolean>> createNotToFunction() {
-		return function((p, q) -> p&&!q);
-	}
-
-	public Function<Boolean,Function<Boolean,Boolean>> createAndFunction() {
-		return function(Boolean::logicalAnd);
-	}
-
-	public Function<Boolean,Function<Boolean,Boolean>> createOrFunction() {
-		return function(Boolean::logicalOr);
-	}
-
-	public Function<Boolean,Function<Boolean,Boolean>> createXorFunction() {
-		return function(Boolean::logicalXor);
 	}
 
 
@@ -82,11 +61,6 @@ public class FunctionEngineForLambda implements FunctionAdvancedEngine, Engine<F
 		return lambda(func).apply(in);
 	}
 
-	@Override
-	public < I1, I2, O > O applies( Function<I1,Function<I2,O>> func, I1 in1, I2 in2 ) {
-		return applies(applies(func, in1), in2);
-	}
-
 
 	// operator
 	@Override
@@ -97,16 +71,6 @@ public class FunctionEngineForLambda implements FunctionAdvancedEngine, Engine<F
 	@Override
 	public < I, O > Function<O,I> invert( Function<I,O> func ) {
 		throw new UnsupportedAlgorithmException();
-	}
-
-	@Override
-	public < I1, I2, O > Function<I2,Function<I1,O>> swap( Function<I1,Function<I2,O>> func_ ) {
-		return function((in1, in2) -> applies(func_, in2, in1));
-	}
-
-	@Override
-	public < I, O > Function<I,O> duplicateInput( Function<I,Function<I,O>> func_ ) {
-		return function(in -> applies(func_, in, in));
 	}
 
 	@Override
