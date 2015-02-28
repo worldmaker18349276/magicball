@@ -1,9 +1,10 @@
 package magicball.model.puzzle;
 
 import magicball.model.geometry.*;
+import magicball.model.*;
 
 
-public interface SolidBasicPredicate
+public interface SolidBasicPredicate extends Engine<Solid>
 {
 	// predicate
 	public boolean noDuplicateOccupyIn( java.util.Set<Solid> sols );

@@ -6,7 +6,7 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class SimpleMotionEngineForTrans implements MotionBasicEngine, Engine<SimpleMotionTransExpression>
+public class SimpleMotionEngineForTrans implements MotionBasicEngine, SpecEngine<Motion,SimpleMotionTransExpression>
 {
 	private NumberBasicEngine numEngine;
 	private TransformationAdvancedEngine transEngine;

@@ -1,9 +1,9 @@
 package magicball.model.puzzle;
 
-import magicball.model.geometry.*;
+import magicball.model.*;
 
 
-public interface SimpleMotionPredicate
+public interface SimpleMotionPredicate extends Engine<Motion>
 {
 	// predicate
 	public boolean isSimpleMotion( Motion move );

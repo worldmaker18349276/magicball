@@ -1,9 +1,10 @@
 package magicball.model.puzzle;
 
 import magicball.model.geometry.*;
+import magicball.model.*;
 
 
-public interface SolidBasicOperator
+public interface SolidBasicOperator extends Engine<Solid>
 {
 	// operator
 	public void transformsBy( Solid sol, Transformation trans );

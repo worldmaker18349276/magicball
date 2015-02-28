@@ -6,7 +6,7 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class BasicSolidEngineForRegion implements SolidBasicEngine, Engine<BasicSolidRegionExpression>
+public class BasicSolidEngineForRegion implements SolidBasicEngine, SpecEngine<Solid,BasicSolidRegionExpression>
 {
 	private RegionBasicEngine regEngine;
 

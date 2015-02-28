@@ -1,9 +1,10 @@
 package magicball.model.puzzle;
 
 import magicball.model.geometry.*;
+import magicball.model.*;
 
 
-public interface MotionBasicOperator
+public interface MotionBasicOperator extends Engine<Motion>
 {
 	// operator
 	public Transformation divideMotionIntoTransformation( Motion move, Number from, Number to );
