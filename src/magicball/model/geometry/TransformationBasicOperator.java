@@ -1,9 +1,9 @@
 package magicball.model.geometry;
 
-import magicball.model.math.Function;
+import magicball.model.*;
 
 
-public interface TransformationBasicOperator
+public interface TransformationBasicOperator extends Engine<Transformation>
 {
 	// operator
 	public Transformation compose( Transformation... trans );

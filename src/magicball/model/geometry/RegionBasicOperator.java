@@ -1,9 +1,10 @@
 package magicball.model.geometry;
 
 import magicball.model.math.*;
+import magicball.model.*;
 
 
-public interface RegionBasicOperator
+public interface RegionBasicOperator extends Engine<Region>
 {
 	// operator
 	public Region intersect( Region... regs );

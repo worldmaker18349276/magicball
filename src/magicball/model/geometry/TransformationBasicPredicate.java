@@ -1,9 +1,9 @@
 package magicball.model.geometry;
 
-import magicball.model.math.Function;
+import magicball.model.*;
 
 
-public interface TransformationBasicPredicate
+public interface TransformationBasicPredicate extends Engine<Transformation>
 {
 	// predicate
 	public boolean isIdentity( Transformation trans );

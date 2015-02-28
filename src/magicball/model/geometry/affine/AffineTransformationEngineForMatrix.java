@@ -5,7 +5,7 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class AffineTransformationEngineForMatrix implements TransformationAdvancedEngine, Engine<AffineTransformationMatrixExpression>
+public class AffineTransformationEngineForMatrix implements TransformationAdvancedEngine, SpecEngine<Transformation,AffineTransformationMatrixExpression>
 {
 	private NumberBasicEngine numEngine;
 	private FunctionAdvancedEngine funcEngine;

@@ -8,7 +8,7 @@ import magicball.model.*;
 import java.util.Arrays;
 
 
-public class RegionEngineForFunc implements RegionBasicEngine, Engine<RegionFuncExpression>
+public class RegionEngineForFunc implements RegionBasicEngine, SpecEngine<Region,RegionFuncExpression>
 {
 	private FunctionAdvancedEngine funcEngine;
 	private TransformationAdvancedEngine transEngine;

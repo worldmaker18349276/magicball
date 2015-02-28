@@ -1,9 +1,10 @@
 package magicball.model.geometry;
 
 import magicball.model.math.*;
+import magicball.model.*;
 
 
-public interface RegionBasicPredicate
+public interface RegionBasicPredicate extends Engine<Region>
 {
 	// predicate
 	public boolean isEmpty( Region reg );

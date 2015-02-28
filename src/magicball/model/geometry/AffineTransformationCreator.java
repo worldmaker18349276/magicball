@@ -1,9 +1,9 @@
 package magicball.model.geometry;
 
-import magicball.model.math.Function;
+import magicball.model.*;
 
 
-public interface AffineTransformationCreator
+public interface AffineTransformationCreator extends Engine<Transformation>
 {
 	// creater
 	public Transformation createAffineTransformationByAugmentedMatrix( Number[][] mat );

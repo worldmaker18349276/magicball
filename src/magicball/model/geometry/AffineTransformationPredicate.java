@@ -1,9 +1,9 @@
 package magicball.model.geometry;
 
-import magicball.model.math.Function;
+import magicball.model.*;
 
 
-public interface AffineTransformationPredicate
+public interface AffineTransformationPredicate extends Engine<Transformation>
 {
 	// predicate
 	public boolean isAffine( Transformation trans ); // f(x) = Mx+b
