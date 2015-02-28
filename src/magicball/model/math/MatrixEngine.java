@@ -1,7 +1,9 @@
 package magicball.model.math;
 
+import magicball.model.*;
 
-public interface MatrixEngine
+
+public interface MatrixEngine extends Engine<Number>
 {
 	// matrix ( Number[][] )
 	public Number[][] matrix( double[][] ns );

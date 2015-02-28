@@ -7,7 +7,7 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class DefaultBooleanFunctionPredicate implements BooleanFunctionPredicate, Engine<Function>
+public class DefaultBooleanFunctionPredicate implements BooleanFunctionPredicate, SpecEnigne<Function,Function>
 {
 	private FunctionBasicPredicate funcPredicate;
 	private BooleanFunctionOperator predOperator;

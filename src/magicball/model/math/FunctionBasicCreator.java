@@ -1,7 +1,9 @@
 package magicball.model.math;
 
+import magicball.model.*;
 
-public interface FunctionBasicCreator
+
+public interface FunctionBasicCreator extends Engine<Function>
 {
 	// creater
 	public < I > Function<I,I> createIdentityFunction();

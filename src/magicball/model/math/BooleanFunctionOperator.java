@@ -1,7 +1,9 @@
 package magicball.model.math;
 
+import magicball.model.*;
 
-public interface BooleanFunctionOperator
+
+public interface BooleanFunctionOperator extends Engine<Function>
 {
 	// operator
 	public < I > Function<I,Boolean> not( Function<I,Boolean> func );

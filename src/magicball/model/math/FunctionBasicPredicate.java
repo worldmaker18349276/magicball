@@ -1,7 +1,9 @@
 package magicball.model.math;
 
+import magicball.model.*;
 
-public interface FunctionBasicPredicate
+
+public interface FunctionBasicPredicate extends Engine<Function>
 {
 	// predicate
 	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 );

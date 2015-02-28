@@ -1,7 +1,9 @@
 package magicball.model.math;
 
+import magicball.model.*;
 
-public interface BooleanFunctionPredicate
+
+public interface BooleanFunctionPredicate extends Engine<Function>
 {
 	// predicate
 	public < I > boolean isAlwaysTrue( Function<I,Boolean> func );

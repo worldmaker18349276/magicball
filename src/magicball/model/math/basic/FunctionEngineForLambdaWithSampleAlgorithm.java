@@ -5,6 +5,7 @@ import java.util.stream.*;
 import magicball.model.*;
 import magicball.model.math.*;
 
+
 public class FunctionEngineForLambdaWithSampleAlgorithm < E > extends FunctionEngineForLambda
 {
 	protected java.util.Set<E> samples;

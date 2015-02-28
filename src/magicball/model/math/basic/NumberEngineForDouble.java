@@ -4,7 +4,7 @@ import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class NumberEngineForDouble implements NumberBasicEngine, Engine<Double>
+public class NumberEngineForDouble implements NumberBasicEngine, SpecEngine<Number,Double>
 {
 	protected double epsilon;
 

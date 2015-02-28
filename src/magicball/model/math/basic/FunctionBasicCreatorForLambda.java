@@ -7,7 +7,7 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class FunctionBasicCreatorForLambda implements FunctionBasicCreator, Engine<FunctionLambdaExpression>
+public class FunctionBasicCreatorForLambda implements FunctionBasicCreator, SpecEnigne<Function,FunctionLambdaExpression>
 {
 	public FunctionBasicCreatorForLambda() {
 		super();

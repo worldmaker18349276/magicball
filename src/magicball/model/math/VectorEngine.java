@@ -1,7 +1,9 @@
 package magicball.model.math;
 
+import magicball.model.*;
 
-public interface VectorEngine
+
+public interface VectorEngine extends Engine<Number>
 {
 	// vector ( Number[] )
 	public Number[] vector( double... ns );

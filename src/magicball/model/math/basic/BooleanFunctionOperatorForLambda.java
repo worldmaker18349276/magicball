@@ -7,7 +7,7 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class BooleanFunctionOperatorForLambda implements BooleanFunctionOperator, Engine<FunctionLambdaExpression>
+public class BooleanFunctionOperatorForLambda implements BooleanFunctionOperator, SpecEnigne<Function,FunctionLambdaExpression>
 {
 	private FunctionBasicCreator funcCreator;
 

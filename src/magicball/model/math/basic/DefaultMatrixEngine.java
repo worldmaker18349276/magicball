@@ -4,7 +4,7 @@ import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class DefaultMatrixEngine implements MatrixEngine, Engine<Number>
+public class DefaultMatrixEngine implements MatrixEngine, SpecEngine<Number,Number>
 {
 	private ScalarEngine scaEngine;
 	private VectorEngine vecEngine;

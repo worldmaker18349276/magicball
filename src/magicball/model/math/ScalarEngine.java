@@ -1,7 +1,9 @@
 package magicball.model.math;
 
+import magicball.model.*;
 
-public interface ScalarEngine
+
+public interface ScalarEngine extends Engine<Number>
 {
 	// scalar ( Number )
 	public Number number( double n );
