@@ -1,21 +1,21 @@
 package magicball.model;
 
 
-public class DefaultCompositeEngine < E > implements CompositeEngine<E>
+public class DefaultCompositeEngine < O > implements CompositeEngine<O>
 {
-	protected java.util.List<Engine<? extends E>> engines;
+	protected java.util.List<Engine<O>> engines;
 
 	public DefaultCompositeEngine() {
 		engines = new java.util.LinkedList<>();
 	}
 
 	@Override
-	public void add( Engine<? extends E> engine ) {
+	public void add( Engine<O> engine ) {
 		engines.add(0, engine);
 	}
 
 	@Override
-	public Engine<? extends E> get( Class<? extends Engine<? extends E>> clazz ) {
+	public Engine<O> get( Class<? extends Engine<O>> clazz ) {
 		return engines.stream()
 			.filter(clazz::isInstance)
 			.findFirst()
@@ -24,7 +24,7 @@ public class DefaultCompositeEngine < E > implements CompositeEngine<E>
 
 
 	// public Object call( Method method, Object... args ) throws Throwable {
-	// 	for ( Engine<? extends E> engine : engines ) if ( method.getDeclaringClass().isInstance(engine) ) {
+	// 	for ( Engine<O> engine : engines ) if ( method.getDeclaringClass().isInstance(engine) ) {
 
 	// 		try {
 	// 			return method.invoke(engine, args);

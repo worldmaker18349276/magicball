@@ -31,23 +31,34 @@ public class DefaultEngineProvider extends BasicEngineProvider
 
 	public NumberBasicEngine getNumberEngine() {
 		if ( this.numberEng == null ) {
+			ScalarEngine scaEngine = new ScalarEngineForDouble(this.epsilon);
+			VectorEngine vecEngine = new DefaultVectorEngine(scaEngine);
+			MatrixEngine matEngine = new DefaultMatrixEngine(scaEngine,vecEngine);
+
 			this.numberEng = new CompositeNumberBasicEngine();
-			this.numberEng.add(new ScalarEngineForDouble(this.epsilon));
-			this.numberEng.add(new DefaultVectorEngine(this.numberEng));
-			this.numberEng.add(new DefaultMatrixEngine(this.numberEng,this.numberEng));
+			this.numberEng.add(scaEngine);
+			this.numberEng.add(vecEngine);
+			this.numberEng.add(matEngine);
 		}
 		return this.numberEng;
 	}
 
 	public FunctionAdvancedEngine getFunctionEngine() {
 		if ( this.functionEng == null ) {
+			FunctionBasicCreator funcCreator = new FunctionBasicCreatorForLambda();
+			BooleanFunctionOperator predOperator = new BooleanFunctionOperatorForLambda(funcCreator);
+			FunctionBasicAttribute funcAttribute = new FunctionBasicAttributeForLambda();
+			FunctionBasicOperator funcOperator = new FunctionBasicOperatorForLambda(funcCreator);
+			FunctionBasicPredicate funcPredicate = new FunctionBasicPredicateWithSampleAlgorithm<Number[]>(createSkyGrid(),funcAttribute);
+			BooleanFunctionPredicate predPredicate = new DefaultBooleanFunctionPredicate(funcPredicate,funcOperator);
+
 			this.functionEng = new CompositeFunctionAdvancedEngine();
-			this.functionEng.add(new FunctionBasicCreatorForLambda());
-			this.functionEng.add(new BooleanFunctionOperatorForLambda(this.functionEng));
-			this.functionEng.add(new FunctionBasicAttributeForLambda());
-			this.functionEng.add(new FunctionBasicOperatorForLambda(this.functionEng));
-			this.functionEng.add(new FunctionBasicPredicateWithSampleAlgorithm<Number[]>(createSkyGrid(),this.functionEng));
-			this.functionEng.add(new DefaultBooleanFunctionPredicate(this.functionEng,this.functionEng));
+			this.functionEng.add(funcCreator);
+			this.functionEng.add(predOperator);
+			this.functionEng.add(funcAttribute);
+			this.functionEng.add(funcOperator);
+			this.functionEng.add(funcPredicate);
+			this.functionEng.add(predPredicate);
 		}
 		return this.functionEng;
 	}

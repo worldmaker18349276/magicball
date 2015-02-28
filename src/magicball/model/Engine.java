@@ -1,14 +1,6 @@
 package magicball.model;
 
 
-public interface Engine < E >
+public interface Engine < O >
 {
-	@SuppressWarnings({"unchecked"})
-	default public E cast( Object func ) {
-		try {
-			return (E) func;
-		} catch ( ClassCastException e ) {
-			throw new UnsupportedExpressionException(func.getClass());
-		}
-	}
 }
