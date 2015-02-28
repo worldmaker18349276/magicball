@@ -1,7 +1,5 @@
 package magicball.model.puzzle;
 
-import io.netty.util.AttributeKey;
-
 import magicball.model.geometry.*;
 
 
@@ -11,8 +9,6 @@ public interface SolidBasicEngine extends
 		SolidBasicOperator,
 		SolidBasicPredicate
 {
-	public static AttributeKey<SolidBasicEngine> KEY = AttributeKey.<SolidBasicEngine>valueOf("SolidBasicEngine");
-
 	// creater
 	public Solid createSolidByRegion( Region reg );
 

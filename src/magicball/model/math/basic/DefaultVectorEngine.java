@@ -1,13 +1,13 @@
 package magicball.model.math.basic;
 
-import io.netty.util.DefaultAttributeMap;
-
 import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEngine, Engine<Number>
+public class DefaultVectorEngine implements VectorEngine, Engine<Number>
 {
+	private ScalarEngine scaEngine;
+
 	public DefaultVectorEngine() {
 		super();
 	}
@@ -18,11 +18,7 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 	}
 
 	public void setEngine( ScalarEngine scaEng ) {
-		attr(ScalarEngine.KEY).set(scaEng);
-	}
-
-	public ScalarEngine scaEngine() {
-		return attr(ScalarEngine.KEY).get();
+		scaEngine = scaEng;
 	}
 
 
@@ -31,7 +27,7 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 	public Number[] vector( double... ns ) {
 		Number[] vec = new Number [ ns.length ];
 		for ( int i=0; i<vec.length; i++ )
-			vec[i] = scaEngine().number(ns[i]);
+			vec[i] = scaEngine.number(ns[i]);
 		return vec;
 	}
 
@@ -39,7 +35,7 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 	public Number[] vector0( int d ) {
 		Number[] vec = new Number [ d ];
 		for ( int i=0; i<vec.length; i++ )
-			vec[i] = scaEngine().number0();
+			vec[i] = scaEngine.number0();
 		return vec;
 	}
 
@@ -73,7 +69,7 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 	public double[] doubleValue( Number[] v ) {
 		double[] result = new double [ v.length ];
 		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine().doubleValue(v[i]);
+			result[i] = scaEngine.doubleValue(v[i]);
 		return result;
 	}
 
@@ -82,7 +78,7 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 		if ( v1.length != v2.length )
 			return false;
 		for ( int i=0; i<v1.length; i++ )
-			if ( !scaEngine().equals(v1[i],v2[i]) )
+			if ( !scaEngine.equals(v1[i],v2[i]) )
 				return false;
 		return true;
 	}
@@ -91,7 +87,7 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 	public Number[] negate( Number[] v ) {
 		Number[] result = new Number [ v.length ];
 		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine().negate(v[i]);
+			result[i] = scaEngine.negate(v[i]);
 		return result;
 	}
 
@@ -101,7 +97,7 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 			throw new ArithmeticException("v1.length != v2.length");
 		Number[] result = new Number [ v1.length ];
 		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine().add(v1[i],v2[i]);
+			result[i] = scaEngine.add(v1[i],v2[i]);
 		return result;
 	}
 
@@ -119,7 +115,7 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 			throw new ArithmeticException("v1.length != v2.length");
 		Number[] result = new Number [ v1.length ];
 		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine().subtract(v1[i],v2[i]);
+			result[i] = scaEngine.subtract(v1[i],v2[i]);
 		return result;
 	}
 
@@ -127,7 +123,7 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 	public Number[] multiply( Number[] v1, Number n2 ) {
 		Number[] result = new Number [ v1.length ];
 		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine().multiply(v1[i],n2);
+			result[i] = scaEngine.multiply(v1[i],n2);
 		return result;
 	}
 
@@ -135,16 +131,16 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 	public Number[] dividedBy( Number[] v1, Number n2 ) {
 		Number[] result = new Number [ v1.length ];
 		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine().dividedBy(v1[i],n2);
+			result[i] = scaEngine.dividedBy(v1[i],n2);
 		return result;
 	}
 
 	@Override
 	public Number norm( Number[] v ) {
-		Number result = scaEngine().number0();
+		Number result = scaEngine.number0();
 		for ( int i=0; i<v.length; i++ )
-			result = scaEngine().add(result,scaEngine().pow(v[i],2));
-		return scaEngine().sqrt(result);
+			result = scaEngine.add(result,scaEngine.pow(v[i],2));
+		return scaEngine.sqrt(result);
 	}
 
 	@Override
@@ -154,18 +150,18 @@ public class DefaultVectorEngine extends DefaultAttributeMap implements VectorEn
 
 	@Override
 	public Number dotProduct( Number[] v1, Number[] v2 ) {
-		Number result = scaEngine().number0();
+		Number result = scaEngine.number0();
 			for ( int i=0; i<v1.length; i++ )
-				result = scaEngine().add(result,scaEngine().multiply(v1[i],v2[i]));
+				result = scaEngine.add(result,scaEngine.multiply(v1[i],v2[i]));
 			return result;
 	}
 
 	@Override
 	public Number[] crossProduct( Number[] v1, Number[] v2 ) {
 		Number[] result = new Number [ 3 ];
-		result[0] = scaEngine().subtract(scaEngine().multiply(v1[1],v2[2]),scaEngine().multiply(v1[2],v2[1]));
-		result[1] = scaEngine().subtract(scaEngine().multiply(v1[2],v2[0]),scaEngine().multiply(v1[0],v2[2]));
-		result[2] = scaEngine().subtract(scaEngine().multiply(v1[0],v2[1]),scaEngine().multiply(v1[1],v2[0]));
+		result[0] = scaEngine.subtract(scaEngine.multiply(v1[1],v2[2]),scaEngine.multiply(v1[2],v2[1]));
+		result[1] = scaEngine.subtract(scaEngine.multiply(v1[2],v2[0]),scaEngine.multiply(v1[0],v2[2]));
+		result[2] = scaEngine.subtract(scaEngine.multiply(v1[0],v2[1]),scaEngine.multiply(v1[1],v2[0]));
 		return result;
 	}
 }

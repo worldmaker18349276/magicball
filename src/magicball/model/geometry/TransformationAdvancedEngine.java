@@ -1,7 +1,5 @@
 package magicball.model.geometry;
 
-import io.netty.util.AttributeKey;
-
 import magicball.model.math.Function;
 
 
@@ -14,8 +12,6 @@ public interface TransformationAdvancedEngine extends
 		AffineTransformationAttribute,
 		AffineTransformationPredicate
 {
-	public static AttributeKey<TransformationAdvancedEngine> KEY = AttributeKey.<TransformationAdvancedEngine>valueOf("TransformationAdvancedEngine");
-
 	// creater
 	public Transformation createTransformationByFunction( Function<Number[],Number[]> func );
 

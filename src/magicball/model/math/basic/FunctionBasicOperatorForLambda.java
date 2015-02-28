@@ -2,15 +2,17 @@ package magicball.model.math.basic;
 
 import java.util.stream.*;
 
-import io.netty.util.DefaultAttributeMap;
-
 import magicball.model.*;
 import magicball.model.math.*;
 
 
 // base on lambda expression
-public class FunctionBasicOperatorForLambda extends DefaultAttributeMap implements FunctionBasicOperator, Engine<FunctionLambdaExpression>
+public class FunctionBasicOperatorForLambda implements FunctionBasicOperator, Engine<FunctionLambdaExpression>
 {
+	// dependent:
+	//  create function, bifunction
+	private FunctionBasicCreator funcCreator;
+
 	public FunctionBasicOperatorForLambda() {
 		super();
 	}
@@ -21,13 +23,7 @@ public class FunctionBasicOperatorForLambda extends DefaultAttributeMap implemen
 	}
 
 	public void setEngine( FunctionBasicCreator funcC ) {
-		attr(FunctionBasicCreator.KEY).set(funcC);
-	}
-
-	// dependent:
-	//  create function, bifunction
-	public FunctionBasicCreator funcCreator() {
-		return attr(FunctionBasicCreator.KEY).get();
+		funcCreator = funcC;
 	}
 
 
@@ -45,7 +41,7 @@ public class FunctionBasicOperatorForLambda extends DefaultAttributeMap implemen
 	}
 
 	private < I, O > Function<I,O> function( java.util.function.Function<I,O> lambda ) {
-		return funcCreator().createFunctionByLambda(lambda);
+		return funcCreator.createFunctionByLambda(lambda);
 	}
 
 	// accept:

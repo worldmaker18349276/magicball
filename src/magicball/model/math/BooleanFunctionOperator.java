@@ -1,11 +1,8 @@
 package magicball.model.math;
 
-import io.netty.util.AttributeKey;
-
 
 public interface BooleanFunctionOperator
 {
-	public static AttributeKey<BooleanFunctionOperator> KEY = AttributeKey.<BooleanFunctionOperator>valueOf("BooleanFunctionOperator");
 	// operator
 	public < I > Function<I,Boolean> not( Function<I,Boolean> func );
 	public < I > Function<I,Boolean> not( Function<I,Boolean> func1, Function<I,Boolean> func2 );

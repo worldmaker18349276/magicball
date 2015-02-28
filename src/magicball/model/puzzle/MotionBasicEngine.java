@@ -1,7 +1,5 @@
 package magicball.model.puzzle;
 
-import io.netty.util.AttributeKey;
-
 import magicball.model.geometry.*;
 
 
@@ -11,8 +9,6 @@ public interface MotionBasicEngine extends
 		MotionBasicOperator,
 		SimpleMotionPredicate
 {
-	public static AttributeKey<MotionBasicEngine> KEY = AttributeKey.<MotionBasicEngine>valueOf("MotionBasicEngine");
-
 	// creater
 	public Motion createSimpleMotionByTransformation( Transformation trans );
 	public RegionalMotion createRegionalMotion( Region reg, Motion move );

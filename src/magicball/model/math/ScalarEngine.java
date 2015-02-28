@@ -1,11 +1,8 @@
 package magicball.model.math;
 
-import io.netty.util.AttributeKey;
-
 
 public interface ScalarEngine
 {
-	public static AttributeKey<ScalarEngine> KEY = AttributeKey.<ScalarEngine>valueOf("ScalarEngine");
 	// scalar ( Number )
 	public Number number( double n );
 	public Number number0();

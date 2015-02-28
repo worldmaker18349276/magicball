@@ -1,12 +1,8 @@
 package magicball.model.math;
 
-import io.netty.util.AttributeKey;
-
 
 public interface NumberBasicEngine extends ScalarEngine, VectorEngine, MatrixEngine
 {
-	public static AttributeKey<NumberBasicEngine> KEY = AttributeKey.<NumberBasicEngine>valueOf("NumberBasicEngine");
-
 	// scalar ( Number )
 	public Number number( double n );
 	public Number number0();

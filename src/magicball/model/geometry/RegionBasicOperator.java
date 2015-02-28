@@ -1,13 +1,10 @@
 package magicball.model.geometry;
 
-import io.netty.util.AttributeKey;
-
 import magicball.model.math.*;
 
 
 public interface RegionBasicOperator
 {
-	public static AttributeKey<RegionBasicOperator> KEY = AttributeKey.<RegionBasicOperator>valueOf("RegionBasicOperator");
 	// operator
 	public Region intersect( Region... regs );
 	public Region union( Region... regs );

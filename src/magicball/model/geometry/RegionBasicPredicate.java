@@ -1,13 +1,10 @@
 package magicball.model.geometry;
 
-import io.netty.util.AttributeKey;
-
 import magicball.model.math.*;
 
 
 public interface RegionBasicPredicate
 {
-	public static AttributeKey<RegionBasicPredicate> KEY = AttributeKey.<RegionBasicPredicate>valueOf("RegionBasicPredicate");
 	// predicate
 	public boolean isEmpty( Region reg );
 	public boolean isUniversal( Region reg );

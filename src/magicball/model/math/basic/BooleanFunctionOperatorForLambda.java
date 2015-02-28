@@ -2,15 +2,15 @@ package magicball.model.math.basic;
 
 import java.util.stream.*;
 
-import io.netty.util.DefaultAttributeMap;
-
 import magicball.model.*;
 import magicball.model.math.*;
 
 
 // base on lambda expression
-public class BooleanFunctionOperatorForLambda extends DefaultAttributeMap implements BooleanFunctionOperator, Engine<FunctionLambdaExpression>
+public class BooleanFunctionOperatorForLambda implements BooleanFunctionOperator, Engine<FunctionLambdaExpression>
 {
+	private FunctionBasicCreator funcCreator;
+
 	public BooleanFunctionOperatorForLambda() {
 		super();
 	}
@@ -21,11 +21,7 @@ public class BooleanFunctionOperatorForLambda extends DefaultAttributeMap implem
 	}
 
 	public void setEngine( FunctionBasicCreator funcC ) {
-		attr(FunctionBasicCreator.KEY).set(funcC);
-	}
-
-	public FunctionBasicCreator funcCreator() {
-		return attr(FunctionBasicCreator.KEY).get();
+		funcCreator = funcC;
 	}
 
 
@@ -44,7 +40,7 @@ public class BooleanFunctionOperatorForLambda extends DefaultAttributeMap implem
 	}
 
 	private < I > Function<I,Boolean> function( java.util.function.Predicate<I> lambda ) {
-		return funcCreator().createFunctionByLambda(lambda::test);
+		return funcCreator.createFunctionByLambda(lambda::test);
 	}
 
 	@Override

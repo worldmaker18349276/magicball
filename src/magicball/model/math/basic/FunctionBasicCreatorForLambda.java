@@ -2,14 +2,12 @@ package magicball.model.math.basic;
 
 import java.util.stream.*;
 
-import io.netty.util.DefaultAttributeMap;
-
 import magicball.model.*;
 import magicball.model.math.*;
 
 
 // base on lambda expression
-public class FunctionBasicCreatorForLambda extends DefaultAttributeMap implements FunctionBasicCreator, Engine<FunctionLambdaExpression>
+public class FunctionBasicCreatorForLambda implements FunctionBasicCreator, Engine<FunctionLambdaExpression>
 {
 	public FunctionBasicCreatorForLambda() {
 		super();

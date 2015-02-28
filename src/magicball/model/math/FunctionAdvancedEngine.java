@@ -1,7 +1,5 @@
 package magicball.model.math;
 
-import io.netty.util.AttributeKey;
-
 
 public interface FunctionAdvancedEngine extends
 		FunctionBasicCreator,
@@ -11,8 +9,6 @@ public interface FunctionAdvancedEngine extends
 		BooleanFunctionOperator,
 		BooleanFunctionPredicate
 {
-	public static AttributeKey<FunctionAdvancedEngine> KEY = AttributeKey.<FunctionAdvancedEngine>valueOf("FunctionAdvancedEngine");
-
 	// creater
 	public < I, O > Function<I,O> createFunctionByLambda( java.util.function.Function<I,O> lambda );
 	public < I, O > Function<I,O> createFunctionByDescription( String syntax, String description );

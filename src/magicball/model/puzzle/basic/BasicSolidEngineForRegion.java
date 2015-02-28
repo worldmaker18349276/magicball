@@ -1,15 +1,15 @@
 package magicball.model.puzzle.basic;
 
-import io.netty.util.DefaultAttributeMap;
-
 import magicball.model.puzzle.*;
 import magicball.model.geometry.*;
 import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class BasicSolidEngineForRegion extends DefaultAttributeMap implements SolidBasicEngine, Engine<BasicSolidRegionExpression>
+public class BasicSolidEngineForRegion implements SolidBasicEngine, Engine<BasicSolidRegionExpression>
 {
+	private RegionBasicEngine regEngine;
+
 	public BasicSolidEngineForRegion() {
 		super();
 	}
@@ -20,11 +20,7 @@ public class BasicSolidEngineForRegion extends DefaultAttributeMap implements So
 	}
 
 	public void setEngine( RegionBasicEngine regEng ) {
-		attr(RegionBasicEngine.KEY).set(regEng);
-	}
-
-	public RegionBasicEngine regEngine() {
-		return attr(RegionBasicEngine.KEY).get();
+		regEngine = regEng;
 	}
 
 
@@ -47,14 +43,14 @@ public class BasicSolidEngineForRegion extends DefaultAttributeMap implements So
 	@Override
 	public void transformsBy( Solid sol_, Transformation trans ) {
 		BasicSolidRegionExpression sol = cast(sol_);
-		sol.setRegion(regEngine().transformsBy(sol.getRegion(),trans));
+		sol.setRegion(regEngine.transformsBy(sol.getRegion(),trans));
 	}
 
 	@Override
 	public java.util.Set<Solid> filtersBy( java.util.Set<Solid> sols, Region reg ) throws IllegalOperationException {
 		java.util.Set<Solid> selected_sols = new java.util.HashSet<Solid>();
 		for ( Solid sol : sols )
-			if ( regEngine().containsAll(reg,getOccupiedRegion(sol)) )
+			if ( regEngine.containsAll(reg,getOccupiedRegion(sol)) )
 				selected_sols.add(sol);
 		return selected_sols;
 	}
@@ -64,14 +60,14 @@ public class BasicSolidEngineForRegion extends DefaultAttributeMap implements So
 		for ( Solid sol1 : sols )
 			for ( Solid sol2 : sols )
 				if ( sol1 != sol2 )
-					if ( !regEngine().isEmpty(regEngine().intersect(getOccupiedRegion(sol1),getOccupiedRegion(sol2))) )
+					if ( !regEngine.isEmpty(regEngine.intersect(getOccupiedRegion(sol1),getOccupiedRegion(sol2))) )
 						return false;
 		return true;
 	}
 
 	@Override
 	public boolean areSameShape( Solid sol1, Solid sol2 ) {
-		return regEngine().equals(getOccupiedRegion(sol1),getOccupiedRegion(sol2));
+		return regEngine.equals(getOccupiedRegion(sol1),getOccupiedRegion(sol2));
 	}
 
 	@Override

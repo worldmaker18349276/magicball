@@ -2,15 +2,16 @@ package magicball.model.math.basic;
 
 import java.util.stream.*;
 
-import io.netty.util.DefaultAttributeMap;
-
 import magicball.model.*;
 import magicball.model.math.*;
 
 
 // base on lambda expression
-public class DefaultBooleanFunctionPredicate extends DefaultAttributeMap implements BooleanFunctionPredicate, Engine<Function>
+public class DefaultBooleanFunctionPredicate implements BooleanFunctionPredicate, Engine<Function>
 {
+	private FunctionBasicPredicate funcPredicate;
+	private BooleanFunctionOperator predOperator;
+
 	public DefaultBooleanFunctionPredicate() {
 		super();
 	}
@@ -22,35 +23,26 @@ public class DefaultBooleanFunctionPredicate extends DefaultAttributeMap impleme
 	}
 
 	public void setEngine( FunctionBasicPredicate funcPred ) {
-		attr(FunctionBasicPredicate.KEY).set(funcPred);
+		funcPredicate = funcPred;
 	}
 
 	public void setEngine( BooleanFunctionOperator predOp ) {
-		attr(BooleanFunctionOperator.KEY).set(predOp);
+		predOperator = predOp;
 	}
-
-	public FunctionBasicPredicate funcPredicate() {
-		return attr(FunctionBasicPredicate.KEY).get();
-	}
-
-	public BooleanFunctionOperator predOperator() {
-		return attr(BooleanFunctionOperator.KEY).get();
-	}
-
 
 	// operator
 	@Override
 	public < I > boolean isAlwaysTrue( Function<I,Boolean> func ) {
-		return funcPredicate().isAlwaysEqualTo(func, Boolean.TRUE);
+		return funcPredicate.isAlwaysEqualTo(func, Boolean.TRUE);
 	}
 
 	@Override
 	public < I > boolean isAlwaysFalse( Function<I,Boolean> func ) {
-		return funcPredicate().isAlwaysEqualTo(func, Boolean.FALSE);
+		return funcPredicate.isAlwaysEqualTo(func, Boolean.FALSE);
 	}
 
 	@Override
 	public < I > boolean implies( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
-		return isAlwaysFalse(predOperator().not(func1,func2));
+		return isAlwaysFalse(predOperator.not(func1,func2));
 	}
 }

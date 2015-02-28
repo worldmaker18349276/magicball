@@ -1,11 +1,8 @@
 package magicball.model.math;
 
-import io.netty.util.AttributeKey;
-
 
 public interface MatrixEngine
 {
-	public static AttributeKey<MatrixEngine> KEY = AttributeKey.<MatrixEngine>valueOf("MatrixEngine");
 	// matrix ( Number[][] )
 	public Number[][] matrix( double[][] ns );
 	public Number[][] matrix0( int d1, int d2 );
