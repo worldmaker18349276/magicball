@@ -50,7 +50,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 			FunctionBasicAttribute funcAttribute = new FunctionBasicAttributeForLambda();
 			FunctionBasicOperator funcOperator = new FunctionBasicOperatorForLambda(funcCreator);
 			FunctionBasicPredicate funcPredicate = new FunctionBasicPredicateWithSampleAlgorithm<Number[]>(createSkyGrid(),funcAttribute);
-			BooleanFunctionPredicate predPredicate = new DefaultBooleanFunctionPredicate(funcPredicate,funcOperator);
+			BooleanFunctionPredicate predPredicate = new DefaultBooleanFunctionPredicate(funcPredicate,predOperator);
 
 			this.functionEng = new CompositeFunctionAdvancedEngine();
 			this.functionEng.add(funcCreator);
