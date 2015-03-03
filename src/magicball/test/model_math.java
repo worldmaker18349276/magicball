@@ -15,7 +15,7 @@ public class model_math
 
 				System.out.println("TEST 1:");
 				{
-					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
 
 					Function<Integer[],Integer> f = funcEngine.createFunctionByLambda(
 						( v ) -> ( v[0]*2 + v[1]*5 - v[2] )
@@ -30,7 +30,7 @@ public class model_math
 
 				System.out.println("TEST 2:");
 				{
-					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
 
 					Function<Integer,Boolean> g = funcEngine.createFunctionByLambda(
 						( n ) -> ( n>3 )
@@ -47,7 +47,7 @@ public class model_math
 
 				System.out.println("TEST 3:");
 				{
-					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
 
 					Function<Integer[],Integer> f = funcEngine.createFunctionByLambda(
 						( v ) -> ( v[0]*2 + v[1]*5 - v[2] )
@@ -69,7 +69,7 @@ public class model_math
 
 				System.out.println("TEST 4:");
 				{
-					FunctionAdvancedEngine funcEngine = new FunctionEngineForLambda();
+					FunctionBasicEngine funcEngine = new FunctionEngineForLambda();
 
 					Function<Byte,Byte> s = funcEngine.<Byte>createIdentityFunction();
 

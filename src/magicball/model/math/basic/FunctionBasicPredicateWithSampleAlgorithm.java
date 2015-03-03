@@ -7,24 +7,24 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class FunctionBasicPredicateWithSampleAlgorithm < E > implements FunctionBasicPredicate, SpecEngine<Function,Function>
+public class FunctionPredicateWithSampleAlgorithm < E > implements FunctionPredicate, SpecEngine<Function,Function>
 {
 	protected java.util.Set<E> samples;
-	private FunctionBasicAttribute funcAttribute;
+	private FunctionBehavior funcAttribute;
 
-	public FunctionBasicPredicateWithSampleAlgorithm( java.util.Set<E> sam ) {
+	public FunctionPredicateWithSampleAlgorithm( java.util.Set<E> sam ) {
 		super();
 		this.samples = sam;
 	}
 
-	public FunctionBasicPredicateWithSampleAlgorithm( java.util.Set<E> sam, FunctionBasicAttribute funcAttr ) {
+	public FunctionPredicateWithSampleAlgorithm( java.util.Set<E> sam, FunctionBehavior funcAttr ) {
 		super();
 		this.samples = sam;
 		setEngine(funcAttr);
 	}
 
 
-	public void setEngine( FunctionBasicAttribute funcAttr ) {
+	public void setEngine( FunctionBehavior funcAttr ) {
 		funcAttribute = funcAttr;
 	}
 

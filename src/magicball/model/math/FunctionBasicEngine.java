@@ -1,11 +1,11 @@
 package magicball.model.math;
 
 
-public interface FunctionAdvancedEngine extends
-		FunctionBasicCreator,
-		FunctionBasicAttribute,
-		FunctionBasicOperator,
-		FunctionBasicPredicate,
+public interface FunctionBasicEngine extends
+		FunctionCreator,
+		FunctionBehavior,
+		FunctionOperator,
+		FunctionPredicate,
 		BooleanFunctionOperator,
 		BooleanFunctionPredicate
 {

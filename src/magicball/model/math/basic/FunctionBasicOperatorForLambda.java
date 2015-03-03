@@ -7,22 +7,22 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class FunctionBasicOperatorForLambda implements FunctionBasicOperator, SpecEngine<Function,FunctionLambdaExpression>
+public class FunctionOperatorForLambda implements FunctionOperator, SpecEngine<Function,FunctionLambdaExpression>
 {
 	// dependent:
 	//  create function, bifunction
-	private FunctionBasicCreator funcCreator;
+	private FunctionCreator funcCreator;
 
-	public FunctionBasicOperatorForLambda() {
+	public FunctionOperatorForLambda() {
 		super();
 	}
 
-	public FunctionBasicOperatorForLambda( FunctionBasicCreator funcC ) {
+	public FunctionOperatorForLambda( FunctionCreator funcC ) {
 		super();
 		setEngine(funcC);
 	}
 
-	public void setEngine( FunctionBasicCreator funcC ) {
+	public void setEngine( FunctionCreator funcC ) {
 		funcCreator = funcC;
 	}
 

@@ -3,14 +3,14 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Function> implements FunctionAdvancedEngine
+public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Function> implements FunctionBasicEngine
 {
 	// creater
 	public < I, O > Function<I,O> createFunctionByLambda( java.util.function.Function<I,O> lambda ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicCreator ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionCreator ) {
 
 			try {
-				return ((FunctionBasicCreator)engine).<I,O>createFunctionByLambda(lambda);
+				return ((FunctionCreator)engine).<I,O>createFunctionByLambda(lambda);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -20,10 +20,10 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 	}
 
 	public < I, O > Function<I,O> createFunctionByDescription( String syntax, String description ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicCreator ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionCreator ) {
 
 			try {
-				return ((FunctionBasicCreator)engine).<I,O>createFunctionByDescription(syntax,description);
+				return ((FunctionCreator)engine).<I,O>createFunctionByDescription(syntax,description);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -33,10 +33,10 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 	}
 
 	public < I > Function<I,I> createIdentityFunction() {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicCreator ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionCreator ) {
 
 			try {
-				return ((FunctionBasicCreator)engine).<I>createIdentityFunction();
+				return ((FunctionCreator)engine).<I>createIdentityFunction();
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -46,10 +46,10 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 	}
 
 	public < I, O > Function<I,O> createConstantFunction( O c ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicCreator ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionCreator ) {
 
 			try {
-				return ((FunctionBasicCreator)engine).<I,O>createConstantFunction(c);
+				return ((FunctionCreator)engine).<I,O>createConstantFunction(c);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -61,10 +61,10 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 
 	// attribute
 	public < I, O > O applies( Function<I,O> func, I in ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicAttribute ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBehavior ) {
 
 			try {
-				return ((FunctionBasicAttribute)engine).<I,O>applies(func, in);
+				return ((FunctionBehavior)engine).<I,O>applies(func, in);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -76,10 +76,10 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 
 	// operator
 	public < I, M, O > Function<I,O> compose( Function<I,M> func1, Function<M,O> func2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicOperator ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionOperator ) {
 
 			try {
-				return ((FunctionBasicOperator)engine).<I,M,O>compose(func1, func2);
+				return ((FunctionOperator)engine).<I,M,O>compose(func1, func2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -89,10 +89,10 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 	}
 
 	public < I, O > Function<O,I> invert( Function<I,O> func ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicOperator ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionOperator ) {
 
 			try {
-				return ((FunctionBasicOperator)engine).<I,O>invert(func);
+				return ((FunctionOperator)engine).<I,O>invert(func);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -211,10 +211,10 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 
 	// predicate
 	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicPredicate ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionPredicate ) {
 
 			try {
-				return ((FunctionBasicPredicate)engine).<I,O>equals(func1, func2);
+				return ((FunctionPredicate)engine).<I,O>equals(func1, func2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -224,10 +224,10 @@ public class CompositeFunctionAdvancedEngine extends DefaultCompositeEngine<Func
 	}
 
 	public < I, O > boolean isAlwaysEqualTo( Function<I,O> func, O value ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBasicPredicate ) {
+		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionPredicate ) {
 
 			try {
-				return ((FunctionBasicPredicate)engine).<I,O>isAlwaysEqualTo(func, value);
+				return ((FunctionPredicate)engine).<I,O>isAlwaysEqualTo(func, value);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}

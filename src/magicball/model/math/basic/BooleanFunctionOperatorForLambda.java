@@ -9,18 +9,18 @@ import magicball.model.math.*;
 // base on lambda expression
 public class BooleanFunctionOperatorForLambda implements BooleanFunctionOperator, SpecEngine<Function,FunctionLambdaExpression>
 {
-	private FunctionBasicCreator funcCreator;
+	private FunctionCreator funcCreator;
 
 	public BooleanFunctionOperatorForLambda() {
 		super();
 	}
 
-	public BooleanFunctionOperatorForLambda( FunctionBasicCreator funcC ) {
+	public BooleanFunctionOperatorForLambda( FunctionCreator funcC ) {
 		super();
 		setEngine(funcC);
 	}
 
-	public void setEngine( FunctionBasicCreator funcC ) {
+	public void setEngine( FunctionCreator funcC ) {
 		funcCreator = funcC;
 	}
 

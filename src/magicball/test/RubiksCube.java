@@ -14,7 +14,7 @@ public class RubiksCube
 
 			BasicEngineProvider provider = new DefaultEngineProvider(1E-6,1.5,100);
 			NumberBasicEngine math = provider.getNumberEngine();
-			FunctionAdvancedEngine funcEng = provider.getFunctionEngine();
+			FunctionBasicEngine funcEng = provider.getFunctionEngine();
 			RegionBasicEngine regEng = provider.getRegionEngine();
 			TransformationAdvancedEngine transEng = provider.getTransformationEngine();
 			MotionBasicEngine moveEng = provider.getMotionEngine();

@@ -8,13 +8,13 @@ import magicball.model.*;
 public class AffineTransformationEngineForMatrix implements TransformationAdvancedEngine, SpecEngine<Transformation,AffineTransformationMatrixExpression>
 {
 	private NumberBasicEngine numEngine;
-	private FunctionAdvancedEngine funcEngine;
+	private FunctionBasicEngine funcEngine;
 
 	public AffineTransformationEngineForMatrix() {
 		super();
 	}
 
-	public AffineTransformationEngineForMatrix( NumberBasicEngine numEng, FunctionAdvancedEngine funcEng ) {
+	public AffineTransformationEngineForMatrix( NumberBasicEngine numEng, FunctionBasicEngine funcEng ) {
 		super();
 		setEngine(numEng);
 		setEngine(funcEng);
@@ -24,7 +24,7 @@ public class AffineTransformationEngineForMatrix implements TransformationAdvanc
 		numEngine = numEng;
 	}
 
-	public void setEngine( FunctionAdvancedEngine funcEng ) {
+	public void setEngine( FunctionBasicEngine funcEng ) {
 		funcEngine = funcEng;
 	}
 

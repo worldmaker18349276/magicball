@@ -16,7 +16,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 	protected double a;
 	protected int n;
 	protected CompositeNumberBasicEngine numberEng;
-	protected CompositeFunctionAdvancedEngine functionEng;
+	protected CompositeFunctionBasicEngine functionEng;
 	protected CompositeRegionBasicEngine regionEng;
 	protected CompositeTransformationAdvancedEngine transformationEng;
 	protected CompositeMotionBasicEngine motionEng;
@@ -43,16 +43,16 @@ public class DefaultEngineProvider extends BasicEngineProvider
 		return this.numberEng;
 	}
 
-	public FunctionAdvancedEngine getFunctionEngine() {
+	public FunctionBasicEngine getFunctionEngine() {
 		if ( this.functionEng == null ) {
-			FunctionBasicCreator funcCreator = new FunctionBasicCreatorForLambda();
+			FunctionCreator funcCreator = new FunctionCreatorForLambda();
 			BooleanFunctionOperator predOperator = new BooleanFunctionOperatorForLambda(funcCreator);
-			FunctionBasicAttribute funcAttribute = new FunctionBasicAttributeForLambda();
-			FunctionBasicOperator funcOperator = new FunctionBasicOperatorForLambda(funcCreator);
-			FunctionBasicPredicate funcPredicate = new FunctionBasicPredicateWithSampleAlgorithm<Number[]>(createSkyGrid(),funcAttribute);
+			FunctionBehavior funcAttribute = new FunctionBehaviorForLambda();
+			FunctionOperator funcOperator = new FunctionOperatorForLambda(funcCreator);
+			FunctionPredicate funcPredicate = new FunctionPredicateWithSampleAlgorithm<Number[]>(createSkyGrid(),funcAttribute);
 			BooleanFunctionPredicate predPredicate = new DefaultBooleanFunctionPredicate(funcPredicate,predOperator);
 
-			this.functionEng = new CompositeFunctionAdvancedEngine();
+			this.functionEng = new CompositeFunctionBasicEngine();
 			this.functionEng.add(funcCreator);
 			this.functionEng.add(predOperator);
 			this.functionEng.add(funcAttribute);

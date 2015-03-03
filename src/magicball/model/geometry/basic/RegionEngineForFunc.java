@@ -10,20 +10,20 @@ import java.util.Arrays;
 
 public class RegionEngineForFunc implements RegionBasicEngine, SpecEngine<Region,RegionFuncExpression>
 {
-	private FunctionAdvancedEngine funcEngine;
+	private FunctionBasicEngine funcEngine;
 	private TransformationAdvancedEngine transEngine;
 
 	public RegionEngineForFunc() {
 		super();
 	}
 
-	public RegionEngineForFunc( FunctionAdvancedEngine funcEng, TransformationAdvancedEngine transEng ) {
+	public RegionEngineForFunc( FunctionBasicEngine funcEng, TransformationAdvancedEngine transEng ) {
 		super();
 		setEngine(funcEng);
 		setEngine(transEng);
 	}
 
-	public void setEngine( FunctionAdvancedEngine funcEng ) {
+	public void setEngine( FunctionBasicEngine funcEng ) {
 		funcEngine = funcEng;
 	}
 

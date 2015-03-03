@@ -7,9 +7,9 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class FunctionBasicAttributeForLambda implements FunctionBasicAttribute, SpecEngine<Function,FunctionLambdaExpression>
+public class FunctionBehaviorForLambda implements FunctionBehavior, SpecEngine<Function,FunctionLambdaExpression>
 {
-	public FunctionBasicAttributeForLambda() {
+	public FunctionBehaviorForLambda() {
 		super();
 	}
 
