@@ -1,0 +1,16 @@
+src/magicball/model/CompositeEngine.java
+src/magicball/model/DefaultCompositeEngine.java
+src/magicball/model/Engine.java
+src/magicball/model/SpecEngine.java
+src/magicball/model/UnsupportedAlgorithmException.java
+src/magicball/model/UnsupportedExpressionException.java
+src/magicball/model/math/BooleanFunctionOperator.java
+src/magicball/model/math/BooleanFunctionPredicate.java
+src/magicball/model/math/Func.java
+src/magicball/model/math/FunctionAdvancedCreator.java
+src/magicball/model/math/FunctionAttribute.java
+src/magicball/model/math/FunctionBasicEngine.java
+src/magicball/model/math/FunctionBehavior.java
+src/magicball/model/math/FunctionCreator.java
+src/magicball/model/math/FunctionOperator.java
+src/magicball/model/math/FunctionPredicate.java
