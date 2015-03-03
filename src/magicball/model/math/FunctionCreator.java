@@ -1,14 +1,14 @@
 package magicball.model.math;
 
+import java.util.function.Function;
+
 import magicball.model.*;
 
 
-public interface FunctionCreator extends Engine<Function>
+public interface FunctionCreator extends Engine<Func>
 {
-	// creater
-	public < I > Function<I,I> createIdentityFunction();
-	public < I, O > Function<I,O> createConstantFunction( O c );
+	public < I > Func<I,I> createIdentityFunction();
+	public < I, O > Func<I,O> createConstantFunction( O c );
 	
-	public < I, O > Function<I,O> createFunctionByLambda( java.util.function.Function<I,O> lambda );
-	public < I, O > Function<I,O> createFunctionByDescription( String syntax, String description );
+	public < I, O > Func<I,O> createFunctionByLambda( Function<I,O> lambda );
 }

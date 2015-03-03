@@ -3,10 +3,9 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public interface BooleanFunctionPredicate extends Engine<Function>
+public interface BooleanFunctionPredicate extends Engine<Func>
 {
-	// predicate
-	public < I > boolean isAlwaysTrue( Function<I,Boolean> func );
-	public < I > boolean isAlwaysFalse( Function<I,Boolean> func );
-	public < I > boolean implies( Function<I,Boolean> func1, Function<I,Boolean> func2 );
+	public < I > boolean isAlwaysTrue( Func<I,Boolean> func );
+	public < I > boolean isAlwaysFalse( Func<I,Boolean> func );
+	public < I > boolean implies( Func<I,Boolean> func1, Func<I,Boolean> func2 );
 }

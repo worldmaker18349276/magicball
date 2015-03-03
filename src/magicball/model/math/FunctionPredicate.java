@@ -3,9 +3,10 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public interface FunctionPredicate extends Engine<Function>
+public interface FunctionPredicate extends Engine<Func>
 {
-	// predicate
-	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 );
-	public < I, O > boolean isAlwaysEqualTo( Function<I,O> func, O value );
+	public < I, O > boolean equals( Func<I,O> func1, Func<I,O> func2 );
+	public < I, O > boolean isConstantFunction( Func<I,O> func );
+
+	public < I, O > boolean isAlwaysEqualTo( Func<I,O> func, O value );
 }

@@ -3,9 +3,8 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public interface FunctionOperator extends Engine<Function>
+public interface FunctionOperator extends Engine<Func>
 {
-	// operator
-	public < I, M, O > Function<I,O> compose( Function<I,M> func1, Function<M,O> func2 );
-	public < I, O > Function<O,I> invert( Function<I,O> func );
+	public < I, M, O > Func<I,O> compose( Func<I,M> func1, Func<M,O> func2 );
+	public < I, O > Func<O,I> invert( Func<I,O> func );
 }

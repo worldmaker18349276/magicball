@@ -3,18 +3,17 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public interface BooleanFunctionOperator extends Engine<Function>
+public interface BooleanFunctionOperator extends Engine<Func>
 {
-	// operator
-	public < I > Function<I,Boolean> not( Function<I,Boolean> func );
-	public < I > Function<I,Boolean> not( Function<I,Boolean> func1, Function<I,Boolean> func2 );
+	public < I > Func<I,Boolean> not( Func<I,Boolean> func );
+	public < I > Func<I,Boolean> not( Func<I,Boolean> func1, Func<I,Boolean> func2 );
 	@SuppressWarnings({"unchecked", "varargs"})
-	public < I > Function<I,Boolean> and( Function<I,Boolean>... funcs );
-	public < I > Function<I,Boolean> and( Function<I,Boolean> func1, Function<I,Boolean> func2 );
+	public < I > Func<I,Boolean> and( Func<I,Boolean>... funcs );
+	public < I > Func<I,Boolean> and( Func<I,Boolean> func1, Func<I,Boolean> func2 );
 	@SuppressWarnings({"unchecked", "varargs"})
-	public < I > Function<I,Boolean> or( Function<I,Boolean>... funcs );
-	public < I > Function<I,Boolean> or( Function<I,Boolean> func1, Function<I,Boolean> func2 );
+	public < I > Func<I,Boolean> or( Func<I,Boolean>... funcs );
+	public < I > Func<I,Boolean> or( Func<I,Boolean> func1, Func<I,Boolean> func2 );
 	@SuppressWarnings({"unchecked", "varargs"})
-	public < I > Function<I,Boolean> xor( Function<I,Boolean>... funcs );
-	public < I > Function<I,Boolean> xor( Function<I,Boolean> func1, Function<I,Boolean> func2 );
+	public < I > Func<I,Boolean> xor( Func<I,Boolean>... funcs );
+	public < I > Func<I,Boolean> xor( Func<I,Boolean> func1, Func<I,Boolean> func2 );
 }

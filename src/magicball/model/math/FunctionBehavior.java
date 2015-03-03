@@ -3,8 +3,7 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public interface FunctionBehavior extends Engine<Function>
+public interface FunctionBehavior extends Engine<Func>
 {
-	// attribute
-	public < I, O > O applies( Function<I,O> func, I in );
+	public < I, O > O applies( Func<I,O> func, I in );
 }
