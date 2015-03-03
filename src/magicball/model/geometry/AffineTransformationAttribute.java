@@ -1,13 +1,15 @@
 package magicball.model.geometry;
 
+import java.util.Optional;
+
+import magicball.model.math.Num;
 import magicball.model.*;
 
 
 public interface AffineTransformationAttribute extends Engine<Transformation>
 {
-	// attribute
-	public Number[][] getTransformationMatrix( Transformation trans );
-	public Number[] getRotationVector( Transformation trans );
-	public Number[] getReflectionVector( Transformation trans );
-	public Number[] getTranslationVector( Transformation trans );
+	public Optional<Num[][]> getTransformationMatrixOf( Transformation trans );
+	public Optional<Num[]> getRotationVectorOf( Transformation trans );
+	public Optional<Num[]> getReflectionVectorOf( Transformation trans );
+	public Optional<Num[]> getTranslationVectorOf( Transformation trans );
 }

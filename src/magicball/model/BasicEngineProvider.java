@@ -9,7 +9,7 @@ public abstract class BasicEngineProvider
 {
 	public abstract NumberBasicEngine getNumberEngine();
 	public abstract FunctionBasicEngine getFunctionEngine();
-	public abstract TransformationAdvancedEngine getTransformationEngine();
+	public abstract TransformationBasicEngine getTransformationEngine();
 	public abstract RegionBasicEngine getRegionEngine();
 	public abstract MotionBasicEngine getMotionEngine();
 	public abstract SolidBasicEngine getSolidEngine();

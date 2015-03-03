@@ -1,17 +1,17 @@
 package magicball.model.geometry;
 
-import magicball.model.math.Function;
+import magicball.model.math.Func;
 import magicball.model.*;
 
 
-public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngine<Transformation> implements TransformationAdvancedEngine
+public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngine<Transformation> implements TransformationBasicEngine
 {
 	// creater
 	public Transformation createTransformationByFunction( Function<Number[],Number[]> func ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicCreator ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationCreator ) {
 
 			try {
-				return ((TransformationBasicCreator)engine).createTransformationByFunction(func);
+				return ((TransformationCreator)engine).createTransformationByFunction(func);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -21,10 +21,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 	}
 
 	public Transformation createIdentityTransformation() {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicCreator ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationCreator ) {
 
 			try {
-				return ((TransformationBasicCreator)engine).createIdentityTransformation();
+				return ((TransformationCreator)engine).createIdentityTransformation();
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -141,10 +141,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 
 	// attribute
 	public Number[] applies( Transformation trans, Number[] point ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicAttribute ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationAttribute ) {
 
 			try {
-				return ((TransformationBasicAttribute)engine).applies(trans,point);
+				return ((TransformationAttribute)engine).applies(trans,point);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -154,10 +154,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 	}
 
 	public Function<Number[],Number[]> getTransformationFunction( Transformation trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicAttribute ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationAttribute ) {
 
 			try {
-				return ((TransformationBasicAttribute)engine).getTransformationFunction(trans);
+				return ((TransformationAttribute)engine).getTransformationFunction(trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -221,10 +221,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 
 	// operator
 	public Transformation compose( Transformation... trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicOperator ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationOperator ) {
 
 			try {
-				return ((TransformationBasicOperator)engine).compose(trans);
+				return ((TransformationOperator)engine).compose(trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -234,10 +234,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 	}
 
 	public Transformation pow( Transformation trans, int exp ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicOperator ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationOperator ) {
 
 			try {
-				return ((TransformationBasicOperator)engine).pow(trans,exp);
+				return ((TransformationOperator)engine).pow(trans,exp);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -247,10 +247,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 	}
 
 	public Transformation dividedBy( Transformation trans, Number divisor ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicOperator ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationOperator ) {
 
 			try {
-				return ((TransformationBasicOperator)engine).dividedBy(trans,divisor);
+				return ((TransformationOperator)engine).dividedBy(trans,divisor);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -260,10 +260,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 	}
 
 	public Transformation invert( Transformation trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicOperator ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationOperator ) {
 
 			try {
-				return ((TransformationBasicOperator)engine).invert(trans);
+				return ((TransformationOperator)engine).invert(trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -273,10 +273,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 	}
 
 	public Transformation transformsBy( Transformation t, Transformation p ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicOperator ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationOperator ) {
 
 			try {
-				return ((TransformationBasicOperator)engine).transformsBy(t,p);
+				return ((TransformationOperator)engine).transformsBy(t,p);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -289,10 +289,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 
 	// predicate
 	public boolean isIdentity( Transformation trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicPredicate ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationPredicate ) {
 
 			try {
-				return ((TransformationBasicPredicate)engine).isIdentity(trans);
+				return ((TransformationPredicate)engine).isIdentity(trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -302,10 +302,10 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 	}
 
 	public boolean equals( Transformation trans1, Transformation trans2 ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationBasicPredicate ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof TransformationPredicate ) {
 
 			try {
-				return ((TransformationBasicPredicate)engine).equals(trans1,trans2);
+				return ((TransformationPredicate)engine).equals(trans1,trans2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}

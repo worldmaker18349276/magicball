@@ -5,7 +5,6 @@ import magicball.model.*;
 
 public interface AffineTransformationPredicate extends Engine<Transformation>
 {
-	// predicate
 	public boolean isAffine( Transformation trans ); // f(x) = Mx+b
 	public boolean isLinear( Transformation trans ); // f(x) = Mx
 	public boolean isSimilar( Transformation trans ); // f(x) = Rfx+b

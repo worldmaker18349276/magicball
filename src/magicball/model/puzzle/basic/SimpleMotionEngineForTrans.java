@@ -9,13 +9,13 @@ import magicball.model.*;
 public class SimpleMotionEngineForTrans implements MotionBasicEngine, SpecEngine<Motion,SimpleMotionTransExpression>
 {
 	private NumberBasicEngine numEngine;
-	private TransformationAdvancedEngine transEngine;
+	private TransformationBasicEngine transEngine;
 
 	public SimpleMotionEngineForTrans() {
 		super();
 	}
 
-	public SimpleMotionEngineForTrans( NumberBasicEngine numEng, TransformationAdvancedEngine transEng ) {
+	public SimpleMotionEngineForTrans( NumberBasicEngine numEng, TransformationBasicEngine transEng ) {
 		super();
 		setEngine(numEng);
 		setEngine(transEng);
@@ -25,7 +25,7 @@ public class SimpleMotionEngineForTrans implements MotionBasicEngine, SpecEngine
 		numEngine = numEng;
 	}
 
-	public void setEngine( TransformationAdvancedEngine transEng ) {
+	public void setEngine( TransformationBasicEngine transEng ) {
 		transEngine = transEng;
 	}
 

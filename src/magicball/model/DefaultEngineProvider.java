@@ -74,7 +74,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 		return sam;
 	}
 
-	public TransformationAdvancedEngine getTransformationEngine() {
+	public TransformationBasicEngine getTransformationEngine() {
 		if ( this.transformationEng == null ) {
 			this.transformationEng = new CompositeTransformationAdvancedEngine();
 			this.transformationEng.add(new AffineTransformationEngineForMatrix(getNumberEngine(), getFunctionEngine()));
