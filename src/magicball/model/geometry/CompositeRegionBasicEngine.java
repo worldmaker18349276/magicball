@@ -8,10 +8,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 {
 	// creater
 	public Region createRegionByFunction( Function<Number[],Boolean> func ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicCreator ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionCreator ) {
 
 			try {
-				return ((RegionBasicCreator)engine).createRegionByFunction(func);
+				return ((RegionCreator)engine).createRegionByFunction(func);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -21,10 +21,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 	}
 
 	public Region createUniversalRegion() {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicCreator ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionCreator ) {
 
 			try {
-				return ((RegionBasicCreator)engine).createUniversalRegion();
+				return ((RegionCreator)engine).createUniversalRegion();
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -34,10 +34,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 	}
 
 	public Region createEmptyRegion() {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicCreator ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionCreator ) {
 
 			try {
-				return ((RegionBasicCreator)engine).createEmptyRegion();
+				return ((RegionCreator)engine).createEmptyRegion();
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -49,10 +49,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 
 	// attribute
 	public boolean contains( Region reg, Number[] point ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicAttribute ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBehavior ) {
 
 			try {
-				return ((RegionBasicAttribute)engine).contains(reg,point);
+				return ((RegionBehavior)engine).contains(reg,point);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -64,10 +64,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 
 	// operator
 	public Region intersect( Region... regs ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicOperator ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionOperator ) {
 
 			try {
-				return ((RegionBasicOperator)engine).intersect(regs);
+				return ((RegionOperator)engine).intersect(regs);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -77,10 +77,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 	}
 
 	public Region union( Region... regs ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicOperator ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionOperator ) {
 
 			try {
-				return ((RegionBasicOperator)engine).union(regs);
+				return ((RegionOperator)engine).union(regs);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -90,10 +90,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 	}
 
 	public Region complement( Region reg1, Region reg2 ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicOperator ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionOperator ) {
 
 			try {
-				return ((RegionBasicOperator)engine).complement(reg1,reg2);
+				return ((RegionOperator)engine).complement(reg1,reg2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -103,10 +103,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 	}
 
 	public Region complement( Region reg2 ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicOperator ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionOperator ) {
 
 			try {
-				return ((RegionBasicOperator)engine).complement(reg2);
+				return ((RegionOperator)engine).complement(reg2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -116,10 +116,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 	}
 
 	public Region transformsBy( Region reg, Transformation trans ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicOperator ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionOperator ) {
 
 			try {
-				return ((RegionBasicOperator)engine).transformsBy(reg,trans);
+				return ((RegionOperator)engine).transformsBy(reg,trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -132,10 +132,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 
 	// predicate
 	public boolean isEmpty( Region reg ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicPredicate ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionPredicate ) {
 
 			try {
-				return ((RegionBasicPredicate)engine).isEmpty(reg);
+				return ((RegionPredicate)engine).isEmpty(reg);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -145,10 +145,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 	}
 
 	public boolean isUniversal( Region reg ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicPredicate ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionPredicate ) {
 
 			try {
-				return ((RegionBasicPredicate)engine).isUniversal(reg);
+				return ((RegionPredicate)engine).isUniversal(reg);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -158,10 +158,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 	}
 
 	public boolean containsAll( Region reg1, Region reg2 ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicPredicate ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionPredicate ) {
 
 			try {
-				return ((RegionBasicPredicate)engine).containsAll(reg1,reg2);
+				return ((RegionPredicate)engine).containsAll(reg1,reg2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -171,10 +171,10 @@ public class CompositeRegionBasicEngine extends DefaultCompositeEngine<Region> i
 	}
 
 	public boolean equals( Region reg1, Region reg2 ) {
-		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionBasicPredicate ) {
+		for ( Engine<? extends Region> engine : engines ) if ( engine instanceof RegionPredicate ) {
 
 			try {
-				return ((RegionBasicPredicate)engine).equals(reg1,reg2);
+				return ((RegionPredicate)engine).equals(reg1,reg2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
