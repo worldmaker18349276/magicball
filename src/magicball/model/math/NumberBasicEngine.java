@@ -84,9 +84,9 @@ public interface NumberBasicEngine extends
 	@Override /* ScalarPredicate */
 	public boolean equals( Num n1, Num n2 );
 	@Override /* ScalarPredicate */
-	public boolean greaterThan( Num n1, Num n2 );
+	public boolean isGreaterThan( Num n1, Num n2 );
 	@Override /* ScalarPredicate */
-	public boolean lessThan( Num n1, Num n2 );
+	public boolean isLessThan( Num n1, Num n2 );
 	@Override /* ScalarPredicate */
 	public boolean isZero( Num n );
 	@Override /* ScalarPredicate */

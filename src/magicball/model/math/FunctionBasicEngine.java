@@ -25,12 +25,12 @@ public interface FunctionBasicEngine extends
 	@Override /* FunctionCreator */
 	public < I > Func<I,I> createIdentityFunction();
 	@Override /* FunctionCreator */
-	public < I, O > Func<I,O> createConstantFunction( O c );
+	public < I, O > Func<I,O> createConstantFunctionWithValue( O c );
 
 
 	// attribute
 	@Override /* FunctionAttribute */
-	public < I, O > Optional<O> getConstant( Func<I,O> func );
+	public < I, O > Optional<O> getConstantValueOf( Func<I,O> func );
 
 
 	// operator
@@ -63,6 +63,10 @@ public interface FunctionBasicEngine extends
 	// predicate
 	@Override /* FunctionPredicate */
 	public < I, O > boolean equals( Func<I,O> func1, Func<I,O> func2 );
+	@Override /* FunctionPredicate */
+	public < I, O > boolean isInvertible( Func<I,O> func );
+	@Override /* FunctionPredicate */
+	public < I > boolean isIdentityFunction( Func<I,I> func );
 	@Override /* FunctionPredicate */
 	public < I, O > boolean isConstantFunction( Func<I,O> func );
 	@Override /* FunctionPredicate */
