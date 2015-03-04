@@ -9,8 +9,8 @@ public interface MatrixOperator extends Engine<Num>
 	public Num[][] colVectorOf( Num[] v );
 	public Num[][] rowVectorOf( Num[] v );
 	public Num[][] submatrixOf( Num[][] m, int i1, int i2, int j1, int j2 );
-	public Num[][] augmentsColumnWith( Num[][] m, Num[]... vs );
-	public Num[][] augmentsRowWith( Num[][] m, Num[]... vs );
+	public Num[][] augmentsColumnWith( Num[][] m1, Num[][] m2 );
+	public Num[][] augmentsRowWith( Num[][] m1, Num[][] m2 );
 
 	public Num[][] negate( Num[][] m );
 	public Num[][] plus( Num[][] m1, Num[][] m2 );

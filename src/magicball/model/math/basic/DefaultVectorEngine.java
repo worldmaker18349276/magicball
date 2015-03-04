@@ -1,167 +1,188 @@
 package magicball.model.math.basic;
 
+import java.util.stream.Stream;
+import java.util.stream.DoubleStream;
+import java.util.Arrays;
+
 import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class DefaultVectorEngine implements VectorEngine, SpecEngine<Number,Number>
+public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpression>,
+		VectorCreator,
+		VectorAttribute,
+		VectorOperator,
+		VectorPredicate
 {
-	private ScalarEngine scaEngine;
+	private ScalarCreator scaCreator;
+	private ScalarAttribute scaAttribute;
+	private ScalarOperator scaOperator;
+	private ScalarPredicate scaPredicate;
+
 
 	public DefaultVectorEngine() {
-		super();
 	}
 
-	public DefaultVectorEngine( ScalarEngine scaEng ) {
-		super();
-		setEngine(scaEng);
+	public DefaultVectorEngine( ScalarCreator scaC, ScalarAttribute scaAttr, ScalarOperator scaOp, ScalarPredicate scaPred ) {
+		scaCreator = scaC;
+		scaAttribute = scaAttr;
+		scaOperator = scaOp;
+		scaPredicate = scaPred;
 	}
 
-	public void setEngine( ScalarEngine scaEng ) {
-		scaEngine = scaEng;
+	public void setEngine( ScalarCreator scaC ) {
+		scaCreator = scaC;
+	}
+
+	public void setEngine( ScalarAttribute scaAttr ) {
+		scaAttribute = scaAttr;
+	}
+
+	public void setEngine( ScalarOperator scaOp ) {
+		scaOperator = scaOp;
+	}
+
+	public void setEngine( ScalarPredicate scaPred ) {
+		scaPredicate = scaPred;
 	}
 
 
-	// vector ( Number[] )
-	@Override
-	public Number[] vector( double... ns ) {
-		Number[] vec = new Number [ ns.length ];
-		for ( int i=0; i<vec.length; i++ )
-			vec[i] = scaEngine.number(ns[i]);
-		return vec;
+	// vector ( Num[] )
+	@Override /* VectorCreator */
+	public Num[] createVectorByDoubles( double... ns ) {
+		return DoubleStream.of(ns)
+			.mapToObj(scaCreator::createNumberByDouble)
+			.toArray(Num[]::new);
 	}
 
-	@Override
-	public Number[] vector0( int d ) {
-		Number[] vec = new Number [ d ];
-		for ( int i=0; i<vec.length; i++ )
-			vec[i] = scaEngine.number0();
-		return vec;
+	@Override /* VectorCreator */
+	public Num[] createZeroVectorWithDim( int d ) {
+		return DoubleStream.generate(() -> 0.0)
+			.limit(d)
+			.mapToObj(scaCreator::createNumberByDouble)
+			.toArray(Num[]::new);
 	}
 
-	@Override
-	public Number[] clone( Number[] v ) {
-		Number[] vec = new Number [ v.length ];
-		for ( int i=0; i<vec.length; i++ )
-			vec[i] = v[i];
-		return vec;
+
+	@Override /* VectorAttribute */
+	public double[] getDoubleValueOf( Num[] v ) {
+		return Stream.of(v)
+			.mapToDouble(scaAttribute::getDoubleValueOf)
+			.toArray();
 	}
 
-	@Override
-	public Number[] subvector( Number[] v, int i1, int i2 ) {
-		Number[] v_ = new Number [ i2-i1 ];
-		for ( int i=i1; i<i2; i++ )
-			v_[i-i1] = v[i];
-		return v_;
+
+	@Override /* VectorOperator */
+	public Num[] clone( Num[] v ) {
+		return Arrays.copyOf(v,v.length);
 	}
 
-	@Override
-	public Number[] augment( Number[] v1, Number[] v2 ) {
-		Number[] v12 = new Number [ v1.length+v2.length ];
-		for ( int i=0; i<v1.length; i++ )
-			v12[i] = v1[i];
-		for ( int i=0; i<v2.length; i++ )
-			v12[i+v1.length] = v2[i];
-		return v12;
+	@Override /* VectorOperator */
+	public Num[] subvectorOf( Num[] v, int i1, int i2 ) {
+		return Arrays.copyOfRange(v,i1,i2);
 	}
 
-	@Override
-	public double[] doubleValue( Number[] v ) {
-		double[] result = new double [ v.length ];
+	@Override /* VectorOperator */
+	public Num[] augmentsWith( Num[] v, Num... ns ) {
+		return Stream.concat(Stream.of(v), Stream.of(ns))
+			.toArray(Num[]::new);
+	}
+
+
+	@Override /* VectorOperator */
+	public Num[] negate( Num[] v ) {
+		return Stream.of(v)
+			.map(scaOperator::negate)
+			.toArray(Num[]::new);
+	}
+
+	@Override /* VectorOperator */
+	public Num[] plus( Num[] v1, Num[] v2 ) {
+		if ( v1.length != v2.length )
+			throw new ArithmeticException("v1.length != v2.length");
+		Num[] result = new Num [ v1.length ];
 		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine.doubleValue(v[i]);
+			result[i] = scaOperator.plus(v1[i],v2[i]);
 		return result;
 	}
 
-	@Override
-	public boolean equals( Number[] v1, Number[] v2 ) {
+	@Override /* VectorOperator */
+	public Num[] plus( Num[]... vs ) {
+		return Stream.of(vs)
+			.reduce(this::plus)
+			.get();
+	}
+
+	@Override /* VectorOperator */
+	public Num[] minus( Num[] v1, Num[] v2 ) {
+		if ( v1.length != v2.length )
+			throw new ArithmeticException("v1.length != v2.length");
+		Num[] result = new Num [ v1.length ];
+		for ( int i=0; i<result.length; i++ )
+			result[i] = scaOperator.minus(v1[i],v2[i]);
+		return result;
+	}
+
+	@Override /* VectorOperator */
+	public Num[] times( Num[] v1, Num n2 ) {
+		return Stream.of(v1)
+			.map(n1 -> scaOperator.times(n1,n2))
+			.toArray(Num[]::new);
+	}
+
+	@Override /* VectorOperator */
+	public Num[] over( Num[] v1, Num n2 ) {
+		return Stream.of(v1)
+			.map(v -> scaOperator.over(v,n2))
+			.toArray(Num[]::new);
+	}
+
+	@Override /* VectorOperator */
+	public Num norm( Num[] v ) {
+		Num[] v2 = Stream.of(v)
+			.map(n -> scaOperator.pow(n,2))
+			.toArray(Num[]::new);
+		return scaOperator.sqrt(scaOperator.plus(v2));
+	}
+
+	@Override /* VectorOperator */
+	public Num[] normalize( Num[] v ) {
+		return over(v,norm(v));
+	}
+
+	@Override /* VectorOperator */
+	public Num dotProduct( Num[] v1, Num[] v2 ) {
+		if ( v1.length != v2.length )
+			throw new ArithmeticException("v1.length != v2.length");
+		Num result = scaCreator.createZero();
+			for ( int i=0; i<v1.length; i++ )
+				result = scaOperator.plus(result,scaOperator.times(v1[i],v2[i]));
+			return result;
+	}
+
+	@Override /* VectorOperator */
+	public Num[] crossProduct( Num[] v1, Num[] v2 ) {
+		Num[] result = new Num [ 3 ];
+		result[0] = scaOperator.minus(scaOperator.times(v1[1],v2[2]),scaOperator.times(v1[2],v2[1]));
+		result[1] = scaOperator.minus(scaOperator.times(v1[2],v2[0]),scaOperator.times(v1[0],v2[2]));
+		result[2] = scaOperator.minus(scaOperator.times(v1[0],v2[1]),scaOperator.times(v1[1],v2[0]));
+		return result;
+	}
+
+
+	@Override /* VectorPredicate */
+	public boolean equals( Num[] v1, Num[] v2 ) {
 		if ( v1.length != v2.length )
 			return false;
 		for ( int i=0; i<v1.length; i++ )
-			if ( !scaEngine.equals(v1[i],v2[i]) )
+			if ( !scaPredicate.equals(v1[i],v2[i]) )
 				return false;
 		return true;
 	}
 
-	@Override
-	public Number[] negate( Number[] v ) {
-		Number[] result = new Number [ v.length ];
-		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine.negate(v[i]);
-		return result;
-	}
-
-	@Override
-	public Number[] add( Number[] v1, Number[] v2 ) {
-		if ( v1.length != v2.length )
-			throw new ArithmeticException("v1.length != v2.length");
-		Number[] result = new Number [ v1.length ];
-		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine.add(v1[i],v2[i]);
-		return result;
-	}
-
-	@Override
-	public Number[] add( Number[]... vs ) {
-		Number[] result = vs[0];
-		for ( int i=1; i<vs.length; i++ )
-			result = add(result,vs[i]);
-		return result;
-	}
-
-	@Override
-	public Number[] subtract( Number[] v1, Number[] v2 ) {
-		if ( v1.length != v2.length )
-			throw new ArithmeticException("v1.length != v2.length");
-		Number[] result = new Number [ v1.length ];
-		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine.subtract(v1[i],v2[i]);
-		return result;
-	}
-
-	@Override
-	public Number[] multiply( Number[] v1, Number n2 ) {
-		Number[] result = new Number [ v1.length ];
-		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine.multiply(v1[i],n2);
-		return result;
-	}
-
-	@Override
-	public Number[] dividedBy( Number[] v1, Number n2 ) {
-		Number[] result = new Number [ v1.length ];
-		for ( int i=0; i<result.length; i++ )
-			result[i] = scaEngine.dividedBy(v1[i],n2);
-		return result;
-	}
-
-	@Override
-	public Number norm( Number[] v ) {
-		Number result = scaEngine.number0();
-		for ( int i=0; i<v.length; i++ )
-			result = scaEngine.add(result,scaEngine.pow(v[i],2));
-		return scaEngine.sqrt(result);
-	}
-
-	@Override
-	public Number[] normalize( Number[] v ) {
-		return dividedBy(v,norm(v));
-	}
-
-	@Override
-	public Number dotProduct( Number[] v1, Number[] v2 ) {
-		Number result = scaEngine.number0();
-			for ( int i=0; i<v1.length; i++ )
-				result = scaEngine.add(result,scaEngine.multiply(v1[i],v2[i]));
-			return result;
-	}
-
-	@Override
-	public Number[] crossProduct( Number[] v1, Number[] v2 ) {
-		Number[] result = new Number [ 3 ];
-		result[0] = scaEngine.subtract(scaEngine.multiply(v1[1],v2[2]),scaEngine.multiply(v1[2],v2[1]));
-		result[1] = scaEngine.subtract(scaEngine.multiply(v1[2],v2[0]),scaEngine.multiply(v1[0],v2[2]));
-		result[2] = scaEngine.subtract(scaEngine.multiply(v1[0],v2[1]),scaEngine.multiply(v1[1],v2[0]));
-		return result;
+	@Override /* VectorPredicate */
+	public boolean isZeroVector( Num[] v ) {
+		return Stream.of(v)
+			.allMatch(scaPredicate::isZero);
 	}
 }

@@ -30,6 +30,10 @@ src/magicball/model/math/MatrixAttribute.java
 src/magicball/model/math/MatrixOperator.java
 src/magicball/model/math/MatrixPredicate.java
 src/magicball/model/math/NumberBasicEngine.java
+src/magicball/model/math/CompositeNumberBasicEngine.java
+src/magicball/model/math/basic/ScalarEngineForDouble.java
+src/magicball/model/math/basic/DefaultVectorEngine.java
+src/magicball/model/math/basic/DefaultMatrixEngine.java
 
 src/magicball/model/geometry/Transformation.java
 src/magicball/model/geometry/TransformationBehavior.java

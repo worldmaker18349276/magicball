@@ -156,9 +156,9 @@ public interface NumberBasicEngine extends
 	@Override /* MatrixOperator */
 	public Num[][] submatrixOf( Num[][] m, int i1, int i2, int j1, int j2 );
 	@Override /* MatrixOperator */
-	public Num[][] augmentsColumnWith( Num[][] m, Num[]... vs );
+	public Num[][] augmentsColumnWith( Num[][] m1, Num[][] m2 );
 	@Override /* MatrixOperator */
-	public Num[][] augmentsRowWith( Num[][] m, Num[]... vs );
+	public Num[][] augmentsRowWith( Num[][] m1, Num[][] m2 );
 
 	@Override /* MatrixOperator */
 	public Num[][] negate( Num[][] m );

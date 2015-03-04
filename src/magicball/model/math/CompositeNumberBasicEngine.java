@@ -3,14 +3,14 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> implements NumberBasicEngine
+public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Num> implements NumberBasicEngine
 {
-	// scalar ( Number )
-	public Number number( double n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num createNumberByDouble( double n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarCreator ) {
 
 			try {
-				return ((ScalarEngine)engine).number(n);
+				return ((ScalarCreator)engine).createNumberByDouble(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -18,12 +18,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num createZero() {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarCreator ) {
 
-	public Number number0() {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).number0();
+				return ((ScalarCreator)engine).createZero();
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -31,12 +31,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num createOne() {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarCreator ) {
 
-	public Number number1() {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).number1();
+				return ((ScalarCreator)engine).createOne();
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -44,12 +44,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number pi() {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num createPi() {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarCreator ) {
 
 			try {
-				return ((ScalarEngine)engine).pi();
+				return ((ScalarCreator)engine).createPi();
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -57,12 +57,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num createE() {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarCreator ) {
 
-	public Number e() {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).e();
+				return ((ScalarCreator)engine).createE();
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -71,11 +71,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public double doubleValue( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public double getDoubleValueOf( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarAttribute ) {
 
 			try {
-				return ((ScalarEngine)engine).doubleValue(n);
+				return ((ScalarAttribute)engine).getDoubleValueOf(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -84,11 +85,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public boolean equals( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num negate( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
 			try {
-				return ((ScalarEngine)engine).equals(n1,n2);
+				return ((ScalarOperator)engine).negate(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -96,12 +98,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num plus( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public boolean greaterThan( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).greaterThan(n1,n2);
+				return ((ScalarOperator)engine).plus(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -109,12 +111,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public boolean lessThan( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num plus( Num... ns ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
 			try {
-				return ((ScalarEngine)engine).lessThan(n1,n2);
+				return ((ScalarOperator)engine).plus(ns);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -122,12 +124,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num minus( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number negate( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).negate(n);
+				return ((ScalarOperator)engine).minus(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -135,12 +137,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num times( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number add( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).add(n1,n2);
+				return ((ScalarOperator)engine).times(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -148,12 +150,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number add( Number... ns ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num times( Num... ns ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
 			try {
-				return ((ScalarEngine)engine).add(ns);
+				return ((ScalarOperator)engine).times(ns);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -161,12 +163,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num over( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number subtract( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).subtract(n1,n2);
+				return ((ScalarOperator)engine).over(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -174,12 +176,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num pow( Num n1, int n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number multiply( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).multiply(n1,n2);
+				return ((ScalarOperator)engine).pow(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -187,12 +189,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number multiply( Number... ns ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num pow( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
 			try {
-				return ((ScalarEngine)engine).multiply(ns);
+				return ((ScalarOperator)engine).pow(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -200,12 +202,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num sqrt( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number dividedBy( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).dividedBy(n1,n2);
+				return ((ScalarOperator)engine).sqrt(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -213,12 +215,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num abs( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number pow( Number n1, int n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).pow(n1,n2);
+				return ((ScalarOperator)engine).abs(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -226,12 +228,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number pow( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num floor( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
 			try {
-				return ((ScalarEngine)engine).pow(n1,n2);
+				return ((ScalarOperator)engine).floor(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -239,12 +241,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num ceil( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number sqrt( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).sqrt(n);
+				return ((ScalarOperator)engine).ceil(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -252,12 +254,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num max( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number abs( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).abs(n);
+				return ((ScalarOperator)engine).max(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -265,12 +267,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number floor( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num max( Num... ns ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
 			try {
-				return ((ScalarEngine)engine).floor(n);
+				return ((ScalarOperator)engine).max(ns);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -278,12 +280,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num min( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number ceil( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).ceil(n);
+				return ((ScalarOperator)engine).min(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -291,12 +293,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num min( Num... ns ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number max( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).max(n1,n2);
+				return ((ScalarOperator)engine).min(ns);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -304,12 +306,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number min( Number n1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num exp( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
 			try {
-				return ((ScalarEngine)engine).min(n1,n2);
+				return ((ScalarOperator)engine).exp(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -317,12 +319,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num ln( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number exp( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).exp(n);
+				return ((ScalarOperator)engine).ln(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -330,12 +332,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num sin( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number ln( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).ln(n);
+				return ((ScalarOperator)engine).sin(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -343,12 +345,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number sin( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num cos( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
 			try {
-				return ((ScalarEngine)engine).sin(n);
+				return ((ScalarOperator)engine).cos(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -356,12 +358,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num tan( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number cos( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).cos(n);
+				return ((ScalarOperator)engine).tan(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -369,12 +371,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num asin( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number tan( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).tan(n);
+				return ((ScalarOperator)engine).asin(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -382,12 +384,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number asin( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public Num acos( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
 			try {
-				return ((ScalarEngine)engine).asin(n);
+				return ((ScalarOperator)engine).acos(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -395,12 +397,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num atan( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarOperator ) {
 
-	public Number acos( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
-
 			try {
-				return ((ScalarEngine)engine).acos(n);
+				return ((ScalarOperator)engine).atan(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -409,11 +411,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number atan( Number n ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof ScalarEngine ) {
+	@Override
+	public boolean equals( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarPredicate ) {
 
 			try {
-				return ((ScalarEngine)engine).atan(n);
+				return ((ScalarPredicate)engine).equals(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -421,14 +424,25 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public boolean isGreaterThan( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarPredicate ) {
 
+			try {
+				return ((ScalarPredicate)engine).isGreaterThan(n1,n2);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
 
-	// vector ( Number[] )
-	public Number[] vector( double... ns ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+	@Override
+	public boolean isLessThan( Num n1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarPredicate ) {
 
 			try {
-				return ((VectorEngine)engine).vector(ns);
+				return ((ScalarPredicate)engine).isLessThan(n1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -436,12 +450,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[] vector0( int d ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+	@Override
+	public boolean isZero( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarPredicate ) {
 
 			try {
-				return ((VectorEngine)engine).vector0(d);
+				return ((ScalarPredicate)engine).isZero(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -449,12 +463,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public boolean isOne( Num n ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof ScalarPredicate ) {
 
-	public Number[] clone( Number[] v ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
-
 			try {
-				return ((VectorEngine)engine).clone(v);
+				return ((ScalarPredicate)engine).isOne(n);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -463,11 +477,14 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public double[] doubleValue( Number[] v ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
 
+	// vector ( Num[] )
+	@Override
+	public Num[] createVectorByDoubles( double... ns ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorCreator ) {
+
 			try {
-				return ((VectorEngine)engine).doubleValue(v);
+				return ((VectorCreator)engine).createVectorByDoubles(ns);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -475,12 +492,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[] subvector( Number[] v, int i1, int i2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+	@Override
+	public Num[] createZeroVectorWithDim( int d ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorCreator ) {
 
 			try {
-				return ((VectorEngine)engine).subvector(v,i1,i2);
+				return ((VectorCreator)engine).createZeroVectorWithDim(d);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -489,11 +506,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number[] augment( Number[] v1, Number[] v2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+	@Override
+	public double[] getDoubleValueOf( Num[] v ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorAttribute ) {
 
 			try {
-				return ((VectorEngine)engine).augment(v1,v2);
+				return ((VectorAttribute)engine).getDoubleValueOf(v);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -502,11 +520,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public boolean equals( Number[] v1, Number[] v2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+	@Override
+	public Num[] clone( Num[] v ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
 			try {
-				return ((VectorEngine)engine).equals(v1,v2);
+				return ((VectorOperator)engine).clone(v);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -514,12 +533,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[] subvectorOf( Num[] v, int i1, int i2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
-	public Number[] negate( Number[] v ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
-
 			try {
-				return ((VectorEngine)engine).negate(v);
+				return ((VectorOperator)engine).subvectorOf(v,i1,i2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -527,12 +546,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[] augmentsWith( Num[] v, Num... ns ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
-	public Number[] add( Number[] v1, Number[] v2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
-
 			try {
-				return ((VectorEngine)engine).add(v1,v2);
+				return ((VectorOperator)engine).augmentsWith(v,ns);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -541,11 +560,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number[] add( Number[]... vs ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+	@Override
+	public Num[] negate( Num[] v ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
 			try {
-				return ((VectorEngine)engine).add(vs);
+				return ((VectorOperator)engine).negate(v);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -553,12 +573,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[] subtract( Number[] v1, Number[] v2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+	@Override
+	public Num[] plus( Num[] v1, Num[] v2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
 			try {
-				return ((VectorEngine)engine).subtract(v1,v2);
+				return ((VectorOperator)engine).plus(v1,v2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -566,12 +586,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[] plus( Num[]... vs ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
-	public Number[] multiply( Number[] v1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
-
 			try {
-				return ((VectorEngine)engine).multiply(v1,n2);
+				return ((VectorOperator)engine).plus(vs);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -579,12 +599,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[] minus( Num[] v1, Num[] v2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
-	public Number[] dividedBy( Number[] v1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
-
 			try {
-				return ((VectorEngine)engine).dividedBy(v1,n2);
+				return ((VectorOperator)engine).minus(v1,v2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -592,13 +612,25 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[] times( Num[] v1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
+			try {
+				return ((VectorOperator)engine).times(v1,n2);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
 
-	public Number norm( Number[] v ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+	@Override
+	public Num[] over( Num[] v1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
 			try {
-				return ((VectorEngine)engine).norm(v);
+				return ((VectorOperator)engine).over(v1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -606,12 +638,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[] normalize( Number[] v ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+	@Override
+	public Num norm( Num[] v ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
 			try {
-				return ((VectorEngine)engine).normalize(v);
+				return ((VectorOperator)engine).norm(v);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -619,13 +651,25 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[] normalize( Num[] v ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
+			try {
+				return ((VectorOperator)engine).normalize(v);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
 
-	public Number dotProduct( Number[] v1, Number[] v2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+	@Override
+	public Num dotProduct( Num[] v1, Num[] v2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
 			try {
-				return ((VectorEngine)engine).dotProduct(v1,v2);
+				return ((VectorOperator)engine).dotProduct(v1,v2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -633,12 +677,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[] crossProduct( Num[] v1, Num[] v2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorOperator ) {
 
-	public Number[] crossProduct( Number[] v1, Number[] v2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof VectorEngine ) {
-
 			try {
-				return ((VectorEngine)engine).crossProduct(v1,v2);
+				return ((VectorOperator)engine).crossProduct(v1,v2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -647,14 +691,25 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
+	public boolean equals( Num[] v1, Num[] v2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorPredicate ) {
 
+			try {
+				return ((VectorPredicate)engine).equals(v1,v2);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
 
-	// matrix ( Number[][] )
-	public Number[][] matrix( double[][] ns ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+	@Override
+	public boolean isZeroVector( Num[] v ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof VectorPredicate ) {
 
 			try {
-				return ((MatrixEngine)engine).matrix(ns);
+				return ((VectorPredicate)engine).isZeroVector(v);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -663,11 +718,14 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number[][] matrix0( int d1, int d2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
 
+	// matrix ( Num[][] )
+	@Override
+	public Num[][] createMatrixByDoubles( double[][] ns ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixCreator ) {
+
 			try {
-				return ((MatrixEngine)engine).matrix0(d1,d2);
+				return ((MatrixCreator)engine).createMatrixByDoubles(ns);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -675,12 +733,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] createZeroMatrixWithDim( int d1, int d2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixCreator ) {
 
-	public Number[][] matrix1( int d ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).matrix1(d);
+				return ((MatrixCreator)engine).createZeroMatrixWithDim(d1,d2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -688,12 +746,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[][] clone( Number[][] m ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public Num[][] createIdentityMatrixWithDim( int d ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixCreator ) {
 
 			try {
-				return ((MatrixEngine)engine).clone(m);
+				return ((MatrixCreator)engine).createIdentityMatrixWithDim(d);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -702,11 +760,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number[][] colVector( Number[] v ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public double[][] getDoubleValueOf( Num[][] m ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixAttribute ) {
 
 			try {
-				return ((MatrixEngine)engine).colVector(v);
+				return ((MatrixAttribute)engine).getDoubleValueOf(m);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -715,11 +774,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number[][] rowVector( Number[] v ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public Num[][] clone( Num[][] m ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
 			try {
-				return ((MatrixEngine)engine).rowVector(v);
+				return ((MatrixOperator)engine).clone(m);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -727,12 +787,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] colVectorOf( Num[] v ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[][] submatrix( Number[][] m, int i1, int i2, int j1, int j2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).submatrix(m,i1,i2,j1,j2);
+				return ((MatrixOperator)engine).colVectorOf(v);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -740,12 +800,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] rowVectorOf( Num[] v ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[][] augmentCol( Number[][] m1, Number[][] m2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).augmentCol(m1,m2);
+				return ((MatrixOperator)engine).rowVectorOf(v);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -753,12 +813,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[][] augmentRow( Number[][] m1, Number[][] m2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public Num[][] submatrixOf( Num[][] m, int i1, int i2, int j1, int j2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
 			try {
-				return ((MatrixEngine)engine).augmentRow(m1,m2);
+				return ((MatrixOperator)engine).submatrixOf(m,i1,i2,j1,j2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -766,12 +826,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] augmentsColumnWith( Num[][] m1, Num[][] m2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public double[][] doubleValue( Number[][] m ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).doubleValue(m);
+				return ((MatrixOperator)engine).augmentsColumnWith(m1,m2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -779,12 +839,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] augmentsRowWith( Num[][] m1, Num[][] m2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public boolean equals( Number[][] m1, Number[][] m2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).equals(m1,m2);
+				return ((MatrixOperator)engine).augmentsRowWith(m1,m2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -793,11 +853,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number[][] negate( Number[][] m ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public Num[][] negate( Num[][] m ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
 			try {
-				return ((MatrixEngine)engine).negate(m);
+				return ((MatrixOperator)engine).negate(m);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -805,12 +866,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[][] add( Number[][] m1, Number[][] m2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public Num[][] plus( Num[][] m1, Num[][] m2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
 			try {
-				return ((MatrixEngine)engine).add(m1,m2);
+				return ((MatrixOperator)engine).plus(m1,m2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -818,12 +879,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] plus( Num[][]... ms ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[][] add( Number[][]... ms ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).add(ms);
+				return ((MatrixOperator)engine).plus(ms);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -831,12 +892,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] minus( Num[][] m1, Num[][] m2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[][] subtract( Number[][] m1, Number[][] m2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).subtract(m1,m2);
+				return ((MatrixOperator)engine).minus(m1,m2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -844,12 +905,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[][] multiply( Number[][] m1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public Num[][] times( Num[][] m1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
 			try {
-				return ((MatrixEngine)engine).multiply(m1,n2);
+				return ((MatrixOperator)engine).times(m1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -857,12 +918,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] over( Num[][] m1, Num n2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[][] dividedBy( Number[][] m1, Number n2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).dividedBy(m1,n2);
+				return ((MatrixOperator)engine).over(m1,n2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -870,12 +931,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] transpose( Num[][] m ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[][] transpose( Number[][] m1 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).transpose(m1);
+				return ((MatrixOperator)engine).transpose(m);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -883,12 +944,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[][] matrixMultiply( Number[][] m1, Number[][] m2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public Num[][] matrixMultiply( Num[][] m1, Num[][] m2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
 			try {
-				return ((MatrixEngine)engine).matrixMultiply(m1,m2);
+				return ((MatrixOperator)engine).matrixMultiply(m1,m2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -896,12 +957,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] matrixMultiply( Num[][]... ms ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[][] matrixMultiply( Number[][]... ms ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).matrixMultiply(ms);
+				return ((MatrixOperator)engine).matrixMultiply(ms);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -909,12 +970,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] pow( Num[][] m, int exp ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[][] pow( Number[][] m, int exp ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).pow(m,exp);
+				return ((MatrixOperator)engine).pow(m,exp);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -922,12 +983,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number[] matrixMultiply( Number[][] m1, Number[] v2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public Num[] matrixMultiply( Num[][] m1, Num[] v2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
 			try {
-				return ((MatrixEngine)engine).matrixMultiply(m1,v2);
+				return ((MatrixOperator)engine).matrixMultiply(m1,v2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -935,12 +996,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[] matrixMultiply( Num[] v1, Num[][] m2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[] matrixMultiply( Number[] v1, Number[][] m2 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).matrixMultiply(v1,m2);
+				return ((MatrixOperator)engine).matrixMultiply(v1,m2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -948,12 +1009,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num trace( Num[][] m1 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number trace( Number[][] m1 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).trace(m1);
+				return ((MatrixOperator)engine).trace(m1);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -961,12 +1022,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
-
-	public Number determinant33( Number[][] m1 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public Num determinant( Num[][] m ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
 			try {
-				return ((MatrixEngine)engine).determinant33(m1);
+				return ((MatrixOperator)engine).determinant(m);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -974,12 +1035,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public Num[][] invert( Num[][] m ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixOperator ) {
 
-	public Number[][] invert33( Number[][] m ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).invert33(m);
+				return ((MatrixOperator)engine).invert(m);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -988,11 +1049,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number determinant( Number[][] m1 ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
+	@Override
+	public boolean equals( Num[][] m1, Num[][] m2 ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixPredicate ) {
 
 			try {
-				return ((MatrixEngine)engine).determinant(m1);
+				return ((MatrixPredicate)engine).equals(m1,m2);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -1000,12 +1062,12 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public boolean isZeroMatrix( Num[][] m ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixPredicate ) {
 
-	public Number[][] invert( Number[][] m ) {
-		for ( Engine<? extends Number> engine : engines ) if ( engine instanceof MatrixEngine ) {
-
 			try {
-				return ((MatrixEngine)engine).invert(m);
+				return ((MatrixPredicate)engine).isZeroMatrix(m);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -1013,5 +1075,17 @@ public class CompositeNumberBasicEngine extends DefaultCompositeEngine<Number> i
 		}
 		throw new UnsupportedAlgorithmException();
 	}
+	@Override
+	public boolean isIdentityMatrix( Num[][] m ) {
+		for ( Engine<? extends Num> engine : engines ) if ( engine instanceof MatrixPredicate ) {
+
+			try {
+				return ((MatrixPredicate)engine).isIdentityMatrix(m);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
 
+		}
+		throw new UnsupportedAlgorithmException();
+	}
 }
