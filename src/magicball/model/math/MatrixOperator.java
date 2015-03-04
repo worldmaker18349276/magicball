@@ -13,11 +13,11 @@ public interface MatrixOperator extends Engine<Num>
 	public Num[][] augmentsRowWith( Num[][] m, Num[]... vs );
 
 	public Num[][] negate( Num[][] m );
-	public Num[][] add( Num[][] m1, Num[][] m2 );
-	public Num[][] add( Num[][]... ms );
-	public Num[][] subtract( Num[][] m1, Num[][] m2 );
-	public Num[][] multiply( Num[][] m1, Num n2 );
-	public Num[][] dividedBy( Num[][] m1, Num n2 );
+	public Num[][] plus( Num[][] m1, Num[][] m2 );
+	public Num[][] plus( Num[][]... ms );
+	public Num[][] minus( Num[][] m1, Num[][] m2 );
+	public Num[][] times( Num[][] m1, Num n2 );
+	public Num[][] over( Num[][] m1, Num n2 );
 	public Num[][] transpose( Num[][] m1 );
 	public Num[][] matrixMultiply( Num[][] m1, Num[][] m2 );
 	public Num[][] matrixMultiply( Num[][]... ms );

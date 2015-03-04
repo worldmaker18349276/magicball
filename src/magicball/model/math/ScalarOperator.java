@@ -6,12 +6,12 @@ import magicball.model.*;
 public interface ScalarOperator extends Engine<Num>
 {
 	public Num negate( Num n );
-	public Num add( Num n1, Num n2 );
-	public Num add( Num... ns );
-	public Num subtract( Num n1, Num n2 );
-	public Num multiply( Num n1, Num n2 );
-	public Num multiply( Num... ns );
-	public Num dividedBy( Num n1, Num n2 );
+	public Num plus( Num n1, Num n2 );
+	public Num plus( Num... ns );
+	public Num minus( Num n1, Num n2 );
+	public Num times( Num n1, Num n2 );
+	public Num times( Num... ns );
+	public Num over( Num n1, Num n2 );
 	public Num pow( Num n1, int n2 );
 	public Num pow( Num n1, Num n2 );
 	public Num sqrt( Num n );

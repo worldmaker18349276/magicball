@@ -10,11 +10,11 @@ public interface VectorOperator extends Engine<Num>
 	public Num[] augmentsWith( Num[] v, Num... ns );
 
 	public Num[] negate( Num[] v );
-	public Num[] add( Num[] v1, Num[] v2 );
-	public Num[] add( Num[]... vs );
-	public Num[] subtract( Num[] v1, Num[] v2 );
-	public Num[] multiply( Num[] v1, Num n2 );
-	public Num[] dividedBy( Num[] v1, Num n2 );
+	public Num[] plus( Num[] v1, Num[] v2 );
+	public Num[] plus( Num[]... vs );
+	public Num[] minus( Num[] v1, Num[] v2 );
+	public Num[] times( Num[] v1, Num n2 );
+	public Num[] over( Num[] v1, Num n2 );
 	public Num norm( Num[] v );
 	public Num[] normalize( Num[] v );
 	public Num dotProduct( Num[] v1, Num[] v2 );

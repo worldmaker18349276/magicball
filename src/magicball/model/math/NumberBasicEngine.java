@@ -33,17 +33,17 @@ public interface NumberBasicEngine extends
 	@Override /* ScalarOperator */
 	public Num negate( Num n );
 	@Override /* ScalarOperator */
-	public Num add( Num n1, Num n2 );
+	public Num plus( Num n1, Num n2 );
 	@Override /* ScalarOperator */
-	public Num add( Num... ns );
+	public Num plus( Num... ns );
 	@Override /* ScalarOperator */
-	public Num subtract( Num n1, Num n2 );
+	public Num minus( Num n1, Num n2 );
 	@Override /* ScalarOperator */
-	public Num multiply( Num n1, Num n2 );
+	public Num times( Num n1, Num n2 );
 	@Override /* ScalarOperator */
-	public Num multiply( Num... ns );
+	public Num times( Num... ns );
 	@Override /* ScalarOperator */
-	public Num dividedBy( Num n1, Num n2 );
+	public Num over( Num n1, Num n2 );
 	@Override /* ScalarOperator */
 	public Num pow( Num n1, int n2 );
 	@Override /* ScalarOperator */
@@ -112,15 +112,15 @@ public interface NumberBasicEngine extends
 	@Override /* VectorOperator */
 	public Num[] negate( Num[] v );
 	@Override /* VectorOperator */
-	public Num[] add( Num[] v1, Num[] v2 );
+	public Num[] plus( Num[] v1, Num[] v2 );
 	@Override /* VectorOperator */
-	public Num[] add( Num[]... vs );
+	public Num[] plus( Num[]... vs );
 	@Override /* VectorOperator */
-	public Num[] subtract( Num[] v1, Num[] v2 );
+	public Num[] minus( Num[] v1, Num[] v2 );
 	@Override /* VectorOperator */
-	public Num[] multiply( Num[] v1, Num n2 );
+	public Num[] times( Num[] v1, Num n2 );
 	@Override /* VectorOperator */
-	public Num[] dividedBy( Num[] v1, Num n2 );
+	public Num[] over( Num[] v1, Num n2 );
 	@Override /* VectorOperator */
 	public Num norm( Num[] v );
 	@Override /* VectorOperator */
@@ -163,15 +163,15 @@ public interface NumberBasicEngine extends
 	@Override /* MatrixOperator */
 	public Num[][] negate( Num[][] m );
 	@Override /* MatrixOperator */
-	public Num[][] add( Num[][] m1, Num[][] m2 );
+	public Num[][] plus( Num[][] m1, Num[][] m2 );
 	@Override /* MatrixOperator */
-	public Num[][] add( Num[][]... ms );
+	public Num[][] plus( Num[][]... ms );
 	@Override /* MatrixOperator */
-	public Num[][] subtract( Num[][] m1, Num[][] m2 );
+	public Num[][] minus( Num[][] m1, Num[][] m2 );
 	@Override /* MatrixOperator */
-	public Num[][] multiply( Num[][] m1, Num n2 );
+	public Num[][] times( Num[][] m1, Num n2 );
 	@Override /* MatrixOperator */
-	public Num[][] dividedBy( Num[][] m1, Num n2 );
+	public Num[][] over( Num[][] m1, Num n2 );
 	@Override /* MatrixOperator */
 	public Num[][] transpose( Num[][] m1 );
 	@Override /* MatrixOperator */
