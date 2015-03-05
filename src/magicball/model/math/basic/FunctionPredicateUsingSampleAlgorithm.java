@@ -8,11 +8,11 @@ import magicball.model.math.*;
 
 
 public class FunctionPredicateUsingSampleAlgorithm < E, R > implements SpecEngine<Func,Func>,
-		FunctionPredicate
+		FunctionBasic.Predicate
 {
 	protected Set<E> samples;
 	protected BiPredicate<R,R> comparator;
-	private FunctionBehavior funcBehavior;
+	private FunctionBasic.Behavior funcBehavior;
 
 
 	public FunctionPredicateUsingSampleAlgorithm( Set<E> sam, BiPredicate<R,R> comp ) {
@@ -21,7 +21,7 @@ public class FunctionPredicateUsingSampleAlgorithm < E, R > implements SpecEngin
 		this.comparator = comp;
 	}
 
-	public FunctionPredicateUsingSampleAlgorithm( Set<E> sam, BiPredicate<R,R> comp, FunctionBehavior funcB ) {
+	public FunctionPredicateUsingSampleAlgorithm( Set<E> sam, BiPredicate<R,R> comp, FunctionBasic.Behavior funcB ) {
 		super();
 		this.samples = sam;
 		this.comparator = comp;
@@ -29,7 +29,7 @@ public class FunctionPredicateUsingSampleAlgorithm < E, R > implements SpecEngin
 	}
 
 
-	public void setEngine( FunctionBehavior funcB ) {
+	public void setEngine( FunctionBasic.Behavior funcB ) {
 		funcBehavior = funcB;
 	}
 

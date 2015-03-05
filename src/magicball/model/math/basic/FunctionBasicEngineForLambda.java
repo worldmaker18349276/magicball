@@ -9,10 +9,10 @@ import magicball.model.math.*;
 
 // base on lambda expression
 public class FunctionBasicEngineForLambda implements SpecEngine<Func,FunctionLambdaExpression>,
-		FunctionBehavior,
-		FunctionCreator,
-		FunctionAttribute,
-		FunctionOperator
+		FunctionBasic.Behavior,
+		FunctionBasic.Creator,
+		FunctionBasic.Attribute,
+		FunctionBasic.Operator
 {
 	public FunctionBasicEngineForLambda() {
 	}

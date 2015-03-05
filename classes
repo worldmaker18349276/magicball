@@ -16,15 +16,10 @@ src/magicball/model/math/basic/DefaultVectorEngine.java
 src/magicball/model/math/basic/DefaultMatrixEngine.java
 
 src/magicball/model/math/Func.java
-src/magicball/model/math/FunctionBehavior.java
-src/magicball/model/math/FunctionCreator.java
-src/magicball/model/math/FunctionAttribute.java
-src/magicball/model/math/FunctionOperator.java
-src/magicball/model/math/FunctionPredicate.java
-src/magicball/model/math/BooleanFunctionOperator.java
-src/magicball/model/math/BooleanFunctionPredicate.java
+src/magicball/model/math/FunctionBasic.java
+src/magicball/model/math/BooleanFunctionBasic.java
 src/magicball/model/math/FunctionBasicEngine.java
-src/magicball/model/math/FunctionAdvancedCreator.java
+src/magicball/model/math/FunctionAdvanced.java
 src/magicball/model/math/CompositeFunctionBasicEngine.java
 src/magicball/model/math/basic/FunctionBasicEngineForLambda.java
 src/magicball/model/math/basic/FunctionPredicateUsingSampleAlgorithm.java

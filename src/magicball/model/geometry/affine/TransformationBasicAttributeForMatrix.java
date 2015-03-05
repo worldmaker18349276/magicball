@@ -7,7 +7,7 @@ import magicball.model.*;
 
 public class TransformationBasicAttributeForMatrix implements TransformationAttribute, SpecEngine<Transformation,AffineTransformationMatrixExpression>
 {
-	private FunctionCreator funcCreator;
+	private FunctionBasic.Creator funcCreator;
 	private VectorEngine vecEngine;
 	private MatrixEngine matEngine;
 
@@ -15,14 +15,14 @@ public class TransformationBasicAttributeForMatrix implements TransformationAttr
 		super();
 	}
 
-	public TransformationBasicAttributeForMatrix( FunctionCreator funcC, VectorEngine vecEng, MatrixEngine matEng ) {
+	public TransformationBasicAttributeForMatrix( FunctionBasic.Creator funcC, VectorEngine vecEng, MatrixEngine matEng ) {
 		super();
 		setEngine(funcC);
 		setEngine(vecEng);
 		setEngine(matEng);
 	}
 
-	public void setEngine( FunctionCreator funcC ) {
+	public void setEngine( FunctionBasic.Creator funcC ) {
 		funcCreator = funcC;
 	}
 

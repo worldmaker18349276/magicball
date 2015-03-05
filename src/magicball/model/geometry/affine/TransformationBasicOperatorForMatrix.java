@@ -8,7 +8,7 @@ import magicball.model.*;
 public class TransformationBasicOperatorForMatrix implements TransformationOperator, SpecEngine<Transformation,AffineTransformationMatrixExpression>
 {
 	private TransformationCreator transCreator;
-	private FunctionCreator funcCreator;
+	private FunctionBasic.Creator funcCreator;
 	private ScalarEngine scaEngine;
 	private VectorEngine vecEngine;
 	private MatrixEngine matEngine;
@@ -17,7 +17,7 @@ public class TransformationBasicOperatorForMatrix implements TransformationOpera
 		super();
 	}
 
-	public TransformationBasicOperatorForMatrix( TransformationCreator transC, FunctionCreator funcC, ScalarEngine scaEng, VectorEngine vecEng, MatrixEngine matEng ) {
+	public TransformationBasicOperatorForMatrix( TransformationCreator transC, FunctionBasic.Creator funcC, ScalarEngine scaEng, VectorEngine vecEng, MatrixEngine matEng ) {
 		super();
 		setEngine(transC);
 		setEngine(funcC);
@@ -30,7 +30,7 @@ public class TransformationBasicOperatorForMatrix implements TransformationOpera
 		transCreator = transC;
 	}
 
-	public void setEngine( FunctionCreator funcC ) {
+	public void setEngine( FunctionBasic.Creator funcC ) {
 		funcCreator = funcC;
 	}
 
