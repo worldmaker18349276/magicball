@@ -7,7 +7,8 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class DefaultBooleanFunctionPredicate implements BooleanFunctionPredicate, SpecEngine<Function,Function>
+public class DefaultBooleanFunctionPredicate implements SpecEngine<Func,Func>,
+		BooleanFunctionPredicate
 {
 	private FunctionPredicate funcPredicate;
 	private BooleanFunctionOperator predOperator;
@@ -30,19 +31,20 @@ public class DefaultBooleanFunctionPredicate implements BooleanFunctionPredicate
 		predOperator = predOp;
 	}
 
+
 	// operator
 	@Override
-	public < I > boolean isAlwaysTrue( Function<I,Boolean> func ) {
+	public < I > boolean isAlwaysTrue( Func<I,Boolean> func ) {
 		return funcPredicate.isAlwaysEqualTo(func, Boolean.TRUE);
 	}
 
 	@Override
-	public < I > boolean isAlwaysFalse( Function<I,Boolean> func ) {
+	public < I > boolean isAlwaysFalse( Func<I,Boolean> func ) {
 		return funcPredicate.isAlwaysEqualTo(func, Boolean.FALSE);
 	}
 
 	@Override
-	public < I > boolean implies( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
+	public < I > boolean implies( Func<I,Boolean> func1, Func<I,Boolean> func2 ) {
 		return isAlwaysFalse(predOperator.not(func1,func2));
 	}
 }

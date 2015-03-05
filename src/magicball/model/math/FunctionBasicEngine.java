@@ -15,7 +15,7 @@ public interface FunctionBasicEngine extends
 {
 	// behavior
 	@Override /* FunctionBehavior */
-	public < I, O > O applies( Func<I,O> func, I in );
+	public < I, O > O applyTo( Func<I,O> func, I in );
 
 
 	// creater
@@ -25,7 +25,7 @@ public interface FunctionBasicEngine extends
 	@Override /* FunctionCreator */
 	public < I > Func<I,I> createIdentityFunction();
 	@Override /* FunctionCreator */
-	public < I, O > Func<I,O> createConstantFunctionWithValue( O c );
+	public < I, O > Func<I,O> createConstantFunctionWithValue( O constant );
 
 
 	// attribute
@@ -37,27 +37,27 @@ public interface FunctionBasicEngine extends
 	@Override /* FunctionOperator */
 	public < I, M, O > Func<I,O> compose( Func<I,M> func1, Func<M,O> func2 );
 	@Override /* FunctionOperator */
-	public < I, O > Func<O,I> invert( Func<I,O> func );
+	public < I, O > Optional<Func<O,I>> invert( Func<I,O> func );
 	
 	@Override /* BooleanFunctionOperator */
 	public < I > Func<I,Boolean> not( Func<I,Boolean> func );
 	@Override /* BooleanFunctionOperator */
 	public < I > Func<I,Boolean> not( Func<I,Boolean> func1, Func<I,Boolean> func2 );
 	@Override /* BooleanFunctionOperator */
-	@SuppressWarnings({"unchecked", "varargs"})
-	public < I > Func<I,Boolean> and( Func<I,Boolean>... funcs );
-	@Override /* BooleanFunctionOperator */
 	public < I > Func<I,Boolean> and( Func<I,Boolean> func1, Func<I,Boolean> func2 );
 	@Override /* BooleanFunctionOperator */
 	@SuppressWarnings({"unchecked", "varargs"})
-	public < I > Func<I,Boolean> or( Func<I,Boolean>... funcs );
+	public < I > Func<I,Boolean> and( Func<I,Boolean>... funcs );
 	@Override /* BooleanFunctionOperator */
 	public < I > Func<I,Boolean> or( Func<I,Boolean> func1, Func<I,Boolean> func2 );
 	@Override /* BooleanFunctionOperator */
 	@SuppressWarnings({"unchecked", "varargs"})
-	public < I > Func<I,Boolean> xor( Func<I,Boolean>... funcs );
+	public < I > Func<I,Boolean> or( Func<I,Boolean>... funcs );
 	@Override /* BooleanFunctionOperator */
 	public < I > Func<I,Boolean> xor( Func<I,Boolean> func1, Func<I,Boolean> func2 );
+	@Override /* BooleanFunctionOperator */
+	@SuppressWarnings({"unchecked", "varargs"})
+	public < I > Func<I,Boolean> xor( Func<I,Boolean>... funcs );
 
 
 	// predicate
@@ -66,7 +66,7 @@ public interface FunctionBasicEngine extends
 	@Override /* FunctionPredicate */
 	public < I, O > boolean isInvertible( Func<I,O> func );
 	@Override /* FunctionPredicate */
-	public < I > boolean isIdentityFunction( Func<I,I> func );
+	public < I, O > boolean isIdentityFunction( Func<I,O> func );
 	@Override /* FunctionPredicate */
 	public < I, O > boolean isConstantFunction( Func<I,O> func );
 	@Override /* FunctionPredicate */

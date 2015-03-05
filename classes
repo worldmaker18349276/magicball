@@ -5,17 +5,6 @@ src/magicball/model/SpecEngine.java
 src/magicball/model/UnsupportedAlgorithmException.java
 src/magicball/model/UnsupportedExpressionException.java
 
-src/magicball/model/math/Func.java
-src/magicball/model/math/FunctionBehavior.java
-src/magicball/model/math/FunctionCreator.java
-src/magicball/model/math/FunctionAttribute.java
-src/magicball/model/math/FunctionOperator.java
-src/magicball/model/math/FunctionPredicate.java
-src/magicball/model/math/BooleanFunctionOperator.java
-src/magicball/model/math/BooleanFunctionPredicate.java
-src/magicball/model/math/FunctionAdvancedCreator.java
-src/magicball/model/math/FunctionBasicEngine.java
-
 src/magicball/model/math/Num.java
 src/magicball/model/math/ScalarCreator.java
 src/magicball/model/math/ScalarAttribute.java
@@ -34,6 +23,22 @@ src/magicball/model/math/CompositeNumberBasicEngine.java
 src/magicball/model/math/basic/ScalarEngineForDouble.java
 src/magicball/model/math/basic/DefaultVectorEngine.java
 src/magicball/model/math/basic/DefaultMatrixEngine.java
+
+src/magicball/model/math/Func.java
+src/magicball/model/math/FunctionBehavior.java
+src/magicball/model/math/FunctionCreator.java
+src/magicball/model/math/FunctionAttribute.java
+src/magicball/model/math/FunctionOperator.java
+src/magicball/model/math/FunctionPredicate.java
+src/magicball/model/math/BooleanFunctionOperator.java
+src/magicball/model/math/BooleanFunctionPredicate.java
+src/magicball/model/math/FunctionBasicEngine.java
+src/magicball/model/math/FunctionAdvancedCreator.java
+src/magicball/model/math/CompositeFunctionBasicEngine.java
+src/magicball/model/math/basic/FunctionBasicEngineForLambda.java
+src/magicball/model/math/basic/FunctionPredicateUsingSampleAlgorithm.java
+src/magicball/model/math/basic/BooleanFunctionOperatorForLambda.java
+src/magicball/model/math/basic/DefaultBooleanFunctionPredicate.java
 
 src/magicball/model/geometry/Transformation.java
 src/magicball/model/geometry/TransformationBehavior.java

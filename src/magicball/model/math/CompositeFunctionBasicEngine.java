@@ -1,13 +1,33 @@
 package magicball.model.math;
 
+import java.util.function.Function;
+import java.util.Optional;
+
 import magicball.model.*;
 
 
-public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Function> implements FunctionBasicEngine
+public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Func> implements FunctionBasicEngine
 {
+	// behavior
+	@Override
+	public < I, O > O applyTo( Func<I,O> func, I in ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionBehavior ) {
+
+			try {
+				return ((FunctionBehavior)engine).<I,O>applyTo(func, in);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+
 	// creater
-	public < I, O > Function<I,O> createFunctionByLambda( java.util.function.Function<I,O> lambda ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionCreator ) {
+	@Override
+	public < I, O > Func<I,O> createFunctionByLambda( Function<I,O> lambda ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionCreator ) {
 
 			try {
 				return ((FunctionCreator)engine).<I,O>createFunctionByLambda(lambda);
@@ -19,21 +39,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I, O > Function<I,O> createFunctionByDescription( String syntax, String description ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionCreator ) {
-
-			try {
-				return ((FunctionCreator)engine).<I,O>createFunctionByDescription(syntax,description);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public < I > Function<I,I> createIdentityFunction() {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionCreator ) {
+	@Override
+	public < I > Func<I,I> createIdentityFunction() {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionCreator ) {
 
 			try {
 				return ((FunctionCreator)engine).<I>createIdentityFunction();
@@ -45,11 +53,12 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I, O > Function<I,O> createConstantFunction( O c ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionCreator ) {
+	@Override
+	public < I, O > Func<I,O> createConstantFunctionWithValue( O constant ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionCreator ) {
 
 			try {
-				return ((FunctionCreator)engine).<I,O>createConstantFunction(c);
+				return ((FunctionCreator)engine).<I,O>createConstantFunctionWithValue(constant);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -60,11 +69,12 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 
 
 	// attribute
-	public < I, O > O applies( Function<I,O> func, I in ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionBehavior ) {
+	@Override
+	public < I, O > Optional<O> getConstantValueOf( Func<I,O> func ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionAttribute ) {
 
 			try {
-				return ((FunctionBehavior)engine).<I,O>applies(func, in);
+				return ((FunctionAttribute)engine).<I,O>getConstantValueOf(func);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -75,8 +85,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 
 
 	// operator
-	public < I, M, O > Function<I,O> compose( Function<I,M> func1, Function<M,O> func2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionOperator ) {
+	@Override
+	public < I, M, O > Func<I,O> compose( Func<I,M> func1, Func<M,O> func2 ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionOperator ) {
 
 			try {
 				return ((FunctionOperator)engine).<I,M,O>compose(func1, func2);
@@ -88,8 +99,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I, O > Function<O,I> invert( Function<I,O> func ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionOperator ) {
+	@Override
+	public < I, O > Optional<Func<O,I>> invert( Func<I,O> func ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionOperator ) {
 
 			try {
 				return ((FunctionOperator)engine).<I,O>invert(func);
@@ -101,8 +113,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I > Function<I,Boolean> not( Function<I,Boolean> func ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
+	@Override
+	public < I > Func<I,Boolean> not( Func<I,Boolean> func ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
 
 			try {
 				return ((BooleanFunctionOperator)engine).<I>not(func);
@@ -114,8 +127,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I > Function<I,Boolean> not( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
+	@Override
+	public < I > Func<I,Boolean> not( Func<I,Boolean> func1, Func<I,Boolean> func2 ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
 
 			try {
 				return ((BooleanFunctionOperator)engine).<I>not(func1, func2);
@@ -127,22 +141,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	@SuppressWarnings({"unchecked", "varargs"})
-	public < I > Function<I,Boolean> and( Function<I,Boolean>... funcs ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
-
-			try {
-				return ((BooleanFunctionOperator)engine).<I>and(funcs);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public < I > Function<I,Boolean> and( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
+	@Override
+	public < I > Func<I,Boolean> and( Func<I,Boolean> func1, Func<I,Boolean> func2 ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
 
 			try {
 				return ((BooleanFunctionOperator)engine).<I>and(func1, func2);
@@ -154,12 +155,13 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
 	@SuppressWarnings({"unchecked", "varargs"})
-	public < I > Function<I,Boolean> or( Function<I,Boolean>... funcs ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
+	public < I > Func<I,Boolean> and( Func<I,Boolean>... funcs ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
 
 			try {
-				return ((BooleanFunctionOperator)engine).<I>or(funcs);
+				return ((BooleanFunctionOperator)engine).<I>and(funcs);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -168,8 +170,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I > Function<I,Boolean> or( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
+	@Override
+	public < I > Func<I,Boolean> or( Func<I,Boolean> func1, Func<I,Boolean> func2 ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
 
 			try {
 				return ((BooleanFunctionOperator)engine).<I>or(func1, func2);
@@ -181,12 +184,13 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
 	@SuppressWarnings({"unchecked", "varargs"})
-	public < I > Function<I,Boolean> xor( Function<I,Boolean>... funcs ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
+	public < I > Func<I,Boolean> or( Func<I,Boolean>... funcs ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
 
 			try {
-				return ((BooleanFunctionOperator)engine).<I>xor(funcs);
+				return ((BooleanFunctionOperator)engine).<I>or(funcs);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -195,8 +199,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I > Function<I,Boolean> xor( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
+	@Override
+	public < I > Func<I,Boolean> xor( Func<I,Boolean> func1, Func<I,Boolean> func2 ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
 
 			try {
 				return ((BooleanFunctionOperator)engine).<I>xor(func1, func2);
@@ -208,10 +213,26 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
+	@SuppressWarnings({"unchecked", "varargs"})
+	public < I > Func<I,Boolean> xor( Func<I,Boolean>... funcs ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionOperator ) {
+
+			try {
+				return ((BooleanFunctionOperator)engine).<I>xor(funcs);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
 
 	// predicate
-	public < I, O > boolean equals( Function<I,O> func1, Function<I,O> func2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionPredicate ) {
+	@Override
+	public < I, O > boolean equals( Func<I,O> func1, Func<I,O> func2 ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionPredicate ) {
 
 			try {
 				return ((FunctionPredicate)engine).<I,O>equals(func1, func2);
@@ -223,8 +244,51 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I, O > boolean isAlwaysEqualTo( Function<I,O> func, O value ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof FunctionPredicate ) {
+	@Override
+	public < I, O > boolean isInvertible( Func<I,O> func ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionPredicate ) {
+
+			try {
+				return ((FunctionPredicate)engine).<I,O>isInvertible(func);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public < I, O > boolean isIdentityFunction( Func<I,O> func ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionPredicate ) {
+
+			try {
+				return ((FunctionPredicate)engine).<I,O>isIdentityFunction(func);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public < I, O > boolean isConstantFunction( Func<I,O> func ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionPredicate ) {
+
+			try {
+				return ((FunctionPredicate)engine).<I,O>isConstantFunction(func);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public < I, O > boolean isAlwaysEqualTo( Func<I,O> func, O value ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof FunctionPredicate ) {
 
 			try {
 				return ((FunctionPredicate)engine).<I,O>isAlwaysEqualTo(func, value);
@@ -236,8 +300,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I > boolean isAlwaysTrue( Function<I,Boolean> func ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionPredicate ) {
+	@Override
+	public < I > boolean isAlwaysTrue( Func<I,Boolean> func ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionPredicate ) {
 
 			try {
 				return ((BooleanFunctionPredicate)engine).<I>isAlwaysTrue(func);
@@ -249,8 +314,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I > boolean isAlwaysFalse( Function<I,Boolean> func ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionPredicate ) {
+	@Override
+	public < I > boolean isAlwaysFalse( Func<I,Boolean> func ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionPredicate ) {
 
 			try {
 				return ((BooleanFunctionPredicate)engine).<I>isAlwaysFalse(func);
@@ -262,8 +328,9 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Functio
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public < I > boolean implies( Function<I,Boolean> func1, Function<I,Boolean> func2 ) {
-		for ( Engine<? extends Function> engine : engines ) if ( engine instanceof BooleanFunctionPredicate ) {
+	@Override
+	public < I > boolean implies( Func<I,Boolean> func1, Func<I,Boolean> func2 ) {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionPredicate ) {
 
 			try {
 				return ((BooleanFunctionPredicate)engine).<I>implies(func1, func2);
