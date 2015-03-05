@@ -5,7 +5,7 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class TransformationBasicAttributeForMatrix implements TransformationAttribute, SpecEngine<Transformation,AffineTransformationMatrixExpression>
+public class TransformationBasicAttributeForMatrix implements TransformationBasic.Attribute, SpecEngine<Transformation,AffineTransformationMatrixExpression>
 {
 	private FunctionBasic.Creator funcCreator;
 	private VectorEngine vecEngine;
@@ -37,7 +37,7 @@ public class TransformationBasicAttributeForMatrix implements TransformationAttr
 
 	// attribute
 	@Override
-	public Number[] applies( Transformation trans, Number[] point ) {
+	public Number[] applyTo( Transformation trans, Number[] point ) {
 		Number[][] mat = cast(trans).getMatrix();
 		Number[] vec = cast(trans).getVector();
 		return vecEngine.add(matEngine.matrixMultiply(mat,point),vec);

@@ -172,7 +172,7 @@ public class AffineTransformationEngineForMatrix implements TransformationBasicE
 	}
 
 	@Override
-	public Number[] applies( Transformation trans, Number[] point ) {
+	public Number[] applyTo( Transformation trans, Number[] point ) {
 		Number[][] mat = getTransformationMatrix(trans);
 		Number[] vec = getTranslationVector(trans);
 		return numEngine.add(numEngine.matrixMultiply(mat,point),vec);

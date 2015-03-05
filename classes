@@ -27,16 +27,10 @@ src/magicball/model/math/basic/BooleanFunctionOperatorForLambda.java
 src/magicball/model/math/basic/DefaultBooleanFunctionPredicate.java
 
 src/magicball/model/geometry/Transformation.java
-src/magicball/model/geometry/TransformationBehavior.java
-src/magicball/model/geometry/TransformationCreator.java
-src/magicball/model/geometry/TransformationAttribute.java
-src/magicball/model/geometry/TransformationOperator.java
-src/magicball/model/geometry/TransformationPredicate.java
+src/magicball/model/geometry/TransformationBasic.java
 src/magicball/model/geometry/TransformationBasicEngine.java
-src/magicball/model/geometry/TransformationAdvancedOperator.java
-src/magicball/model/geometry/AffineTransformationCreator.java
-src/magicball/model/geometry/AffineTransformationAttribute.java
-src/magicball/model/geometry/AffineTransformationPredicate.java
+src/magicball/model/geometry/TransformationAdvanced.java
+src/magicball/model/geometry/AffineTransformationAdvanced.java
 
 src/magicball/model/geometry/Region.java
 src/magicball/model/geometry/RegionBehavior.java

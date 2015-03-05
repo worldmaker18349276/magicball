@@ -5,7 +5,7 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class AffineTransformationPredicateForMatrix implements AffineTransformationPredicate, SpecEngine<Transformation,AffineTransformationMatrixExpression>
+public class AffineTransformationPredicateForMatrix implements AffineTransformationAdvanced.Predicate, SpecEngine<Transformation,AffineTransformationMatrixExpression>
 {
 	private ScalarEngine scaEngine;
 	private VectorEngine vecEngine;

@@ -56,7 +56,7 @@ public class RegionEngineForFunc implements RegionBasicEngine, SpecEngine<Region
 
 	@Override
 	public boolean contains( Region reg, Number[] point ) {
-		return funcEngine.applies(function(reg),point);
+		return funcEngine.applyTo(function(reg),point);
 	}
 
 	@Override

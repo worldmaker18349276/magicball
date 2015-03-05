@@ -5,39 +5,41 @@ import magicball.model.math.Num;
 
 
 public interface TransformationBasicEngine extends
-		TransformationBehavior,
-		TransformationCreator,
-		TransformationAttribute,
-		TransformationOperator,
-		TransformationPredicate
+		TransformationBasic.Behavior,
+		TransformationBasic.Creator,
+		TransformationBasic.Attribute,
+		TransformationBasic.Operator,
+		TransformationBasic.Predicate
 {
 	// behavior
-	@Override /* TransformationBehavior */
-	public Num[] applies( Transformation trans, Num[] point );
+	@Override /* TransformationBasic.Behavior */
+	public Num[] applyTo( Transformation trans, Num[] point );
 
 
 	// creater
-	@Override /* TransformationCreator */
+	@Override /* TransformationBasic.Creator */
 	public Transformation createTransformationByFunction( Func<Num[],Num[]> func );
-	@Override /* TransformationCreator */
+	@Override /* TransformationBasic.Creator */
 	public Transformation createIdentityTransformation();
 
 
 	// attribute
-	@Override /* TransformationAttribute */
+	@Override /* TransformationBasic.Attribute */
 	public Func<Num[],Num[]> getTransformationFunctionOf( Transformation trans );
 
 
 	// operator
-	@Override /* TransformationOperator */
+	@Override /* TransformationBasic.Operator */
 	public Transformation compose( Transformation... trans );
-	@Override /* TransformationOperator */
+	@Override /* TransformationBasic.Operator */
 	public Transformation invert( Transformation trans );
+	@Override /* TransformationBasic.Operator */
+	public Transformation transformsBy( Transformation t, Transformation p );
 
 
 	// predicate
-	@Override /* TransformationPredicate */
+	@Override /* TransformationBasic.Predicate */
 	public boolean equals( Transformation trans1, Transformation trans2 );
-	@Override /* TransformationPredicate */
+	@Override /* TransformationBasic.Predicate */
 	public boolean isIdentity( Transformation trans );
 }
