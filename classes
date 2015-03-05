@@ -33,8 +33,5 @@ src/magicball/model/geometry/TransformationAdvanced.java
 src/magicball/model/geometry/AffineTransformationAdvanced.java
 
 src/magicball/model/geometry/Region.java
-src/magicball/model/geometry/RegionBehavior.java
-src/magicball/model/geometry/RegionCreator.java
-src/magicball/model/geometry/RegionOperator.java
-src/magicball/model/geometry/RegionPredicate.java
+src/magicball/model/geometry/RegionBasic.java
 src/magicball/model/geometry/RegionBasicEngine.java

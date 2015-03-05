@@ -5,47 +5,47 @@ import magicball.model.math.Num;
 
 
 public interface RegionBasicEngine extends
-		RegionBehavior,
-		RegionCreator,
-		RegionOperator,
-		RegionPredicate
+		RegionBasic.Behavior,
+		RegionBasic.Creator,
+		RegionBasic.Operator,
+		RegionBasic.Predicate
 {
 	// behavior
-	@Override /* RegionBehavior */
+	@Override /* RegionBasic.Behavior */
 	public boolean contains( Region reg, Num[] point );
-	@Override /* RegionBehavior */
+	@Override /* RegionBasic.Behavior */
 	public boolean containsAll( Region reg1, Region reg2 );
 
 
 	// creater
-	@Override /* RegionCreator */
-	public Region createUniversalRegion();
-	@Override /* RegionCreator */
-	public Region createEmptyRegion();
-
-	@Override /* RegionCreator */
+	@Override /* RegionBasic.Creator */
 	public Region createRegionByFunction( Func<Num[],Boolean> func );
+
+	@Override /* RegionBasic.Creator */
+	public Region createUniversalRegion();
+	@Override /* RegionBasic.Creator */
+	public Region createEmptyRegion();
 
 
 	// operator
-	@Override /* RegionOperator */
+	@Override /* RegionBasic.Operator */
 	public Region intersect( Region... regs );
-	@Override /* RegionOperator */
+	@Override /* RegionBasic.Operator */
 	public Region union( Region... regs );
-	@Override /* RegionOperator */
+	@Override /* RegionBasic.Operator */
 	public Region complement( Region reg1, Region reg2 );
-	@Override /* RegionOperator */
+	@Override /* RegionBasic.Operator */
 	public Region complement( Region reg2 );
 	
-	@Override /* RegionOperator */
+	@Override /* RegionBasic.Operator */
 	public Region transformsBy( Region reg, Transformation trans );
 
 
 	// predicate
-	@Override /* RegionPredicate */
-	public boolean isUniversal( Region reg );
-	@Override /* RegionPredicate */
-	public boolean isEmpty( Region reg );
-	@Override /* RegionPredicate */
+	@Override /* RegionBasic.Predicate */
 	public boolean equals( Region reg1, Region reg2 );
+	@Override /* RegionBasic.Predicate */
+	public boolean isUniversal( Region reg );
+	@Override /* RegionBasic.Predicate */
+	public boolean isEmpty( Region reg );
 }
