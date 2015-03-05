@@ -6,9 +6,9 @@ src/magicball/model/UnsupportedAlgorithmException.java
 src/magicball/model/UnsupportedExpressionException.java
 
 src/magicball/model/math/Num.java
-src/magicball/model/math/ScalarBasic.java
-src/magicball/model/math/VectorBasic.java
-src/magicball/model/math/MatrixBasic.java
+src/magicball/model/math/ArbitraryScalarBasicProperty.java
+src/magicball/model/math/ArbitraryVectorBasicProperty.java
+src/magicball/model/math/ArbitraryMatrixBasicProperty.java
 src/magicball/model/math/NumberBasicEngine.java
 src/magicball/model/math/CompositeNumberBasicEngine.java
 src/magicball/model/math/basic/ScalarEngineForDouble.java
@@ -16,10 +16,10 @@ src/magicball/model/math/basic/DefaultVectorEngine.java
 src/magicball/model/math/basic/DefaultMatrixEngine.java
 
 src/magicball/model/math/Func.java
-src/magicball/model/math/FunctionBasic.java
-src/magicball/model/math/BooleanFunctionBasic.java
+src/magicball/model/math/ArbitraryFunctionBasicProperty.java
+src/magicball/model/math/BooleanFunctionBasicProperty.java
 src/magicball/model/math/FunctionBasicEngine.java
-src/magicball/model/math/FunctionAdvanced.java
+src/magicball/model/math/ArbitraryFunctionAdvancedProperty.java
 src/magicball/model/math/CompositeFunctionBasicEngine.java
 src/magicball/model/math/basic/FunctionBasicEngineForLambda.java
 src/magicball/model/math/basic/FunctionPredicateUsingSampleAlgorithm.java
@@ -27,11 +27,11 @@ src/magicball/model/math/basic/BooleanFunctionOperatorForLambda.java
 src/magicball/model/math/basic/DefaultBooleanFunctionPredicate.java
 
 src/magicball/model/geometry/Transformation.java
-src/magicball/model/geometry/TransformationBasic.java
+src/magicball/model/geometry/ArbitraryTransformationBasicProperty.java
 src/magicball/model/geometry/TransformationBasicEngine.java
-src/magicball/model/geometry/TransformationAdvanced.java
-src/magicball/model/geometry/AffineTransformationAdvanced.java
+src/magicball/model/geometry/ArbitraryTransformationAdvancedProperty.java
+src/magicball/model/geometry/AffineTransformationAdvancedProperty.java
 
 src/magicball/model/geometry/Region.java
-src/magicball/model/geometry/RegionBasic.java
+src/magicball/model/geometry/ArbitraryRegionBasicProperty.java
 src/magicball/model/geometry/RegionBasicEngine.java

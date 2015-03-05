@@ -6,7 +6,7 @@ import java.util.Optional;
 import magicball.model.*;
 
 
-public class FunctionBasic
+public class ArbitraryFunctionBasicProperty
 {
 	static public interface Behavior extends Engine<Func>
 	{

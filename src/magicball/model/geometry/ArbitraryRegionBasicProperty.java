@@ -5,7 +5,7 @@ import magicball.model.math.Num;
 import magicball.model.*;
 
 
-public class RegionBasic
+public class ArbitraryRegionBasicProperty
 {
 	static public interface Behavior extends Engine<Region>
 	{

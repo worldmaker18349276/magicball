@@ -6,7 +6,7 @@ import magicball.model.math.Num;
 import magicball.model.*;
 
 
-public class AffineTransformationAdvanced
+public class AffineTransformationAdvancedProperty
 {
 	public interface Creator extends Engine<Transformation>
 	{

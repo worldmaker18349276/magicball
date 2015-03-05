@@ -8,41 +8,41 @@ import magicball.model.math.*;
 
 
 public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpression>,
-		MatrixBasic.Creator,
-		MatrixBasic.Attribute,
-		MatrixBasic.Operator,
-		MatrixBasic.Predicate
+		ArbitraryMatrixBasicProperty.Creator,
+		ArbitraryMatrixBasicProperty.Attribute,
+		ArbitraryMatrixBasicProperty.Operator,
+		ArbitraryMatrixBasicProperty.Predicate
 {
-	private ScalarBasic.Creator scaCreator;
-	private ScalarBasic.Attribute scaAttribute;
-	private ScalarBasic.Operator scaOperator;
-	private ScalarBasic.Predicate scaPredicate;
+	private ArbitraryScalarBasicProperty.Creator scaCreator;
+	private ArbitraryScalarBasicProperty.Attribute scaAttribute;
+	private ArbitraryScalarBasicProperty.Operator scaOperator;
+	private ArbitraryScalarBasicProperty.Predicate scaPredicate;
 
-	private VectorBasic.Creator vecCreator;
-	private VectorBasic.Attribute vecAttribute;
-	private VectorBasic.Operator vecOperator;
-	private VectorBasic.Predicate vecPredicate;
+	private ArbitraryVectorBasicProperty.Creator vecCreator;
+	private ArbitraryVectorBasicProperty.Attribute vecAttribute;
+	private ArbitraryVectorBasicProperty.Operator vecOperator;
+	private ArbitraryVectorBasicProperty.Predicate vecPredicate;
 
 
 	public DefaultMatrixEngine() {
 	}
 
 	// matrix ( Num[][] )
-	@Override /* MatrixBasic.Creator */
+	@Override /* ArbitraryMatrixBasicProperty.Creator */
 	public Num[][] createMatrixByDoubles( double[][] ns ) {
 		return Stream.of(ns)
 			.map(vecCreator::createVectorByDoubles)
 			.toArray(Num[][]::new);
 	}
 
-	@Override /* MatrixBasic.Creator */
+	@Override /* ArbitraryMatrixBasicProperty.Creator */
 	public Num[][] createZeroMatrixWithDim( int d1, int d2 ) {
 		return Stream.generate(() -> vecCreator.createZeroVectorWithDim(d2))
 			.limit(d1)
 			.toArray(Num[][]::new);
 	}
 
-	@Override /* MatrixBasic.Creator */
+	@Override /* ArbitraryMatrixBasicProperty.Creator */
 	public Num[][] createIdentityMatrixWithDim( int d ) {
 		Num[][] mat = createZeroMatrixWithDim(d,d);
 		for ( int i=0; i<mat.length; i++ )
@@ -51,7 +51,7 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 	}
 
 
-	@Override /* MatrixBasic.Attribute */
+	@Override /* ArbitraryMatrixBasicProperty.Attribute */
 	public double[][] getDoubleValueOf( Num[][] m ) {
 		return Stream.of(m)
 			.map(vecAttribute::getDoubleValueOf)
@@ -59,28 +59,28 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 	}
 
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] clone( Num[][] m ) {
 		return Stream.of(m)
 			.map(v -> Arrays.copyOf(v,v.length))
 			.toArray(Num[][]::new);
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] colVectorOf( Num[] v ) {
 		return Stream.of(v)
 			.map(n -> new Num[]{ n })
 			.toArray(Num[][]::new);
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] rowVectorOf( Num[] v ) {
 		Num[][] mat = new Num [ 1 ][];
 		mat[0] = v;
 		return mat;
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] submatrixOf( Num[][] m, int i1, int i2, int j1, int j2 ) {
 		return Stream.of(m)
 			.skip(i1)
@@ -89,14 +89,14 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 			.toArray(Num[][]::new);
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] augmentsColumnWith( Num[][] m1, Num[][] m2 ) {
 		return Stream.concat(Stream.of(m1), Stream.of(m2))
 			.map(vecOperator::clone)
 			.toArray(Num[][]::new);
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] augmentsRowWith( Num[][] m1, Num[][] m2 ) {
 		Num[][] m12 = new Num [ m1.length ][];
 		for ( int i=0; i<m12.length; i++ )
@@ -105,14 +105,14 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 	}
 
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] negate( Num[][] m ) {
 		return Stream.of(m)
 			.map(vecOperator::negate)
 			.toArray(Num[][]::new);
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] plus( Num[][] m1, Num[][] m2 ) {
 		if ( m1.length != m2.length )
 			throw new ArithmeticException("m1.length != m2.length");
@@ -122,14 +122,14 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return result;
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] plus( Num[][]... ms ) {
 		return Stream.of(ms)
 			.reduce(this::plus)
 			.get();
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] minus( Num[][] m1, Num[][] m2 ) {
 		if ( m1.length != m2.length )
 			throw new ArithmeticException("m1.length != m2.length");
@@ -139,21 +139,21 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return result;
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] times( Num[][] m1, Num n2 ) {
 		return Stream.of(m1)
 			.map(v -> vecOperator.times(v,n2))
 			.toArray(Num[][]::new);
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] over( Num[][] m1, Num n2 ) {
 		return Stream.of(m1)
 			.map(v -> vecOperator.over(v,n2))
 			.toArray(Num[][]::new);
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] transpose( Num[][] m1 ) {
 		Num[][] result = new Num [ m1[0].length ][ m1.length ];
 		for ( int i=0; i<result.length; i++ )
@@ -162,7 +162,7 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return result;
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] matrixMultiply( Num[][] m1, Num[][] m2 ) {
 		if ( m1[0].length != m2.length )
 			throw new ArithmeticException("m1[0].length != m2.length");
@@ -176,14 +176,14 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return result;
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] matrixMultiply( Num[][]... ms ) {
 		return Stream.of(ms)
 			.reduce(this::matrixMultiply)
 			.get();
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] pow( Num[][] m, int exp ) {
 		return Stream.generate(() -> m)
 			.limit(exp)
@@ -191,7 +191,7 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 			.get();
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[] matrixMultiply( Num[][] m1, Num[] v2 ) {
 		if ( m1[0].length != v2.length )
 			throw new ArithmeticException("m1[0].length != v2.length");
@@ -204,7 +204,7 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return result;
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[] matrixMultiply( Num[] v1, Num[][] m2 ) {
 		if ( v1.length != m2.length )
 			throw new ArithmeticException("v1.length != m2.length");
@@ -217,7 +217,7 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return result;
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num trace( Num[][] m1 ) {
 		if ( m1.length != m1[0].length )
 			throw new ArithmeticException("m1.length != m1[0].length");
@@ -257,7 +257,7 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return result;
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num determinant( Num[][] m ) {
 		if ( m.length != m[0].length )
 			throw new ArithmeticException("m.length != m[0].length");
@@ -267,7 +267,7 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return trace(getLU(m));
 	}
 
-	@Override /* MatrixBasic.Operator */
+	@Override /* ArbitraryMatrixBasicProperty.Operator */
 	public Num[][] invert( Num[][] m ) {
 		if ( m.length != m[0].length )
 			throw new ArithmeticException("m.length != m[0].length");
@@ -305,7 +305,7 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 	}
 
 
-	@Override /* MatrixBasic.Predicate */
+	@Override /* ArbitraryMatrixBasicProperty.Predicate */
 	public boolean equals( Num[][] m1, Num[][] m2 ) {
 		if ( m1.length != m2.length )
 			return false;
@@ -315,13 +315,13 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return true;
 	}
 
-	@Override /* MatrixBasic.Predicate */
+	@Override /* ArbitraryMatrixBasicProperty.Predicate */
 	public boolean isZeroMatrix( Num[][] m ) {
 		return Stream.of(m)
 			.allMatch(vecPredicate::isZeroVector);
 	}
 
-	@Override /* MatrixBasic.Predicate */
+	@Override /* ArbitraryMatrixBasicProperty.Predicate */
 	public boolean isIdentityMatrix( Num[][] m ) {
 		return equals(m, createIdentityMatrixWithDim(m.length));
 	}

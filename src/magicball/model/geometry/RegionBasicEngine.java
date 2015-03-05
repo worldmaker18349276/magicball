@@ -5,47 +5,47 @@ import magicball.model.math.Num;
 
 
 public interface RegionBasicEngine extends
-		RegionBasic.Behavior,
-		RegionBasic.Creator,
-		RegionBasic.Operator,
-		RegionBasic.Predicate
+		ArbitraryRegionBasicProperty.Behavior,
+		ArbitraryRegionBasicProperty.Creator,
+		ArbitraryRegionBasicProperty.Operator,
+		ArbitraryRegionBasicProperty.Predicate
 {
 	// behavior
-	@Override /* RegionBasic.Behavior */
+	@Override /* ArbitraryRegionBasicProperty.Behavior */
 	public boolean contains( Region reg, Num[] point );
-	@Override /* RegionBasic.Behavior */
+	@Override /* ArbitraryRegionBasicProperty.Behavior */
 	public boolean containsAll( Region reg1, Region reg2 );
 
 
 	// creater
-	@Override /* RegionBasic.Creator */
+	@Override /* ArbitraryRegionBasicProperty.Creator */
 	public Region createRegionByFunction( Func<Num[],Boolean> func );
 
-	@Override /* RegionBasic.Creator */
+	@Override /* ArbitraryRegionBasicProperty.Creator */
 	public Region createUniversalRegion();
-	@Override /* RegionBasic.Creator */
+	@Override /* ArbitraryRegionBasicProperty.Creator */
 	public Region createEmptyRegion();
 
 
 	// operator
-	@Override /* RegionBasic.Operator */
+	@Override /* ArbitraryRegionBasicProperty.Operator */
 	public Region intersect( Region... regs );
-	@Override /* RegionBasic.Operator */
+	@Override /* ArbitraryRegionBasicProperty.Operator */
 	public Region union( Region... regs );
-	@Override /* RegionBasic.Operator */
+	@Override /* ArbitraryRegionBasicProperty.Operator */
 	public Region complement( Region reg1, Region reg2 );
-	@Override /* RegionBasic.Operator */
+	@Override /* ArbitraryRegionBasicProperty.Operator */
 	public Region complement( Region reg2 );
 	
-	@Override /* RegionBasic.Operator */
+	@Override /* ArbitraryRegionBasicProperty.Operator */
 	public Region transformsBy( Region reg, Transformation trans );
 
 
 	// predicate
-	@Override /* RegionBasic.Predicate */
+	@Override /* ArbitraryRegionBasicProperty.Predicate */
 	public boolean equals( Region reg1, Region reg2 );
-	@Override /* RegionBasic.Predicate */
+	@Override /* ArbitraryRegionBasicProperty.Predicate */
 	public boolean isUniversal( Region reg );
-	@Override /* RegionBasic.Predicate */
+	@Override /* ArbitraryRegionBasicProperty.Predicate */
 	public boolean isEmpty( Region reg );
 }

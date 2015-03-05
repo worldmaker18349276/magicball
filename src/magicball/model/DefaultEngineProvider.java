@@ -45,12 +45,12 @@ public class DefaultEngineProvider extends BasicEngineProvider
 
 	public FunctionBasicEngine getFunctionEngine() {
 		if ( this.functionEng == null ) {
-			FunctionBasic.Creator funcCreator = new FunctionCreatorForLambda();
-			BooleanFunctionBasic.Operator predOperator = new BooleanFunctionOperatorForLambda(funcCreator);
-			FunctionBasic.Behavior funcAttribute = new FunctionBehaviorForLambda();
-			FunctionBasic.Operator funcOperator = new FunctionOperatorForLambda(funcCreator);
-			FunctionBasic.Predicate funcPredicate = new FunctionPredicateWithSampleAlgorithm<Number[]>(createSkyGrid(),funcAttribute);
-			BooleanFunctionBasic.Predicate predPredicate = new DefaultBooleanFunctionPredicate(funcPredicate,predOperator);
+			ArbitraryFunctionBasicProperty.Creator funcCreator = new FunctionCreatorForLambda();
+			BooleanFunctionBasicProperty.Operator predOperator = new BooleanFunctionOperatorForLambda(funcCreator);
+			ArbitraryFunctionBasicProperty.Behavior funcAttribute = new FunctionBehaviorForLambda();
+			ArbitraryFunctionBasicProperty.Operator funcOperator = new FunctionOperatorForLambda(funcCreator);
+			ArbitraryFunctionBasicProperty.Predicate funcPredicate = new FunctionPredicateWithSampleAlgorithm<Number[]>(createSkyGrid(),funcAttribute);
+			BooleanFunctionBasicProperty.Predicate predPredicate = new DefaultBooleanFunctionPredicate(funcPredicate,predOperator);
 
 			this.functionEng = new CompositeFunctionBasicEngine();
 			this.functionEng.add(funcCreator);

@@ -4,7 +4,7 @@ import magicball.model.math.Num;
 import magicball.model.*;
 
 
-public class TransformationAdvanced
+public class ArbitraryTransformationAdvancedProperty
 {
 	static public interface Operator extends Engine<Transformation>
 	{

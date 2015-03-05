@@ -5,77 +5,77 @@ import java.util.Optional;
 
 
 public interface FunctionBasicEngine extends
-		FunctionBasic.Behavior,
-		FunctionBasic.Creator,
-		FunctionBasic.Attribute,
-		FunctionBasic.Operator,
-		FunctionBasic.Predicate,
-		BooleanFunctionBasic.Operator,
-		BooleanFunctionBasic.Predicate
+		ArbitraryFunctionBasicProperty.Behavior,
+		ArbitraryFunctionBasicProperty.Creator,
+		ArbitraryFunctionBasicProperty.Attribute,
+		ArbitraryFunctionBasicProperty.Operator,
+		ArbitraryFunctionBasicProperty.Predicate,
+		BooleanFunctionBasicProperty.Operator,
+		BooleanFunctionBasicProperty.Predicate
 {
 	// behavior
-	@Override /* FunctionBasic.Behavior */
+	@Override /* ArbitraryFunctionBasicProperty.Behavior */
 	public < I, O > O applyTo( Func<I,O> func, I in );
 
 
 	// creater
-	@Override /* FunctionBasic.Creator */
+	@Override /* ArbitraryFunctionBasicProperty.Creator */
 	public < I, O > Func<I,O> createFunctionByLambda( Function<I,O> lambda );
 
-	@Override /* FunctionBasic.Creator */
+	@Override /* ArbitraryFunctionBasicProperty.Creator */
 	public < I > Func<I,I> createIdentityFunction();
-	@Override /* FunctionBasic.Creator */
+	@Override /* ArbitraryFunctionBasicProperty.Creator */
 	public < I, O > Func<I,O> createConstantFunctionWithValue( O constant );
 
 
 	// attribute
-	@Override /* FunctionBasic.Attribute */
+	@Override /* ArbitraryFunctionBasicProperty.Attribute */
 	public < I, O > Optional<O> getConstantValueOf( Func<I,O> func );
 
 
 	// operator
-	@Override /* FunctionBasic.Operator */
+	@Override /* ArbitraryFunctionBasicProperty.Operator */
 	public < I, M, O > Func<I,O> compose( Func<I,M> func1, Func<M,O> func2 );
-	@Override /* FunctionBasic.Operator */
+	@Override /* ArbitraryFunctionBasicProperty.Operator */
 	public < I, O > Optional<Func<O,I>> invert( Func<I,O> func );
 	
-	@Override /* BooleanFunctionBasic.Operator */
+	@Override /* BooleanFunctionBasicProperty.Operator */
 	public < I > Func<I,Boolean> not( Func<I,Boolean> func );
-	@Override /* BooleanFunctionBasic.Operator */
+	@Override /* BooleanFunctionBasicProperty.Operator */
 	public < I > Func<I,Boolean> not( Func<I,Boolean> func1, Func<I,Boolean> func2 );
-	@Override /* BooleanFunctionBasic.Operator */
+	@Override /* BooleanFunctionBasicProperty.Operator */
 	public < I > Func<I,Boolean> and( Func<I,Boolean> func1, Func<I,Boolean> func2 );
-	@Override /* BooleanFunctionBasic.Operator */
+	@Override /* BooleanFunctionBasicProperty.Operator */
 	@SuppressWarnings({"unchecked", "varargs"})
 	public < I > Func<I,Boolean> and( Func<I,Boolean>... funcs );
-	@Override /* BooleanFunctionBasic.Operator */
+	@Override /* BooleanFunctionBasicProperty.Operator */
 	public < I > Func<I,Boolean> or( Func<I,Boolean> func1, Func<I,Boolean> func2 );
-	@Override /* BooleanFunctionBasic.Operator */
+	@Override /* BooleanFunctionBasicProperty.Operator */
 	@SuppressWarnings({"unchecked", "varargs"})
 	public < I > Func<I,Boolean> or( Func<I,Boolean>... funcs );
-	@Override /* BooleanFunctionBasic.Operator */
+	@Override /* BooleanFunctionBasicProperty.Operator */
 	public < I > Func<I,Boolean> xor( Func<I,Boolean> func1, Func<I,Boolean> func2 );
-	@Override /* BooleanFunctionBasic.Operator */
+	@Override /* BooleanFunctionBasicProperty.Operator */
 	@SuppressWarnings({"unchecked", "varargs"})
 	public < I > Func<I,Boolean> xor( Func<I,Boolean>... funcs );
 
 
 	// predicate
-	@Override /* FunctionBasic.Predicate */
+	@Override /* ArbitraryFunctionBasicProperty.Predicate */
 	public < I, O > boolean equals( Func<I,O> func1, Func<I,O> func2 );
-	@Override /* FunctionBasic.Predicate */
+	@Override /* ArbitraryFunctionBasicProperty.Predicate */
 	public < I, O > boolean isInvertible( Func<I,O> func );
-	@Override /* FunctionBasic.Predicate */
+	@Override /* ArbitraryFunctionBasicProperty.Predicate */
 	public < I, O > boolean isIdentityFunction( Func<I,O> func );
-	@Override /* FunctionBasic.Predicate */
+	@Override /* ArbitraryFunctionBasicProperty.Predicate */
 	public < I, O > boolean isConstantFunction( Func<I,O> func );
-	@Override /* FunctionBasic.Predicate */
+	@Override /* ArbitraryFunctionBasicProperty.Predicate */
 	public < I, O > boolean isAlwaysEqualTo( Func<I,O> func, O value );
 
-	@Override /* BooleanFunctionBasic.Predicate */
+	@Override /* BooleanFunctionBasicProperty.Predicate */
 	public < I > boolean isAlwaysTrue( Func<I,Boolean> func );
-	@Override /* BooleanFunctionBasic.Predicate */
+	@Override /* BooleanFunctionBasicProperty.Predicate */
 	public < I > boolean isAlwaysFalse( Func<I,Boolean> func );
-	@Override /* BooleanFunctionBasic.Predicate */
+	@Override /* BooleanFunctionBasicProperty.Predicate */
 	public < I > boolean implies( Func<I,Boolean> func1, Func<I,Boolean> func2 );
 }

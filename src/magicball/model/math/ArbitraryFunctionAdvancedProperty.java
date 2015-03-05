@@ -3,7 +3,7 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public class FunctionAdvanced
+public class ArbitraryFunctionAdvancedProperty
 {
 	static public interface Creator extends Engine<Func>
 	{

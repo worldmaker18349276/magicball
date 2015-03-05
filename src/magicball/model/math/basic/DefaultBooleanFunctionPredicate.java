@@ -8,26 +8,26 @@ import magicball.model.math.*;
 
 // base on lambda expression
 public class DefaultBooleanFunctionPredicate implements SpecEngine<Func,Func>,
-		BooleanFunctionBasic.Predicate
+		BooleanFunctionBasicProperty.Predicate
 {
-	private FunctionBasic.Predicate funcPredicate;
-	private BooleanFunctionBasic.Operator predOperator;
+	private ArbitraryFunctionBasicProperty.Predicate funcPredicate;
+	private BooleanFunctionBasicProperty.Operator predOperator;
 
 	public DefaultBooleanFunctionPredicate() {
 		super();
 	}
 
-	public DefaultBooleanFunctionPredicate( FunctionBasic.Predicate funcPred, BooleanFunctionBasic.Operator predOp ) {
+	public DefaultBooleanFunctionPredicate( ArbitraryFunctionBasicProperty.Predicate funcPred, BooleanFunctionBasicProperty.Operator predOp ) {
 		super();
 		setEngine(funcPred);
 		setEngine(predOp);
 	}
 
-	public void setEngine( FunctionBasic.Predicate funcPred ) {
+	public void setEngine( ArbitraryFunctionBasicProperty.Predicate funcPred ) {
 		funcPredicate = funcPred;
 	}
 
-	public void setEngine( BooleanFunctionBasic.Operator predOp ) {
+	public void setEngine( BooleanFunctionBasicProperty.Operator predOp ) {
 		predOperator = predOp;
 	}
 

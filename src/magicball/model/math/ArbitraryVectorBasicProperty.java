@@ -3,7 +3,7 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public class VectorBasic
+public class ArbitraryVectorBasicProperty
 {
 	static public interface Creator extends Engine<Num>
 	{

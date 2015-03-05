@@ -9,53 +9,53 @@ import magicball.model.math.*;
 
 
 public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpression>,
-		VectorBasic.Creator,
-		VectorBasic.Attribute,
-		VectorBasic.Operator,
-		VectorBasic.Predicate
+		ArbitraryVectorBasicProperty.Creator,
+		ArbitraryVectorBasicProperty.Attribute,
+		ArbitraryVectorBasicProperty.Operator,
+		ArbitraryVectorBasicProperty.Predicate
 {
-	private ScalarBasic.Creator scaCreator;
-	private ScalarBasic.Attribute scaAttribute;
-	private ScalarBasic.Operator scaOperator;
-	private ScalarBasic.Predicate scaPredicate;
+	private ArbitraryScalarBasicProperty.Creator scaCreator;
+	private ArbitraryScalarBasicProperty.Attribute scaAttribute;
+	private ArbitraryScalarBasicProperty.Operator scaOperator;
+	private ArbitraryScalarBasicProperty.Predicate scaPredicate;
 
 
 	public DefaultVectorEngine() {
 	}
 
-	public DefaultVectorEngine( ScalarBasic.Creator scaC, ScalarBasic.Attribute scaAttr, ScalarBasic.Operator scaOp, ScalarBasic.Predicate scaPred ) {
+	public DefaultVectorEngine( ArbitraryScalarBasicProperty.Creator scaC, ArbitraryScalarBasicProperty.Attribute scaAttr, ArbitraryScalarBasicProperty.Operator scaOp, ArbitraryScalarBasicProperty.Predicate scaPred ) {
 		scaCreator = scaC;
 		scaAttribute = scaAttr;
 		scaOperator = scaOp;
 		scaPredicate = scaPred;
 	}
 
-	public void setEngine( ScalarBasic.Creator scaC ) {
+	public void setEngine( ArbitraryScalarBasicProperty.Creator scaC ) {
 		scaCreator = scaC;
 	}
 
-	public void setEngine( ScalarBasic.Attribute scaAttr ) {
+	public void setEngine( ArbitraryScalarBasicProperty.Attribute scaAttr ) {
 		scaAttribute = scaAttr;
 	}
 
-	public void setEngine( ScalarBasic.Operator scaOp ) {
+	public void setEngine( ArbitraryScalarBasicProperty.Operator scaOp ) {
 		scaOperator = scaOp;
 	}
 
-	public void setEngine( ScalarBasic.Predicate scaPred ) {
+	public void setEngine( ArbitraryScalarBasicProperty.Predicate scaPred ) {
 		scaPredicate = scaPred;
 	}
 
 
 	// vector ( Num[] )
-	@Override /* VectorBasic.Creator */
+	@Override /* ArbitraryVectorBasicProperty.Creator */
 	public Num[] createVectorByDoubles( double... ns ) {
 		return DoubleStream.of(ns)
 			.mapToObj(scaCreator::createNumberByDouble)
 			.toArray(Num[]::new);
 	}
 
-	@Override /* VectorBasic.Creator */
+	@Override /* ArbitraryVectorBasicProperty.Creator */
 	public Num[] createZeroVectorWithDim( int d ) {
 		return DoubleStream.generate(() -> 0.0)
 			.limit(d)
@@ -64,7 +64,7 @@ public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpressio
 	}
 
 
-	@Override /* VectorBasic.Attribute */
+	@Override /* ArbitraryVectorBasicProperty.Attribute */
 	public double[] getDoubleValueOf( Num[] v ) {
 		return Stream.of(v)
 			.mapToDouble(scaAttribute::getDoubleValueOf)
@@ -72,31 +72,31 @@ public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpressio
 	}
 
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] clone( Num[] v ) {
 		return Arrays.copyOf(v,v.length);
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] subvectorOf( Num[] v, int i1, int i2 ) {
 		return Arrays.copyOfRange(v,i1,i2);
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] augmentsWith( Num[] v, Num... ns ) {
 		return Stream.concat(Stream.of(v), Stream.of(ns))
 			.toArray(Num[]::new);
 	}
 
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] negate( Num[] v ) {
 		return Stream.of(v)
 			.map(scaOperator::negate)
 			.toArray(Num[]::new);
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] plus( Num[] v1, Num[] v2 ) {
 		if ( v1.length != v2.length )
 			throw new ArithmeticException("v1.length != v2.length");
@@ -106,14 +106,14 @@ public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return result;
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] plus( Num[]... vs ) {
 		return Stream.of(vs)
 			.reduce(this::plus)
 			.get();
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] minus( Num[] v1, Num[] v2 ) {
 		if ( v1.length != v2.length )
 			throw new ArithmeticException("v1.length != v2.length");
@@ -123,21 +123,21 @@ public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return result;
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] times( Num[] v1, Num n2 ) {
 		return Stream.of(v1)
 			.map(n1 -> scaOperator.times(n1,n2))
 			.toArray(Num[]::new);
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] over( Num[] v1, Num n2 ) {
 		return Stream.of(v1)
 			.map(v -> scaOperator.over(v,n2))
 			.toArray(Num[]::new);
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num norm( Num[] v ) {
 		Num[] v2 = Stream.of(v)
 			.map(n -> scaOperator.pow(n,2))
@@ -145,12 +145,12 @@ public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return scaOperator.sqrt(scaOperator.plus(v2));
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] normalize( Num[] v ) {
 		return over(v,norm(v));
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num dotProduct( Num[] v1, Num[] v2 ) {
 		if ( v1.length != v2.length )
 			throw new ArithmeticException("v1.length != v2.length");
@@ -160,7 +160,7 @@ public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpressio
 			return result;
 	}
 
-	@Override /* VectorBasic.Operator */
+	@Override /* ArbitraryVectorBasicProperty.Operator */
 	public Num[] crossProduct( Num[] v1, Num[] v2 ) {
 		Num[] result = new Num [ 3 ];
 		result[0] = scaOperator.minus(scaOperator.times(v1[1],v2[2]),scaOperator.times(v1[2],v2[1]));
@@ -170,7 +170,7 @@ public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpressio
 	}
 
 
-	@Override /* VectorBasic.Predicate */
+	@Override /* ArbitraryVectorBasicProperty.Predicate */
 	public boolean equals( Num[] v1, Num[] v2 ) {
 		if ( v1.length != v2.length )
 			return false;
@@ -180,7 +180,7 @@ public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpressio
 		return true;
 	}
 
-	@Override /* VectorBasic.Predicate */
+	@Override /* ArbitraryVectorBasicProperty.Predicate */
 	public boolean isZeroVector( Num[] v ) {
 		return Stream.of(v)
 			.allMatch(scaPredicate::isZero);

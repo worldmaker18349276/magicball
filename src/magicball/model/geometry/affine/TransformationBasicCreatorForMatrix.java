@@ -5,7 +5,7 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class TransformationBasicCreatorForMatrix implements TransformationBasic.Creator, SpecEngine<Transformation,AffineTransformationMatrixExpression>
+public class TransformationBasicCreatorForMatrix implements ArbitraryTransformationBasicProperty.Creator, SpecEngine<Transformation,AffineTransformationMatrixExpression>
 {
 	private VectorEngine vecEngine;
 	private MatrixEngine matEngine;

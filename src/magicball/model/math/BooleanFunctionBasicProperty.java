@@ -3,7 +3,7 @@ package magicball.model.math;
 import magicball.model.*;
 
 
-public class BooleanFunctionBasic
+public class BooleanFunctionBasicProperty
 {
 	static public interface Operator extends Engine<Func>
 	{

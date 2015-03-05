@@ -5,10 +5,10 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class TransformationBasicOperatorForMatrix implements TransformationBasic.Operator, SpecEngine<Transformation,AffineTransformationMatrixExpression>
+public class TransformationBasicOperatorForMatrix implements ArbitraryTransformationBasicProperty.Operator, SpecEngine<Transformation,AffineTransformationMatrixExpression>
 {
-	private TransformationBasic.Creator transCreator;
-	private FunctionBasic.Creator funcCreator;
+	private ArbitraryTransformationBasicProperty.Creator transCreator;
+	private ArbitraryFunctionBasicProperty.Creator funcCreator;
 	private ScalarEngine scaEngine;
 	private VectorEngine vecEngine;
 	private MatrixEngine matEngine;
@@ -17,7 +17,7 @@ public class TransformationBasicOperatorForMatrix implements TransformationBasic
 		super();
 	}
 
-	public TransformationBasicOperatorForMatrix( TransformationBasic.Creator transC, FunctionBasic.Creator funcC, ScalarEngine scaEng, VectorEngine vecEng, MatrixEngine matEng ) {
+	public TransformationBasicOperatorForMatrix( ArbitraryTransformationBasicProperty.Creator transC, ArbitraryFunctionBasicProperty.Creator funcC, ScalarEngine scaEng, VectorEngine vecEng, MatrixEngine matEng ) {
 		super();
 		setEngine(transC);
 		setEngine(funcC);
@@ -26,11 +26,11 @@ public class TransformationBasicOperatorForMatrix implements TransformationBasic
 		setEngine(matEng);
 	}
 
-	public void setEngine( TransformationBasic.Creator transC ) {
+	public void setEngine( ArbitraryTransformationBasicProperty.Creator transC ) {
 		transCreator = transC;
 	}
 
-	public void setEngine( FunctionBasic.Creator funcC ) {
+	public void setEngine( ArbitraryFunctionBasicProperty.Creator funcC ) {
 		funcCreator = funcC;
 	}
 

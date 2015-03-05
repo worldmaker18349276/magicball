@@ -5,9 +5,9 @@ import magicball.model.math.*;
 import magicball.model.*;
 
 
-public class AffineTransformationAttributeForMatrix implements AffineTransformationAdvanced.Attribute, SpecEngine<Transformation,AffineTransformationMatrixExpression>
+public class AffineTransformationAttributeForMatrix implements AffineTransformationAdvancedProperty.Attribute, SpecEngine<Transformation,AffineTransformationMatrixExpression>
 {
-	private AffineTransformationAdvanced.Predicate affPredicate;
+	private AffineTransformationAdvancedProperty.Predicate affPredicate;
 	private ScalarEngine scaEngine;
 	private VectorEngine vecEngine;
 	private MatrixEngine matEngine;
@@ -16,7 +16,7 @@ public class AffineTransformationAttributeForMatrix implements AffineTransformat
 		super();
 	}
 
-	public AffineTransformationAttributeForMatrix( AffineTransformationAdvanced.Predicate affPred, ScalarEngine scaEng, VectorEngine vecEng, MatrixEngine matEng ) {
+	public AffineTransformationAttributeForMatrix( AffineTransformationAdvancedProperty.Predicate affPred, ScalarEngine scaEng, VectorEngine vecEng, MatrixEngine matEng ) {
 		super();
 		setEngine(affPred);
 		setEngine(scaEng);
@@ -24,7 +24,7 @@ public class AffineTransformationAttributeForMatrix implements AffineTransformat
 		setEngine(matEng);
 	}
 
-	public void setEngine( AffineTransformationAdvanced.Predicate affPred ) {
+	public void setEngine( AffineTransformationAdvancedProperty.Predicate affPred ) {
 		affPredicate = affPred;
 	}
 

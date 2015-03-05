@@ -5,41 +5,41 @@ import magicball.model.math.Num;
 
 
 public interface TransformationBasicEngine extends
-		TransformationBasic.Behavior,
-		TransformationBasic.Creator,
-		TransformationBasic.Attribute,
-		TransformationBasic.Operator,
-		TransformationBasic.Predicate
+		ArbitraryTransformationBasicProperty.Behavior,
+		ArbitraryTransformationBasicProperty.Creator,
+		ArbitraryTransformationBasicProperty.Attribute,
+		ArbitraryTransformationBasicProperty.Operator,
+		ArbitraryTransformationBasicProperty.Predicate
 {
 	// behavior
-	@Override /* TransformationBasic.Behavior */
+	@Override /* ArbitraryTransformationBasicProperty.Behavior */
 	public Num[] applyTo( Transformation trans, Num[] point );
 
 
 	// creater
-	@Override /* TransformationBasic.Creator */
+	@Override /* ArbitraryTransformationBasicProperty.Creator */
 	public Transformation createTransformationByFunction( Func<Num[],Num[]> func );
-	@Override /* TransformationBasic.Creator */
+	@Override /* ArbitraryTransformationBasicProperty.Creator */
 	public Transformation createIdentityTransformation();
 
 
 	// attribute
-	@Override /* TransformationBasic.Attribute */
+	@Override /* ArbitraryTransformationBasicProperty.Attribute */
 	public Func<Num[],Num[]> getTransformationFunctionOf( Transformation trans );
 
 
 	// operator
-	@Override /* TransformationBasic.Operator */
+	@Override /* ArbitraryTransformationBasicProperty.Operator */
 	public Transformation compose( Transformation... trans );
-	@Override /* TransformationBasic.Operator */
+	@Override /* ArbitraryTransformationBasicProperty.Operator */
 	public Transformation invert( Transformation trans );
-	@Override /* TransformationBasic.Operator */
+	@Override /* ArbitraryTransformationBasicProperty.Operator */
 	public Transformation transformsBy( Transformation t, Transformation p );
 
 
 	// predicate
-	@Override /* TransformationBasic.Predicate */
+	@Override /* ArbitraryTransformationBasicProperty.Predicate */
 	public boolean equals( Transformation trans1, Transformation trans2 );
-	@Override /* TransformationBasic.Predicate */
+	@Override /* ArbitraryTransformationBasicProperty.Predicate */
 	public boolean isIdentity( Transformation trans );
 }
