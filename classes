@@ -6,18 +6,9 @@ src/magicball/model/UnsupportedAlgorithmException.java
 src/magicball/model/UnsupportedExpressionException.java
 
 src/magicball/model/math/Num.java
-src/magicball/model/math/ScalarCreator.java
-src/magicball/model/math/ScalarAttribute.java
-src/magicball/model/math/ScalarOperator.java
-src/magicball/model/math/ScalarPredicate.java
-src/magicball/model/math/VectorCreator.java
-src/magicball/model/math/VectorAttribute.java
-src/magicball/model/math/VectorOperator.java
-src/magicball/model/math/VectorPredicate.java
-src/magicball/model/math/MatrixCreator.java
-src/magicball/model/math/MatrixAttribute.java
-src/magicball/model/math/MatrixOperator.java
-src/magicball/model/math/MatrixPredicate.java
+src/magicball/model/math/ScalarBasic.java
+src/magicball/model/math/VectorBasic.java
+src/magicball/model/math/MatrixBasic.java
 src/magicball/model/math/NumberBasicEngine.java
 src/magicball/model/math/CompositeNumberBasicEngine.java
 src/magicball/model/math/basic/ScalarEngineForDouble.java
