@@ -31,6 +31,9 @@ src/magicball/model/geometry/ArbitraryTransformationBasicProperty.java
 src/magicball/model/geometry/ArbitraryTransformationAdvancedProperty.java
 src/magicball/model/geometry/AffineTransformationAdvancedProperty.java
 src/magicball/model/geometry/TransformationBasicEngine.java
+src/magicball/model/geometry/TransformationAdvancedEngine.java
+src/magicball/model/geometry/CompositeTransformationAdvancedEngine.java
+src/magicball/model/geometry/spec/AffineTransformationAdvancedPropertiesForMatrix.java
 
 src/magicball/model/geometry/Region.java
 src/magicball/model/geometry/ArbitraryRegionBasicProperty.java

@@ -1,23 +1,24 @@
 package magicball.model.geometry.spec;
 
+import magicball.model.math.*;
 import magicball.model.geometry.*;
 
 
 public class AffineTransformationMatrixExpression extends Transformation
 {
-	final private Number[][] matrix;
-	final private Number[] vector;
+	final private Num[][] matrix;
+	final private Num[] vector;
 
-	public AffineTransformationMatrixExpression( Number[][] mat, Number[] vec ) {
+	public AffineTransformationMatrixExpression( Num[][] mat, Num[] vec ) {
 		this.matrix = mat;
 		this.vector = vec;
 	}
 
-	public Number[][] getMatrix() {
+	public Num[][] getMatrix() {
 		return this.matrix;
 	}
 
-	public Number[] getVector() {
+	public Num[] getVector() {
 		return this.vector;
 	}
 }

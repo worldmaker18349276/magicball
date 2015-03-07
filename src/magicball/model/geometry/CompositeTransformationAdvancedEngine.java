@@ -1,13 +1,33 @@
 package magicball.model.geometry;
 
+import java.util.Optional;
+
 import magicball.model.math.Func;
+import magicball.model.math.Num;
 import magicball.model.*;
 
 
-public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngine<Transformation> implements TransformationBasicEngine
+public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngine<Transformation> implements TransformationAdvancedEngine
 {
+	// behavior
+	@Override
+	public Num[] applyTo( Transformation trans, Num[] point ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Behavior ) {
+
+			try {
+				return ((ArbitraryTransformationBasicProperty.Behavior)engine).applyTo(trans,point);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+
 	// creater
-	public Transformation createTransformationByFunction( Function<Number[],Number[]> func ) {
+	@Override
+	public Transformation createTransformationByFunction( Func<Num[],Num[]> func ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Creator ) {
 
 			try {
@@ -20,6 +40,7 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
 	public Transformation createIdentityTransformation() {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Creator ) {
 
@@ -33,7 +54,8 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Transformation createAffineTransformationByAugmentedMatrix( Number[][] mat ) {
+	@Override
+	public Transformation createAffineTransformationByAugmentedMatrix( Num[][] mat ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Creator ) {
 
 			try {
@@ -46,7 +68,8 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Transformation createAffineTransformationByMatrixAndVector( Number[][] mat, Number[] vec ) {
+	@Override
+	public Transformation createAffineTransformationByMatrixAndVector( Num[][] mat, Num[] vec ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Creator ) {
 
 			try {
@@ -59,7 +82,8 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Transformation createLinearTransformationByMatrix( Number[][] mat ) {
+	@Override
+	public Transformation createLinearTransformationByMatrix( Num[][] mat ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Creator ) {
 
 			try {
@@ -72,7 +96,8 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Transformation createRotationByVector( Number[] rvec ) {
+	@Override
+	public Transformation createRotationByVector( Num[] rvec ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Creator ) {
 
 			try {
@@ -85,7 +110,8 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Transformation createReflectionByVector( Number[] fvec ) {
+	@Override
+	public Transformation createReflectionByVector( Num[] fvec ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Creator ) {
 
 			try {
@@ -98,7 +124,8 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Transformation createTranslationByVector( Number[] sh ) {
+	@Override
+	public Transformation createTranslationByVector( Num[] sh ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Creator ) {
 
 			try {
@@ -111,7 +138,8 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Transformation createScalingByFactor( Number factor ) {
+	@Override
+	public Transformation createScalingByFactor( Num factor ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Creator ) {
 
 			try {
@@ -124,7 +152,8 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Transformation createShearingByOffsets( Number a, Number b ) {
+	@Override
+	public Transformation createShearingByOffsets( Num a, Num b ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Creator ) {
 
 			try {
@@ -140,11 +169,12 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 
 
 	// attribute
-	public Number[] applyTo( Transformation trans, Number[] point ) {
+	@Override
+	public Func<Num[],Num[]> getTransformationFunctionOf( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Attribute ) {
 
 			try {
-				return ((ArbitraryTransformationBasicProperty.Attribute)engine).applyTo(trans,point);
+				return ((ArbitraryTransformationBasicProperty.Attribute)engine).getTransformationFunctionOf(trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -153,24 +183,12 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Function<Number[],Number[]> getTransformationFunction( Transformation trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Attribute ) {
-
-			try {
-				return ((ArbitraryTransformationBasicProperty.Attribute)engine).getTransformationFunction(trans);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public Number[][] getTransformationMatrix( Transformation trans ) {
+	@Override
+	public Optional<Num[][]> getTransformationMatrixOf( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Attribute ) {
 
 			try {
-				return ((AffineTransformationAdvancedProperty.Attribute)engine).getTransformationMatrix(trans);
+				return ((AffineTransformationAdvancedProperty.Attribute)engine).getTransformationMatrixOf(trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -179,11 +197,12 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number[] getRotationVector( Transformation trans ) {
+	@Override
+	public Optional<Num[]> getRotationVectorOf( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Attribute ) {
 
 			try {
-				return ((AffineTransformationAdvancedProperty.Attribute)engine).getRotationVector(trans);
+				return ((AffineTransformationAdvancedProperty.Attribute)engine).getRotationVectorOf(trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -192,11 +211,12 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number[] getReflectionVector( Transformation trans ) {
+	@Override
+	public Optional<Num[]> getReflectionVectorOf( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Attribute ) {
 
 			try {
-				return ((AffineTransformationAdvancedProperty.Attribute)engine).getReflectionVector(trans);
+				return ((AffineTransformationAdvancedProperty.Attribute)engine).getReflectionVectorOf(trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -205,11 +225,12 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Number[] getTranslationVector( Transformation trans ) {
+	@Override
+	public Optional<Num[]> getTranslationVectorOf( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Attribute ) {
 
 			try {
-				return ((AffineTransformationAdvancedProperty.Attribute)engine).getTranslationVector(trans);
+				return ((AffineTransformationAdvancedProperty.Attribute)engine).getTranslationVectorOf(trans);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -220,6 +241,7 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 
 
 	// operator
+	@Override
 	public Transformation compose( Transformation... trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Operator ) {
 
@@ -233,32 +255,7 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-	public Transformation pow( Transformation trans, int exp ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Operator ) {
-
-			try {
-				return ((ArbitraryTransformationBasicProperty.Operator)engine).pow(trans,exp);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
-	public Transformation dividedBy( Transformation trans, Number divisor ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Operator ) {
-
-			try {
-				return ((ArbitraryTransformationBasicProperty.Operator)engine).dividedBy(trans,divisor);
-			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
-				continue;
-			}
-
-		}
-		throw new UnsupportedAlgorithmException();
-	}
-
+	@Override
 	public Transformation invert( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Operator ) {
 
@@ -272,6 +269,7 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
 	public Transformation transformsBy( Transformation t, Transformation p ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Operator ) {
 
@@ -285,14 +283,12 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
-
-
-	// predicate
-	public boolean isIdentity( Transformation trans ) {
-		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Predicate ) {
+	@Override
+	public Transformation pow( Transformation trans, int exp ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationAdvancedProperty.Operator ) {
 
 			try {
-				return ((ArbitraryTransformationBasicProperty.Predicate)engine).isIdentity(trans);
+				return ((ArbitraryTransformationAdvancedProperty.Operator)engine).pow(trans,exp);
 			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
 				continue;
 			}
@@ -301,6 +297,24 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
+	public Transformation dividedBy( Transformation trans, Num divisor ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationAdvancedProperty.Operator ) {
+
+			try {
+				return ((ArbitraryTransformationAdvancedProperty.Operator)engine).dividedBy(trans,divisor);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+
+
+	// predicate
+	@Override
 	public boolean equals( Transformation trans1, Transformation trans2 ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Predicate ) {
 
@@ -314,6 +328,21 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
+	public boolean isIdentity( Transformation trans ) {
+		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof ArbitraryTransformationBasicProperty.Predicate ) {
+
+			try {
+				return ((ArbitraryTransformationBasicProperty.Predicate)engine).isIdentity(trans);
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
 	public boolean isAffine( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Predicate ) {
 
@@ -327,6 +356,7 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
 	public boolean isLinear( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Predicate ) {
 
@@ -340,6 +370,7 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
 	public boolean isSimilar( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Predicate ) {
 
@@ -353,6 +384,7 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
 	public boolean isIsometric( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Predicate ) {
 
@@ -366,6 +398,7 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
 	public boolean isRigid( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Predicate ) {
 
@@ -379,6 +412,7 @@ public class CompositeTransformationAdvancedEngine extends DefaultCompositeEngin
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
 	public boolean isTranslation( Transformation trans ) {
 		for ( Engine<? extends Transformation> engine : engines ) if ( engine instanceof AffineTransformationAdvancedProperty.Predicate ) {
 
