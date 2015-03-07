@@ -14,36 +14,40 @@ public class VectorBasicPropertiesForDefault implements SpecEngine<Num,NumberDou
 		ArbitraryVectorBasicProperty.Operator,
 		ArbitraryVectorBasicProperty.Predicate
 {
-	private ArbitraryScalarBasicProperty.Creator scaCreator;
-	private ArbitraryScalarBasicProperty.Attribute scaAttribute;
-	private ArbitraryScalarBasicProperty.Operator scaOperator;
-	private ArbitraryScalarBasicProperty.Predicate scaPredicate;
+	protected ArbitraryScalarBasicProperty.Creator scaCreator;
+	protected ArbitraryScalarBasicProperty.Attribute scaAttribute;
+	protected ArbitraryScalarBasicProperty.Operator scaOperator;
+	protected ArbitraryScalarBasicProperty.Predicate scaPredicate;
 
 
 	public VectorBasicPropertiesForDefault() {
 	}
 
-	public VectorBasicPropertiesForDefault( ArbitraryScalarBasicProperty.Creator scaC, ArbitraryScalarBasicProperty.Attribute scaAttr, ArbitraryScalarBasicProperty.Operator scaOp, ArbitraryScalarBasicProperty.Predicate scaPred ) {
-		scaCreator = scaC;
-		scaAttribute = scaAttr;
-		scaOperator = scaOp;
-		scaPredicate = scaPred;
+	public VectorBasicPropertiesForDefault(
+			ArbitraryScalarBasicProperty.Creator scaC,
+			ArbitraryScalarBasicProperty.Attribute scaA,
+			ArbitraryScalarBasicProperty.Operator scaO,
+			ArbitraryScalarBasicProperty.Predicate scaP ) {
+		setEngine(scaC);
+		setEngine(scaA);
+		setEngine(scaO);
+		setEngine(scaP);
 	}
 
 	public void setEngine( ArbitraryScalarBasicProperty.Creator scaC ) {
 		scaCreator = scaC;
 	}
 
-	public void setEngine( ArbitraryScalarBasicProperty.Attribute scaAttr ) {
-		scaAttribute = scaAttr;
+	public void setEngine( ArbitraryScalarBasicProperty.Attribute scaA ) {
+		scaAttribute = scaA;
 	}
 
-	public void setEngine( ArbitraryScalarBasicProperty.Operator scaOp ) {
-		scaOperator = scaOp;
+	public void setEngine( ArbitraryScalarBasicProperty.Operator scaO ) {
+		scaOperator = scaO;
 	}
 
-	public void setEngine( ArbitraryScalarBasicProperty.Predicate scaPred ) {
-		scaPredicate = scaPred;
+	public void setEngine( ArbitraryScalarBasicProperty.Predicate scaP ) {
+		scaPredicate = scaP;
 	}
 
 

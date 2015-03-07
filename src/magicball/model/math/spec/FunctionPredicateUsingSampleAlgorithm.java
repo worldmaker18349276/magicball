@@ -12,17 +12,16 @@ public class FunctionPredicateUsingSampleAlgorithm < E, R > implements SpecEngin
 {
 	protected Set<E> samples;
 	protected BiPredicate<R,R> comparator;
-	private ArbitraryFunctionBasicProperty.Behavior funcBehavior;
+	protected ArbitraryFunctionBasicProperty.Behavior funcBehavior;
 
 
 	public FunctionPredicateUsingSampleAlgorithm( Set<E> sam, BiPredicate<R,R> comp ) {
-		super();
 		this.samples = sam;
 		this.comparator = comp;
 	}
 
-	public FunctionPredicateUsingSampleAlgorithm( Set<E> sam, BiPredicate<R,R> comp, ArbitraryFunctionBasicProperty.Behavior funcB ) {
-		super();
+	public FunctionPredicateUsingSampleAlgorithm( Set<E> sam, BiPredicate<R,R> comp,
+			ArbitraryFunctionBasicProperty.Behavior funcB ) {
 		this.samples = sam;
 		this.comparator = comp;
 		setEngine(funcB);

@@ -25,8 +25,8 @@ src/magicball/model/math/CompositeFunctionBasicEngine.java
 src/magicball/model/math/spec/FunctionLambdaExpression.java
 src/magicball/model/math/spec/FunctionBasicPropertiesForLambda.java
 src/magicball/model/math/spec/FunctionPredicateUsingSampleAlgorithm.java
+src/magicball/model/math/spec/BooleanFunctionBasicPropertiesForDefault.java
 src/magicball/model/math/spec/BooleanFunctionOperatorForLambda.java
-src/magicball/model/math/spec/BooleanFunctionPredicateForDefault.java
 
 src/magicball/model/geometry/Transformation.java
 src/magicball/model/geometry/ArbitraryTransformationBasicProperty.java

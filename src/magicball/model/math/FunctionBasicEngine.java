@@ -10,6 +10,7 @@ public interface FunctionBasicEngine extends
 		ArbitraryFunctionBasicProperty.Attribute,
 		ArbitraryFunctionBasicProperty.Operator,
 		ArbitraryFunctionBasicProperty.Predicate,
+		BooleanFunctionBasicProperty.Creator,
 		BooleanFunctionBasicProperty.Operator,
 		BooleanFunctionBasicProperty.Predicate
 {
@@ -27,6 +28,10 @@ public interface FunctionBasicEngine extends
 	@Override /* ArbitraryFunctionBasicProperty.Creator */
 	public < I, O > Func<I,O> createConstantFunctionWithValue( O constant );
 
+	@Override /* BooleanFunctionBasicProperty.Creator */
+	public < I > Func<I,Boolean> createTrueFunction();
+	@Override /* BooleanFunctionBasicProperty.Creator */
+	public < I > Func<I,Boolean> createFalseFunction();
 
 	// attribute
 	@Override /* ArbitraryFunctionBasicProperty.Attribute */

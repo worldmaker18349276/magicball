@@ -19,26 +19,114 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 		AffineTransformationAdvancedProperty.Attribute,
 		AffineTransformationAdvancedProperty.Predicate
 {
-	private NumberBasicEngine numEngine;
-	private FunctionBasicEngine funcEngine;
+	protected ArbitraryScalarBasicProperty.Creator scaCreator;
+	protected ArbitraryScalarBasicProperty.Attribute scaAttribute;
+	protected ArbitraryScalarBasicProperty.Operator scaOperator;
+	protected ArbitraryScalarBasicProperty.Predicate scaPredicate;
+	protected ArbitraryVectorBasicProperty.Creator vecCreator;
+	protected ArbitraryVectorBasicProperty.Operator vecOperator;
+	protected ArbitraryVectorBasicProperty.Predicate vecPredicate;
+	protected ArbitraryMatrixBasicProperty.Creator matCreator;
+	protected ArbitraryMatrixBasicProperty.Operator matOperator;
+	protected ArbitraryMatrixBasicProperty.Predicate matPredicate;
+	protected ArbitraryFunctionBasicProperty.Creator funcCreator;
+
 
 	public AffineTransformationAdvancedPropertiesForMatrix() {
-		super();
 	}
 
-	public AffineTransformationAdvancedPropertiesForMatrix( NumberBasicEngine numEng, FunctionBasicEngine funcEng ) {
-		super();
-		setEngine(numEng);
-		setEngine(funcEng);
+	public <N extends ArbitraryScalarBasicProperty.Creator &
+					ArbitraryScalarBasicProperty.Attribute &
+					ArbitraryScalarBasicProperty.Operator &
+					ArbitraryScalarBasicProperty.Predicate &
+					ArbitraryVectorBasicProperty.Creator &
+					ArbitraryVectorBasicProperty.Operator &
+					ArbitraryVectorBasicProperty.Predicate &
+					ArbitraryMatrixBasicProperty.Creator &
+					ArbitraryMatrixBasicProperty.Operator &
+					ArbitraryMatrixBasicProperty.Predicate> AffineTransformationAdvancedPropertiesForMatrix( N numEng, ArbitraryFunctionBasicProperty.Creator funcC ) {
+		setEngine((ArbitraryScalarBasicProperty.Creator)numEng);
+		setEngine((ArbitraryScalarBasicProperty.Attribute)numEng);
+		setEngine((ArbitraryScalarBasicProperty.Operator)numEng);
+		setEngine((ArbitraryScalarBasicProperty.Predicate)numEng);
+		setEngine((ArbitraryVectorBasicProperty.Creator)numEng);
+		setEngine((ArbitraryVectorBasicProperty.Operator)numEng);
+		setEngine((ArbitraryVectorBasicProperty.Predicate)numEng);
+		setEngine((ArbitraryMatrixBasicProperty.Creator)numEng);
+		setEngine((ArbitraryMatrixBasicProperty.Operator)numEng);
+		setEngine((ArbitraryMatrixBasicProperty.Predicate)numEng);
+		setEngine(funcC);
 	}
 
-	public void setEngine( NumberBasicEngine numEng ) {
-		numEngine = numEng;
+	public AffineTransformationAdvancedPropertiesForMatrix(
+			ArbitraryScalarBasicProperty.Creator scaC,
+			ArbitraryScalarBasicProperty.Attribute scaA,
+			ArbitraryScalarBasicProperty.Operator scaO,
+			ArbitraryScalarBasicProperty.Predicate scaP,
+			ArbitraryVectorBasicProperty.Creator vecC,
+			ArbitraryVectorBasicProperty.Operator vecO,
+			ArbitraryVectorBasicProperty.Predicate vecP,
+			ArbitraryMatrixBasicProperty.Creator matC,
+			ArbitraryMatrixBasicProperty.Operator matO,
+			ArbitraryMatrixBasicProperty.Predicate matP,
+			ArbitraryFunctionBasicProperty.Creator funcC ) {
+		setEngine(scaC);
+		setEngine(scaA);
+		setEngine(scaO);
+		setEngine(scaP);
+		setEngine(vecC);
+		setEngine(vecO);
+		setEngine(vecP);
+		setEngine(matC);
+		setEngine(matO);
+		setEngine(matP);
+		setEngine(funcC);
 	}
 
-	public void setEngine( FunctionBasicEngine funcEng ) {
-		funcEngine = funcEng;
+	public void setEngine( ArbitraryScalarBasicProperty.Creator scaC ) {
+		scaCreator = scaC;
 	}
+
+	public void setEngine( ArbitraryScalarBasicProperty.Attribute scaA ) {
+		scaAttribute = scaA;
+	}
+
+	public void setEngine( ArbitraryScalarBasicProperty.Operator scaO ) {
+		scaOperator = scaO;
+	}
+
+	public void setEngine( ArbitraryScalarBasicProperty.Predicate scaP ) {
+		scaPredicate = scaP;
+	}
+
+	public void setEngine( ArbitraryVectorBasicProperty.Creator vecC ) {
+		vecCreator = vecC;
+	}
+
+	public void setEngine( ArbitraryVectorBasicProperty.Operator vecO ) {
+		vecOperator = vecO;
+	}
+
+	public void setEngine( ArbitraryVectorBasicProperty.Predicate vecP ) {
+		vecPredicate = vecP;
+	}
+
+	public void setEngine( ArbitraryMatrixBasicProperty.Creator matC ) {
+		matCreator = matC;
+	}
+
+	public void setEngine( ArbitraryMatrixBasicProperty.Operator matO ) {
+		matOperator = matO;
+	}
+
+	public void setEngine( ArbitraryMatrixBasicProperty.Predicate matP ) {
+		matPredicate = matP;
+	}
+
+	public void setEngine( ArbitraryFunctionBasicProperty.Creator funcC ) {
+		funcCreator = funcC;
+	}
+
 
 
 	private Num[][] matrix( Transformation trans ) {
@@ -56,54 +144,54 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 	private Transformation trans( Num[][] mat ) {
 		return new AffineTransformationMatrixExpression(
 			mat,
-			numEngine.createZeroVectorWithDim(3));
+			vecCreator.createZeroVectorWithDim(3));
 	}
 
 	private Transformation trans( Num[] vec ) {
 		return new AffineTransformationMatrixExpression(
-			numEngine.createIdentityMatrixWithDim(3),
+			matCreator.createIdentityMatrixWithDim(3),
 			vec);
 	}
 
 	private Transformation trans() {
 		return new AffineTransformationMatrixExpression(
-			numEngine.createIdentityMatrixWithDim(3),
-			numEngine.createZeroVectorWithDim(3));
+			matCreator.createIdentityMatrixWithDim(3),
+			vecCreator.createZeroVectorWithDim(3));
 	}
 
 	private Num[] rotationMatrix2RotationVector( Num[][] rmat ) {
-		Num one = numEngine.createOne();
-		Num two = numEngine.createNumberByDouble(2);
-		Num trace = numEngine.trace(rmat);
-		Num cos = numEngine.over(numEngine.minus(trace, one), two);
-		Num angle = numEngine.acos(cos);
-		Num sin = numEngine.sin(angle);
-		Num factor = numEngine.over(angle, numEngine.times(two, sin));
+		Num one = scaCreator.createOne();
+		Num two = scaCreator.createNumberByDouble(2);
+		Num trace = matOperator.trace(rmat);
+		Num cos = scaOperator.over(scaOperator.minus(trace, one), two);
+		Num angle = scaOperator.acos(cos);
+		Num sin = scaOperator.sin(angle);
+		Num factor = scaOperator.over(angle, scaOperator.times(two, sin));
 		Num[] axis = new Num [ 3 ];
-		axis[0] = numEngine.minus(rmat[2][1],rmat[1][2]);
-		axis[1] = numEngine.minus(rmat[0][2],rmat[2][0]);
-		axis[2] = numEngine.minus(rmat[1][0],rmat[0][1]);
-		return numEngine.times(axis, factor);
+		axis[0] = scaOperator.minus(rmat[2][1],rmat[1][2]);
+		axis[1] = scaOperator.minus(rmat[0][2],rmat[2][0]);
+		axis[2] = scaOperator.minus(rmat[1][0],rmat[0][1]);
+		return vecOperator.times(axis, factor);
 	}
 
 	private Num[][] rotationVector2RotationMatrix( Num[] rvec ) {
-		Num[] axis = numEngine.normalize(rvec);
-		Num angle = numEngine.norm(rvec);
-		Num cos = numEngine.cos(angle);
-		Num sin = numEngine.sin(angle);
-		Num versin = numEngine.minus(numEngine.createOne(), cos);
-		Num[] sins = numEngine.times(axis,sin);
+		Num[] axis = vecOperator.normalize(rvec);
+		Num angle = vecOperator.norm(rvec);
+		Num cos = scaOperator.cos(angle);
+		Num sin = scaOperator.sin(angle);
+		Num versin = scaOperator.minus(scaCreator.createOne(), cos);
+		Num[] sins = vecOperator.times(axis,sin);
 
 		Num[][] rmat = new Num [ 3 ][ 3 ];
-		rmat[0][0] =  numEngine.plus(numEngine.times(axis[0],axis[0],versin), cos);
-		rmat[1][1] =  numEngine.plus(numEngine.times(axis[1],axis[1],versin), cos);
-		rmat[2][2] =  numEngine.plus(numEngine.times(axis[2],axis[2],versin), cos);
-		rmat[1][0] =  numEngine.plus(numEngine.times(axis[0],axis[1],versin), sins[2]);
-		rmat[2][1] =  numEngine.plus(numEngine.times(axis[1],axis[2],versin), sins[0]);
-		rmat[0][2] =  numEngine.plus(numEngine.times(axis[2],axis[0],versin), sins[1]);
-		rmat[0][1] = numEngine.minus(numEngine.times(axis[0],axis[1],versin), sins[2]);
-		rmat[1][2] = numEngine.minus(numEngine.times(axis[1],axis[2],versin), sins[0]);
-		rmat[2][0] = numEngine.minus(numEngine.times(axis[2],axis[0],versin), sins[1]);
+		rmat[0][0] =  scaOperator.plus(scaOperator.times(axis[0],axis[0],versin), cos);
+		rmat[1][1] =  scaOperator.plus(scaOperator.times(axis[1],axis[1],versin), cos);
+		rmat[2][2] =  scaOperator.plus(scaOperator.times(axis[2],axis[2],versin), cos);
+		rmat[1][0] =  scaOperator.plus(scaOperator.times(axis[0],axis[1],versin), sins[2]);
+		rmat[2][1] =  scaOperator.plus(scaOperator.times(axis[1],axis[2],versin), sins[0]);
+		rmat[0][2] =  scaOperator.plus(scaOperator.times(axis[2],axis[0],versin), sins[1]);
+		rmat[0][1] = scaOperator.minus(scaOperator.times(axis[0],axis[1],versin), sins[2]);
+		rmat[1][2] = scaOperator.minus(scaOperator.times(axis[1],axis[2],versin), sins[0]);
+		rmat[2][0] = scaOperator.minus(scaOperator.times(axis[2],axis[0],versin), sins[1]);
 
 		return rmat;
 	}
@@ -114,7 +202,7 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 	public Num[] applyTo( Transformation trans, Num[] point ) {
 		Num[][] mat = matrix(trans);
 		Num[] vec = vector(trans);
-		return numEngine.plus(numEngine.matrixMultiply(mat,point),vec);
+		return vecOperator.plus(matOperator.matrixMultiply(mat,point),vec);
 	}
 
 
@@ -131,8 +219,8 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 
 	@Override
 	public Transformation createAffineTransformationByAugmentedMatrix( Num[][] mat ) {
-		Num[][] m = numEngine.submatrixOf(mat,0,3,0,3);
-		Num[][] v = numEngine.transpose(numEngine.submatrixOf(mat,0,3,3,4));
+		Num[][] m = matOperator.submatrixOf(mat,0,3,0,3);
+		Num[][] v = matOperator.transpose(matOperator.submatrixOf(mat,0,3,3,4));
 		return trans(m,v[0]);
 	}
 
@@ -153,9 +241,9 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 
 	@Override
 	public Transformation createReflectionByVector( Num[] fvec ) {
-		Num[] nvec = numEngine.normalize(fvec);
-		Num[][] nn = numEngine.matrixMultiply(numEngine.colVectorOf(nvec), numEngine.rowVectorOf(nvec));
-		Num[][] mat = numEngine.minus(numEngine.createIdentityMatrixWithDim(3), numEngine.times(nn, numEngine.createNumberByDouble(2)));
+		Num[] nvec = vecOperator.normalize(fvec);
+		Num[][] nn = matOperator.matrixMultiply(matOperator.colVectorOf(nvec), matOperator.rowVectorOf(nvec));
+		Num[][] mat = matOperator.minus(matCreator.createIdentityMatrixWithDim(3), matOperator.times(nn, scaCreator.createNumberByDouble(2)));
 		return trans(mat);
 	}
 
@@ -166,12 +254,12 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 
 	@Override
 	public Transformation createScalingByFactor( Num factor ) {
-		return trans(numEngine.times(numEngine.createIdentityMatrixWithDim(3),factor));
+		return trans(matOperator.times(matCreator.createIdentityMatrixWithDim(3),factor));
 	}
 
 	@Override
 	public Transformation createShearingByOffsets( Num a, Num b ) {
-		Num[][] mat = numEngine.createIdentityMatrixWithDim(3);
+		Num[][] mat = matCreator.createIdentityMatrixWithDim(3);
 		mat[0][2] = a;
 		mat[1][2] = b;
 		return trans(mat);
@@ -183,8 +271,8 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 	public Func<Num[],Num[]> getTransformationFunctionOf( Transformation trans ) {
 		Num[][] mat = matrix(trans);
 		Num[] vec = vector(trans);
-		return funcEngine.createFunctionByLambda(
-			in -> numEngine.plus(numEngine.matrixMultiply(mat,in),vec)
+		return funcCreator.createFunctionByLambda(
+			in -> vecOperator.plus(matOperator.matrixMultiply(mat,in),vec)
 		);
 	}
 
@@ -227,8 +315,8 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 		Num[] vec1 = vector(trans1);
 		Num[][] mat2 = matrix(trans2);
 		Num[] vec2 = vector(trans2);
-		Num[][] mat = numEngine.matrixMultiply(mat2,mat1);
-		Num[] vec = numEngine.plus(vec2,numEngine.matrixMultiply(mat2,vec1));
+		Num[][] mat = matOperator.matrixMultiply(mat2,mat1);
+		Num[] vec = vecOperator.plus(vec2,matOperator.matrixMultiply(mat2,vec1));
 		return trans(mat,vec);
 	}
 
@@ -241,8 +329,8 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 
 	@Override
 	public Transformation invert( Transformation trans ) {
-		Num[][] mat = numEngine.invert(matrix(trans));
-		Num[] vec = numEngine.negate(numEngine.matrixMultiply(mat,vector(trans)));
+		Num[][] mat = matOperator.invert(matrix(trans));
+		Num[] vec = vecOperator.negate(matOperator.matrixMultiply(mat,vector(trans)));
 		return trans(mat,vec);
 	}
 
@@ -268,32 +356,32 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 
 			Num[][] rot = matrix(trans);
 			Num[] rvec = rotationMatrix2RotationVector(rot);
-			rot = rotationVector2RotationMatrix(numEngine.over(rvec,divisor));
+			rot = rotationVector2RotationMatrix(vecOperator.over(rvec,divisor));
 			return trans(rot);
 
 		} else if ( isTranslation(trans) ) {
 
 			Num[] sh = vector(trans);
-			sh = numEngine.over(sh,divisor);
+			sh = vecOperator.over(sh,divisor);
 			return trans(sh);
 
 		} else if ( isRigid(trans) ) { // only for int divisor
 
-			divisor = numEngine.floor(divisor);
-			int n = (int)numEngine.getDoubleValueOf(divisor);
+			divisor = scaOperator.floor(divisor);
+			int n = (int)scaAttribute.getDoubleValueOf(divisor);
 
 			Num[][] rot = matrix(trans);
 			Num[] sh = vector(trans);
 			Num[] rvec = rotationMatrix2RotationVector(rot);
-			Num[][] rot_n = rotationVector2RotationMatrix(numEngine.over(rvec,divisor));
+			Num[][] rot_n = rotationVector2RotationMatrix(vecOperator.over(rvec,divisor));
 
-			Num[][] m = numEngine.createIdentityMatrixWithDim(3);
-			Num[][] rot_i = numEngine.createIdentityMatrixWithDim(3);
+			Num[][] m = matCreator.createIdentityMatrixWithDim(3);
+			Num[][] rot_i = matCreator.createIdentityMatrixWithDim(3);
 			for ( int i=1; i<n; i++ ) {
-				rot_i = numEngine.matrixMultiply(rot_i,rot_n);
-				m = numEngine.plus(m,rot_i);
+				rot_i = matOperator.matrixMultiply(rot_i,rot_n);
+				m = matOperator.plus(m,rot_i);
 			}
-			Num[] sh_n = numEngine.matrixMultiply(numEngine.invert(m),sh);
+			Num[] sh_n = matOperator.matrixMultiply(matOperator.invert(m),sh);
 
 			return trans(rot_n,sh_n);
 
@@ -306,14 +394,14 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 	// predicate
 	@Override
 	public boolean equals( Transformation trans1, Transformation trans2 ) {
-		return numEngine.equals(matrix(trans1),matrix(trans2)) &&
-				numEngine.equals(vector(trans1),vector(trans2));
+		return matPredicate.equals(matrix(trans1),matrix(trans2)) &&
+				vecPredicate.equals(vector(trans1),vector(trans2));
 	}
 
 	@Override
 	public boolean isIdentity( Transformation trans ) {
-		return numEngine.equals(matrix(trans),numEngine.createIdentityMatrixWithDim(3)) &&
-				numEngine.equals(vector(trans),numEngine.createZeroVectorWithDim(3));
+		return matPredicate.equals(matrix(trans),matCreator.createIdentityMatrixWithDim(3)) &&
+				vecPredicate.equals(vector(trans),vecCreator.createZeroVectorWithDim(3));
 	}
 
 	@Override
@@ -326,14 +414,14 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 
 	@Override
 	public boolean isLinear( Transformation trans ) {
-		return numEngine.equals(vector(trans),numEngine.createZeroVectorWithDim(3));
+		return vecPredicate.equals(vector(trans),vecCreator.createZeroVectorWithDim(3));
 	}
 
 	@Override
 	public boolean isSimilar( Transformation trans ) {
 		if ( trans instanceof AffineTransformationMatrixExpression ) {
 			Num[][] mat = matrix(trans);
-			return numEngine.equals(numEngine.invert(mat),numEngine.transpose(mat));
+			return matPredicate.equals(matOperator.invert(mat),matOperator.transpose(mat));
 		} else
 			throw new UnsupportedAlgorithmException();
 	}
@@ -343,8 +431,8 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 		if ( trans instanceof AffineTransformationMatrixExpression ) {
 			if ( isSimilar(trans) ) {
 				Num[][] mat = matrix(trans);
-				Num det = numEngine.determinant(mat);
-				return numEngine.equals(numEngine.abs(det),numEngine.createOne());
+				Num det = matOperator.determinant(mat);
+				return scaPredicate.equals(scaOperator.abs(det),scaCreator.createOne());
 			} else
 				return false;
 		} else
@@ -356,8 +444,8 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 		if ( trans instanceof AffineTransformationMatrixExpression ) {
 			if ( isSimilar(trans) ) {
 				Num[][] mat = matrix(trans);
-				Num det = numEngine.determinant(mat);
-				return numEngine.equals(det,numEngine.createOne());
+				Num det = matOperator.determinant(mat);
+				return scaPredicate.equals(det,scaCreator.createOne());
 			} else
 				return false;
 		} else
@@ -366,6 +454,6 @@ public class AffineTransformationAdvancedPropertiesForMatrix implements SpecEngi
 
 	@Override
 	public boolean isTranslation( Transformation trans ) {
-		return numEngine.equals(matrix(trans),numEngine.createIdentityMatrixWithDim(3));
+		return matPredicate.equals(matrix(trans),matCreator.createIdentityMatrixWithDim(3));
 	}
 }

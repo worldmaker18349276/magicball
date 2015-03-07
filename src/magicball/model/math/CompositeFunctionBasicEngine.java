@@ -67,6 +67,34 @@ public class CompositeFunctionBasicEngine extends DefaultCompositeEngine<Func> i
 		throw new UnsupportedAlgorithmException();
 	}
 
+	@Override
+	public < I > Func<I,Boolean> createTrueFunction() {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionBasicProperty.Creator ) {
+
+			try {
+				return ((BooleanFunctionBasicProperty.Creator)engine).<I>createTrueFunction();
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
+	@Override
+	public < I > Func<I,Boolean> createFalseFunction() {
+		for ( Engine<? extends Func> engine : engines ) if ( engine instanceof BooleanFunctionBasicProperty.Creator ) {
+
+			try {
+				return ((BooleanFunctionBasicProperty.Creator)engine).<I>createFalseFunction();
+			} catch ( UnsupportedExpressionException | UnsupportedAlgorithmException e ) {
+				continue;
+			}
+
+		}
+		throw new UnsupportedAlgorithmException();
+	}
+
 
 	// attribute
 	@Override

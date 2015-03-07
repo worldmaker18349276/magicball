@@ -13,19 +13,71 @@ public class MatrixBasicPropertiesForDefault implements SpecEngine<Num,NumberDou
 		ArbitraryMatrixBasicProperty.Operator,
 		ArbitraryMatrixBasicProperty.Predicate
 {
-	private ArbitraryScalarBasicProperty.Creator scaCreator;
-	private ArbitraryScalarBasicProperty.Attribute scaAttribute;
-	private ArbitraryScalarBasicProperty.Operator scaOperator;
-	private ArbitraryScalarBasicProperty.Predicate scaPredicate;
+	protected ArbitraryScalarBasicProperty.Creator scaCreator;
+	protected ArbitraryScalarBasicProperty.Attribute scaAttribute;
+	protected ArbitraryScalarBasicProperty.Operator scaOperator;
+	protected ArbitraryScalarBasicProperty.Predicate scaPredicate;
 
-	private ArbitraryVectorBasicProperty.Creator vecCreator;
-	private ArbitraryVectorBasicProperty.Attribute vecAttribute;
-	private ArbitraryVectorBasicProperty.Operator vecOperator;
-	private ArbitraryVectorBasicProperty.Predicate vecPredicate;
+	protected ArbitraryVectorBasicProperty.Creator vecCreator;
+	protected ArbitraryVectorBasicProperty.Attribute vecAttribute;
+	protected ArbitraryVectorBasicProperty.Operator vecOperator;
+	protected ArbitraryVectorBasicProperty.Predicate vecPredicate;
 
 
 	public MatrixBasicPropertiesForDefault() {
 	}
+
+	public MatrixBasicPropertiesForDefault(
+			ArbitraryScalarBasicProperty.Creator scaC,
+			ArbitraryScalarBasicProperty.Attribute scaA,
+			ArbitraryScalarBasicProperty.Operator scaO,
+			ArbitraryScalarBasicProperty.Predicate scaP,
+			ArbitraryVectorBasicProperty.Creator vecC,
+			ArbitraryVectorBasicProperty.Attribute vecA,
+			ArbitraryVectorBasicProperty.Operator vecO,
+			ArbitraryVectorBasicProperty.Predicate vecP ) {
+		setEngine(scaC);
+		setEngine(scaA);
+		setEngine(scaO);
+		setEngine(scaP);
+		setEngine(vecC);
+		setEngine(vecA);
+		setEngine(vecO);
+		setEngine(vecP);
+	}
+
+	public void setEngine( ArbitraryScalarBasicProperty.Creator scaC ) {
+		scaCreator = scaC;
+	}
+
+	public void setEngine( ArbitraryScalarBasicProperty.Attribute scaA ) {
+		scaAttribute = scaA;
+	}
+
+	public void setEngine( ArbitraryScalarBasicProperty.Operator scaO ) {
+		scaOperator = scaO;
+	}
+
+	public void setEngine( ArbitraryScalarBasicProperty.Predicate scaP ) {
+		scaPredicate = scaP;
+	}
+
+	public void setEngine( ArbitraryVectorBasicProperty.Creator vecC ) {
+		vecCreator = vecC;
+	}
+
+	public void setEngine( ArbitraryVectorBasicProperty.Attribute vecA ) {
+		vecAttribute = vecA;
+	}
+
+	public void setEngine( ArbitraryVectorBasicProperty.Operator vecO ) {
+		vecOperator = vecO;
+	}
+
+	public void setEngine( ArbitraryVectorBasicProperty.Predicate vecP ) {
+		vecPredicate = vecP;
+	}
+
 
 	// matrix ( Num[][] )
 	@Override /* ArbitraryMatrixBasicProperty.Creator */

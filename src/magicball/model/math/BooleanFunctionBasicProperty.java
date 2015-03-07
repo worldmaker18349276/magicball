@@ -5,6 +5,12 @@ import magicball.model.*;
 
 public class BooleanFunctionBasicProperty
 {
+	static public interface Creator extends Engine<Func>
+	{
+		public < I > Func<I,Boolean> createTrueFunction();
+		public < I > Func<I,Boolean> createFalseFunction();
+	}
+
 	static public interface Operator extends Engine<Func>
 	{
 		public < I > Func<I,Boolean> not( Func<I,Boolean> func );
