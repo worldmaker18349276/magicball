@@ -1,4 +1,4 @@
-package magicball.model.math.basic;
+package magicball.model.math.spec;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -8,13 +8,13 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class FunctionBasicEngineForLambda implements SpecEngine<Func,FunctionLambdaExpression>,
+public class FunctionBasicPropertiesForLambda implements SpecEngine<Func,FunctionLambdaExpression>,
 		ArbitraryFunctionBasicProperty.Behavior,
 		ArbitraryFunctionBasicProperty.Creator,
 		ArbitraryFunctionBasicProperty.Attribute,
 		ArbitraryFunctionBasicProperty.Operator
 {
-	public FunctionBasicEngineForLambda() {
+	public FunctionBasicPropertiesForLambda() {
 	}
 
 	private < I, O > FunctionLambdaExpression<I,O> cast( Func<I,O> func ) {

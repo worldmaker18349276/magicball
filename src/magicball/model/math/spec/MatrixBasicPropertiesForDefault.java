@@ -1,4 +1,4 @@
-package magicball.model.math.basic;
+package magicball.model.math.spec;
 
 import java.util.stream.Stream;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpression>,
+public class MatrixBasicPropertiesForDefault implements SpecEngine<Num,NumberDoubleExpression>,
 		ArbitraryMatrixBasicProperty.Creator,
 		ArbitraryMatrixBasicProperty.Attribute,
 		ArbitraryMatrixBasicProperty.Operator,
@@ -24,7 +24,7 @@ public class DefaultMatrixEngine implements SpecEngine<Num,NumberDoubleExpressio
 	private ArbitraryVectorBasicProperty.Predicate vecPredicate;
 
 
-	public DefaultMatrixEngine() {
+	public MatrixBasicPropertiesForDefault() {
 	}
 
 	// matrix ( Num[][] )

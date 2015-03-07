@@ -1,4 +1,4 @@
-package magicball.model.geometry.basic;
+package magicball.model.geometry.spec;
 
 import java.util.stream.*;
 

@@ -1,4 +1,4 @@
-package magicball.model.math.basic;
+package magicball.model.math.spec;
 
 import java.util.stream.*;
 
@@ -7,17 +7,17 @@ import magicball.model.math.*;
 
 
 // base on lambda expression
-public class DefaultBooleanFunctionPredicate implements SpecEngine<Func,Func>,
+public class BooleanFunctionPredicateForDefault implements SpecEngine<Func,Func>,
 		BooleanFunctionBasicProperty.Predicate
 {
 	private ArbitraryFunctionBasicProperty.Predicate funcPredicate;
 	private BooleanFunctionBasicProperty.Operator predOperator;
 
-	public DefaultBooleanFunctionPredicate() {
+	public BooleanFunctionPredicateForDefault() {
 		super();
 	}
 
-	public DefaultBooleanFunctionPredicate( ArbitraryFunctionBasicProperty.Predicate funcPred, BooleanFunctionBasicProperty.Operator predOp ) {
+	public BooleanFunctionPredicateForDefault( ArbitraryFunctionBasicProperty.Predicate funcPred, BooleanFunctionBasicProperty.Operator predOp ) {
 		super();
 		setEngine(funcPred);
 		setEngine(predOp);

@@ -1,4 +1,4 @@
-package magicball.model.math.basic;
+package magicball.model.math.spec;
 
 import java.util.function.BiPredicate;
 import java.util.Set;

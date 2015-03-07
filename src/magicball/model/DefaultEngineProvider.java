@@ -4,9 +4,8 @@ import magicball.model.*;
 import magicball.model.math.*;
 import magicball.model.geometry.*;
 import magicball.model.puzzle.*;
-import magicball.model.math.basic.*;
-import magicball.model.geometry.basic.*;
-import magicball.model.geometry.affine.*;
+import magicball.model.math.spec.*;
+import magicball.model.geometry.spec.*;
 import magicball.model.puzzle.basic.*;
 
 
@@ -31,9 +30,9 @@ public class DefaultEngineProvider extends BasicEngineProvider
 
 	public NumberBasicEngine getNumberEngine() {
 		if ( this.numberEng == null ) {
-			ScalarEngine scaEngine = new ScalarEngineForDouble(this.epsilon);
-			VectorEngine vecEngine = new DefaultVectorEngine(scaEngine);
-			MatrixEngine matEngine = new DefaultMatrixEngine(scaEngine,vecEngine);
+			ScalarEngine scaEngine = new ScalarBasicPropertiesForDouble(this.epsilon);
+			VectorEngine vecEngine = new VectorBasicPropertiesForDefault(scaEngine);
+			MatrixEngine matEngine = new MatrixBasicPropertiesForDefault(scaEngine,vecEngine);
 
 			this.numberEng = new CompositeNumberBasicEngine();
 			this.numberEng.add(scaEngine);
@@ -50,7 +49,7 @@ public class DefaultEngineProvider extends BasicEngineProvider
 			ArbitraryFunctionBasicProperty.Behavior funcAttribute = new FunctionBehaviorForLambda();
 			ArbitraryFunctionBasicProperty.Operator funcOperator = new FunctionOperatorForLambda(funcCreator);
 			ArbitraryFunctionBasicProperty.Predicate funcPredicate = new FunctionPredicateWithSampleAlgorithm<Number[]>(createSkyGrid(),funcAttribute);
-			BooleanFunctionBasicProperty.Predicate predPredicate = new DefaultBooleanFunctionPredicate(funcPredicate,predOperator);
+			BooleanFunctionBasicProperty.Predicate predPredicate = new BooleanFunctionPredicateForDefault(funcPredicate,predOperator);
 
 			this.functionEng = new CompositeFunctionBasicEngine();
 			this.functionEng.add(funcCreator);

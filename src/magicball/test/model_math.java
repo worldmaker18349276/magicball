@@ -1,7 +1,7 @@
 package magicball.test;
 
 import magicball.model.math.*;
-import magicball.model.math.basic.*;
+import magicball.model.math.spec.*;
 
 
 public class model_math

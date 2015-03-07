@@ -1,10 +1,9 @@
 package magicball.test;
 
 import magicball.model.math.*;
-import magicball.model.math.basic.*;
+import magicball.model.math.spec.*;
 import magicball.model.geometry.*;
-import magicball.model.geometry.basic.*;
-import magicball.model.geometry.affine.*;
+import magicball.model.geometry.spec.*;
 
 
 public class model_geometry

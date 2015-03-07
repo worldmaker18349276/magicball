@@ -1,4 +1,4 @@
-package magicball.model.math.basic;
+package magicball.model.math.spec;
 
 import java.util.stream.Stream;
 import java.util.stream.DoubleStream;
@@ -8,7 +8,7 @@ import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpression>,
+public class VectorBasicPropertiesForDefault implements SpecEngine<Num,NumberDoubleExpression>,
 		ArbitraryVectorBasicProperty.Creator,
 		ArbitraryVectorBasicProperty.Attribute,
 		ArbitraryVectorBasicProperty.Operator,
@@ -20,10 +20,10 @@ public class DefaultVectorEngine implements SpecEngine<Num,NumberDoubleExpressio
 	private ArbitraryScalarBasicProperty.Predicate scaPredicate;
 
 
-	public DefaultVectorEngine() {
+	public VectorBasicPropertiesForDefault() {
 	}
 
-	public DefaultVectorEngine( ArbitraryScalarBasicProperty.Creator scaC, ArbitraryScalarBasicProperty.Attribute scaAttr, ArbitraryScalarBasicProperty.Operator scaOp, ArbitraryScalarBasicProperty.Predicate scaPred ) {
+	public VectorBasicPropertiesForDefault( ArbitraryScalarBasicProperty.Creator scaC, ArbitraryScalarBasicProperty.Attribute scaAttr, ArbitraryScalarBasicProperty.Operator scaOp, ArbitraryScalarBasicProperty.Predicate scaPred ) {
 		scaCreator = scaC;
 		scaAttribute = scaAttr;
 		scaOperator = scaOp;

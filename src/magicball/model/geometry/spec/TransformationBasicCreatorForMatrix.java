@@ -1,4 +1,4 @@
-package magicball.model.geometry.affine;
+package magicball.model.geometry.spec;
 
 import magicball.model.geometry.*;
 import magicball.model.math.*;

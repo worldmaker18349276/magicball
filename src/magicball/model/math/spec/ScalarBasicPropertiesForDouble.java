@@ -1,4 +1,4 @@
-package magicball.model.math.basic;
+package magicball.model.math.spec;
 
 import java.util.stream.Stream;
 
@@ -6,7 +6,7 @@ import magicball.model.*;
 import magicball.model.math.*;
 
 
-public class ScalarEngineForDouble implements SpecEngine<Num,NumberDoubleExpression>,
+public class ScalarBasicPropertiesForDouble implements SpecEngine<Num,NumberDoubleExpression>,
 		ArbitraryScalarBasicProperty.Creator,
 		ArbitraryScalarBasicProperty.Attribute,
 		ArbitraryScalarBasicProperty.Operator,
@@ -14,7 +14,7 @@ public class ScalarEngineForDouble implements SpecEngine<Num,NumberDoubleExpress
 {
 	protected double epsilon;
 
-	public ScalarEngineForDouble( double eps ) {
+	public ScalarBasicPropertiesForDouble( double eps ) {
 		this.epsilon = eps;
 	}
 
