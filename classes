@@ -11,6 +11,7 @@ src/magicball/model/math/ArbitraryVectorBasicProperty.java
 src/magicball/model/math/ArbitraryMatrixBasicProperty.java
 src/magicball/model/math/NumberBasicEngine.java
 src/magicball/model/math/CompositeNumberBasicEngine.java
+src/magicball/model/math/spec/NumberDoubleExpression.java
 src/magicball/model/math/spec/ScalarBasicPropertiesForDouble.java
 src/magicball/model/math/spec/VectorBasicPropertiesForDefault.java
 src/magicball/model/math/spec/MatrixBasicPropertiesForDefault.java
@@ -21,6 +22,7 @@ src/magicball/model/math/BooleanFunctionBasicProperty.java
 src/magicball/model/math/ArbitraryFunctionAdvancedProperty.java
 src/magicball/model/math/FunctionBasicEngine.java
 src/magicball/model/math/CompositeFunctionBasicEngine.java
+src/magicball/model/math/spec/FunctionLambdaExpression.java
 src/magicball/model/math/spec/FunctionBasicPropertiesForLambda.java
 src/magicball/model/math/spec/FunctionPredicateUsingSampleAlgorithm.java
 src/magicball/model/math/spec/BooleanFunctionOperatorForLambda.java
@@ -33,8 +35,11 @@ src/magicball/model/geometry/AffineTransformationAdvancedProperty.java
 src/magicball/model/geometry/TransformationBasicEngine.java
 src/magicball/model/geometry/TransformationAdvancedEngine.java
 src/magicball/model/geometry/CompositeTransformationAdvancedEngine.java
+src/magicball/model/geometry/spec/AffineTransformationMatrixExpression.java
 src/magicball/model/geometry/spec/AffineTransformationAdvancedPropertiesForMatrix.java
 
 src/magicball/model/geometry/Region.java
 src/magicball/model/geometry/ArbitraryRegionBasicProperty.java
 src/magicball/model/geometry/RegionBasicEngine.java
+src/magicball/model/geometry/spec/RegionFuncExpression.java
+src/magicball/model/geometry/spec/RegionBasicPropertiesForFunc.java

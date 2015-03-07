@@ -6,13 +6,13 @@ import magicball.model.math.*;
 
 public class RegionFuncExpression extends Region
 {
-	final private Function<Number[],Boolean> function;
+	final private Func<Num[],Boolean> function;
 
-	public RegionFuncExpression( Function<Number[],Boolean> function ) {
+	public RegionFuncExpression( Func<Num[],Boolean> function ) {
 		this.function = function;
 	}
 
-	final public Function<Number[],Boolean> getFunction() {
+	final public Func<Num[],Boolean> getFunction() {
 		return this.function;
 	}
 }

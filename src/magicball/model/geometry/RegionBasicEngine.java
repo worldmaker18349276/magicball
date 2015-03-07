@@ -29,13 +29,17 @@ public interface RegionBasicEngine extends
 
 	// operator
 	@Override /* ArbitraryRegionBasicProperty.Operator */
+	public Region intersect( Region reg1, Region reg2 );
+	@Override /* ArbitraryRegionBasicProperty.Operator */
 	public Region intersect( Region... regs );
+	@Override /* ArbitraryRegionBasicProperty.Operator */
+	public Region union( Region reg1, Region reg2 );
 	@Override /* ArbitraryRegionBasicProperty.Operator */
 	public Region union( Region... regs );
 	@Override /* ArbitraryRegionBasicProperty.Operator */
 	public Region complement( Region reg1, Region reg2 );
 	@Override /* ArbitraryRegionBasicProperty.Operator */
-	public Region complement( Region reg2 );
+	public Region complement( Region reg );
 	
 	@Override /* ArbitraryRegionBasicProperty.Operator */
 	public Region transformsBy( Region reg, Transformation trans );

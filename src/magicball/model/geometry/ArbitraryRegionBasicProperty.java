@@ -22,10 +22,12 @@ public class ArbitraryRegionBasicProperty
 
 	static public interface Operator extends Engine<Region>
 	{
+		public Region intersect( Region reg1, Region reg2 );
 		public Region intersect( Region... regs );
+		public Region union( Region reg1, Region reg2 );
 		public Region union( Region... regs );
 		public Region complement( Region reg1, Region reg2 );
-		public Region complement( Region reg2 );
+		public Region complement( Region reg );
 		public Region transformsBy( Region reg, Transformation trans );
 	}
 
